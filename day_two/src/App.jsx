@@ -3,7 +3,7 @@ import React from 'react'
 const App = () => {
   return (
     <div>
-      
+
       <header>
         <span><b>Email Us: </b>info@physio101.ca</span>
         <ul>
@@ -19,18 +19,18 @@ const App = () => {
         <img src="\101physio-logo.png" alt="logo" />
         <ul>
           <select>
-            <option>Treatments</option>
-            <option>Physiotherapy</option>
-            <option>Massage Therapy</option>
-            <option>Chiropractic</option>
-            <option>Acupuncture</option>
-            <option>Psychotherapy</option>
-            <option>Sports Injury Rehabioptiontation</option>
-            <option>Chronic Pain Treatment</option>
-            <option>Concussion Treatment</option>
-            <option>Occupational Therapy</option>
-            <option>Spinal Decompression</option>
-            <option>Motor Vehicle Accident Rehab</option>
+            <option value="Treatments">Treatments</option>
+            <option value="Physiotherapy">Physiotherapy</option>
+            <option value="Post Motor Vehicle Accident Rehabilitation">Post Motor Vehicle Accident Rehabilitation</option>
+            <option value="Spinal Decompression Treatments">Spinal Decompression Treatments</option>
+            <option value="Massage Therapy">Massage Therapy</option>
+            <option value="Chiropractic">Chiropractic</option>
+            <option value="Acupuncture">Acupuncture</option>
+            <option value="Psychotherapy">Psychotherapy</option>
+            <option value="Sports Injury Rehabilitation">Sports Injury Rehabilitation</option>
+            <option value="Chronic Pain Treatments">Chronic Pain Treatments</option>
+            <option value="Concussion Treatment">Concussion Treatment</option>
+            <option value="Occupational Therapy">Occupational Therapy</option>
           </select>
           <a>Rehabilitation Programs</a>
           <a>Assistive Devices</a>
@@ -43,10 +43,7 @@ const App = () => {
           <div>
             <span>Toronto Physiotherapy Clinic</span>
             <h1>Focused on Your Recovery</h1>
-            <p>
-              We know how frustrating injuries and chronic pain can be.
-              At 101 Physio, we'll help you feel stronger, move freely, and restore your quality of life.
-            </p>
+            <p>We know how frustrating injuries and chronic pain can be. At 101 Physio, we'll help you feel stronger, move freely, and restore your quality of life.</p>
           </div>
           <div>
             <button>Book Appointment</button>
