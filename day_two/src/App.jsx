@@ -5,14 +5,14 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 const App = () => {
-  
+
   return (
-    <div>
+    <>
       <Header />
       <Navbar />
       <Hero />
       <Footer />
-    </div>
+    </>
   )
 }
 
