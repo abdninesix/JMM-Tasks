@@ -3,6 +3,7 @@ import React from 'react'
 const App = () => {
   return (
     <div>
+      
       <header>
         <span><b>Email Us: </b>info@physio101.ca</span>
         <ul>
@@ -73,6 +74,7 @@ const App = () => {
           <p>647-352-0211</p>
         </ul>
       </footer>
+
     </div>
   )
 }
