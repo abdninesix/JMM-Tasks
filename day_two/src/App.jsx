@@ -37,9 +37,39 @@ const App = () => {
         <button>Book Appointment</button>
       </nav>
 
-      <section></section>
-      
-      <footer></footer>
+      <section>
+        <div>
+          <div>
+            <span>Toronto Physiotherapy Clinic</span>
+            <h1>Focused on Your Recovery</h1>
+            <p>
+              We know how frustrating injuries and chronic pain can be.
+              At 101 Physio, we'll help you feel stronger, move freely, and restore your quality of life.
+            </p>
+          </div>
+          <div>
+            <button>Book Appointment</button>
+            <button>Our Services</button>
+          </div>
+        </div>
+        <img src="/hero.png" alt="hero" />
+      </section>
+
+      <footer>
+        <h2>Three Convenient Locations in the GTA</h2>
+        <ul>
+          <span>Vaughan</span>
+          <a href="tel:905-597-1667">1520 Steeles Ave West, Unit 105, Vaughan, ON L4K 3B9</a>
+        </ul>
+        <ul>
+          <span>Brampton</span>
+          <a href="tel:905-457-2111">2 County Court Blvd, suite 230, Brampton, ON L6W 3W8</a>
+        </ul>
+        <ul>
+          <span>Scarborough</span>
+          <a href="tel:647-352-0211">8130 Sheppard Ave East, Unit 106, Scarborough, ON M1B 3W3</a>
+        </ul>
+      </footer>
     </div>
   )
 }
