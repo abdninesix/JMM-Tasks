@@ -46,8 +46,8 @@ const App = () => {
             <p>We know how frustrating injuries and chronic pain can be. At 101 Physio, we'll help you feel stronger, move freely, and restore your quality of life.</p>
           </div>
           <div>
-            <button>Book Appointment</button>
-            <button>Our Services</button>
+            <a href='#'>Book Appointment</a>
+            <a href='#'>Our Services</a>
           </div>
         </div>
         <img src="/hero.png" alt="hero" />
