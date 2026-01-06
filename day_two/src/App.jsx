@@ -6,17 +6,21 @@ const App = () => {
       <header>
         <span><b>Email Us: </b>info@physio101.ca</span>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Locations</li>
-          <li>Contacy</li>
-          <li>Download Referral Form</li>
+          <a>Home</a>
+          <a>About</a>
+          <a>Locations</a>
+          <a>Contacy</a>
+          <a>Download Referral Form</a>
         </ul>
       </header>
 
       <nav>
         <img src="\101physio-logo.png" alt="logo" />
-        <ul></ul>
+        <ul>
+          <select>Treatments
+            <option value="Hi">Something</option>
+          </select>
+        </ul>
         <button>Book Appointment</button>
       </nav>
       <section></section>
