@@ -59,15 +59,18 @@ const App = () => {
         <h2>Three Convenient Locations in the GTA</h2>
         <ul>
           <span>Vaughan</span>
-          <a href="tel:905-597-1667">1520 Steeles Ave West, Unit 105, Vaughan, ON L4K 3B9</a>
+          <a>1520 Steeles Ave West, Unit 105, Vaughan, ON L4K 3B9</a>
+          <p>905-597-1667</p>
         </ul>
         <ul>
           <span>Brampton</span>
-          <a href="tel:905-457-2111">2 County Court Blvd, suite 230, Brampton, ON L6W 3W8</a>
+          <a>2 County Court Blvd, suite 230, Brampton, ON L6W 3W8</a>
+          <p>905-457-2111</p>
         </ul>
         <ul>
           <span>Scarborough</span>
-          <a href="tel:647-352-0211">8130 Sheppard Ave East, Unit 106, Scarborough, ON M1B 3W3</a>
+          <a>8130 Sheppard Ave East, Unit 106, Scarborough, ON M1B 3W3</a>
+          <p>647-352-0211</p>
         </ul>
       </footer>
     </div>
