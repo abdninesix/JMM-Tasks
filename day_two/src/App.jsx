@@ -7,11 +7,11 @@ const App = () => {
       <header>
         <span><b>Email Us: </b>info@physio101.ca</span>
         <ul>
-          <a>Home</a>
-          <a>About</a>
-          <a>Locations</a>
-          <a>Contacy</a>
-          <a>Download Referral Form</a>
+          <a href='#'>Home</a>
+          <a href='#'>About</a>
+          <a href='#'>Locations</a>
+          <a href='#'>Contacy</a>
+          <a href='#'>Download Referral Form</a>
         </ul>
       </header>
 
@@ -32,8 +32,8 @@ const App = () => {
             <option value="Concussion Treatment">Concussion Treatment</option>
             <option value="Occupational Therapy">Occupational Therapy</option>
           </select>
-          <a>Rehabilitation Programs</a>
-          <a>Assistive Devices</a>
+          <a href='#'>Rehabilitation Programs</a>
+          <a href='#'>Assistive Devices</a>
         </ul>
         <button>Book Appointment</button>
       </nav>
@@ -56,18 +56,18 @@ const App = () => {
       <footer>
         <h2>Three Convenient Locations in the GTA</h2>
         <ul>
-          <span>Vaughan</span>
-          <a>1520 Steeles Ave West, Unit 105, Vaughan, ON L4K 3B9</a>
+          <h3>Vaughan</h3>
+          <a href='#'>1520 Steeles Ave West, Unit 105, Vaughan, ON L4K 3B9</a>
           <p>905-597-1667</p>
         </ul>
         <ul>
-          <span>Brampton</span>
-          <a>2 County Court Blvd, suite 230, Brampton, ON L6W 3W8</a>
+          <h3>Brampton</h3>
+          <a href='#'>2 County Court Blvd, suite 230, Brampton, ON L6W 3W8</a>
           <p>905-457-2111</p>
         </ul>
         <ul>
-          <span>Scarborough</span>
-          <a>8130 Sheppard Ave East, Unit 106, Scarborough, ON M1B 3W3</a>
+          <h3>Scarborough</h3>
+          <a href='#'>8130 Sheppard Ave East, Unit 106, Scarborough, ON M1B 3W3</a>
           <p>647-352-0211</p>
         </ul>
       </footer>
