@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Form from './components/Form'
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
       <Navbar />
       <Hero />
       <Footer />
+      <Form/>
     </>
   )
 }
