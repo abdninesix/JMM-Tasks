@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Form from './components/Form'
+import Table from './components/Table'
 
 const App = () => {
 
@@ -13,7 +14,8 @@ const App = () => {
       <Navbar />
       <Hero />
       <Footer />
-      <Form/>
+      <Form />
+      <Table />
     </>
   )
 }
