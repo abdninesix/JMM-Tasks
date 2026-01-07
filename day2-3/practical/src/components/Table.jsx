@@ -5,7 +5,7 @@ const Table = () => {
         <table
             border="1"
             cellPadding="10"
-            cellSpacing="0"
+            cellSpacing="5"
             width="100%"
             align="center"
             summary="Employee details table"
