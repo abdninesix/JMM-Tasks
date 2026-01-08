@@ -18,7 +18,7 @@ body {
     background-image: url("https://images.unsplash.com/photo-1762115960405-be316e817080?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     color: #fff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     width: 39.5%;
     display: flex;
     flex-direction: column;
@@ -47,8 +47,8 @@ body {
 }
 
 .attribution {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 .form-section {
@@ -56,22 +56,23 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .form-wrapper {
     width: 100%;
-    max-width: 60%;
+    max-width: 54%;
 }
 
 .form-header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 70px;
 }
 
 .form-header h1 {
     font-size: 50px;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
 .form-header p {
@@ -82,13 +83,17 @@ body {
     color: #767676;
 }
 
+.form-header a:hover {
+    color: #3a3a3a;
+}
+
 .name-row {
     display: flex;
     gap: 25px;
 }
 
 .field-group {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     width: 100%;
 }
 
@@ -103,12 +108,12 @@ input {
     height: 40px;
     padding: 0 12px;
     border: 1px solid #d1d1d1;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 15px;
 }
 
 input:hover {
-    border-color: #000000;
+    border-color: #686868;
 }
 
 input:focus {
@@ -122,7 +127,7 @@ input:focus {
     background: linear-gradient(to bottom, #282828, black);
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -143,9 +148,30 @@ input:focus {
 .form-footer a {
     color: #767676;
 }
+.form-footer a:hover {
+    color: #242424;
+}
 
 @media (max-width: 900px) {
-    .sidebar {
+
+    .auth-container {
+        flex-direction: column;
+    }
+
+    .sidebar{
+        width: 100%;
+        height: 30vh;
+    }
+
+    .sidebar img, .sidebar h1, .sidebar h2, .sidebar p {
         display: none;
+    }
+
+    .form-wrapper{
+        max-width: 100%;
+    }
+
+    .form-header h1{
+        font-size: 28px;
     }
 }
