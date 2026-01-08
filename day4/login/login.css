@@ -15,7 +15,7 @@ body {
 }
 
 .sidebar {
-    background-image: url("https://plus.unsplash.com/premium_photo-1709033511355-d2b8d7e86797?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyNnx8fGVufDB8fHx8fA%3D%3D");
+    background-image: url("https://images.unsplash.com/photo-1527647638517-a90c1a9766ad?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0Mnx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     width: 39.5%;
     display: flex;
@@ -101,6 +101,10 @@ label {
     display: block;
     font-size: 14px;
     margin-bottom: 6px;
+}
+
+span {
+    color: #707070;
 }
 
 input {
