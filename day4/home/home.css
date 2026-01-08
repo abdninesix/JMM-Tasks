@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
 }
 
@@ -49,20 +49,23 @@ body {
 }
 
 .container {
-    margin-left: 70px;
+    margin-left: 65px;
     width: 100%;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 .top-nav {
     height: 62px;
     display: flex;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 25px;
     gap: 20px;
-    position: sticky;
-    top: 0;
     background: #fff;
-    z-index: 5;
 }
 
 .search-bar {
@@ -114,7 +117,7 @@ body {
 
 .btn-submit {
     height: 32px;
-    padding: 8px 8px 6px 8px;
+    padding: 10px;
     border: 1px solid #d1d1d1;
     background: #fff;
     border-radius: 8px;
@@ -122,6 +125,9 @@ body {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-submit:hover {
@@ -130,8 +136,9 @@ body {
 }
 
 .category-bar {
-    padding: 5px 20px 0 20px;
+    padding: 5px 20px 0 25px;
     border-bottom: 1px solid #d1d1d1;
+    background-color: #fff;
 }
 
 .categories {
