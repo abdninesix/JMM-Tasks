@@ -181,11 +181,12 @@ li.active a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 130px 60px 130px;
+    gap: 24px;
+    padding: 55px 130px 60px 130px;
 }
 
-.hero-unsplash{
-    width: 49%;
+.hero-unsplash {
+    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -231,6 +232,70 @@ li.active a {
     color: #767676;
     font-size: 18px;
     cursor: pointer;
+}
+
+.hero-edit {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+}
+
+.hero-edit h2 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.hero-edit p {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.hero-edit img {
+    width: 250px;
+    object-fit: cover;
+    border: 2px solid #c3c3c3;
+}
+
+.hero-edit img:hover {
+    opacity: 0.8;
+}
+
+.hero-collections {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+}
+
+.collections-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-collections h2 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.hero-collections p {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.hero-collections img {
+    width: 25px;
+    object-fit: cover;
+    border: 2px solid #c3c3c3;
 }
 
 .masonry-grid {
