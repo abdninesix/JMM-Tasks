@@ -12,82 +12,94 @@
 
 <body>
 
-    <header class="navbar">
-        <div class="nav-left">
-            <a href="#" class="logo-link">
-                <img src="https://unsplash.com/mstile-144x144.png" alt="Unsplash Logo" class="logo">
+    <aside class="sidebar">
+        <nav class="sidebar-icons">
+            <a href="#">
+                <img src="https://unsplash.com/mstile-144x144.png" alt="Logo" class="sidebar-logo">
             </a>
-            <form class="nav-search">
-                <button type="submit"><i class="fas fa-search"></i></button>
-                <input type="text" placeholder="Search photos and illustrations">
-            </form>
-        </div>
-
-        <nav class="nav-right">
-            <ul class="nav-links">
-                <li><a href="#" class="unsplash-plus">Unsplash+</a></li>
-            </ul>
-            <div class="nav-divider"></div>
-            <div class="nav-auth">
-                <a href="../login/login.html">Log in</a>
-                <button class="submit-photo-btn">Submit a photo</button>
-            </div>
-            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+            <button class="icon-btn"><i class="fa-regular fa-image"></i></button>
+            <button class="icon-btn"><i class="fa-solid fa-pen-nib"></i></button>
+            <br />
+            <button class="icon-btn"><i class="fa-regular fa-compass"></i></button>
+            <button class="icon-btn"><i class="fa-regular fa-folder"></i></button>
+            <button class="icon-btn"><i class="fa-solid fa-download"></i></button>
+            <br />
+            <button class="icon-btn"><i class="fa-regular fa-bookmark"></i></button>
         </nav>
-    </header>
+        <nav class="sidebar-icons">
+            <button class="icon-btn"><i class="fa-solid fa-user"></i></button>
+            <button class="icon-btn"><i class="fa-solid fa-language"></i></button>
+            <button class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+        </nav>
+    </aside>
 
-    <nav class="category-bar">
-        <ul class="categories">
-            <li class="active"><a href="#">Featured</a></li>
-            <li><a href="#">Wallpapers</a></li>
-            <li><a href="#">3D Renders</a></li>
-            <li><a href="#">Nature</a></li>
-            <li><a href="#">Textures</a></li>
-            <li><a href="#">Film</a></li>
-            <li><a href="#">Architecture</a></li>
-            <li><a href="#">Street Photography</a></li>
-            <li><a href="#">Experimental</a></li>
-            <li><a href="#">Travel</a></li>
-            <li><a href="#">People</a></li>
-        </ul>
-    </nav>
+    <div class="container">
+        <header class="top-nav">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-start"></i>
+                <input type="text" placeholder="Search photos and illustrations">
+                <i class="fa-solid fa-qrcode search-end"></i>
+            </div>
+            <nav class="top-actions">
+                <a href="#" class="nav-link">Get Unsplash+</a>
+                <a href="../login/login.html" class="nav-link">Log in</a>
+                <button class="btn-submit">Submit an image</button>
+            </nav>
+        </header>
+        <nav class="category-bar">
+            <ul class="categories">
+                <li class="active"><a href="#">Featured</a></li>
+                <li><a href="#">Wallpapers</a></li>
+                <li><a href="#">3D Renders</a></li>
+                <li><a href="#">Nature</a></li>
+                <li><a href="#">Textures</a></li>
+                <li><a href="#">Film</a></li>
+                <li><a href="#">Architecture</a></li>
+                <li><a href="#">Street Photography</a></li>
+                <li><a href="#">Experimental</a></li>
+                <li><a href="#">Travel</a></li>
+                <li><a href="#">People</a></li>
+            </ul>
+        </nav>
 
-    <main>
-        <section class="hero">
-            <img src="" alt="Hero Background" class="hero-bg">
-            <div class="hero-content">
-                <h1>Unsplash</h1>
-                <p>The internet&apos;s source for visuals.</p>
-                <p>Powered by creators everywhere.</p>
-                <form class="hero-search">
-                    <button type="submit"><i class="fas fa-search"></i></button>
-                    <input type="text" placeholder="Search high-resolution photos">
-                </form>
-            </div>
-            <div class="hero-footer">
-                <p>Photo by <a href="#">Artist Name</a></p>
-            </div>
-        </section>
+        <main>
+            <section class="hero">
+                <div class="hero-unsplash">
+                    <div class="hero-text">
+                        <h1>Unsplash</h1>
+                        <p>The internet&apos;s source for visuals.</p>
+                        <p>Powered by creators everywhere.</p>
+                    </div>
+                    <div class="hero-search-bar">
+                        <i class="fa-solid fa-magnifying-glass search-start"></i>
+                        <input type="text" placeholder="Search photos and illustrations">
+                        <i class="fa-solid fa-qrcode search-end"></i>
+                    </div>
+                </div>
+                <div class="hero-edit"></div>
+                <div class="hero-collections"></div>
+            </section>
 
-        <section class="photo-grid">
-            <div class="photo-column">
-                <img src="" alt="Gallery Image 1" class="grid-img">
-                <img src="" alt="Gallery Image 2" class="grid-img">
-                <img src="" alt="Gallery Image 3" class="grid-img">
-            </div>
-            <div class="photo-column">
-                <img src="" alt="Gallery Image 4" class="grid-img">
-                <img src="" alt="Gallery Image 5" class="grid-img">
-                <img src="" alt="Gallery Image 6" class="grid-img">
-            </div>
-            <div class="photo-column">
-                <img src="" alt="Gallery Image 7" class="grid-img">
-                <img src="" alt="Gallery Image 8" class="grid-img">
-                <img src="" alt="Gallery Image 9" class="grid-img">
-                <img src="" alt="Gallery Image 10" class="grid-img">
-            </div>
-        </section>
-    </main>
+            <section class="masonry-grid">
+                <div class="column">
+                    <img src="" alt="Gallery Image 1" class="grid-img">
+                    <img src="" alt="Gallery Image 2" class="grid-img">
+                    <img src="" alt="Gallery Image 3" class="grid-img">
+                </div>
+                <div class="column">
+                    <img src="" alt="Gallery Image 4" class="grid-img">
+                    <img src="" alt="Gallery Image 5" class="grid-img">
+                    <img src="" alt="Gallery Image 6" class="grid-img">
+                </div>
+                <div class="column">
+                    <img src="" alt="Gallery Image 7" class="grid-img">
+                    <img src="" alt="Gallery Image 8" class="grid-img">
+                    <img src="" alt="Gallery Image 9" class="grid-img">
+                    <img src="" alt="Gallery Image 10" class="grid-img">
+                </div>
+            </section>
+        </main>
+    </div>
 
 </body>
 
