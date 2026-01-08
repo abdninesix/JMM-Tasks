@@ -108,6 +108,10 @@ body {
     color: #111;
 }
 
+.top-actions :nth-child(1) {
+    color: #111;
+}
+
 .btn-submit {
     height: 32px;
     padding: 8px 8px 6px 8px;
