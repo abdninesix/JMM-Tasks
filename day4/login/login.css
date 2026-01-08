@@ -58,6 +58,8 @@ body {
     align-items: center;
     padding-top: 30px;
     padding-bottom: 30px;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 .form-wrapper {
@@ -152,7 +154,7 @@ input:focus {
     color: #242424;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 
     .auth-container {
         flex-direction: column;
