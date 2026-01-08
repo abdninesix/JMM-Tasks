@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #111;
+}
+
+.auth-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background-image: url("https://images.unsplash.com/photo-1762115960405-be316e817080?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    width: 39.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 45px;
+    padding-bottom: 50px;
+    padding-left: 65px;
+    padding-right: 80px;
+}
+
+.logo-white {
+    width: 40px;
+}
+
+.sidebar-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.sidebar-subtitle {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 32px;
+    line-height: 1.2;
+}
+
+.attribution {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.form-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 60%;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.form-header h1 {
+    font-size: 50px;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    font-size: 15px;
+}
+
+.form-header a {
+    color: #767676;
+}
+
+.name-row {
+    display: flex;
+    gap: 25px;
+}
+
+.field-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+input:hover {
+    border-color: #000000;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #000000;
+}
+
+.submit-btn {
+    width: 100%;
+    height: 44px;
+    background: linear-gradient(to bottom, #282828, black);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px 10px 0 0;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(to bottom, #313131, black);
+}
+
+.form-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: #767676;
+}
+
+.form-footer a {
+    color: #767676;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        display: none;
+    }
+}
