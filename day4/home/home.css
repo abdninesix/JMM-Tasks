@@ -86,6 +86,10 @@ header {
     font-size: 14px;
 }
 
+.search-bar:hover {
+ background: #e6e6e6;   
+}
+
 .search-start,
 .search-end {
     color: #767676;
@@ -166,11 +170,15 @@ header {
     padding-bottom: 14px;
 }
 
-li.active {
+.categories a:hover {
+    color: #111;
+}
+
+.categories li.active {
     border-bottom: 2px solid #111;
 }
 
-li.active a {
+.categories li.active a {
     color: #111;
 }
 
@@ -216,6 +224,10 @@ li.active a {
     padding: 0 20px;
     margin-top: 15px;
     gap: 12px;
+}
+
+.hero-search-bar:hover {
+ background: #e6e6e6;   
 }
 
 .hero-search-bar input {
