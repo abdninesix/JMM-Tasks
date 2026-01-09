@@ -321,6 +321,10 @@ header {
     font-weight: 300;
 }
 
+.hero-collections a:hover {
+    color: #111;
+}
+
 .hero-collections img {
     width: 25px;
     object-fit: cover;
