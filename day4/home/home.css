@@ -200,7 +200,6 @@ header {
     justify-content: space-between;
     gap: 24px;
     padding: 55px 0 60px 0;
-    border: #111 1px solid;
 }
 
 .hero-unsplash {
@@ -362,16 +361,26 @@ header {
     display: block;
 }
 
-@media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
-
+@media (max-width: 1024px) {
     .container {
         margin-left: 0;
     }
 
     .top-actions .nav-link:first-child {
+        display: none;
+    }
+
+    .photo-grid :nth-child(2) {
+        display: none;
+    }
+
+    .hero-collections {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
         display: none;
     }
 
