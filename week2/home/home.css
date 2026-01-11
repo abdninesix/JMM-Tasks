@@ -362,13 +362,6 @@ header {
 }
 
 @media (max-width: 1024px) {
-    .container {
-        margin-left: 0;
-    }
-
-    .top-actions .nav-link:first-child {
-        display: none;
-    }
 
     .photo-grid :nth-child(2) {
         display: none;
@@ -384,7 +377,27 @@ header {
         display: none;
     }
 
+    .top-actions {
+        display: none;
+    }
+
+    .container {
+        margin-left: 0;
+    }
+
+    .hero-unsplash {
+        display: none;
+    }
+
+    .hero-collections {
+        display: block;
+    }
+
     .photo-grid {
         flex-direction: column;
+    }
+
+    .photo-grid {
+        width: 100%;
     }
 }
