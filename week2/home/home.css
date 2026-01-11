@@ -70,10 +70,10 @@ header {
 
 .mobile-top-nav {
     height: 40px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
+    padding: 25px;
     background: #fff;
 }
 
@@ -83,6 +83,13 @@ header {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    padding: 10px;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .search-bar {
@@ -402,19 +409,20 @@ header {
         margin-left: 0;
     }
 
-    .hero-unsplash {
+    .hero-edit {
         display: none;
     }
 
-    .hero-collections {
-        display: block;
+    .hero-unsplash {
+        width: 100%;
     }
 
     .photo-grid {
         flex-direction: column;
+        max-width: 95vw;
     }
 
-    .photo-grid {
-        width: 100%;
+    .mobile-top-nav {
+        display: flex;
     }
 }
