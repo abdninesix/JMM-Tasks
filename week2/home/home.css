@@ -68,6 +68,23 @@ header {
     background: #fff;
 }
 
+.mobile-top-nav {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    background: #fff;
+}
+
+.nav-select {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 .search-bar {
     flex: 1;
     background: #eee;
