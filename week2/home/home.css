@@ -92,6 +92,40 @@ header {
     gap: 6px;
 }
 
+.nav-menu {
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    position: absolute;
+    top: 62px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.nav-menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #111;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.foot-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .search-bar {
     flex: 1;
     background: #eee;
@@ -397,7 +431,10 @@ header {
 }
 
 @media (max-width: 768px) {
-    .sidebar, .top-actions, .hero-edit {
+
+    .sidebar,
+    .top-actions,
+    .hero-edit {
         display: none;
     }
 
