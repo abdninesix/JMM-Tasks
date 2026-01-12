@@ -94,8 +94,8 @@ header {
 
 .nav-menu {
     background-color: #fff;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     position: absolute;
     top: 62px;
     right: 0;
@@ -103,27 +103,65 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    gap: 16px;
+    padding: 16px;
 }
 
 .nav-menu ul {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 16px;
+    padding: 10px 0;
     list-style: none;
+    border-bottom: 1px solid #d1d1d1;
 }
 
-.nav-menu a {
-    text-decoration: none;
+.nav-menu ul button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 5px;
     color: #111;
     font-size: 14px;
     font-weight: 700;
+    cursor: pointer;
+}
+
+.nav-menu ul button i {
+    width: 20px;
+    font-size: 20px;
 }
 
 .foot-actions {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.nav-menu-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-menu-foot a {
+    text-decoration: underline;
+    color: #767676;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.nav-menu-foot a:hover {
+    color: #111;
+}
+
+.nav-menu-foot p {
+    color: #767676;
+    font-size: 14px;
 }
 
 .search-bar {
