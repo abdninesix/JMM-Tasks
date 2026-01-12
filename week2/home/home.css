@@ -397,20 +397,12 @@ header {
 }
 
 @media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
-
-    .top-actions {
+    .sidebar, .top-actions, .hero-edit {
         display: none;
     }
 
     .container {
         margin-left: 0;
-    }
-
-    .hero-edit {
-        display: none;
     }
 
     .hero-unsplash {
