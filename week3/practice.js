@@ -52,6 +52,10 @@ while (j < 3) {
     j++;
 }
 
+
+
+
+
 function greet(name) {
     return "Hello, " + name;
 }
@@ -116,5 +120,3 @@ try {
 } catch (err) {
     console.log("Error occurred");
 }
-
-
