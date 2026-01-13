@@ -1,1 +1,2 @@
-// New
+// Console
+console.log("Hi");
