@@ -120,3 +120,125 @@ try {
 } catch (err) {
     console.log("Error occurred");
 }
+
+
+
+
+// ES6
+
+
+
+
+let number = 25;
+number = 26;
+
+const PI = 3.14;
+// PI = 3;
+
+
+
+
+const add = (a, b) => a + b;
+console.log(add(3, 4));
+
+
+
+
+
+
+
+const person1 = "Abdullah";
+const msg = `Hello, ${person1}!`;
+console.log(msg);
+
+
+
+
+
+
+function greet(name = "Guest") {
+    console.log(`Hello, ${name}!`);
+}
+greet();
+
+
+
+
+
+
+// Array
+const [m, n] = [10, 20];
+console.log(m, n);
+
+// Object
+const human = { human_name: "Abdullah", human_age: 30 };
+const { human_name, human_age } = human;
+console.log(human_name, human_age);
+
+
+
+
+
+
+// Spread
+const nums1 = [1,2,3];
+const nums2 = [...nums1, 4, 5];
+console.log(nums2);
+
+// Rest
+function sum(...values) {
+  return values.reduce((a, b) => a + b, 0);
+}
+console.log(sum(1,2,3));
+
+
+
+
+
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  greet() {
+    console.log(`Hi, Im ${this.name}`);
+  }
+}
+const p = new Person("Ali");
+p.greet();
+
+
+
+
+
+
+
+
+
+const pr = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("Done!"), 1000);
+});
+pr.then(msg => console.log(msg));
+
+
+
+
+
+
+
+
+const set = new Set([1,2,2,3]);
+console.log([...set]); // [1,2,3]
+
+const map = new Map();
+map.set("a", 1);
+console.log(map.get("a"));
+
+
+
+
+
+
+for (const val of [10,20,30]) {
+  console.log(val);
+}
