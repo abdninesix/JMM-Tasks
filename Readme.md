@@ -33,7 +33,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Proper use of meta tags for SEO and responsive design  
 - Optimizing CSS by reusing classes and reducing duplication  
 - Understanding data types and formats in HTML form submission  
-- Handling JSON data between frontend and Laravel backend  
+- Handling data between client side and server side based on it's type  
 -  
 -  
 *(To be added later)*
