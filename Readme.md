@@ -21,6 +21,8 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - React.js  
 - Next.js  
 - Commonly used frontend libraries and tools such as:
+    -  
+    -  
   *(To be added later)*
 
 ---
