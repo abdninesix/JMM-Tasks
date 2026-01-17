@@ -21,12 +21,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - React.js  
 - Next.js  
 - Commonly used frontend libraries and tools such as:
-  - Axios (API communication)
-  - Tailwind CSS / Bootstrap
-  - React Router
-  - State management libraries
-  - Form handling and validation libraries  
-  *(Add more as you learn)*
+  *(To be added later)*
 
 ---
 
@@ -38,7 +33,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Handling JSON data between frontend and Laravel backend  
 -  
 -  
-*(Leave space for future concepts)*
+*(To be added later)*
 
 ---
 
@@ -49,4 +44,3 @@ I started my professional journey as a Frontend Developer where I worked on buil
 
 ## Final Remarks
 This internship laid a strong foundation for my career as a frontend developer and gave me hands-on experience with real-world projects, professional coding standards, and teamwork in a full-stack environment.
-```
