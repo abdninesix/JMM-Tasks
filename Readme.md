@@ -29,7 +29,8 @@ I started my professional journey as a Frontend Developer where I worked on buil
 ---
 
 ## Concepts Learned
-- Importance of semantic HTML tags for accessibility and structure  
+- Importance of semantic HTML tags for accessibility and structure
+- Proper use of attributes of HTML tags
 - Proper use of meta tags for SEO and responsive design  
 - Optimizing CSS by reusing classes and reducing duplication  
 - Understanding data types and formats in HTML form submission  
