@@ -3,3 +3,8 @@ const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Satur
 
 console.log("Today is: " + days[now.getDay()]);
 console.log("Current time is: " + now.toLocaleTimeString());
+
+
+
+
+
