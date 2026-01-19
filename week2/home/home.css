@@ -11,7 +11,7 @@ body {
 
 .sidebar,
 .sidebar-icons,
-.nav-menu,
+.nav-menu.open,
 .nav-menu ul,
 .nav-menu-foot,
 .hero-unsplash,
@@ -115,6 +115,7 @@ header {
 }
 
 .nav-menu {
+    display: none;
     background-color: #fff;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
