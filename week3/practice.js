@@ -30,3 +30,9 @@ if (guess === random) {
 } else {
   console.log("Not matched. Number was " + random);
 }
+
+
+
+
+
+
