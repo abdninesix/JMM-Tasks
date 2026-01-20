@@ -16,3 +16,17 @@ function isLeapYear(year) {
 }
 
 console.log(isLeapYear(2024));
+
+
+
+
+
+
+const random = Math.floor(Math.random() * 10) + 1;
+const guess = 5; // try changing
+
+if (guess === random) {
+  console.log("Good Work!");
+} else {
+  console.log("Not matched. Number was " + random);
+}
