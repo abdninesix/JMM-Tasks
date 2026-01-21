@@ -42,3 +42,15 @@ const diff = birthday - today;
 
 const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
 console.log("Days left until Birthday:", daysLeft);
+
+
+
+
+
+
+
+let a = 5, b = 6, c = 7;
+let s = (a + b + c) / 2;
+let area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+
+console.log("Area:", area);
