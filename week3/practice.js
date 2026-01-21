@@ -54,3 +54,16 @@ let s = (a + b + c) / 2;
 let area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
 
 console.log("Area:", area);
+
+
+
+
+
+
+
+function diff13(n) {
+  if (n > 13) return (n - 13) * 2;
+  return 13 - n;
+}
+
+console.log(diff13(20));
