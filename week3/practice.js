@@ -41,4 +41,4 @@ const christmas = new Date(today.getFullYear(), 11, 25);
 const diff = christmas - today;
 
 const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-console.log("Days left until Christmas:", daysLeft);
+console.log("Days left until Birthday:", daysLeft);
