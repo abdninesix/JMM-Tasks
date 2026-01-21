@@ -37,7 +37,7 @@ if (guess === random) {
 
 
 const today = new Date();
-const birthday = new Date(today.getFullYear(), 11, 25);
+const birthday = new Date(today.getFullYear(), 11, 5);
 const diff = birthday - today;
 
 const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
