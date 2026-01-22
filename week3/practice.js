@@ -21,7 +21,6 @@ console.log(isLeapYear(2024));
 
 
 
-
 const random = Math.floor(Math.random() * 10) + 1;
 const guess = 5; // try changing
 
@@ -30,7 +29,6 @@ if (guess === random) {
 } else {
   console.log("Not matched. Number was " + random);
 }
-
 
 
 
@@ -47,15 +45,11 @@ console.log("Days left until Birthday:", daysLeft);
 
 
 
-
-
 let a = 5, b = 6, c = 7;
 let s = (a + b + c) / 2;
 let area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
 
 console.log("Area:", area);
-
-
 
 
 
@@ -67,3 +61,45 @@ function diff13(n) {
 }
 
 console.log(diff13(20));
+
+
+
+
+
+function addWithoutCarry(a, b) {
+  let result = "";
+  while (a > 0 || b > 0) {
+    let sum = (a % 10 + b % 10) % 10;
+    result = sum + result;
+    a = Math.floor(a / 10);
+    b = Math.floor(b / 10);
+  }
+  return Number(result);
+}
+
+console.log(addWithoutCarry(456, 789));
+
+
+
+
+
+function sumAbsDiff(arr) {
+  let sum = 0;
+  for (let i = 1; i < arr.length; i++) {
+    sum += Math.abs(arr[i] - arr[i - 1]);
+  }
+  return sum;
+}
+
+console.log(sumAbsDiff([1, 2, 3, 8, 9]));
+
+
+
+
+
+let str = "w3resource";
+
+setInterval(() => {
+  str = str[str.length - 1] + str.slice(0, -1);
+  console.log(str);
+}, 1000);
