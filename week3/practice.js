@@ -153,3 +153,18 @@ function longestWord(arr) {
 }
 
 console.log(longestWord(["apple", "banana", "strawberry"]));
+
+
+
+
+
+
+let person = {
+  name: "Ali",
+  age: 25,
+  city: "Lahore"
+};
+
+for (let key in person) {
+  console.log(key + ":", person[key]);
+}
