@@ -101,5 +101,55 @@ let str = "w3resource";
 
 setInterval(() => {
   str = str[str.length - 1] + str.slice(0, -1);
-  console.log(str);
+  // console.log(str);
 }, 1000);
+
+
+
+
+
+function reverse(str) {
+  return str.split("").reverse().join("");
+}
+
+console.log(reverse("hello"));
+
+
+
+
+
+function capitalize(sentence) {
+  return sentence
+    .split(" ")
+    .map(word => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+console.log(capitalize("javascript is awesome"));
+
+
+
+
+
+function nextChar(str) {
+  return str.split("").map(ch => {
+    return String.fromCharCode(ch.charCodeAt(0) + 1);
+  }).join("");
+}
+
+console.log(nextChar("abcd"));
+
+
+
+
+
+
+function longestWord(arr) {
+  let longest = "";
+  for (let word of arr) {
+    if (word.length > longest.length) longest = word;
+  }
+  return longest;
+}
+
+console.log(longestWord(["apple", "banana", "strawberry"]));
