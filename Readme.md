@@ -36,6 +36,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Understanding data types and formats in HTML form submission  
 - Handling data between client side and server side based on it's type  
 - JavaScript event loop, clarifying how a single-threaded language can handle asynchronous operations without blocking the main thread
+- Deep dive into senior-level React design patterns aimed at making applications more efficient, scalable, and maintainable
 - 
 - 
 *(To be added later)*
