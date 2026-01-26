@@ -2,9 +2,9 @@
 
 ## Basic Information
 - **Name:** Muhammad Abdullah  
-- **Company:** JMM  
+- **Company:** JMM
 - **Department:** Web  
-- **Internship Duration:**  
+- **Internship Duration:** 3 Months 
 - **Supervisor:** Shahmir Minhas  
 
 ---
