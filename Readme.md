@@ -20,11 +20,9 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - JavaScript (ES6)  
 - React.js  
 - Next.js  
-- Commonly used frontend libraries and tools such as:
-    -  
-    -  
-    -  
-  *(To be added later)*
+-  
+-  
+*(More will be added)*
 
 ---
 
@@ -38,14 +36,17 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - JavaScript event loop, clarifying how a single-threaded language can handle asynchronous operations without blocking the main thread
 - Deep dive into senior-level React design patterns aimed at making applications more efficient, scalable, and maintainable
 - 10 different rendering patterns used to build modern web applications
+- A consistant industry level folder structure for React applications
 - 
 - 
-*(To be added later)*
+*(More will be added)*
 
 ---
 
 ## Challenges Faced
-*(To be added later)*
+- 
+- 
+*(Will be added)*
 
 ---
 
