@@ -20,7 +20,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - JavaScript (ES6)  
 - React.js  
 - Next.js  
--  
+- TailwindCSS
 -  
 *(More will be added)*
 
