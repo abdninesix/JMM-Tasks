@@ -37,7 +37,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Deep dive into senior-level React design patterns aimed at making applications more efficient, scalable, and maintainable
 - 10 different rendering patterns used to build modern web applications
 - A consistant industry level folder structure for React applications
-- 
+- Professional versoin control practices using Git and Github
 - 
 *(More will be added)*
 
