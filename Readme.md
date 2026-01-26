@@ -18,10 +18,11 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - HTML5  
 - CSS3  
 - JavaScript (ES6)  
-- React.js  
+- React.js
 - Next.js  
 - TailwindCSS
--  
+- 
+- 
 *(More will be added)*
 
 ---
