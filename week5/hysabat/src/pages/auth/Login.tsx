@@ -41,7 +41,7 @@ const Login = () => {
             <section className='h-full w-full lg:w-1/2 flex flex-col p-4 justify-between'>
 
                 <a href='/' className='flex'>
-                    <img src='/src/assets/logo.svg' alt='logo' />
+                    <img src='/logo.svg' alt='logo' />
                     <span className='bg-clip-text text-transparent uppercase text-2xl font-bold bg-linear-to-r from-theme1 to-theme2'>Hysabat</span>
                 </a>
 
@@ -88,7 +88,7 @@ const Login = () => {
             {/* Right section */}
             <section className='w-full lg:w-1/2 hidden lg:flex flex-col items-center p-20 justify-center bg-linear-to-r from-theme1 to-theme2 rounded-2xl'>
                 <div>
-                    <img src='/src/assets/content.png' alt='content' />
+                    <img src='/content.png' alt='content' />
                 </div>
                 <div className='space-y-4 text-center text-white'>
                     <h2 className='text-3xl font-bold'>Transforming the Future of Resource Planning</h2>
