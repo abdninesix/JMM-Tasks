@@ -42,7 +42,7 @@ const Login = () => {
 
                 <a href='/' className='flex w-30 lg:w-fit'>
                     <img src='/src/assets/logo.svg' alt='logo' />
-                    <span className='bg-clip-text text-transparent uppercase text-2xl font-bold bg-linear-to-r from-sky-400 to-sky-900'>Hysabat</span>
+                    <span className='bg-clip-text text-transparent uppercase text-2xl font-bold bg-linear-to-r from-theme1 to-theme2'>Hysabat</span>
                 </a>
 
                 <form onSubmit={handleSubmit} className='flex items-center justify-center'>
@@ -74,7 +74,7 @@ const Login = () => {
                         <Button type='submit' className='bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
 
                         <p className='text-center text-sm'>
-                            Don't have an account? <a href='/#' className='text-theme1'>Sign up</a>
+                            Don't have an account? <a href='#' className='text-theme1'>Sign up</a>
                         </p>
                     </div>
                 </form>
@@ -91,7 +91,7 @@ const Login = () => {
                     <img src='/src/assets/content.png' alt='content' />
                 </div>
                 <div className='space-y-4 text-center text-white'>
-                    <h2 className='text-3xl'>Transforming the Future of Resource Planning</h2>
+                    <h2 className='text-3xl font-bold'>Transforming the Future of Resource Planning</h2>
                     <p className='text-xl'>Empowering businesses with smarter resource management and real-time insights. HYSABAT ERP helps you optimize every resource, minimize waste, and drive operational efficiency. Gain full visibility into projects, anticipate resource needs, and respond swiftly to market changes.</p>
                 </div>
             </section>
