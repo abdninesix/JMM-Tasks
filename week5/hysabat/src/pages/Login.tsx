@@ -8,16 +8,21 @@ const schema = z.object({
     password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
+interface LoginError {
+    username?: string;
+    password?: string;
+}
+
 const Login = () => {
 
-    const [error, setError] = useState({})
+    const [error, setError] = useState<LoginError>({});
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.SubmitEvent) => {
         e.preventDefault();
 
         const result = schema.safeParse({
-            username: e.target.username.value,
-            password: e.target.password.value,
+            username: (e.target as HTMLFormElement).username.value,
+            password: (e.target as HTMLFormElement).password.value,
         });
 
         if (!result.success) {
@@ -52,7 +57,7 @@ const Login = () => {
                                 <User className='text-gray-400' />
                                 <Input type='text' placeholder='Enter username' id='username' className='w-full outline-none' />
                             </div>
-                            {/* {error.username && <p className='text-red-600 text-sm'>{error.username}</p>} */}
+                            {error.username && <p className='text-red-600 text-sm'>{error.username}</p>}
                         </div>
 
                         <div>
