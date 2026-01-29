@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/login/Login";
+import Login from "./pages/auth/Login";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 
 export default function App() {
