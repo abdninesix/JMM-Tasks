@@ -71,10 +71,10 @@ const Login = () => {
                             {error.password && <p className='text-red-600 text-sm'>{error.password}</p>}
                         </div>
 
-                        <Button type='submit' className='bg-sky-500 hover:bg-sky-600 py-2'>Login</Button>
+                        <Button type='submit' className='bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
 
                         <p className='text-center text-sm'>
-                            Don't have an account? <a href='/#' className='text-sky-500'>Sign up</a>
+                            Don't have an account? <a href='/#' className='text-theme1'>Sign up</a>
                         </p>
                     </div>
                 </form>
@@ -86,7 +86,7 @@ const Login = () => {
             </section>
 
             {/* Right section */}
-            <section className='w-full lg:w-1/2 hidden lg:flex flex-col items-center p-20 justify-center bg-linear-to-r from-sky-500 to-sky-700 rounded-2xl'>
+            <section className='w-full lg:w-1/2 hidden lg:flex flex-col items-center p-20 justify-center bg-linear-to-r from-theme1 to-theme2 rounded-2xl'>
                 <div>
                     <img src='/src/assets/content.png' alt='content' />
                 </div>
