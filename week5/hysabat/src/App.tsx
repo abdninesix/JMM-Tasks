@@ -1,8 +1,17 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/login/Login";
+import DashboardLayout from "./components/layouts/DashboardLayout";
 
-const App = () => {
+export default function App() {
   return (
-    <div>App</div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        
+        <Route path="/" element={<DashboardLayout />}>
+          {/* <Route index element={<Dashboard />} /> */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App
