@@ -40,7 +40,7 @@ const Login = () => {
             {/* Left section */}
             <section className='h-full w-full lg:w-1/2 flex flex-col p-4 justify-between'>
 
-                <a href='/' className='flex w-30 lg:w-fit'>
+                <a href='/' className='flex'>
                     <img src='/src/assets/logo.svg' alt='logo' />
                     <span className='bg-clip-text text-transparent uppercase text-2xl font-bold bg-linear-to-r from-theme1 to-theme2'>Hysabat</span>
                 </a>
@@ -55,7 +55,7 @@ const Login = () => {
 
                         <div>
                             <label htmlFor='username' className='text-sm font-bold'>Username<span className='text-red-600 ml-1'>*</span></label>
-                            <div className='flex items-center gap-2 p-2 border-2 border-gray-300 focus-within:border-sky-500 rounded-md'>
+                            <div className='flex items-center gap-2 p-2 border-2 border-gray-300 focus-within:border-theme1 rounded-md'>
                                 <User className='text-gray-400' />
                                 <Input type='text' placeholder='Enter username' id='username' />
                             </div>
@@ -64,7 +64,7 @@ const Login = () => {
 
                         <div>
                             <label htmlFor='password' className='text-sm font-bold'>Password<span className='text-red-600 ml-1'>*</span></label>
-                            <div className='flex items-center gap-2 p-2 border-2 border-gray-300 focus-within:border-sky-500 rounded-md'>
+                            <div className='flex items-center gap-2 p-2 border-2 border-gray-300 focus-within:border-theme1 rounded-md'>
                                 <Lock className='text-gray-400' />
                                 <Input type='password' placeholder='Create a password' id='password' />
                             </div>
@@ -74,14 +74,14 @@ const Login = () => {
                         <Button type='submit' className='bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
 
                         <p className='text-center text-sm'>
-                            Don't have an account? <a href='#' className='text-theme1'>Sign up</a>
+                            Don't have an account? <a href='#' className='text-theme1 hover:underline'>Sign up</a>
                         </p>
                     </div>
                 </form>
 
                 <footer className='flex flex-col-reverse md:flex-row items-center justify-between gap-2 text-sm text-gray-600 font-semibold'>
                     <p>&copy; Hysabat Solutions {new Date().getFullYear()}</p>
-                    <a href='mailto:sales@hysabat.com' className='flex items-center gap-2'><Mail size={16} className='text-gray-400' /> sales@hysabat.com</a>
+                    <a href='mailto:sales@hysabat.com' className='flex items-center gap-2'><Mail size={16} /> sales@hysabat.com</a>
                 </footer>
             </section>
 
