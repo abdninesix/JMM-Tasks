@@ -19,20 +19,16 @@ const Login = () => {
 
     const handleSubmit = (e: React.SubmitEvent) => {
         e.preventDefault();
-
         const result = schema.safeParse({
             username: (e.target as HTMLFormElement).username.value,
             password: (e.target as HTMLFormElement).password.value,
         });
-
         if (!result.success) {
             setError(result.error.issues.reduce((acc, curr) => ({ ...acc, [curr.path[0]]: curr.message, }), {}));
             return;
         }
-
         setError({});
     };
-
 
     return (
         <div className='h-screen flex p-4 overflow-hidden'>
