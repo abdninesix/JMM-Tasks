@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/sidebar"
 import { Link } from "react-router-dom"
 import { Button } from "./ui/button"
-import { ChevronDown, PanelLeft, PanelRight } from "lucide-react";
+import { ChevronDown, PanelLeft, PanelRight, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
+import { Kbd } from "./ui/kbd";
 
 export function AppSidebar() {
 
@@ -22,7 +24,7 @@ export function AppSidebar() {
     return (
         <Sidebar collapsible="icon" variant="floating">
 
-            <SidebarHeader className={`flex items-center ${state === "collapsed" ? "flex-col-reverse" : "flex-row"} p-4`}>
+            <SidebarHeader className="flex-col items-center gap-4 p-4">
                 <SidebarMenuButton asChild>
                     <Link to='/' className='py-6'>
                         <img src='/logo.svg' alt='logo' />
@@ -30,13 +32,22 @@ export function AppSidebar() {
                     </Link>
                 </SidebarMenuButton>
                 {/* <Button variant="ghost" className="text-gray-500" onClick={toggleSidebar}>{state === "collapsed" ? <PanelRight className="size-6"/> : <PanelLeft className="size-6"/>}</Button> */}
+                <InputGroup>
+                    <InputGroupInput type='text' placeholder='Quick actions' id='search' />
+                    <InputGroupAddon>
+                        <Search className='size-6 text-gray-400' />
+                    </InputGroupAddon>
+                    <InputGroupAddon align="inline-end">
+                        <Kbd>Ctrl+Q</Kbd>
+                    </InputGroupAddon>
+                </InputGroup>
             </SidebarHeader>
 
             <SidebarContent className={`flex items-center px-4 ${state === "collapsed" ? "" : "gap-0"}`}>
                 {sidebarItems.map((item) => (
                     <SidebarMenuButton asChild key={item.title} className="py-6">
                         <Link to={item.url}>
-                            <div ><item.icon /></div>
+                            <item.icon />
                             <span className="text-lg font-semibold">{item.title}</span>
                             <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                         </Link>
