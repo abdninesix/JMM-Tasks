@@ -14,7 +14,6 @@ import { Button } from "./ui/button"
 import { ChevronDown, PanelLeft, PanelRight, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 import { Kbd } from "./ui/kbd";
 
 export function AppSidebar() {
@@ -32,15 +31,12 @@ export function AppSidebar() {
                     </Link>
                 </SidebarMenuButton>
                 {/* <Button variant="ghost" className="text-gray-500" onClick={toggleSidebar}>{state === "collapsed" ? <PanelRight className="size-6"/> : <PanelLeft className="size-6"/>}</Button> */}
-                <InputGroup>
-                    <InputGroupInput type='text' placeholder='Quick actions' id='search' />
-                    <InputGroupAddon>
-                        <Search className='size-6 text-gray-400' />
-                    </InputGroupAddon>
-                    <InputGroupAddon align="inline-end">
-                        <Kbd>Ctrl+Q</Kbd>
-                    </InputGroupAddon>
-                </InputGroup>
+
+                <SidebarMenuButton className="flex py-5 border">
+                    <Search className="size-6" />
+                    <span className="text-gray-500">Quick actions</span>
+                    <Kbd className="ml-auto">Ctrl+Q</Kbd>
+                </SidebarMenuButton>
             </SidebarHeader>
 
             <SidebarContent className={`flex items-center px-4 ${state === "collapsed" ? "" : "gap-0"}`}>

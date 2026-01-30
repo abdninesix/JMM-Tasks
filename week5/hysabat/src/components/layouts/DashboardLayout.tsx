@@ -5,13 +5,13 @@ import Navbar from '../Navbar'
 
 const DashboardLayout = () => {
     return (
-        <SidebarProvider defaultOpen={true} className='space-x-4'>
+        <SidebarProvider defaultOpen={true} className='space-x-2'>
             <AppSidebar />
             <main className="flex-1 p-2">
                 <Navbar />
                 <Outlet />Main
             </main>
-            {/* <aside className='border'>Hi</aside> */}
+            <aside className='border'>Hi</aside>
         </SidebarProvider >
     )
 }

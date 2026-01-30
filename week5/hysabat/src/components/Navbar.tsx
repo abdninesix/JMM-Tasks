@@ -28,16 +28,16 @@ const Navbar = () => {
                     </InputGroup>
                 </div>
 
-                <div className='flex'>
+                <div className='flex gap-2'>
                     <Button variant='ghost' onClick={() => setTheme('dark')} className={theme === "dark" ? "text-theme1" : ""}><Moon /></Button>
                     <Button variant='ghost' onClick={() => setTheme('light')} className={theme === "light" ? "text-theme1" : ""}><Sun /></Button>
-                    <Select>
+                    <Select defaultValue="ENG">
                         <SelectTrigger>
-                            <SelectValue defaultValue="ENG" />
+                            <SelectValue  />
                         </SelectTrigger>
                         <SelectContent position='popper'>
-                            <SelectItem value="EN">ENG</SelectItem>
-                            <SelectItem value="AR">ARB</SelectItem>
+                            <SelectItem value="ENG">ENG</SelectItem>
+                            <SelectItem value="ARB">ARB</SelectItem>
                         </SelectContent>
                     </Select>
                     <Button variant='ghost' ><CircleQuestionMark /></Button>
