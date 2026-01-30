@@ -7,11 +7,11 @@ const DashboardLayout = () => {
     return (
         <SidebarProvider defaultOpen={true} className='space-x-4'>
             <AppSidebar />
-            <main className="flex-1 border p-4">
+            <main className="flex-1 p-2">
                 <Navbar />
                 <Outlet />Main
             </main>
-            <aside className='border'>Hi</aside>
+            {/* <aside className='border'>Hi</aside> */}
         </SidebarProvider >
     )
 }

@@ -53,7 +53,7 @@ export const sidebarItems = [
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/login",
     icon: Settings,
   },
 ];
