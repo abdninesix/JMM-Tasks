@@ -2,23 +2,18 @@ import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenuButton,
     useSidebar,
 } from "@/components/ui/sidebar"
 import { Link } from "react-router-dom"
-import { Button } from "./ui/button"
-import { ChevronDown, PanelLeft, PanelRight, Search } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Kbd } from "./ui/kbd";
 
 export function AppSidebar() {
 
-    const { state, toggleSidebar } = useSidebar();
+    const { state } = useSidebar();
 
     return (
         <Sidebar collapsible="icon" variant="floating">
