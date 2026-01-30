@@ -1,14 +1,17 @@
 import { Outlet } from 'react-router-dom'
+import { SidebarProvider, SidebarTrigger } from '../ui/sidebar'
+import { AppSidebar } from '../AppSidebar'
 
 const DashboardLayout = () => {
     return (
-        <div className="flex h-screen">
-            <aside className="w-64 border p-4">Sidebar</aside>
+        <SidebarProvider>
+            <AppSidebar />
             <main className="flex-1 border p-4">
-                <Outlet />
+                <SidebarTrigger />
+                <Outlet />Main
             </main>
             <aside className='border'>Hi</aside>
-        </div>
+        </SidebarProvider >
     )
 }
 

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Lock, Mail, User } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 
 const schema = z.object({
@@ -40,10 +40,10 @@ const Login = () => {
             {/* Left section */}
             <section className='h-full w-full lg:w-1/2 flex flex-col p-4 justify-between'>
 
-                <a href='/' className='flex'>
+                <Link to='/' className='flex'>
                     <img src='/logo.svg' alt='logo' />
                     <span className='bg-clip-text text-transparent uppercase text-2xl font-bold bg-linear-to-r from-theme1 to-theme2'>Hysabat</span>
-                </a>
+                </Link>
 
                 <form onSubmit={handleSubmit} className='flex items-center justify-center'>
                     <div className='w-full md:max-w-md flex flex-col gap-4 text-gray-600'>
