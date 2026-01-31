@@ -6,38 +6,31 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group';
 import { Kbd } from './ui/kbd';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { Separator } from './ui/separator';
 
 const Navbar = () => {
+
     const { theme, setTheme } = useTheme();
 
     return (
-        <nav className='bg-card border rounded-md flex items-center justify-between p-2 md:p-4'>
-            {/* Left Section: Trigger & Search */}
+        <nav className='bg-card text-muted-foreground border rounded-md flex items-center justify-between px-2 lg:px-4'>
             <div className='flex items-center gap-2'>
-                <SidebarTrigger className='size-10' />
-                
-                {/* Desktop Search */}
-                <div className='hidden md:block'>
-                    <InputGroup>
-                        <InputGroupInput type='text' placeholder='Search anything...' id='search' />
-                        <InputGroupAddon>
-                            <Search className='size-6 text-gray-400' />
-                        </InputGroupAddon>
-                        <InputGroupAddon align="inline-end">
-                            <Kbd>Ctrl+K</Kbd>
-                        </InputGroupAddon>
-                    </InputGroup>
-                </div>
+                <SidebarTrigger size="default" />
 
-                {/* Mobile Search Icon Only */}
-                <Button variant="ghost" size="icon" className="md:hidden">
-                    <Search className="size-5" />
-                </Button>
+                <InputGroup>
+                    <InputGroupInput type='text' placeholder='Search anything...' id='search' />
+                    <InputGroupAddon>
+                        <Search className='size-5' />
+                    </InputGroupAddon>
+                    <InputGroupAddon align="inline-end">
+                        <Kbd>Ctrl+K</Kbd>
+                    </InputGroupAddon>
+                </InputGroup>
             </div>
 
-            {/* Right Section: Desktop Actions */}
-            <div className='hidden md:flex items-center gap-2'>
+            <div className='hidden lg:flex items-center gap-2'>
                 <Button variant='ghost' onClick={() => setTheme('dark')} className={theme === "dark" ? "text-theme1" : ""}><Moon className='size-5' /></Button>
+                <Separator orientation="vertical" className="h-18!" />
                 <Button variant='ghost' onClick={() => setTheme('light')} className={theme === "light" ? "text-theme1" : ""}><Sun className='size-5' /></Button>
                 <Select defaultValue="EN">
                     <SelectTrigger className='border-0 text-base'>
@@ -53,17 +46,13 @@ const Navbar = () => {
                 <Button variant='outline' className='ml-2'>Logout<LogOut className='size-5' /></Button>
             </div>
 
-            {/* Mobile Section: Consolidated Actions */}
-            <div className='flex md:hidden items-center gap-1'>
-                <Button variant='ghost' size="icon">
-                    <Bell className='size-5' />
-                </Button>
-                
+            {/* Mobile Menu */}
+            <div className='flex lg:hidden items-center gap-1'>
+                <Button variant='ghost' size="icon"><Bell className='size-5' /></Button>
+
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant='ghost' size="icon">
-                            <MoreVertical className='size-5' />
-                        </Button>
+                        <Button variant='ghost' size="icon"> <MoreVertical className='size-5' /></Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-48">
                         <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>

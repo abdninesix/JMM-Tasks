@@ -11,7 +11,6 @@ const DashboardLayout = () => {
                 <Navbar />
                 <Outlet />
             </main>
-            <aside className='hidden lg:block border'>Hi</aside>
         </SidebarProvider >
     )
 }

@@ -42,7 +42,7 @@ export function AppSidebar() {
 
                 <SidebarMenuButton className="py-5 border">
                     <Search className="size-6" />
-                    <span className="text-gray-500">Quick actions</span>
+                    <span className="text-muted-foreground">Quick actions</span>
                     <Kbd className="ml-auto">Ctrl+Q</Kbd>
                 </SidebarMenuButton>
             </SidebarHeader>
