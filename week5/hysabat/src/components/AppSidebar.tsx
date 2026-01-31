@@ -1,21 +1,15 @@
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenuBadge,
     SidebarMenuButton,
-    SidebarMenuItem,
     SidebarMenuSub,
     SidebarMenuSubItem,
     useSidebar,
 } from "@/components/ui/sidebar"
 import { Link } from "react-router-dom"
-import { Button } from "./ui/button"
-import { ChevronDown, PanelLeft, PanelRight, Search } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Kbd } from "./ui/kbd";
@@ -47,9 +41,9 @@ export function AppSidebar() {
                 {sidebarItems.map((item) => (
                     <Collapsible defaultOpen={false} className="group/collapsible" key={item.title}>
                         <CollapsibleTrigger asChild>
-                            <SidebarMenuButton className="py-5">
+                            <SidebarMenuButton className="py-5" onClick={()=>state === "collapsed" && toggleSidebar()}>
                                 <item.icon />
-                                <span className="text-lg font-semibold">{item.title}</span>
+                                <Link to={item.url} className="text-base font-semibold">{item.title}</Link>
                                 {item.children && <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />}
                             </SidebarMenuButton>
                         </CollapsibleTrigger>
@@ -62,7 +56,7 @@ export function AppSidebar() {
                                             <SidebarMenuButton asChild>
                                                 <Link to={child.url}>{child.title}</Link>
                                             </SidebarMenuButton>
-                                            <SidebarMenuBadge>25</SidebarMenuBadge>
+                                            <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>
                                         </SidebarMenuSubItem>
                                     ))}
                                 </SidebarMenuSub>

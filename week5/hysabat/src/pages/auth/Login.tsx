@@ -37,7 +37,7 @@ const Login = () => {
     };
 
     return (
-        <div className='h-screen flex p-4 overflow-hidden'>
+        <div className='h-dvh flex p-4 overflow-hidden'>
             {/* Left section */}
             <section className='h-full w-full lg:w-1/2 flex flex-col p-4 justify-between'>
 
@@ -84,7 +84,7 @@ const Login = () => {
                     </div>
                 </form>
 
-                <footer className='flex flex-col-reverse md:flex-row items-center justify-between gap-2 text-sm font-semibold'>
+                <footer className='flex items-center justify-between text-sm font-semibold'>
                     <p>&copy; Hysabat Solutions {new Date().getFullYear()}</p>
                     <a href='mailto:sales@hysabat.com' className='flex items-center gap-2'><Mail className='size-4 text-gray-400' /> sales@hysabat.com</a>
                 </footer>
