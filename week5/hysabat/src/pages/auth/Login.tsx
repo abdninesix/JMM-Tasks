@@ -76,7 +76,7 @@ const Login = () => {
                             {error.password && <p className='text-red-600 text-sm mt-2'>{error.password}</p>}
                         </div>
 
-                        <Button type='submit' className='bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
+                        <Button type='submit' className='text-white bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
 
                         <p className='text-center text-sm'>
                             Don't have an account? <a href='#' className='text-theme1 hover:underline'>Sign up</a>

@@ -29,20 +29,20 @@ const Navbar = () => {
                 </div>
 
                 <div className='flex gap-2'>
-                    <Button variant='ghost' onClick={() => setTheme('dark')} className={theme === "dark" ? "text-theme1" : ""}><Moon /></Button>
-                    <Button variant='ghost' onClick={() => setTheme('light')} className={theme === "light" ? "text-theme1" : ""}><Sun /></Button>
-                    <Select defaultValue="ENG">
-                        <SelectTrigger>
+                    <Button variant='ghost' onClick={() => setTheme('dark')} className={theme === "dark" ? "text-theme1" : ""}><Moon className='size-5' /></Button>
+                    <Button variant='ghost' onClick={() => setTheme('light')} className={theme === "light" ? "text-theme1" : ""}><Sun className='size-5' /></Button>
+                    <Select defaultValue="EN">
+                        <SelectTrigger className='border-0 text-base'>
                             <SelectValue  />
                         </SelectTrigger>
                         <SelectContent position='popper'>
-                            <SelectItem value="ENG">ENG</SelectItem>
-                            <SelectItem value="ARB">ARB</SelectItem>
+                            <SelectItem value="EN">Eng</SelectItem>
+                            <SelectItem value="AR">Arb</SelectItem>
                         </SelectContent>
                     </Select>
-                    <Button variant='ghost' ><CircleQuestionMark /></Button>
-                    <Button variant='ghost' ><Bell /></Button>
-                    <Button variant='outline' >Logout<LogOut /></Button>
+                    <Button variant='ghost' ><CircleQuestionMark className='size-5' /></Button>
+                    <Button variant='ghost' ><Bell className='size-5' /></Button>
+                    <Button variant='outline' >Logout<LogOut className='size-5' /></Button>
                 </div>
             </nav>
         </Card>
