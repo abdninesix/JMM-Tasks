@@ -68,7 +68,7 @@ export function AppSidebar() {
                                             const isActive = pathname === child.url
                                             return (
                                                 <SidebarMenuSubItem key={child.title} onClick={() => handleClick(child.url)}>
-                                                    <SidebarMenuButton asChild isActive={isActive} className="py-5 data-[active=true]:bg- data-[active=true]:text-theme1">
+                                                    <SidebarMenuButton asChild isActive={isActive} className="data-[active=true]:bg- data-[active=true]:text-theme1">
                                                         <span>{child.title}</span>
                                                     </SidebarMenuButton>
                                                     <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>
