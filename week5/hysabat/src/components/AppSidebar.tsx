@@ -8,15 +8,25 @@ import {
     SidebarMenuSubItem,
     useSidebar,
 } from "@/components/ui/sidebar"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { ChevronDown, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Kbd } from "./ui/kbd";
+import { Separator } from "./ui/separator";
 
 export function AppSidebar() {
 
     const { state, toggleSidebar } = useSidebar();
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
+
+    const handleClick = (url: string) => {
+        if (state === "collapsed") {
+            toggleSidebar();
+        }
+        navigate(url);
+    }
 
     return (
         <Sidebar collapsible="icon" variant="floating">
@@ -38,34 +48,42 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent className={`px-4 ${state === "collapsed" ? "flex items-center" : ""}`}>
-                {sidebarItems.map((item) => (
-                    <Collapsible defaultOpen={false} className="group/collapsible" key={item.title}>
-                        <CollapsibleTrigger asChild>
-                            <SidebarMenuButton className="py-5" onClick={()=>state === "collapsed" && toggleSidebar()}>
-                                <item.icon />
-                                <Link to={item.url} className="text-base font-semibold">{item.title}</Link>
-                                {item.children && <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />}
-                            </SidebarMenuButton>
-                        </CollapsibleTrigger>
+                {sidebarItems.map((item) => {
+                    const isActive = pathname === item.url || item.children?.some((c) => pathname.startsWith(c.url))
+                    return (
+                        < Collapsible defaultOpen={isActive} className="group/collapsible" key={item.title} >
+                            <CollapsibleTrigger asChild>
+                                <SidebarMenuButton isActive={isActive} className="py-5 data-[active=true]:bg-theme1 data-[active=true]:text-white" onClick={() => handleClick(item.url)}>
+                                    <item.icon />
+                                    <span className="text-base font-semibold">{item.title}</span>
+                                    {item.children && <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />}
+                                </SidebarMenuButton>
+                            </CollapsibleTrigger>
 
-                        {item.children && (
-                            <CollapsibleContent>
-                                <SidebarMenuSub>
-                                    {item.children.map((child) => (
-                                        <SidebarMenuSubItem key={child.title}>
-                                            <SidebarMenuButton asChild>
-                                                <Link to={child.url}>{child.title}</Link>
-                                            </SidebarMenuButton>
-                                            <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>
-                                        </SidebarMenuSubItem>
-                                    ))}
-                                </SidebarMenuSub>
-                            </CollapsibleContent>
-                        )}
-                    </Collapsible>
-                ))}
+                            {item.children && (
+                                <CollapsibleContent>
+                                    <SidebarMenuSub>
+                                        <Separator />
+                                        {item.children.map((child) => {
+                                            const isActive = pathname === child.url
+                                            return (
+                                                <SidebarMenuSubItem key={child.title} onClick={() => handleClick(child.url)}>
+                                                    <SidebarMenuButton asChild isActive={isActive} className="py-5 data-[active=true]:bg- data-[active=true]:text-theme1">
+                                                        <span>{child.title}</span>
+                                                    </SidebarMenuButton>
+                                                    <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>
+                                                </SidebarMenuSubItem>
+                                            )
+                                        })}
+                                        <Separator />
+                                    </SidebarMenuSub>
+                                </CollapsibleContent>
+                            )}
+                        </Collapsible>
+                    )
+                })}
             </SidebarContent>
 
-        </Sidebar>
+        </Sidebar >
     )
 }

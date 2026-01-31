@@ -9,7 +9,7 @@ const DashboardLayout = () => {
             <AppSidebar />
             <main className="flex-1 p-2">
                 <Navbar />
-                <Outlet />Main
+                <Outlet />
             </main>
             <aside className='hidden lg:block border'>Hi</aside>
         </SidebarProvider >

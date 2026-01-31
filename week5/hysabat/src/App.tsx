@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
+import Customers from "./pages/sales/Customers";
+import Dashboard from "./pages/home/Dashboard";
 
 export default function App() {
   return (
@@ -11,7 +13,8 @@ export default function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/" element={<DashboardLayout />}>
-            {/* <Route index element={<Dashboard />} /> */}
+            <Route index element={<Dashboard />} />
+            <Route path="/customers" index element={<Customers />} />
           </Route>
         </Routes>
       </BrowserRouter>
