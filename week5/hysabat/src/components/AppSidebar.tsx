@@ -31,9 +31,9 @@ export function AppSidebar() {
     return (
         <Sidebar collapsible="icon" variant="floating">
 
-            <SidebarHeader className="flex-col items-center gap-4 p-4">
-                <SidebarMenuButton asChild>
-                    <Link to='/' className='py-5'>
+            <SidebarHeader className="flex items-center p-4">
+                <SidebarMenuButton asChild className='py-5'>
+                    <Link to='/'>
                         <img src='/logo.svg' alt='logo' />
                         <span className='bg-clip-text text-transparent uppercase text-2xl font-bold bg-linear-to-r from-theme1 to-theme2'>Hysabat</span>
                     </Link>
