@@ -13,7 +13,6 @@ import { ChevronDown, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Kbd } from "./ui/kbd";
-import { Separator } from "./ui/separator";
 
 export function AppSidebar() {
 
@@ -63,7 +62,6 @@ export function AppSidebar() {
                             {item.children && (
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
-                                        <Separator />
                                         {item.children.map((child) => {
                                             const isActive = pathname === child.url
                                             return (
@@ -75,7 +73,6 @@ export function AppSidebar() {
                                                 </SidebarMenuSubItem>
                                             )
                                         })}
-                                        <Separator />
                                     </SidebarMenuSub>
                                 </CollapsibleContent>
                             )}

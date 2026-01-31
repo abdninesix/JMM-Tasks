@@ -10,12 +10,14 @@ export default function App() {
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <BrowserRouter>
         <Routes>
+          
           <Route path="/login" element={<Login />} />
 
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="/customers" index element={<Customers />} />
           </Route>
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
