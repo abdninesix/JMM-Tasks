@@ -37,7 +37,7 @@ const Login = () => {
     };
 
     return (
-        <div className='h-dvh flex p-4 overflow-hidden'>
+        <div className='h-dvh flex p-4'>
             {/* Left section */}
             <section className='h-full w-full lg:w-1/2 flex flex-col p-4 justify-between'>
 
