@@ -7,8 +7,11 @@ import { Kbd } from './ui/kbd';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Separator } from './ui/separator';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
 
     const { theme, setTheme } = useTheme();
 
@@ -43,7 +46,7 @@ const Navbar = () => {
                 </Select>
                 <Button variant='ghost'><CircleQuestionMark className='size-5' /></Button>
                 <Button variant='ghost'><Bell className='size-5' /></Button>
-                <Button variant='outline' className='ml-2'>Logout<LogOut className='size-5' /></Button>
+                <Button variant='outline' onClick={() => navigate('/login')} className='ml-2'>Logout<LogOut className='size-5' /></Button>
             </div>
 
             {/* Mobile Menu */}

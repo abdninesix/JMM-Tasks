@@ -55,25 +55,25 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <Label htmlFor='username' className='font-semibold mb-2'>Username<span className='text-red-600'>*</span></Label>
+                            <Label htmlFor='username' className='font-semibold mb-2'>Username<span className='text-red-500'>*</span></Label>
                             <InputGroup>
                                 <InputGroupInput type='text' placeholder='Enter username' id='username' />
                                 <InputGroupAddon>
                                     <User className='size-6 text-gray-400' />
                                 </InputGroupAddon>
                             </InputGroup>
-                            {error.username && <p className='text-red-600 text-sm mt-2'>{error.username}</p>}
+                            {error.username && <p className='text-red-500 text-sm mt-2'>{error.username}</p>}
                         </div>
 
                         <div>
-                            <Label htmlFor='password' className='font-semibold mb-2'>Password<span className='text-red-600'>*</span></Label>
+                            <Label htmlFor='password' className='font-semibold mb-2'>Password<span className='text-red-500'>*</span></Label>
                             <InputGroup>
                                 <InputGroupInput type='password' placeholder='Create a password' id='password' />
                                 <InputGroupAddon>
                                     <Lock className='size-6 text-gray-400' />
                                 </InputGroupAddon>
                             </InputGroup>
-                            {error.password && <p className='text-red-600 text-sm mt-2'>{error.password}</p>}
+                            {error.password && <p className='text-red-500 text-sm mt-2'>{error.password}</p>}
                         </div>
 
                         <Button type='submit' className='text-white bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
