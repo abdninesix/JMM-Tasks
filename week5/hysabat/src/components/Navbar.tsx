@@ -54,17 +54,17 @@ const Navbar = () => {
                     <DropdownMenuTrigger asChild>
                         <Button variant='ghost' size="icon"> <MoreVertical className='size-5' /></Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-                            {theme === 'dark' ? <Sun className="mr-2 size-4" /> : <Moon className="mr-2 size-4" />}
+                            {theme === 'dark' ? <Sun className="size-4" /> : <Moon className="size-4" />}
                             <span>Toggle Theme</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <CircleQuestionMark className="mr-2 size-4" />
+                            <CircleQuestionMark className="size-4" />
                             <span>Help Center</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="text-destructive">
-                            <LogOut className="mr-2 size-4" />
+                            <LogOut className="size-4" />
                             <span>Logout</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>

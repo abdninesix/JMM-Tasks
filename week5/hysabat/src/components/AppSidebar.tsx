@@ -56,7 +56,7 @@ export function AppSidebar() {
                                     <TooltipTrigger asChild>
                                         <CollapsibleTrigger asChild>
                                             <SidebarMenuButton isActive={isActive} onClick={() => handleClick(item.url)} className="py-5 data-[active=true]:bg-theme1 data-[active=true]:text-white">
-                                                <item.icon className="size-5 shrink-0" />
+                                                <item.icon />
                                             </SidebarMenuButton>
                                         </CollapsibleTrigger>
                                     </TooltipTrigger>
@@ -65,7 +65,7 @@ export function AppSidebar() {
                             ) : (
                                 <CollapsibleTrigger asChild>
                                     <SidebarMenuButton isActive={isActive} onClick={() => handleClick(item.url)} className="py-5 data-[active=true]:bg-theme1 data-[active=true]:text-white">
-                                        <item.icon className="size-5 shrink-0" />
+                                        <item.icon />
                                         <span className="text-base font-semibold">{item.title}</span>
                                         {item.children && (
                                             <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
@@ -81,8 +81,8 @@ export function AppSidebar() {
                                         {item.children.map((child, i) => {
                                             const isActive = pathname === child.url
                                             return (
-                                                <SidebarMenuSubItem key={child.title} onClick={() => handleClick(child.url)}>
-                                                    <SidebarMenuButton asChild isActive={isActive} className="data-[active=true]:bg- data-[active=true]:text-theme1">
+                                                <SidebarMenuSubItem key={child.title}>
+                                                    <SidebarMenuButton isActive={isActive} onClick={() => handleClick(child.url)} className="data-[active=true]:bg-transparent data-[active=true]:text-theme1">
                                                         <span>{child.title}</span>
                                                     </SidebarMenuButton>
                                                    {i === 1 && <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>}
