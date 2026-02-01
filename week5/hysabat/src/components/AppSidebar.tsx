@@ -78,14 +78,14 @@ export function AppSidebar() {
                             {item.children && (
                                 <CollapsibleContent>
                                     <SidebarMenuSub className="gap-0 m-0">
-                                        {item.children.map((child) => {
+                                        {item.children.map((child, i) => {
                                             const isActive = pathname === child.url
                                             return (
                                                 <SidebarMenuSubItem key={child.title} onClick={() => handleClick(child.url)}>
                                                     <SidebarMenuButton asChild isActive={isActive} className="data-[active=true]:bg- data-[active=true]:text-theme1">
                                                         <span>{child.title}</span>
                                                     </SidebarMenuButton>
-                                                    <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>
+                                                   {i === 1 && <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>}
                                                 </SidebarMenuSubItem>
                                             )
                                         })}
