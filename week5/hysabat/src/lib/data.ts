@@ -12,28 +12,34 @@ export const sidebarItems = [
     icon: CirclePercent,
     children: [
       { title: "Customers", url: "/customers" },
-      { title: "Orders", url: "#" },
-      { title: "Invoices", url: "#" },
+      { title: "Customers Clearance", url: "#" },
+      { title: "Sales Invoice", url: "#" },
+      { title: "Sales Quotation", url: "#" },
+      { title: "Performa Invoice", url: "#" },
+      { title: "Sales Commission", url: "#" },
     ],
   },
   {
     title: "Purchases",
     url: "#",
-    icon: ShoppingCart,
+    icon: Box,
     children: [
       { title: "Suppliers", url: "#" },
-      { title: "Bills", url: "#" },
-      { title: "Purchase Orders", url: "#" },
+      { title: "Purchase Invoice", url: "#" },
+      { title: "Request for Quotation", url: "#" },
+      { title: "Purchase Order", url: "#" },
     ],
   },
   {
     title: "Inventory",
     url: "#",
-    icon: Box,
+    icon: ShoppingCart,
     children: [
-      { title: "Products", url: "#" },
-      { title: "Stock Levels", url: "#" },
-      { title: "Warehouses", url: "#" },
+      { title: "Item Directory", url: "#" },
+      { title: "Reservation", url: "#" },
+      { title: "Transfer Request", url: "#" },
+      { title: "Transfer History", url: "#" },
+      { title: "Adjustment", url: "#" },
     ],
   },
   {
@@ -41,9 +47,8 @@ export const sidebarItems = [
     url: "#",
     icon: Truck,
     children: [
-      { title: "Shipments", url: "#" },
-      { title: "Routes", url: "#" },
-      { title: "Tracking", url: "#" },
+      { title: "Sales Delivery", url: "#" },
+      { title: "Drivers", url: "#" },
     ],
   },
   {
@@ -51,9 +56,8 @@ export const sidebarItems = [
     url: "#",
     icon: ShoppingBag,
     children: [
-      { title: "New Sale", url: "#" },
-      { title: "Sessions", url: "#" },
-      { title: "Receipts", url: "#" },
+      { title: "POS", url: "#" },
+      { title: "Counters", url: "#" },
     ],
   },
   {
@@ -61,9 +65,9 @@ export const sidebarItems = [
     url: "#",
     icon: Landmark,
     children: [
-      { title: "Cash Flow", url: "#" },
-      { title: "Expenses", url: "#" },
-      { title: "Taxes", url: "#" },
+      { title: "Expenditure", url: "#" },
+      { title: "Opening Balance", url: "#" },
+      { title: "Financial Year", url: "#" },
     ],
   },
   {
@@ -71,9 +75,8 @@ export const sidebarItems = [
     url: "#",
     icon: Coins,
     children: [
-      { title: "Chart of Accounts", url: "#" },
-      { title: "Ledger", url: "#" },
-      { title: "Balances", url: "#" },
+      { title: "Journal Entries", url: "#" },
+      { title: "Charts of Accounts", url: "#" },
     ],
   },
   {
@@ -81,29 +84,29 @@ export const sidebarItems = [
     url: "#",
     icon: Users,
     children: [
+      { title: "Dashboard", url: "#" },
       { title: "Employees", url: "#" },
       { title: "Attendance", url: "#" },
-      { title: "Payroll", url: "#" },
+      { title: "Requests", url: "#" },
+      { title: "Payrolls", url: "#" },
+      { title: "Org-Structure", url: "#" },
+      { title: "Reports", url: "#" },
     ],
   },
   {
     title: "Reports",
     url: "#",
     icon: NotepadText,
-    children: [
-      { title: "Sales Report", url: "#" },
-      { title: "Inventory Report", url: "#" },
-      { title: "Finance Report", url: "#" },
-    ],
   },
   {
     title: "Settings",
     url: "#",
     icon: Settings,
     children: [
-      { title: "Profile", url: "#" },
-      { title: "Users", url: "#" },
+      { title: "Users and Roles", url: "#" },
+      { title: "Payment Methods", url: "#" },
       { title: "Preferences", url: "#" },
+      { title: "Business Info", url: "#" },
     ],
   },
 ]
