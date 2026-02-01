@@ -4,7 +4,7 @@ import { Calendar } from "lucide-react"
 
 const Dashboard = () => {
   return (
-    <section className="space-y-4">
+    <div className="space-y-4">
       {/* Header */}
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-theme1">Dashboard</h1>
@@ -26,12 +26,12 @@ const Dashboard = () => {
         </div>
       </header>
 
-      <Separator className="" />
+      <Separator />
 
       {/* Content */}
       <div className="bg-card rounded-md p-4">Hi</div>
 
-    </section>
+    </div>
   )
 }
 
