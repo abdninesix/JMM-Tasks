@@ -35,9 +35,9 @@ const Customers = () => {
   return (
     <div className="bg-card border rounded-md p-4 space-y-4">
       {/* Header Section */}
-      <header className="space-y-4">
+      <header className="space-y-">
         <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Sales" }, { label: "Customers" }]} />
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col lg:flex-row justify-between gap-2">
           <h1 className="text-2xl font-semibold text-theme1">Customers</h1>
           <div className="flex items-center gap-4">
             <Button variant="outline"><CloudUpload />Bulk Import</Button>
@@ -50,24 +50,23 @@ const Customers = () => {
 
       <Separator />
 
-      {/* Toolbar */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-semibold">Total Customers</span>
-          <Badge variant="outline">{dummyCustomers.length}</Badge>
+      <div className="rounded-md border">
+        {/* Toolbar */}
+        <div className="flex flex-col lg:flex-row justify-between gap-2 p-4">
+          <div className="flex items-center gap-2">
+            <span className="text-lg font-semibold">Total Customers</span>
+            <Badge variant="outline">{dummyCustomers.length}</Badge>
+          </div>
+          <InputGroup className="max-w-3xs">
+            <InputGroupInput
+              placeholder="Search customers"
+              value={globalFilter ?? ""}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+            />
+            <InputGroupAddon><Search /></InputGroupAddon>
+          </InputGroup>
         </div>
-        <InputGroup className="max-w-sm">
-          <InputGroupInput
-            placeholder="Search customers"
-            value={globalFilter ?? ""}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-          />
-          <InputGroupAddon><Search /></InputGroupAddon>
-        </InputGroup>
-      </div>
-
-      {/* Table Section */}
-      <div className="rounded-md border overflow-x-auto">
+        {/* Table Section */}
         <Table>
           <TableHeader className="bg-muted">
             {table.getHeaderGroups().map((hg) => (

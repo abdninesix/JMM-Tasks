@@ -40,7 +40,7 @@ export const columns: ColumnDef<Customer>[] = [
         accessorKey: "id",
         header: "Customer ID",
         cell: ({ row }) => (
-            <Link to="#" className="text-theme1 hover:underline">{row.original.id}</Link>
+            <Link to={`/customers/${row.original.id}`} className="text-theme1 hover:underline">{row.original.id}</Link>
         ),
     },
     {
@@ -86,7 +86,7 @@ export const columns: ColumnDef<Customer>[] = [
         header: "Actions",
         cell: () => (
             <>
-                <Button variant="ghost" size="icon" ><Pen /></Button>
+                <Button variant="ghost" size="icon" className="text-blue-500" ><Pen /></Button>
                 <Button variant="ghost" size="icon" className="text-destructive"><Trash2 /></Button>
             </>
         ),
