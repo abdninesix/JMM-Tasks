@@ -9,11 +9,13 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown, PanelLeft, PanelRight, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Kbd } from "./ui/kbd";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import Logo from "./Logo";
+import { Button } from "./ui/button";
 
 export function AppSidebar() {
 
@@ -32,13 +34,10 @@ export function AppSidebar() {
         <Sidebar collapsible="icon" variant="floating">
 
             <SidebarHeader className="flex items-center p-4">
-                <SidebarMenuButton asChild className='py-5 hover:bg-transparent'>
-                    <Link to='/'>
-                        <img src='/logo.svg' alt='logo' />
-                        <span className='bg-clip-text text-transparent uppercase text-2xl font-bold bg-linear-to-r from-theme1 to-theme2'>Hysabat</span>
-                    </Link>
+                <SidebarMenuButton className="py-5 hover:bg-transparent">
+                      <Logo/>
                 </SidebarMenuButton>
-                {/* <Button variant="ghost" className="text-gray-500" onClick={toggleSidebar}>{state === "collapsed" ? <PanelRight className="size-6"/> : <PanelLeft className="size-6"/>}</Button> */}
+                <Button variant="ghost" className="text-gray-500" onClick={toggleSidebar}>{state === "collapsed" ? <PanelRight className="size-6" /> : <PanelLeft className="size-6" />}</Button>
                 <SidebarMenuButton className="py-5 border">
                     <Search className="size-6" />
                     <span className="text-muted-foreground">Quick actions</span>
@@ -85,7 +84,7 @@ export function AppSidebar() {
                                                     <SidebarMenuButton isActive={isActive} onClick={() => handleClick(child.url)} className="data-[active=true]:bg-transparent data-[active=true]:text-theme1">
                                                         <span>{child.title}</span>
                                                     </SidebarMenuButton>
-                                                   {i === 1 && <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>}
+                                                    {i === 1 && <SidebarMenuBadge className="border bg-accent">25</SidebarMenuBadge>}
                                                 </SidebarMenuSubItem>
                                             )
                                         })}

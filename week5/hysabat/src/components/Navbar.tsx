@@ -16,9 +16,9 @@ const Navbar = () => {
     const { theme, setTheme } = useTheme();
 
     return (
-        <nav className='bg-card text-muted-foreground border rounded-md flex items-center justify-between px-2 py-4 lg:px-4 lg:py-0'>
+        <nav className='bg-card text-muted-foreground border rounded-md flex items-center justify-between px-2 py-4 sm:px-4 lg:py-0'>
             <div className='flex items-center gap-2'>
-                <SidebarTrigger size="default" />
+                <SidebarTrigger />
 
                 <InputGroup>
                     <InputGroupInput type='text' placeholder='Search anything...' id='search' />
