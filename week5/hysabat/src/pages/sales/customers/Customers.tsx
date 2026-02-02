@@ -67,9 +67,9 @@ const Customers = () => {
       </div>
 
       {/* Table Section */}
-      <div className="p-4 rounded-md border">
+      <div className="rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-muted">
             {table.getHeaderGroups().map((hg) => (
               <TableRow key={hg.id}>
                 {hg.headers.map((header) => (
@@ -95,13 +95,13 @@ const Customers = () => {
       </div>
 
       {/* Pagination Section */}
-      <div className="flex items-center justify-between px-2">
+      <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="flex items-center space-x-2">
-          <span className="text-sm font-medium">
+        <div className="flex items-center gap-2">
+          <span className="text-sm">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </span>
           <Button
