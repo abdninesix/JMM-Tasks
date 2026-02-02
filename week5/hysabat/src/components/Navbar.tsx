@@ -66,14 +66,14 @@ const Navbar = () => {
                             <CircleQuestionMark className="size-4" />
                             <span>Help Center</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-destructive">
+                        <DropdownMenuItem onClick={() => navigate('/login')} className="text-destructive">
                             <LogOut className="size-4" />
                             <span>Logout</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-        </nav>
+        </nav >
     )
 }
 
