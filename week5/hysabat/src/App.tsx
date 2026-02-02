@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
-import Customers from "./pages/sales/Customers";
+import Customers from "./pages/sales/customers/Customers";
 import Dashboard from "./pages/home/Dashboard";
+
 
 export default function App() {
   return (

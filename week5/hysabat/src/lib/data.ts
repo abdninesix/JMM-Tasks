@@ -8,7 +8,7 @@ export const sidebarItems = [
   },
   {
     title: "Sales",
-    url: "/customers",
+    url: "#",
     icon: CirclePercent,
     children: [
       { title: "Customers", url: "/customers" },
