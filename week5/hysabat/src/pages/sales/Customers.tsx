@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { AppBreadcrumb } from "@/components/AppBreadcrumb"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
 import { Separator } from "@/components/ui/separator"
@@ -7,26 +7,15 @@ import { CloudUpload, Plus } from "lucide-react"
 const Customers = () => {
 
   return (
-    <div className="space-y-4">
+    <div className="bg-card border rounded-md p-4 space-y-4">
       {/* Header */}
       <header>
-        <div>
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Components</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
+        <AppBreadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Customers" },
+          ]}
+        />
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-theme1">Customers</h1>
           <div className="flex items-center gap-4">

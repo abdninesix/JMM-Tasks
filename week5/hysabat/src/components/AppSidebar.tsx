@@ -8,14 +8,13 @@ import {
     SidebarMenuSubItem,
     useSidebar,
 } from "@/components/ui/sidebar"
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import { ChevronDown, PanelLeft, PanelRight, Search } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom"
+import { ChevronDown, Search } from "lucide-react";
 import { sidebarItems } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Kbd } from "./ui/kbd";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import Logo from "./Logo";
-import { Button } from "./ui/button";
 
 export function AppSidebar() {
 
@@ -37,7 +36,6 @@ export function AppSidebar() {
                 <SidebarMenuButton className="py-5 hover:bg-transparent">
                       <Logo/>
                 </SidebarMenuButton>
-                <Button variant="ghost" className="text-gray-500" onClick={toggleSidebar}>{state === "collapsed" ? <PanelRight className="size-6" /> : <PanelLeft className="size-6" />}</Button>
                 <SidebarMenuButton className="py-5 border">
                     <Search className="size-6" />
                     <span className="text-muted-foreground">Quick actions</span>
