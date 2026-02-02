@@ -36,7 +36,7 @@ const Customers = () => {
     <div className="bg-card border rounded-md p-4 space-y-4">
       {/* Header Section */}
       <header className="space-y-4">
-        <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Customers" }]} />
+        <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Sales" }, { label: "Customers" }]} />
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-theme1">Customers</h1>
           <div className="flex items-center gap-4">
@@ -53,7 +53,7 @@ const Customers = () => {
       {/* Toolbar */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-lg font-semibold text-muted-foreground">Total Customers</span>
+          <span className="text-lg font-semibold">Total Customers</span>
           <Badge variant="outline">{dummyCustomers.length}</Badge>
         </div>
         <InputGroup className="max-w-sm">
@@ -67,7 +67,7 @@ const Customers = () => {
       </div>
 
       {/* Table Section */}
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-x-auto">
         <Table>
           <TableHeader className="bg-muted">
             {table.getHeaderGroups().map((hg) => (

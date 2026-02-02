@@ -67,7 +67,7 @@ export const columns: ColumnDef<Customer>[] = [
         accessorKey: "creditLimit",
         header: "Credit Limit",
         cell: ({ row }) => (
-            <span className="px-2 rounded-full bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100">{row.original.creditLimit.toLocaleString()}</span>
+            <span className="px-2 rounded-full bg-green-100 dark:bg-green-800">PKR. {row.original.creditLimit.toLocaleString()}</span>
         )
     },
     {

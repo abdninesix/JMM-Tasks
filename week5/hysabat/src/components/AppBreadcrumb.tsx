@@ -34,7 +34,7 @@ export function AppBreadcrumb({ items }: AppBreadcrumbProps) {
                     {item.label}
                   </Link>
                 ) : (
-                  <span className="hover:text-theme1">{item.label}</span>
+                  <span>{item.label}</span>
                 )}
               </BreadcrumbItem>
 
