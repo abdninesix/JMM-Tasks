@@ -1,11 +1,11 @@
 import type { ColumnDef } from "@tanstack/react-table"
-import { Pen, Trash2 } from "lucide-react"
+import { ArrowUpDown, Pen, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 
-export type Customer = {
+type Customer = {
     id: string
     fullName: string
     fullNameAr: string
@@ -33,19 +33,39 @@ export const columns: ColumnDef<Customer>[] = [
                 aria-label="Select row"
             />
         ),
-        enableSorting: true,
-        enableHiding: false,
     },
     {
         accessorKey: "id",
-        header: "Customer ID",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="has-[>svg]:px-0"
+                >
+                    Customer ID
+                    <ArrowUpDown className="size-3" />
+                </Button>
+            )
+        },
         cell: ({ row }) => (
             <Link to={`/customers/${row.original.id}`} className="text-theme1 hover:underline">{row.original.id}</Link>
         ),
     },
     {
         accessorKey: "fullName",
-        header: "Full Name",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="has-[>svg]:px-0"
+                >
+                    Full Name
+                    <ArrowUpDown className="size-3" />
+                </Button>
+            )
+        },
         cell: ({ row }) => (
             <div className="flex flex-col">
                 <span>{row.original.fullName}</span>
@@ -65,7 +85,18 @@ export const columns: ColumnDef<Customer>[] = [
     },
     {
         accessorKey: "creditLimit",
-        header: "Credit Limit",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="has-[>svg]:px-0"
+                >
+                    Credit Limit
+                    <ArrowUpDown className="size-3" />
+                </Button>
+            )
+        },
         cell: ({ row }) => (
             <span className="px-2 rounded-full bg-green-100 dark:bg-green-800">PKR. {row.original.creditLimit.toLocaleString()}</span>
         )
@@ -76,7 +107,18 @@ export const columns: ColumnDef<Customer>[] = [
     },
     {
         accessorKey: "invoiceCount",
-        header: "No. of Invoices",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="has-[>svg]:px-0"
+                >
+                    No. of Invoices
+                    <ArrowUpDown className="size-3" />
+                </Button>
+            )
+        },
         cell: ({ getValue }) => (
             <Badge variant="outline">{getValue<number>()}</Badge>
         ),

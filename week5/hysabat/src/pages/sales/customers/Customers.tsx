@@ -3,8 +3,11 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
   getPaginationRowModel,
   useReactTable,
+  type ColumnFiltersState,
+  type SortingState,
 } from "@tanstack/react-table"
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
 import { Button } from "@/components/ui/button"
@@ -19,6 +22,8 @@ import { columns, dummyCustomers } from "./columns"
 const Customers = () => {
   const [rowSelection, setRowSelection] = React.useState({})
   const [globalFilter, setGlobalFilter] = React.useState("")
+  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
 
   const table = useReactTable({
     data: dummyCustomers,
@@ -28,14 +33,17 @@ const Customers = () => {
     getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
-    state: { rowSelection, globalFilter },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    state: { rowSelection, globalFilter, sorting, columnFilters },
     initialState: { pagination: { pageSize: 10 } },
   })
 
   return (
     <div className="bg-card border rounded-md p-4 space-y-4">
       {/* Header Section */}
-      <header className="space-y-">
+      <header className="space-y-2">
         <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Sales" }, { label: "Customers" }]} />
         <div className="flex flex-col lg:flex-row justify-between gap-2">
           <h1 className="text-2xl font-semibold text-theme1">Customers</h1>
