@@ -4,6 +4,7 @@ import DashboardLayout from "./components/layouts/DashboardLayout";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
 import Customers from "./pages/sales/customers/Customers";
 import Dashboard from "./pages/home/Dashboard";
+import SalesInvoice from "./pages/sales/sales-invoice/SalesInvoice";
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="/customers" index element={<Customers />} />
+            <Route path="/sales-invoice" index element={<SalesInvoice />} />
           </Route>
 
         </Routes>

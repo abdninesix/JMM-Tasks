@@ -13,7 +13,7 @@ export const sidebarItems = [
     children: [
       { title: "Customers", url: "/customers" },
       { title: "Customers Clearance", url: "#" },
-      { title: "Sales Invoice", url: "#" },
+      { title: "Sales Invoice", url: "/sales-invoice" },
       { title: "Sales Quotation", url: "#" },
       { title: "Performa Invoice", url: "#" },
       { title: "Sales Commission", url: "#" },

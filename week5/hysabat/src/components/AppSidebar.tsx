@@ -45,7 +45,9 @@ export function AppSidebar() {
 
             <SidebarContent className={`px-4 scrollbar-none ${state === "collapsed" ? "flex items-center" : ""}`}>
                 {sidebarItems.map((item) => {
+
                     const isActive = pathname === item.url || item.children?.some((c) => pathname.startsWith(c.url))
+                    
                     return (
                         <Collapsible defaultOpen={isActive} className="group/collapsible" key={item.title} >
                             {state === "collapsed" ? (
