@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator"
 import { Calendar } from "lucide-react"
 
 const Dashboard = () => {
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -29,7 +30,6 @@ const Dashboard = () => {
       <Separator />
 
       {/* Content */}
-      <div className="bg-card rounded-md p-4">Hi</div>
 
     </div>
   )
