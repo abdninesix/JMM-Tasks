@@ -1,4 +1,8 @@
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Field, FieldContent, FieldLabel, FieldTitle } from "@/components/ui/field"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 
 const CreateSalesInvoice = () => {
@@ -20,6 +24,24 @@ const CreateSalesInvoice = () => {
 
       <Separator />
 
+      {/* Types */}
+      <div>
+        <Label className="py-4">Invoice Type</Label>
+        <RadioGroup defaultValue="plus" className="flex w-fit">
+          <FieldLabel htmlFor="plus-plan">
+            <Field orientation="horizontal">
+              <FieldTitle>Plus</FieldTitle>
+              <RadioGroupItem value="plus" id="plus-plan" />
+            </Field>
+          </FieldLabel>
+          <FieldLabel htmlFor="pro-plan">
+            <Field orientation="horizontal">
+              <FieldTitle>Pro</FieldTitle>
+              <RadioGroupItem value="pro" id="pro-plan" />
+            </Field>
+          </FieldLabel>
+        </RadioGroup>
+      </div>
 
     </div>
   )
