@@ -17,7 +17,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Badge } from "@/components/ui/badge"
 import { CloudUpload, Plus, Search } from "lucide-react"
-import { columns, dummyCustomers } from "./columns"
+import { columns } from "./columns"
+import { dummyCustomers } from "@/lib/data"
 
 const Customers = () => {
   const [rowSelection, setRowSelection] = React.useState({})
@@ -50,7 +51,7 @@ const Customers = () => {
           <div className="flex items-center gap-4">
             <Button variant="outline"><CloudUpload />Bulk Import</Button>
             <Button className='text-white bg-theme1 hover:bg-theme1/90'>
-              <Plus />Add Customer <Kbd className="bg-transparent text-white border">Ctrl+Shift+C</Kbd>
+              <Plus />Add Customer <Kbd className="bg-transparent text-white border border-white">Ctrl+Shift+C</Kbd>
             </Button>
           </div>
         </div>

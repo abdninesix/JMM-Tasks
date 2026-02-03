@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
-type Customer = {
+export type Customer = {
     id: string
     fullName: string
     fullNameAr: string
@@ -165,14 +165,3 @@ export const columns: ColumnDef<Customer>[] = [
         },
     },
 ]
-
-export const dummyCustomers: Customer[] = Array.from({ length: 25 }, (_, i) => ({
-    id: `CUS-00${i + 1}`,
-    fullName: ["John Doe", "Sarah Smith", "TechCorp", "Jane Roe"][i % 4],
-    fullNameAr: ["جون دو", "سارة سميث", "تيك كوورب", "جين رو"][i % 4],
-    phone: `+44-555-010${i + 1000}`,
-    contact: `contact${i}@example.com`,
-    creditLimit: 5000 + (i * 100),
-    vatNumber: `VAT${10000 + i}`,
-    invoiceCount: i + 2,
-}));

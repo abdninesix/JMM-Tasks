@@ -17,7 +17,7 @@ const SalesInvoice = () => {
         <div className="flex justify-between gap-2">
           <h1 className="text-2xl font-semibold text-theme1">Sales Invoice</h1>
           <Button onClick={() => navigate("/sales-invoice/create")} className='text-white bg-theme1 hover:bg-theme1/90'>
-            <Plus />Create Invoice <Kbd className="bg-transparent text-white border">Ctrl+Alt+I</Kbd>
+            <Plus />Create Invoice <Kbd className="bg-transparent text-white border border-white">Ctrl+Alt+I</Kbd>
           </Button>
         </div>
       </header>

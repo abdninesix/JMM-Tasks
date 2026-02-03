@@ -12,7 +12,7 @@ const schema = z.object({
     password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
-interface LoginError {
+export type LoginError = {
     username?: string;
     password?: string;
 }
@@ -42,7 +42,7 @@ const Login = () => {
             {/* Left section */}
             <section className='h-full w-full lg:w-1/2 flex flex-col p-4 justify-between'>
 
-                <Logo/>
+                <Logo />
 
                 <form onSubmit={handleSubmit} className='flex items-center justify-center'>
                     <div className='w-full md:max-w-md flex flex-col gap-4'>
