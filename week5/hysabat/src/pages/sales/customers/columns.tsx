@@ -99,7 +99,7 @@ export const columns: ColumnDef<Customer>[] = [
             )
         },
         cell: ({ row }) => (
-            <span className="px-2 rounded-full bg-green-100 dark:bg-green-800">PKR. {row.original.creditLimit.toLocaleString()}</span>
+            <span className="px-2 rounded-full bg-green-100 dark:bg-green-800">&#65020; {row.original.creditLimit.toLocaleString()}</span>
         )
     },
     {
