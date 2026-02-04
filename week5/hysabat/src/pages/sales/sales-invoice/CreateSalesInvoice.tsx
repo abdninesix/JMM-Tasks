@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 
 const CreateSalesInvoice = () => {
 
+  const [invoiceType, setInvoiceType] = useState<string>("tax")
   const [issueDate, setIssueDate] = useState<Date>()
   const [supplyDate, setSupplyDate] = useState<Date>()
 
@@ -27,7 +28,6 @@ const CreateSalesInvoice = () => {
       <header className="space-y-2">
         <AppBreadcrumb
           items={[
-            { label: "Home", href: "/" },
             { label: "Sales" },
             { label: "Sales Invoice", href: "/sales-invoice" },
             { label: "Create Sales Invoice" },
@@ -39,10 +39,10 @@ const CreateSalesInvoice = () => {
       <Separator />
 
       {/* Inputs */}
-      <>
+      <form className="space-y-4">
         <>
           <Label>Invoice Type</Label>
-          <RadioGroup defaultValue="tax" className="flex max-w-2xs">
+          <RadioGroup defaultValue="tax" className="flex max-w-2xs" onValueChange={(value) => setInvoiceType(value)}>
             <FieldLabel htmlFor="tax">
               <Field orientation="horizontal">
                 <FieldTitle>Tax</FieldTitle>
@@ -78,8 +78,8 @@ const CreateSalesInvoice = () => {
               <ComboboxContent>
                 <ComboboxEmpty>No customers found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
-                  {(item) => (
-                    <ComboboxItem key={item} value={item}>
+                  {(item, index) => (
+                    <ComboboxItem key={`${item}-${index}`} value={item}>
                       {item}
                     </ComboboxItem>
                   )}
@@ -88,19 +88,19 @@ const CreateSalesInvoice = () => {
             </Combobox>
           </Field>
 
-          <Field className="w-fit">
+          {invoiceType === "tax" && <Field className="w-fit">
             <Label>Select Project (Optional)</Label>
             <Combobox>
               <ComboboxInput className="p-2" placeholder="Type and search..." />
               <ComboboxContent>
                 <ComboboxEmpty>No Pojects found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
-                  <ComboboxItem value="">Project 1</ComboboxItem>
-                  <ComboboxItem value="">Project 2</ComboboxItem>
+                  <ComboboxItem value="Project 1">Project 1</ComboboxItem>
+                  <ComboboxItem value="Project 2">Project 2</ComboboxItem>
                 </ComboboxList>
               </ComboboxContent>
             </Combobox>
-          </Field>
+          </Field>}
 
           <Field className="w-fit">
             <Label>Salesman</Label>
@@ -109,8 +109,8 @@ const CreateSalesInvoice = () => {
               <ComboboxContent>
                 <ComboboxEmpty>No Salesman found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
-                  <ComboboxItem value="">Salesman 1</ComboboxItem>
-                  <ComboboxItem value="">Salesman 2</ComboboxItem>
+                  <ComboboxItem value="Salesman 1">Salesman 1</ComboboxItem>
+                  <ComboboxItem value="Salesman 2">Salesman 2</ComboboxItem>
                 </ComboboxList>
               </ComboboxContent>
             </Combobox>
@@ -134,8 +134,10 @@ const CreateSalesInvoice = () => {
               <ComboboxContent anchor={anchor}>
                 <ComboboxEmpty>No person found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
-                  <ComboboxItem value="Person1">Person 1</ComboboxItem>
-                  <ComboboxItem value="Person2">Person 2</ComboboxItem>
+                  <ComboboxItem value="Person 1">Person 1</ComboboxItem>
+                  <ComboboxItem value="Person 2">Person 2</ComboboxItem>
+                  <ComboboxItem value="Person 3">Person 3</ComboboxItem>
+                  <ComboboxItem value="Person 4">Person 4</ComboboxItem>
                 </ComboboxList>
               </ComboboxContent>
             </Combobox>
@@ -189,12 +191,19 @@ const CreateSalesInvoice = () => {
             </Popover>
           </Field>
 
-          <Field className="w-fit">
+          {invoiceType === "tax" && <Field className="w-fit">
             <Label>VAT No.</Label>
-            <Input placeholder="Enter VAT No." className="" />
-          </Field>
+            <Input type="number" placeholder="Enter VAT No." />
+          </Field>}
         </div>
-      </>
+
+        <div className="p-4 border rounded-md">
+          <div className="flex items-center justify-between space-y-4">
+            <h2 className="text-theme1">Products (0)</h2>
+            <Button type="button" variant="outline" size="sm">Clear all products</Button>
+          </div>
+        </div>
+      </form>
 
     </div>
   )

@@ -45,7 +45,7 @@ const Customers = () => {
     <div className="bg-card border rounded-md p-4 space-y-4">
       {/* Header Section */}
       <header className="space-y-2">
-        <AppBreadcrumb items={[{ label: "Home", href: "/" }, { label: "Sales" }, { label: "Customers" }]} />
+        <AppBreadcrumb items={[{ label: "Sales" }, { label: "Customers" }]} />
         <div className="flex justify-between gap-2">
           <h1 className="text-2xl font-semibold text-theme1">Customers</h1>
           <div className="flex items-center gap-4">

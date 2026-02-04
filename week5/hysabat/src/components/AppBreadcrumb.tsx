@@ -5,6 +5,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { Home } from "lucide-react"
 import { Fragment } from "react"
 import { Link } from "react-router-dom"
 
@@ -21,6 +22,8 @@ export function AppBreadcrumb({ items }: AppBreadcrumbProps) {
   return (
     <Breadcrumb>
       <BreadcrumbList>
+        <Link to="/" className="hover:text-theme1"><Home size={20} /></Link>
+        <BreadcrumbSeparator />
         {items.map((item, index) => {
           const isLast = index === items.length - 1
 
