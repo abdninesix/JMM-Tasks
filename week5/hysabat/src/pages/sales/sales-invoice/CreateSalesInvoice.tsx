@@ -74,7 +74,7 @@ const CreateSalesInvoice = () => {
           <Field className="w-fit">
             <Label>Customer Name</Label>
             <Combobox items={dummyCustomers.map((customer) => customer.fullName)}>
-              <ComboboxInput className="p-2" placeholder="Type and search..." />
+              <ComboboxInput placeholder="Type and search..." />
               <ComboboxContent>
                 <ComboboxEmpty>No customers found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
@@ -91,7 +91,7 @@ const CreateSalesInvoice = () => {
           {invoiceType === "tax" && <Field className="w-fit">
             <Label>Select Project (Optional)</Label>
             <Combobox>
-              <ComboboxInput className="p-2" placeholder="Type and search..." />
+              <ComboboxInput placeholder="Type and search..." />
               <ComboboxContent>
                 <ComboboxEmpty>No Pojects found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
@@ -105,7 +105,7 @@ const CreateSalesInvoice = () => {
           <Field className="w-fit">
             <Label>Salesman</Label>
             <Combobox>
-              <ComboboxInput className="p-2" placeholder="Type and search..." />
+              <ComboboxInput placeholder="Type and search..." />
               <ComboboxContent>
                 <ComboboxEmpty>No Salesman found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
