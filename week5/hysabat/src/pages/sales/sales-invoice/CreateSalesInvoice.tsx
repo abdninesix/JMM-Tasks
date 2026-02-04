@@ -6,8 +6,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
+import { useState } from "react"
 
 const CreateSalesInvoice = () => {
+
+  const [date, setDate] = useState<Date>()
 
   const anchor = useComboboxAnchor()
 
@@ -133,18 +136,26 @@ const CreateSalesInvoice = () => {
 
           <Field className="w-fit">
             <Label>Issue Date</Label>
-            <Select >
-              <SelectTrigger>
-                <SelectValue placeholder="Select " />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectContent>
-            </Select>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  data-empty={!date}
+                  className="data-[empty=true]:text-muted-foreground w-[212px] justify-between text-left font-normal"
+                >
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                  <ChevronDownIcon />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  defaultMonth={date}
+                />
+              </PopoverContent>
+            </Popover>
           </Field>
 
           <Field className="w-fit">
