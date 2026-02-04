@@ -1,16 +1,22 @@
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import { Combobox, ComboboxChip, ComboboxChips, ComboboxChipsInput, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, ComboboxValue, useComboboxAnchor } from "@/components/ui/combobox"
 import { Field, FieldLabel, FieldTitle } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
+import { CalendarIcon } from "lucide-react"
+import { format } from "date-fns"
 import { useState } from "react"
 
 const CreateSalesInvoice = () => {
 
-  const [date, setDate] = useState<Date>()
+  const [issueDate, setIssueDate] = useState<Date>()
+  const [supplyDate, setSupplyDate] = useState<Date>()
 
   const anchor = useComboboxAnchor()
 
@@ -140,19 +146,19 @@ const CreateSalesInvoice = () => {
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  data-empty={!date}
-                  className="data-[empty=true]:text-muted-foreground w-[212px] justify-between text-left font-normal"
+                  data-empty={!issueDate}
+                  className="data-[empty=true]:text-muted-foreground justify-between text-left font-normal"
                 >
-                  {date ? format(date, "PPP") : <span>Pick a date</span>}
-                  <ChevronDownIcon />
+                  {issueDate ? format(issueDate, "PPP") : <span>Pick a date</span>}
+                  <CalendarIcon />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent align="start">
                 <Calendar
                   mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  defaultMonth={date}
+                  selected={issueDate}
+                  onSelect={setIssueDate}
+                  defaultMonth={issueDate}
                 />
               </PopoverContent>
             </Popover>
@@ -160,18 +166,26 @@ const CreateSalesInvoice = () => {
 
           <Field className="w-fit">
             <Label>Supply Date</Label>
-            <Select >
-              <SelectTrigger>
-                <SelectValue placeholder="Select " />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectContent>
-            </Select>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  data-empty={!supplyDate}
+                  className="data-[empty=true]:text-muted-foreground justify-between text-left font-normal"
+                >
+                  {supplyDate ? format(supplyDate, "PPP") : <span>Pick a date</span>}
+                  <CalendarIcon />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="start">
+                <Calendar
+                  mode="single"
+                  selected={supplyDate}
+                  onSelect={setSupplyDate}
+                  defaultMonth={supplyDate}
+                />
+              </PopoverContent>
+            </Popover>
           </Field>
         </div>
       </>
