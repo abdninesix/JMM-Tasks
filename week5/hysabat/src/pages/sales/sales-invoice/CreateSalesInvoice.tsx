@@ -12,6 +12,7 @@ import { dummyCustomers } from "@/lib/data"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
+import { Input } from "@/components/ui/input"
 
 const CreateSalesInvoice = () => {
 
@@ -125,13 +126,13 @@ const CreateSalesInvoice = () => {
                       {values.map((value: string) => (
                         <ComboboxChip key={value}>{value}</ComboboxChip>
                       ))}
-                      <ComboboxChipsInput />
+                      <ComboboxChipsInput placeholder="Select people" />
                     </>
                   )}
                 </ComboboxValue>
               </ComboboxChips>
               <ComboboxContent anchor={anchor}>
-                <ComboboxEmpty>No Salesman found.</ComboboxEmpty>
+                <ComboboxEmpty>No person found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
                   <ComboboxItem value="Person1">Person 1</ComboboxItem>
                   <ComboboxItem value="Person2">Person 2</ComboboxItem>
@@ -186,6 +187,11 @@ const CreateSalesInvoice = () => {
                 />
               </PopoverContent>
             </Popover>
+          </Field>
+
+          <Field className="w-fit">
+            <Label>VAT No.</Label>
+            <Input placeholder="Enter VAT No." className="" />
           </Field>
         </div>
       </>
