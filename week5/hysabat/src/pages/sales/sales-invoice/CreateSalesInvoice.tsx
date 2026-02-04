@@ -1,11 +1,15 @@
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
+import { Combobox, ComboboxChip, ComboboxChips, ComboboxChipsInput, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, ComboboxValue, useComboboxAnchor } from "@/components/ui/combobox"
 import { Field, FieldLabel, FieldTitle } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { dummyCustomers } from "@/lib/data"
 
 const CreateSalesInvoice = () => {
+
+  const anchor = useComboboxAnchor()
 
   return (
     <div className="bg-card border rounded-md p-4 space-y-4">
@@ -51,20 +55,87 @@ const CreateSalesInvoice = () => {
                 <SelectValue placeholder="Select transaction type" />
               </SelectTrigger>
               <SelectContent position="popper">
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                <SelectItem value="apple">Type A</SelectItem>
+                <SelectItem value="banana">Type B</SelectItem>
               </SelectContent>
             </Select>
           </Field>
 
           <Field className="w-fit">
-            <Label>Transaction Type</Label>
+            <Label>Customer Name</Label>
+            <Combobox items={dummyCustomers.map((customer) => customer.fullName)}>
+              <ComboboxInput className="p-2" placeholder="Type and search..." />
+              <ComboboxContent>
+                <ComboboxEmpty>No customers found.</ComboboxEmpty>
+                <ComboboxList className="scrollbar-none">
+                  {(item) => (
+                    <ComboboxItem key={item} value={item}>
+                      {item}
+                    </ComboboxItem>
+                  )}
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </Field>
+
+          <Field className="w-fit">
+            <Label>Select Project (Optional)</Label>
+            <Combobox>
+              <ComboboxInput className="p-2" placeholder="Type and search..." />
+              <ComboboxContent>
+                <ComboboxEmpty>No Pojects found.</ComboboxEmpty>
+                <ComboboxList className="scrollbar-none">
+                  <ComboboxItem value="">Project 1</ComboboxItem>
+                  <ComboboxItem value="">Project 2</ComboboxItem>
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </Field>
+
+          <Field className="w-fit">
+            <Label>Salesman</Label>
+            <Combobox>
+              <ComboboxInput className="p-2" placeholder="Type and search..." />
+              <ComboboxContent>
+                <ComboboxEmpty>No Salesman found.</ComboboxEmpty>
+                <ComboboxList className="scrollbar-none">
+                  <ComboboxItem value="">Salesman 1</ComboboxItem>
+                  <ComboboxItem value="">Salesman 2</ComboboxItem>
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </Field>
+
+          <Field className="w-fit">
+            <Label>Responsible Person</Label>
+            <Combobox multiple autoHighlight>
+              <ComboboxChips ref={anchor}>
+                <ComboboxValue>
+                  {(values) => (
+                    <>
+                      {values.map((value: string) => (
+                        <ComboboxChip key={value}>{value}</ComboboxChip>
+                      ))}
+                      <ComboboxChipsInput />
+                    </>
+                  )}
+                </ComboboxValue>
+              </ComboboxChips>
+              <ComboboxContent anchor={anchor}>
+                <ComboboxEmpty>No Salesman found.</ComboboxEmpty>
+                <ComboboxList className="scrollbar-none">
+                  <ComboboxItem value="Person1">Person 1</ComboboxItem>
+                  <ComboboxItem value="Person2">Person 2</ComboboxItem>
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </Field>
+
+          <Field className="w-fit">
+            <Label>Issue Date</Label>
             <Select >
               <SelectTrigger>
-                <SelectValue placeholder="Select transaction type" />
+                <SelectValue placeholder="Select " />
               </SelectTrigger>
               <SelectContent position="popper">
                 <SelectItem value="apple">Apple</SelectItem>
@@ -77,58 +148,10 @@ const CreateSalesInvoice = () => {
           </Field>
 
           <Field className="w-fit">
-            <Label>Transaction Type</Label>
+            <Label>Supply Date</Label>
             <Select >
               <SelectTrigger>
-                <SelectValue placeholder="Select transaction type" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectContent>
-            </Select>
-          </Field>
-
-          <Field className="w-fit">
-            <Label>Transaction Type</Label>
-            <Select >
-              <SelectTrigger>
-                <SelectValue placeholder="Select transaction type" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectContent>
-            </Select>
-          </Field>
-
-          <Field className="w-fit">
-            <Label>Transaction Type</Label>
-            <Select >
-              <SelectTrigger>
-                <SelectValue placeholder="Select transaction type" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectContent>
-            </Select>
-          </Field>
-
-          <Field className="w-fit">
-            <Label>Transaction Type</Label>
-            <Select >
-              <SelectTrigger>
-                <SelectValue placeholder="Select transaction type" />
+                <SelectValue placeholder="Select " />
               </SelectTrigger>
               <SelectContent position="popper">
                 <SelectItem value="apple">Apple</SelectItem>
@@ -141,7 +164,6 @@ const CreateSalesInvoice = () => {
           </Field>
         </div>
       </>
-
 
     </div>
   )
