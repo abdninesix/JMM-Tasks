@@ -40,23 +40,22 @@ const CreateSalesInvoice = () => {
 
       {/* Inputs */}
       <form className="space-y-4">
-        <>
-          <Label>Invoice Type</Label>
-          <RadioGroup defaultValue="tax" className="flex max-w-2xs" onValueChange={(value) => setInvoiceType(value)}>
-            <FieldLabel htmlFor="tax">
-              <Field orientation="horizontal">
-                <FieldTitle>Tax</FieldTitle>
-                <RadioGroupItem value="tax" id="tax" className=" text-white" />
-              </Field>
-            </FieldLabel>
-            <FieldLabel htmlFor="simplified-tax">
-              <Field orientation="horizontal">
-                <FieldTitle>Simplified Tax</FieldTitle>
-                <RadioGroupItem value="simplified-tax" id="simplified-tax" className=" text-white" />
-              </Field>
-            </FieldLabel>
-          </RadioGroup>
-        </>
+
+        <Label>Invoice Type</Label>
+        <RadioGroup defaultValue="tax" className="flex max-w-2xs" onValueChange={(value) => setInvoiceType(value)}>
+          <FieldLabel htmlFor="tax">
+            <Field orientation="horizontal">
+              <FieldTitle>Tax</FieldTitle>
+              <RadioGroupItem value="tax" id="tax" className=" text-white" />
+            </Field>
+          </FieldLabel>
+          <FieldLabel htmlFor="simplified-tax">
+            <Field orientation="horizontal">
+              <FieldTitle>Simplified Tax</FieldTitle>
+              <RadioGroupItem value="simplified-tax" id="simplified-tax" className=" text-white" />
+            </Field>
+          </FieldLabel>
+        </RadioGroup>
         <div className="flex flex-wrap gap-4 mt-6">
           <Field className="w-fit">
             <Label>Transaction Type</Label>
@@ -197,12 +196,14 @@ const CreateSalesInvoice = () => {
           </Field>}
         </div>
 
+        {/* Products */}
         <div className="p-4 border rounded-md">
           <div className="flex items-center justify-between space-y-4">
             <h2 className="text-theme1">Products (0)</h2>
             <Button type="button" variant="outline" size="sm">Clear all products</Button>
           </div>
         </div>
+
       </form>
 
     </div>
