@@ -9,10 +9,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
-import { CalendarIcon } from "lucide-react"
+import { Box, CalendarIcon, Search } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 
 const CreateSalesInvoice = () => {
 
@@ -197,10 +198,19 @@ const CreateSalesInvoice = () => {
         </div>
 
         {/* Products */}
-        <div className="p-4 border rounded-md">
+        <div className="p-4 border rounded-md space-y-4">
           <div className="flex items-center justify-between space-y-4">
             <h2 className="text-theme1">Products (0)</h2>
             <Button type="button" variant="outline" size="sm">Clear all products</Button>
+          </div>
+          <InputGroup>
+            <InputGroupAddon><Search /></InputGroupAddon>
+            <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
+          </InputGroup>
+          <div className="text-muted-foreground flex flex-col items-center justify-center gap-4">
+            <Box className="size-15" />
+            <h2 className="text-theme1">No products added</h2>
+            <p>Search and add products using the search box above</p>
           </div>
         </div>
 
