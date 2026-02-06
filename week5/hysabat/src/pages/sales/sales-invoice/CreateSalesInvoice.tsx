@@ -211,7 +211,7 @@ const CreateSalesInvoice = () => {
                 <div className="size-20 rounded-md bg-slate-200" />
                 <div className="w-full space-y-2">
                   <div className="flex justify-between">
-                    <h3>HP Elite 840 G9</h3>
+                    <h3 className="text-xl">HP Elite 840 G9</h3>
                     <div className="flex gap-4">
                       <Button variant="outline"><History />View Price History</Button>
                       <Button className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
@@ -221,7 +221,32 @@ const CreateSalesInvoice = () => {
                     <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">product</p>
                     <p className="border bg-muted rounded px-1">electronics</p>
                   </div>
-                  <div></div>
+                  <div className="grid grid-cols-3">
+                    <div className="grid grid-cols-2">
+                      <span>Sell Price:</span>
+                      <span className="text-green-500">4250 &#65020;</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Cost Price:</span>
+                      <span></span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Sell Price:</span>
+                      <span className="text-green-500">4250 &#65020;</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Sell Price:</span>
+                      <span className="text-green-500">4250 &#65020;</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Sell Price:</span>
+                      <span className="text-green-500">4250 &#65020;</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Sell Price:</span>
+                      <span className="text-green-500">4250 &#65020;</span>
+                    </div>
+                  </div>
                   <Separator/>
                   <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
                 </div>
