@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
-import { Box, CalendarIcon, History, Plus, Search, Trash2 } from "lucide-react"
+import { Box, CalendarIcon, History, Plus, Search, Settings, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
@@ -39,9 +39,9 @@ const CreateSalesInvoice = () => {
 
       <Separator />
 
-      {/* Inputs */}
       <form className="space-y-4" onSubmit={(e: React.SubmitEvent) => e.preventDefault()}>
 
+        {/* Inputs */}
         <Label>Invoice Type</Label>
         <RadioGroup defaultValue="tax" className="flex max-w-2xs" onValueChange={(value) => setInvoiceType(value)}>
           <FieldLabel htmlFor="tax">
@@ -206,7 +206,7 @@ const CreateSalesInvoice = () => {
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
-            <div className="w-full space-y-4 bg-card absolute top-14">
+            <div className="hidden w-full space-y-4 bg-card absolute top-14">
               <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
                 <div className="size-20 rounded-md bg-slate-200" />
                 <div className="w-full space-y-2">
@@ -224,30 +224,30 @@ const CreateSalesInvoice = () => {
                   <div className="grid grid-cols-3">
                     <div className="grid grid-cols-2">
                       <span>Sell Price:</span>
-                      <span className="text-green-500">4250 &#65020;</span>
+                      <span className="text-green-500">4250.00 &#65020;</span>
                     </div>
                     <div className="grid grid-cols-2">
-                      <span>Cost Price:</span>
-                      <span></span>
+                      <span>VAT Rate</span>
+                      <span>15%</span>
                     </div>
                     <div className="grid grid-cols-2">
-                      <span>Sell Price:</span>
-                      <span className="text-green-500">4250 &#65020;</span>
+                      <span>Stock</span>
+                      <span className="text-green-500">15</span>
                     </div>
                     <div className="grid grid-cols-2">
-                      <span>Sell Price:</span>
-                      <span className="text-green-500">4250 &#65020;</span>
+                      <span>Cost Price</span>
+                      <span>3400.00 &#65020;</span>
                     </div>
                     <div className="grid grid-cols-2">
-                      <span>Sell Price:</span>
-                      <span className="text-green-500">4250 &#65020;</span>
+                      <span>Barcode</span>
+                      <span>123456789</span>
                     </div>
                     <div className="grid grid-cols-2">
-                      <span>Sell Price:</span>
-                      <span className="text-green-500">4250 &#65020;</span>
+                      <span>Unit</span>
+                      <span>psc &#65020;</span>
                     </div>
                   </div>
-                  <Separator/>
+                  <Separator />
                   <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
                 </div>
               </div>
@@ -283,6 +283,106 @@ const CreateSalesInvoice = () => {
               <span>138.00</span>
               <span><Trash2 className="size-4" /></span>
             </div>
+          </div>
+        </div>
+
+        {/* Services */}
+        <div className="p-4 border rounded-md space-y-4">
+          <div className="flex justify-between space-y-4">
+            <h2 className="text-theme1">Services (0)</h2>
+            <Button variant="outline" size="sm">Clear all services</Button>
+          </div>
+          <InputGroup className="relative">
+            <InputGroupAddon><Search /></InputGroupAddon>
+            <InputGroupInput placeholder="Search services (e.g cement, steel, concrete etc)" />
+            <div className="hidden w-full space-y-4 bg-card absolute top-14">
+              <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
+                <div className="size-20 rounded-md bg-slate-200" />
+                <div className="w-full space-y-2">
+                  <div className="flex justify-between">
+                    <h3 className="text-xl">Consultation Service</h3>
+                    <div className="flex gap-4">
+                      <Button variant="outline"><History />View Price History</Button>
+                      <Button className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 text-sm">
+                    <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">service</p>
+                    <p className="border bg-muted rounded px-1">electronics</p>
+                  </div>
+                  <div className="grid grid-cols-3">
+                    <div className="grid grid-cols-2">
+                      <span>Sell Price:</span>
+                      <span className="text-green-500">4250.00 &#65020;</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>VAT Rate</span>
+                      <span>15%</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Stock</span>
+                      <span className="text-green-500">15</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Cost Price</span>
+                      <span>3400.00 &#65020;</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Barcode</span>
+                      <span>123456789</span>
+                    </div>
+                    <div className="grid grid-cols-2">
+                      <span>Unit</span>
+                      <span>psc &#65020;</span>
+                    </div>
+                  </div>
+                  <Separator />
+                  <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
+                </div>
+              </div>
+            </div>
+          </InputGroup>
+          <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
+            <Settings className="size-15" />
+            <h2 className="text-theme1">No services added</h2>
+            <p>Search and add services using the search box above</p>
+          </div>
+          <div className="hidden">
+            <div className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
+              <span>Service name</span>
+              <span>Unit</span>
+              <span>Unit Price</span>
+              <span>Quantity</span>
+              <span>Discount</span>
+              <span>Line Total</span>
+              <span>VAT Category</span>
+              <span>VAT Amount</span>
+              <span>Total</span>
+              <span>Actions</span>
+            </div>
+            <div className="p-2 grid grid-cols-10 gap-2 text-sm wrap-anywhere">
+              <span>Delivery Service</span>
+              <span>Ton</span>
+              <span>120.00</span>
+              <span>1</span>
+              <span>0%</span>
+              <span>130.00</span>
+              <span>Standard 15%</span>
+              <span>18.00</span>
+              <span>138.00</span>
+              <span><Trash2 className="size-4" /></span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-4">
+          {/* Additional Info */}
+          <div className="w-1/3 h-fit p-4 bg-card border rounded-md">Additional info</div>
+          <div className="w-full space-y-4">
+            {/* Summary */}
+            <div className="p-4 bg-card border rounded-md">Summmary</div>
+            {/* Payment Type */}
+            <div className="p-4 bg-card border rounded-md">Payment Type</div>
           </div>
         </div>
 
