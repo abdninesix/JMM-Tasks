@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
-import { Box, CalendarIcon, Search, Trash2 } from "lucide-react"
+import { Box, CalendarIcon, History, Plus, Search, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
@@ -40,7 +40,7 @@ const CreateSalesInvoice = () => {
       <Separator />
 
       {/* Inputs */}
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={(e: React.SubmitEvent) => e.preventDefault()}>
 
         <Label>Invoice Type</Label>
         <RadioGroup defaultValue="tax" className="flex max-w-2xs" onValueChange={(value) => setInvoiceType(value)}>
@@ -206,8 +206,26 @@ const CreateSalesInvoice = () => {
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
-            <div className="p-4 bg-card border flex gap-4 rounded-md absolute -bottom-8">
-              <div className="size-20 rounded-md bg-muted" >Image</div>
+            <div className="space-y-4 absolute top-14">
+              <div className="p-4 bg-card group border flex gap-4 rounded-md">
+                <div className="size-20 rounded-md bg-muted" />
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3>HP Elite 840 G9</h3>
+                    <div className="flex gap-4">
+                      <Button variant="outline"><History />View Price History</Button>
+                      <Button className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 text-sm">
+                    <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">product</p>
+                    <p className="border bg-muted rounded px-1">electronics</p>
+                  </div>
+                  <div></div>
+                  <Separator/>
+                  <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
+                </div>
+              </div>
             </div>
           </InputGroup>
           <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
@@ -215,7 +233,7 @@ const CreateSalesInvoice = () => {
             <h2 className="text-theme1">No products added</h2>
             <p>Search and add products using the search box above</p>
           </div>
-          <div>
+          <div className="">
             <div className="p-2 bg-theme1 grid grid-cols-10">
               <span>Product name</span>
               <span>Unit</span>
