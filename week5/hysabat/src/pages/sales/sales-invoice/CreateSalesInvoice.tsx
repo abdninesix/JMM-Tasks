@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
-import { Box, CalendarIcon, Search } from "lucide-react"
+import { Box, CalendarIcon, Search, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
@@ -203,14 +203,43 @@ const CreateSalesInvoice = () => {
             <h2 className="text-theme1">Products (0)</h2>
             <Button type="button" variant="outline" size="sm">Clear all products</Button>
           </div>
-          <InputGroup>
+          <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
+            <div className="p-4 bg-card border flex gap-4 rounded-md absolute -bottom-8">
+              <div className="size-20 rounded-md bg-muted" >Image</div>
+            </div>
           </InputGroup>
-          <div className="text-muted-foreground flex flex-col items-center justify-center gap-4">
+          <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
             <Box className="size-15" />
             <h2 className="text-theme1">No products added</h2>
             <p>Search and add products using the search box above</p>
+          </div>
+          <div>
+            <div className="p-2 bg-theme1 grid grid-cols-10">
+              <span>Product name</span>
+              <span>Unit</span>
+              <span>Unit Price</span>
+              <span>Quantity</span>
+              <span>Discount</span>
+              <span>Line Total</span>
+              <span>VAT Category</span>
+              <span>VAT Amount</span>
+              <span>Total</span>
+              <span>Actions</span>
+            </div>
+            <div className="p-2 grid grid-cols-10 text-sm">
+              <span>Steel Rebar 12mm</span>
+              <span>Ton</span>
+              <span>120.00</span>
+              <span>1</span>
+              <span>0%</span>
+              <span>130.00</span>
+              <span>Standard 15%</span>
+              <span>18.00</span>
+              <span>138.00</span>
+              <span><Trash2 className="size-4" /></span>
+            </div>
           </div>
         </div>
 
