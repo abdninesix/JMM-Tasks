@@ -199,18 +199,18 @@ const CreateSalesInvoice = () => {
 
         {/* Products */}
         <div className="p-4 border rounded-md space-y-4">
-          <div className="flex items-center justify-between space-y-4">
+          <div className="flex justify-between space-y-4">
             <h2 className="text-theme1">Products (0)</h2>
-            <Button type="button" variant="outline" size="sm">Clear all products</Button>
+            <Button variant="outline" size="sm">Clear all products</Button>
           </div>
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
-            <div className="space-y-4 absolute top-14">
-              <div className="p-4 bg-card group border flex gap-4 rounded-md">
-                <div className="size-20 rounded-md bg-muted" />
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+            <div className="w-full space-y-4 bg-card absolute top-14">
+              <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
+                <div className="size-20 rounded-md bg-slate-200" />
+                <div className="w-full space-y-2">
+                  <div className="flex justify-between">
                     <h3>HP Elite 840 G9</h3>
                     <div className="flex gap-4">
                       <Button variant="outline"><History />View Price History</Button>
@@ -233,8 +233,8 @@ const CreateSalesInvoice = () => {
             <h2 className="text-theme1">No products added</h2>
             <p>Search and add products using the search box above</p>
           </div>
-          <div className="">
-            <div className="p-2 bg-theme1 grid grid-cols-10">
+          <div className="hidden">
+            <div className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
               <span>Product name</span>
               <span>Unit</span>
               <span>Unit Price</span>
@@ -246,7 +246,7 @@ const CreateSalesInvoice = () => {
               <span>Total</span>
               <span>Actions</span>
             </div>
-            <div className="p-2 grid grid-cols-10 text-sm">
+            <div className="p-2 grid grid-cols-10 gap-2 text-sm wrap-anywhere">
               <span>Steel Rebar 12mm</span>
               <span>Ton</span>
               <span>120.00</span>
