@@ -16,9 +16,9 @@ const Navbar = () => {
     const { theme, setTheme } = useTheme();
 
     return (
-        <nav className='bg-card text-muted-foreground border rounded-md flex items-center justify-between px-2 py-4 sm:px-4 lg:py-0'>
+        <nav className='bg-card text-muted-foreground border rounded-md shadow-sm flex items-center justify-between px-2 py-4 sm:px-4 lg:py-0'>
             <div className='flex items-center gap-2'>
-                <SidebarTrigger />
+                <SidebarTrigger className='pointer-events-auto' />
 
                 <InputGroup>
                     <InputGroupInput type='text' placeholder='Search anything...' id='search' />
@@ -52,7 +52,6 @@ const Navbar = () => {
             {/* Mobile Menu */}
             <div className='flex lg:hidden items-center gap-1'>
                 <Button variant='ghost' size="icon"><Bell className='size-5' /></Button>
-
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant='ghost' size="icon"> <MoreVertical className='size-5' /></Button>

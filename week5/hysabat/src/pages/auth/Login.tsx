@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
 import { Label } from '@/components/ui/label'
 import { Lock, Mail, User } from 'lucide-react'
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 
@@ -12,39 +13,33 @@ const schema = z.object({
     password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
-interface LoginError {
-    username?: string;
-    password?: string;
-}
+type LoginFormData = z.infer<typeof schema>
 
 const Login = () => {
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginFormData>({
+        resolver: zodResolver(schema),
+    })
+
     const navigate = useNavigate();
 
-    const [error, setError] = useState<LoginError>({});
-
-    const handleSubmit = (e: React.SubmitEvent) => {
-        e.preventDefault();
-        const result = schema.safeParse({
-            username: (e.target as HTMLFormElement).username.value,
-            password: (e.target as HTMLFormElement).password.value,
-        });
-        if (!result.success) {
-            setError(result.error.issues.reduce((acc, curr) => ({ ...acc, [curr.path[0]]: curr.message, }), {}));
-            return;
-        }
-        setError({});
-        navigate('/');
-    };
+    const onSubmit = (data: LoginFormData) => {
+        console.log(data)
+        navigate('/')
+    }
 
     return (
         <div className='h-dvh flex p-4'>
             {/* Left section */}
             <section className='h-full w-full lg:w-1/2 flex flex-col p-4 justify-between'>
 
-                <Logo/>
+                <Logo />
 
-                <form onSubmit={handleSubmit} className='flex items-center justify-center'>
+                <form onSubmit={handleSubmit(onSubmit)} className='flex items-center justify-center'>
                     <div className='w-full md:max-w-md flex flex-col gap-4'>
 
                         <div className='space-y-2'>
@@ -55,23 +50,23 @@ const Login = () => {
                         <div>
                             <Label htmlFor='username' className='font-semibold mb-2'>Username<span className='text-red-500'>*</span></Label>
                             <InputGroup>
-                                <InputGroupInput type='text' placeholder='Enter username' id='username' />
+                                <InputGroupInput type='text' placeholder='Enter username' {...register('username')} />
                                 <InputGroupAddon>
                                     <User className='size-6 text-gray-400' />
                                 </InputGroupAddon>
                             </InputGroup>
-                            {error.username && <p className='text-red-500 text-sm mt-2'>{error.username}</p>}
+                            {errors.username && <p className='text-red-500 text-sm mt-2'>{errors.username.message}</p>}
                         </div>
 
                         <div>
                             <Label htmlFor='password' className='font-semibold mb-2'>Password<span className='text-red-500'>*</span></Label>
                             <InputGroup>
-                                <InputGroupInput type='password' placeholder='Create a password' id='password' />
+                                <InputGroupInput type='password' placeholder='Create a password'  {...register('password')} />
                                 <InputGroupAddon>
                                     <Lock className='size-6 text-gray-400' />
                                 </InputGroupAddon>
                             </InputGroup>
-                            {error.password && <p className='text-red-500 text-sm mt-2'>{error.password}</p>}
+                            {errors.password && <p className='text-red-500 text-sm mt-2'>{errors.password.message}</p>}
                         </div>
 
                         <Button type='submit' className='text-white bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
