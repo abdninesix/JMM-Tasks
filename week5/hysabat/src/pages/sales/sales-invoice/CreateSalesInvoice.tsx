@@ -203,7 +203,7 @@ const CreateSalesInvoice = () => {
         {/* Products */}
         <div className="p-4 border rounded-md space-y-4">
           <div className="flex justify-between space-y-4">
-            <h2 className="text-theme1">Products (0)</h2>
+            <h2 className="font-semibold text-theme1">Products (0)</h2>
             <Button variant="outline" size="sm">Clear all products</Button>
           </div>
           <InputGroup className="relative">
@@ -292,12 +292,13 @@ const CreateSalesInvoice = () => {
         {/* Services */}
         <div className="p-4 border rounded-md space-y-4">
           <div className="flex justify-between space-y-4">
-            <h2 className="text-theme1">Services (0)</h2>
+            <h2 className="font-semibold text-theme1">Services (0)</h2>
             <Button variant="outline" size="sm">Clear all services</Button>
           </div>
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search services (e.g cement, steel, concrete etc)" />
+            {/* This opens during search */}
             <div className="hidden w-full space-y-4 bg-card absolute top-14">
               <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
                 <div className="size-20 rounded-md bg-slate-200" />
