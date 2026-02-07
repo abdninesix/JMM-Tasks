@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Textarea } from "@/components/ui/textarea"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Kbd } from "@/components/ui/kbd"
 
 const CreateSalesInvoice = () => {
 
@@ -379,7 +380,7 @@ const CreateSalesInvoice = () => {
 
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Additional Info */}
-          <div className="lg:w-2/5 h-fit space-y-4 p-4 bg-card border rounded-md">
+          <div className="lg:w-3/5 h-fit space-y-4 p-4 bg-card border rounded-md">
             <h2 className="font-semibold">Additional Information</h2>
             <Collapsible>
               <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
@@ -388,7 +389,7 @@ const CreateSalesInvoice = () => {
                 <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-2">
-                <Textarea placeholder="Type and hit enter" />
+                <Textarea className="wrap-anywhere" placeholder="Type and hit enter" />
               </CollapsibleContent>
             </Collapsible>
             <Separator />
@@ -399,18 +400,50 @@ const CreateSalesInvoice = () => {
                 <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-2">
-                <Textarea placeholder="Type and hit enter" />
+                <Textarea className="wrap-anywhere" placeholder="Type and hit enter" />
               </CollapsibleContent>
             </Collapsible>
           </div>
           <div className="w-full space-y-4">
             {/* Summary */}
-            <div className="p-4 bg-card border rounded-md">
-              <h2 className="text-xl font-bold text-theme1">Summary</h2>
+            <div className="p-4 space-y-2 bg-card border rounded-md text-lg font-bold">
+              <h2 className="text-xl text-theme1">Summary</h2>
+              <div className="grid grid-cols-2">
+                <span>Total (Exc VAT)</span>
+                <span className="text-end">500 &#65020;</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>VAT Category</span>
+                <span className="text-end">S 5%</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>Discount%</span>
+                <span className="text-end">15%</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>Discount Amount</span>
+                <span className="text-end">00 &#65020;</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>Taxable Amount</span>
+                <span className="text-end">500 &#65020;</span>
+              </div>
+              <div className="grid grid-cols-2">
+                <span>VAT Total</span>
+                <span className="text-end">500 &#65020;</span>
+              </div>
+              <div className="grid grid-cols-2 text-theme1">
+                <span>Grand Total</span>
+                <span className="text-end">1500 &#65020;</span>
+              </div>
             </div>
             {/* Payment Type */}
-            <div className="p-4 bg-card border rounded-md">
+            <div className="p-4 space-y-4 bg-card border rounded-md">
               <h2 className="text-xl font-bold">Payment Type</h2>
+              <Button className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
+                Save and Proceed
+                <Kbd className="border border-white text-white bg-transparent">Ctrl+Enter</Kbd>
+              </Button>
             </div>
           </div>
         </div>
