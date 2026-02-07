@@ -406,7 +406,7 @@ const CreateSalesInvoice = () => {
           </div>
           <div className="w-full space-y-4">
             {/* Summary */}
-            <div className="p-4 space-y-2 bg-card border rounded-md text-lg font-bold">
+            <div className="p-4 space-y-4 bg-card border rounded-md text-lg font-bold">
               <h2 className="text-xl text-theme1">Summary</h2>
               <div className="grid grid-cols-2">
                 <span>Total (Exc VAT)</span>
