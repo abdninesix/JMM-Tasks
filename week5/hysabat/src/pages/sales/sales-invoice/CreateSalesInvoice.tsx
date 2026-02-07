@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
-import { BookText, Box, CalendarIcon, ChevronDownIcon, FileIcon, History, Plus, Search, Settings, Trash2 } from "lucide-react"
+import { BookText, Box, CalendarIcon, ChevronDownIcon, FileIcon, History, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
@@ -209,9 +209,9 @@ const CreateSalesInvoice = () => {
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
-            <div className="hidden w-full space-y-4 bg-card absolute top-14">
+            <div className="hidde w-full space-y-4 bg-card absolute top-14">
               <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
-                <div className="size-20 rounded-md bg-slate-200" />
+                <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
                 <div className="w-full space-y-2">
                   <div className="flex justify-between">
                     <h3 className="text-xl">HP Elite 840 G9</h3>
@@ -254,6 +254,11 @@ const CreateSalesInvoice = () => {
                   <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
                 </div>
               </div>
+              <Button variant="outline" className="w-full text-theme1">
+                <Box />
+                Add New Product
+                <Kbd className="border">Shift+P</Kbd>
+              </Button>
             </div>
           </InputGroup>
           <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
@@ -299,9 +304,9 @@ const CreateSalesInvoice = () => {
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search services (e.g cement, steel, concrete etc)" />
             {/* This opens during search */}
-            <div className="hidden w-full space-y-4 bg-card absolute top-14">
+            <div className="hidde w-full space-y-4 bg-card absolute top-14">
               <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
-                <div className="size-32 rounded-md bg-slate-200" />
+                <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
                 <div className="w-full space-y-2">
                   <div className="flex justify-between">
                     <h3 className="text-xl">Consultation Service</h3>
@@ -343,6 +348,18 @@ const CreateSalesInvoice = () => {
                   <Separator />
                   <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
                 </div>
+              </div>
+              <div className="flex justify-center gap-4">
+                <Button variant="outline" className="text-green-500">
+                  <PlusCircle/>
+                  Add As Non Created Service
+                  <Kbd className="border">Shift+P</Kbd>
+                </Button>
+                <Button variant="outline" className="text-theme1">
+                  <Settings/>
+                  Add New Service
+                  <Kbd className="border">Shift+P</Kbd>
+                </Button>
               </div>
             </div>
           </InputGroup>
