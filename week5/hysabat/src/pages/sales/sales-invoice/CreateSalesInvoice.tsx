@@ -391,7 +391,7 @@ const CreateSalesInvoice = () => {
                 <Textarea placeholder="Type and hit enter" />
               </CollapsibleContent>
             </Collapsible>
-            <Separator/>
+            <Separator />
             <Collapsible>
               <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
                 <BookText className="size-5" />
@@ -405,9 +405,13 @@ const CreateSalesInvoice = () => {
           </div>
           <div className="w-full space-y-4">
             {/* Summary */}
-            <div className="p-4 bg-card border rounded-md">Summmary</div>
+            <div className="p-4 bg-card border rounded-md">
+              <h2 className="text-xl font-bold text-theme1">Summary</h2>
+            </div>
             {/* Payment Type */}
-            <div className="p-4 bg-card border rounded-md">Payment Type</div>
+            <div className="p-4 bg-card border rounded-md">
+              <h2 className="text-xl font-bold">Payment Type</h2>
+            </div>
           </div>
         </div>
 
