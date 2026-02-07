@@ -209,7 +209,7 @@ const CreateSalesInvoice = () => {
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
-            <div className="hidde w-full space-y-4 bg-card absolute top-14">
+            <div className="hidden w-full space-y-4 bg-card absolute top-14">
               <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
                 <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
                 <div className="w-full space-y-2">
@@ -304,7 +304,7 @@ const CreateSalesInvoice = () => {
             <InputGroupAddon><Search /></InputGroupAddon>
             <InputGroupInput placeholder="Search services (e.g cement, steel, concrete etc)" />
             {/* This opens during search */}
-            <div className="hidde w-full space-y-4 bg-card absolute top-14">
+            <div className="hidden w-full space-y-4 bg-card absolute top-14">
               <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
                 <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
                 <div className="w-full space-y-2">
