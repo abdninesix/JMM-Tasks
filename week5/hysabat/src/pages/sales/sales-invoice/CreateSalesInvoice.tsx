@@ -9,11 +9,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
-import { Box, CalendarIcon, History, Plus, Search, Settings, Trash2 } from "lucide-react"
+import { BookText, Box, CalendarIcon, ChevronDownIcon, FileIcon, History, Plus, Search, Settings, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
+import { Textarea } from "@/components/ui/textarea"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 const CreateSalesInvoice = () => {
 
@@ -375,9 +377,32 @@ const CreateSalesInvoice = () => {
           </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Additional Info */}
-          <div className="w-1/3 h-fit p-4 bg-card border rounded-md">Additional info</div>
+          <div className="lg:w-2/5 h-fit space-y-4 p-4 bg-card border rounded-md">
+            <h2 className="font-semibold">Additional Information</h2>
+            <Collapsible>
+              <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
+                <FileIcon className="size-5" />
+                <span className="font-semibold">Notes</span>
+                <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-2">
+                <Textarea placeholder="Type and hit enter" />
+              </CollapsibleContent>
+            </Collapsible>
+            <Separator/>
+            <Collapsible>
+              <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
+                <BookText className="size-5" />
+                <span className="font-semibold">Terms & Conditions</span>
+                <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-2">
+                <Textarea placeholder="Type and hit enter" />
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
           <div className="w-full space-y-4">
             {/* Summary */}
             <div className="p-4 bg-card border rounded-md">Summmary</div>
