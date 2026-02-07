@@ -301,7 +301,7 @@ const CreateSalesInvoice = () => {
             {/* This opens during search */}
             <div className="hidden w-full space-y-4 bg-card absolute top-14">
               <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
-                <div className="size-20 rounded-md bg-slate-200" />
+                <div className="size-32 rounded-md bg-slate-200" />
                 <div className="w-full space-y-2">
                   <div className="flex justify-between">
                     <h3 className="text-xl">Consultation Service</h3>
