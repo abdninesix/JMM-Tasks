@@ -407,31 +407,31 @@ const CreateSalesInvoice = () => {
           </div>
           <div className="w-full space-y-4">
             {/* Summary */}
-            <div className="p-4 space-y-4 bg-card border rounded-md text-lg font-bold">
+            <div className="p-4 space-y-4 bg-card border rounded-md text-base font-extrabold">
               <h2 className="text-xl text-theme1">Summary</h2>
               <div className="grid grid-cols-2">
                 <span>Total (Exc VAT)</span>
-                <span className="text-end">500 &#65020;</span>
+                <span className="font-semibold text-end">500 &#65020;</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>VAT Category</span>
-                <span className="text-end">S 5%</span>
+                <span className="font-semibold text-end">S 5%</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>Discount%</span>
-                <span className="text-end">15%</span>
+                <span className="font-semibold text-end">15%</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>Discount Amount</span>
-                <span className="text-end">00 &#65020;</span>
+                <span className="font-semibold text-end">00 &#65020;</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>Taxable Amount</span>
-                <span className="text-end">500 &#65020;</span>
+                <span className="font-semibold text-end">500 &#65020;</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>VAT Total</span>
-                <span className="text-end">500 &#65020;</span>
+                <span className="font-semibold text-end">500 &#65020;</span>
               </div>
               <div className="grid grid-cols-2 text-theme1">
                 <span>Grand Total</span>
