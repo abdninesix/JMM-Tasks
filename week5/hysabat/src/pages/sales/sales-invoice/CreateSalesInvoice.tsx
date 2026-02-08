@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyCustomers } from "@/lib/data"
-import { BookText, Box, CalendarIcon, ChevronDownIcon, FileIcon, History, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
+import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
@@ -49,16 +49,16 @@ const CreateSalesInvoice = () => {
         {/* Inputs */}
         <Label>Invoice Type</Label>
         <RadioGroup defaultValue="tax" className="flex max-w-2xs" onValueChange={(value) => setInvoiceType(value)}>
-          <FieldLabel htmlFor="tax">
+          <FieldLabel htmlFor="tax" className="has-data-[state=checked]:border-theme1">
             <Field orientation="horizontal">
               <FieldTitle>Tax</FieldTitle>
-              <RadioGroupItem value="tax" id="tax" className=" text-white" />
+              <RadioGroupItem value="tax" id="tax" className="text-white" />
             </Field>
           </FieldLabel>
-          <FieldLabel htmlFor="simplified-tax">
+          <FieldLabel htmlFor="simplified-tax" className="has-data-[state=checked]:border-theme1">
             <Field orientation="horizontal">
               <FieldTitle>Simplified Tax</FieldTitle>
-              <RadioGroupItem value="simplified-tax" id="simplified-tax" className=" text-white" />
+              <RadioGroupItem value="simplified-tax" id="simplified-tax" className="text-white" />
             </Field>
           </FieldLabel>
         </RadioGroup>
@@ -408,7 +408,7 @@ const CreateSalesInvoice = () => {
                 <span className="font-semibold">Notes</span>
                 <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
               </CollapsibleTrigger>
-              <CollapsibleContent className="mt-2">
+              <CollapsibleContent className="mt-4">
                 <Textarea className="wrap-anywhere" placeholder="Type and hit enter" />
               </CollapsibleContent>
             </Collapsible>
@@ -419,14 +419,14 @@ const CreateSalesInvoice = () => {
                 <span className="font-semibold">Terms & Conditions</span>
                 <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
               </CollapsibleTrigger>
-              <CollapsibleContent className="mt-2">
+              <CollapsibleContent className="mt-4">
                 <Textarea className="wrap-anywhere" placeholder="Type and hit enter" />
               </CollapsibleContent>
             </Collapsible>
           </div>
           <div className="w-full space-y-4">
             {/* Summary */}
-            <div className="p-4 space-y-4 bg-card border rounded-md text-base font-extrabold">
+            <div className="p-4 space-y-4 bg-card border rounded-md font-extrabold">
               <h2 className="text-xl text-theme1">Summary</h2>
               <div className="grid grid-cols-2">
                 <span>Total (Exc VAT)</span>
@@ -467,22 +467,50 @@ const CreateSalesInvoice = () => {
                   <TabsTrigger className="p-4 rounded-l-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="none">No Payment</TabsTrigger>
                 </TabsList>
                 <TabsContent className="py-4 space-y-4" value="full">
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                     <Switch />
                     <h2 className="text-lg font-semibold text-theme1">Split Payment</h2>
                     <p className="text-sm text-muted-foreground">You can choose two payment methods if split payment is enabled.</p>
                   </div>
                   <div className="p-4 rounded-md border space-y-4">
-                    <div className="flex gap-2"></div>
+                    <div className="flex gap-2">
+                      <RadioGroup defaultValue="cash" className="flex flex-col lg:flex-row min-w-sm">
+                        <FieldLabel htmlFor="cash" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
+                          <Field orientation="horizontal">
+                            <Banknote size={18} />
+                            <FieldTitle className="font-bold">Cash</FieldTitle>
+                            <RadioGroupItem value="cash" id="cash" className="hidden" />
+                          </Field>
+                        </FieldLabel>
+                        <FieldLabel htmlFor="card" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
+                          <Field orientation="horizontal">
+                            <CreditCard size={18} />
+                            <FieldTitle className="font-bold">Card</FieldTitle>
+                            <RadioGroupItem value="card" id="card" className="hidden" />
+                          </Field>
+                        </FieldLabel>
+                        <FieldLabel htmlFor="e-transfer" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
+                          <Field orientation="horizontal">
+                            <Landmark size={18} />
+                            <FieldTitle className="font-bold">E-transfer</FieldTitle>
+                            <RadioGroupItem value="e-transfer" id="e-transfer" className="hidden" />
+                          </Field>
+                        </FieldLabel>
+                      </RadioGroup>
+                    </div>
                     <Separator />
-                    <div className="grid grid-cols-2 text-green-500">
+                    <div className="grid grid-cols-2 font-extrabold text-green-500">
                       <span>Change</span>
                       <span className="text-end">1500 &#65020;</span>
                     </div>
                   </div>
                 </TabsContent>
+                <TabsContent className="py-4 space-y-4" value="partial">
+                  <p className="text-muted-foreground">Partial payment is selected.</p>
+                </TabsContent>
+                
                 <TabsContent className="py-4 space-y-4" value="none">
-                  <p className="text-muted-foreground">No payment is selected. Save and Proceed.</p>
+                  <p className="text-muted-foreground">No payment is selected.</p>
                 </TabsContent>
               </Tabs>
               <Button className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
