@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Kbd } from "@/components/ui/kbd"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Switch } from "@/components/ui/switch"
 
 const CreateSalesInvoice = () => {
 
@@ -465,10 +466,23 @@ const CreateSalesInvoice = () => {
                   <TabsTrigger className="p-4 rounded-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="partial">Partial</TabsTrigger>
                   <TabsTrigger className="p-4 rounded-l-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="none">No Payment</TabsTrigger>
                 </TabsList>
-                <TabsContent value="full">
+                <TabsContent className="py-4 space-y-4" value="full">
+                  <div className="flex items-center gap-4">
+                    <Switch />
+                    <h2 className="text-lg font-semibold text-theme1">Split Payment</h2>
+                    <p className="text-sm text-muted-foreground">You can choose two payment methods if split payment is enabled.</p>
+                  </div>
+                  <div className="p-4 rounded-md border space-y-4">
+                    <div className="flex gap-2"></div>
+                    <Separator />
+                    <div className="grid grid-cols-2 text-green-500">
+                      <span>Change</span>
+                      <span className="text-end">1500 &#65020;</span>
+                    </div>
+                  </div>
                 </TabsContent>
-                <TabsContent value="none" className="space-y-4">
-                  <p className="text-muted-foreground">No payment is needed. Proceed.</p>
+                <TabsContent className="py-4 space-y-4" value="none">
+                  <p className="text-muted-foreground">No payment is selected. Save and Proceed.</p>
                 </TabsContent>
               </Tabs>
               <Button className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
