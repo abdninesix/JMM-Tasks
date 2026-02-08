@@ -17,6 +17,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/in
 import { Textarea } from "@/components/ui/textarea"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Kbd } from "@/components/ui/kbd"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const CreateSalesInvoice = () => {
 
@@ -351,12 +352,12 @@ const CreateSalesInvoice = () => {
               </div>
               <div className="flex justify-center gap-4">
                 <Button variant="outline" className="text-green-500">
-                  <PlusCircle/>
+                  <PlusCircle />
                   Add As Non Created Service
                   <Kbd className="border">Shift+P</Kbd>
                 </Button>
                 <Button variant="outline" className="text-theme1">
-                  <Settings/>
+                  <Settings />
                   Add New Service
                   <Kbd className="border">Shift+P</Kbd>
                 </Button>
@@ -458,6 +459,18 @@ const CreateSalesInvoice = () => {
             {/* Payment Type */}
             <div className="p-4 space-y-4 bg-card border rounded-md">
               <h2 className="text-xl font-bold">Payment Type</h2>
+              <Tabs defaultValue="full">
+                <TabsList>
+                  <TabsTrigger className="p-4 rounded-r-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="full">Full</TabsTrigger>
+                  <TabsTrigger className="p-4 rounded-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="partial">Partial</TabsTrigger>
+                  <TabsTrigger className="p-4 rounded-l-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="none">No Payment</TabsTrigger>
+                </TabsList>
+                <TabsContent value="full">
+                </TabsContent>
+                <TabsContent value="none" className="space-y-4">
+                  <p className="text-muted-foreground">No payment is needed. Proceed.</p>
+                </TabsContent>
+              </Tabs>
               <Button className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
                 Save and Proceed
                 <Kbd className="border border-white text-white bg-transparent">Ctrl+Enter</Kbd>
