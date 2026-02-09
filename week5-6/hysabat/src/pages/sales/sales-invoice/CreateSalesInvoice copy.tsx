@@ -1,14 +1,14 @@
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-// import { Combobox, ComboboxChip, ComboboxChips, ComboboxChipsInput, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, ComboboxValue, useComboboxAnchor } from "@/components/ui/combobox"
+import { Combobox, ComboboxChip, ComboboxChips, ComboboxChipsInput, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, ComboboxValue, useComboboxAnchor } from "@/components/ui/combobox"
 import { Field, FieldLabel, FieldTitle } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-// import { dummyCustomers, dummyProjects, dummyResponsiblePersons, dummySalesmen } from "@/lib/data"
+import { dummyCustomers, dummyProjects, dummyResponsiblePersons, dummySalesmen } from "@/lib/data"
 import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
@@ -23,17 +23,31 @@ import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 export const invoiceSchema = z.object({
+  // Required selects
   invoiceType: z.enum(["tax", "simplified-tax"]),
   transactionType: z.string().min(1, "Transaction type is required"),
-  // customerId: z.string().min(1, "Customer is required"),
+  customerId: z.string().min(1, "Customer is required"),
+  salesmanId: z.string().min(1, "Salesman is required"),
+
+  // Optional select
+  projectId: z.string().nullable().optional(),
+
+  // Multi select
+  responsiblePersons: z.array(z.string()).default([]),
+
+  // Dates (nullable is best for date pickers)
   issueDate: z.date().nullable(),
   supplyDate: z.date().nullable(),
+
+  // Optional text fields (empty string allowed)
   vatNumber: z.string().optional(),
-  notes: z.string().optional(),
-  terms: z.string().optional(),
+  notes: z.string(),
+  terms: z.string(),
+
+  // Payment
   paymentType: z.enum(["full", "partial", "none"]),
-  splitPayment: z.boolean(),
-  paymentMethod: z.enum(["cash", "card", "e-transfer"]),
+  splitPayment: z.boolean().default(false),
+  paymentMethod: z.enum(["cash", "card", "e-transfer"]).default("cash"),
 })
   .superRefine((data, ctx) => {
     if (!data.issueDate) {
@@ -43,6 +57,7 @@ export const invoiceSchema = z.object({
         code: "custom",
       });
     }
+
     if (!data.supplyDate) {
       ctx.addIssue({
         path: ["supplyDate"],
@@ -50,14 +65,33 @@ export const invoiceSchema = z.object({
         code: "custom",
       });
     }
-    if (!data.vatNumber && data.invoiceType === "simplified-tax") {
+
+    if (data.responsiblePersons.length === 0) {
       ctx.addIssue({
-        path: ["vatNumber"],
-        message: "VAT Number is required for Tax invoices",
+        path: ["responsiblePersons"],
+        message: "Select at least one responsible person",
         code: "custom",
       });
     }
-  })
+
+    if (data.invoiceType === "tax") {
+      if (!data.projectId) {
+        ctx.addIssue({
+          path: ["projectId"],
+          message: "Project is required for Tax invoices",
+          code: "custom",
+        });
+      }
+      if (!data.vatNumber) {
+        ctx.addIssue({
+          path: ["vatNumber"],
+          message: "VAT Number is required for Tax invoices",
+          code: "custom",
+        });
+      }
+    }
+
+  });
 
 export type InvoiceFormValues = z.infer<typeof invoiceSchema>;
 
@@ -68,25 +102,33 @@ const CreateSalesInvoice = () => {
     defaultValues: {
       invoiceType: "tax",
       transactionType: "",
-      // customerId: "",
+      customerId: "",
+      projectId: null,
+      salesmanId: "",
+      responsiblePersons: [],
+
       issueDate: null,
       supplyDate: null,
+
       vatNumber: "",
       notes: "",
       terms: "",
+
       paymentType: "full",
       splitPayment: false,
       paymentMethod: "cash",
     },
   });
 
+  console.log("Form Errors:", form.formState.errors);
+
   const { watch, control, handleSubmit, setValue } = form;
   const invoiceType = watch("invoiceType");
-  // const anchor = useComboboxAnchor()
 
-  const onSubmit = handleSubmit((data) => {
-    console.log("Form Errors:", form.formState.errors);
-    console.log("Form Data:", data);
+  const anchor = useComboboxAnchor()
+
+  const onSubmit = form.handleSubmit((data) => {
+    console.log("VALIDATED DATA:", data);
   });
 
   return (
@@ -145,7 +187,103 @@ const CreateSalesInvoice = () => {
                   </SelectContent>
                 </Select>
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.transactionType?.message}</p>
+          </Field>
+
+          <Field className="max-w-50">
+            <Label>Customer Name</Label>
+            <Controller
+              name="customerId"
+              control={control}
+              render={({ field }) => (
+                <Combobox value={field.value} onValueChange={field.onChange} items={dummyCustomers.map((c) => c.id)} >
+                  <ComboboxInput placeholder="Type and search..." />
+                  <ComboboxContent>
+                    <ComboboxEmpty>No customers found.</ComboboxEmpty>
+                    <ComboboxList className="scrollbar-none">
+                      {dummyCustomers.map((customer) => (
+                        <ComboboxItem key={customer.id} value={customer.id}>
+                          {customer.fullName}
+                        </ComboboxItem>
+                      ))}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              )} />
+          </Field>
+
+          {invoiceType === "tax" && <Field className="max-w-50">
+            <Label>Select Project (Optional)</Label>
+            <Controller
+              name="projectId"
+              control={control}
+              render={({ field }) => (
+                <Combobox value={field.value} onValueChange={field.onChange} items={dummyProjects.map((c) => c.id)}>
+                  <ComboboxInput placeholder="Type and search..." />
+                  <ComboboxContent>
+                    <ComboboxEmpty>No Pojects found.</ComboboxEmpty>
+                    <ComboboxList className="scrollbar-none">
+                      {dummyProjects.map((project) => (
+                        <ComboboxItem key={project.id} value={project.id}>
+                          {project.name}
+                        </ComboboxItem>
+                      ))}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              )} />
+          </Field>}
+
+          <Field className="max-w-50">
+            <Label>Salesman</Label>
+            <Controller
+              name="salesmanId"
+              control={control}
+              render={({ field }) => (
+                <Combobox value={field.value} onValueChange={field.onChange} items={dummySalesmen.map((c) => c.id)}>
+                  <ComboboxInput placeholder="Type and search..." />
+                  <ComboboxContent>
+                    <ComboboxEmpty>No Salesman found.</ComboboxEmpty>
+                    <ComboboxList className="scrollbar-none">
+                      {dummySalesmen.map((salesman) => (
+                        <ComboboxItem key={salesman.id} value={salesman.id}>
+                          {salesman.name}
+                        </ComboboxItem>
+                      ))}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              )} />
+          </Field>
+
+          <Field className="max-w-50">
+            <Label>Responsible Person</Label>
+            <Controller
+              name="responsiblePersons"
+              control={control}
+              render={({ field }) => (
+                <Combobox multiple autoHighlight value={field.value} onValueChange={field.onChange} items={dummyResponsiblePersons.map((c) => c.id)}>
+                  <ComboboxChips ref={anchor}>
+                    <ComboboxValue>
+                      {(values) => (
+                        <>
+                          {values.map((value: string) => (<ComboboxChip key={value}>{value}</ComboboxChip>))}
+                          <ComboboxChipsInput placeholder="Select people" />
+                        </>
+                      )}
+                    </ComboboxValue>
+                  </ComboboxChips>
+                  <ComboboxContent anchor={anchor}>
+                    <ComboboxEmpty>No person found.</ComboboxEmpty>
+                    <ComboboxList className="scrollbar-none">
+                      {dummyResponsiblePersons.map((person) => (
+                        <ComboboxItem key={person.id} value={person.id}>
+                          {person.name}
+                        </ComboboxItem>
+                      ))}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              )} />
           </Field>
 
           <Field className="max-w-50">
@@ -175,7 +313,6 @@ const CreateSalesInvoice = () => {
                   </PopoverContent>
                 </Popover>
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.issueDate?.message}</p>
           </Field>
 
           <Field className="max-w-50">
@@ -205,10 +342,9 @@ const CreateSalesInvoice = () => {
                   </PopoverContent>
                 </Popover>
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.supplyDate?.message}</p>
           </Field>
 
-          {invoiceType === "simplified-tax" && <Field className="max-w-50">
+          {invoiceType === "tax" && <Field className="max-w-50">
             <Label>VAT No.</Label>
             <Controller
               name="vatNumber"
@@ -216,7 +352,6 @@ const CreateSalesInvoice = () => {
               render={({ field }) => (
                 <Input {...field} placeholder="Enter VAT No." />
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.vatNumber?.message}</p>
           </Field>}
         </div>
 
