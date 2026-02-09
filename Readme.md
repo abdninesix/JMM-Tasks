@@ -39,7 +39,10 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - 10 different rendering patterns used to build modern web applications
 - A consistant industry level folder structure for React applications
 - Professional versoin control practices using Git and Github
+- Particapation in a real life product dashboard UI design
+- Complex form handling with different types of inputs
 - 
+
 *(More will be added)*
 
 ---
