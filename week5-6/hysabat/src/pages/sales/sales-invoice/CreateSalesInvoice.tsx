@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { dummyCustomers } from "@/lib/data"
+import { dummyCustomers, dummyProjects } from "@/lib/data"
 import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
@@ -48,7 +48,7 @@ const CreateSalesInvoice = () => {
 
         {/* Inputs */}
         <Label>Invoice Type</Label>
-        <RadioGroup defaultValue="tax" className="flex max-w-2xs" onValueChange={(value) => setInvoiceType(value)}>
+        <RadioGroup defaultValue="tax" className="flex max-w-xs" onValueChange={(value) => setInvoiceType(value)}>
           <FieldLabel htmlFor="tax" className="has-data-[state=checked]:border-theme1">
             <Field orientation="horizontal">
               <FieldTitle>Tax</FieldTitle>
@@ -95,13 +95,16 @@ const CreateSalesInvoice = () => {
 
           {invoiceType === "tax" && <Field className="w-fit">
             <Label>Select Project (Optional)</Label>
-            <Combobox>
+            <Combobox items={dummyProjects.map((project) => project.name)}>
               <ComboboxInput placeholder="Type and search..." />
               <ComboboxContent>
                 <ComboboxEmpty>No Pojects found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
-                  <ComboboxItem value="Project 1">Project 1</ComboboxItem>
-                  <ComboboxItem value="Project 2">Project 2</ComboboxItem>
+                  {(item, index) => (
+                    <ComboboxItem key={`${item}-${index}`} value={item}>
+                      {item}
+                    </ComboboxItem>
+                  )}
                 </ComboboxList>
               </ComboboxContent>
             </Combobox>
@@ -128,9 +131,7 @@ const CreateSalesInvoice = () => {
                 <ComboboxValue>
                   {(values) => (
                     <>
-                      {values.map((value: string) => (
-                        <ComboboxChip key={value}>{value}</ComboboxChip>
-                      ))}
+                      {values.map((value: string) => (<ComboboxChip key={value}>{value}</ComboboxChip>))}
                       <ComboboxChipsInput placeholder="Select people" />
                     </>
                   )}
@@ -508,7 +509,7 @@ const CreateSalesInvoice = () => {
                 <TabsContent className="py-4 space-y-4" value="partial">
                   <p className="text-muted-foreground">Partial payment is selected.</p>
                 </TabsContent>
-                
+
                 <TabsContent className="py-4 space-y-4" value="none">
                   <p className="text-muted-foreground">No payment is selected.</p>
                 </TabsContent>

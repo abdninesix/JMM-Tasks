@@ -1,6 +1,7 @@
 import type { Customer } from "@/pages/sales/customers/columns";
 import { Box, ChartColumnIncreasing, CirclePercent, Coins, Landmark, NotepadText, Settings, ShoppingBag, ShoppingCart, Truck, Users } from "lucide-react";
 
+// Sidebar Items
 export const sidebarItems = [
   {
     title: "Home",
@@ -112,6 +113,7 @@ export const sidebarItems = [
   },
 ]
 
+// Customers
 export const dummyCustomers: Customer[] = Array.from({ length: 25 }, (_, i) => ({
     id: `CUS-00${i + 1}`,
     fullName: ["John Doe", "Sarah Smith", "TechCorp", "Jane Roe"][i % 4],
@@ -121,4 +123,52 @@ export const dummyCustomers: Customer[] = Array.from({ length: 25 }, (_, i) => (
     creditLimit: 5000 + (i * 100),
     vatNumber: `VAT${10000 + i}`,
     invoiceCount: i + 2,
+}));
+
+// Projects
+export const dummyProjects = Array.from({ length: 5 }, (_, i) => ({
+  id: `PROJ-${100 + i}`,
+  name: `Project ${String.fromCharCode(65 + i)}`,
+}));
+
+// Salesmen
+export const dummySalesmen = Array.from({ length: 5 }, (_, i) => ({
+  id: `SLS-${i + 1}`,
+  name: `Salesman ${i + 1}`,
+}));
+
+// Responsible Persons
+export const dummyResponsiblePersons = Array.from({ length: 10 }, (_, i) => ({
+  id: `RESP-${i + 1}`,
+  name: `Person ${i + 1}`,
+}));
+
+// Products
+export const dummyProducts = Array.from({ length: 15 }, (_, i) => ({
+  id: `PRD-${200 + i}`,
+  name: ["HP Elite 840 G9", "Steel Rebar 12mm", "Cement Bag 50kg", "Concrete Mix"][i % 4],
+  fullNameAr: ["إتش بي إليت", "حديد تسليح", "كيس أسمنت", "خلطة خرسانية"][i % 4],
+  sellPrice: 1000 + (i * 150),
+  costPrice: 800 + (i * 100),
+  vatRate: 15,
+  stock: 10 + i,
+  barcode: `8273645${i}`,
+  unit: "psc",
+  category: "Electronics",
+  description: "High quality commercial grade material for construction.",
+}));
+
+// Services
+export const dummyServices = Array.from({ length: 10 }, (_, i) => ({
+  id: `SRV-${300 + i}`,
+  name: ["Consultation Service", "Delivery Service", "Site Inspection", "Maintenance"][i % 4],
+  fullNameAr: ["خدمة استشارية", "خدمة التوصيل", "فحص الموقع", "صيانة"][i % 4],
+  sellPrice: 500 + (i * 50),
+  costPrice: 200 + (i * 20),
+  vatRate: 15,
+  stock: 0,
+  barcode: `992288${i}`,
+  unit: "hr",
+  category: "Services",
+  description: "Professional services provided by certified engineers.",
 }));
