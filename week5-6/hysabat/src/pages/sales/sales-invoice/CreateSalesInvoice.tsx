@@ -80,7 +80,7 @@ const CreateSalesInvoice = () => {
     },
   });
 
-  const { watch, control, handleSubmit, setValue } = form;
+  const { watch, control, handleSubmit } = form;
   const invoiceType = watch("invoiceType");
   // const anchor = useComboboxAnchor()
 
