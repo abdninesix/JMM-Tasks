@@ -479,7 +479,7 @@ const CreateSalesInvoice = () => {
                   </div>
                   <div className="p-4 rounded-md border space-y-4">
                     <div className="flex gap-2">
-                      <RadioGroup defaultValue="cash" className="flex flex-col lg:flex-row w-full lg:min-w-md">
+                      <RadioGroup defaultValue="cash" className="flex flex-col lg:flex-row w-full lg:max-w-md">
                         <FieldLabel htmlFor="cash" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
                           <Field orientation="horizontal">
                             <Banknote size={18} />
