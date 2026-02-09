@@ -53,7 +53,7 @@ export const invoiceSchema = z.object({
     if (!data.vatNumber && data.invoiceType === "simplified-tax") {
       ctx.addIssue({
         path: ["vatNumber"],
-        message: "VAT Number is required for Tax invoices",
+        message: "VAT Number is required",
         code: "custom",
       });
     }
