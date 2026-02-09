@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { dummyCustomers, dummyProjects } from "@/lib/data"
+import { dummyCustomers, dummyProjects, dummyResponsiblePersons, dummySalesmen } from "@/lib/data"
 import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
@@ -63,7 +63,7 @@ const CreateSalesInvoice = () => {
           </FieldLabel>
         </RadioGroup>
         <div className="flex flex-wrap gap-4 mt-6">
-          <Field className="w-fit">
+          <Field className="max-w-50">
             <Label>Transaction Type</Label>
             <Select >
               <SelectTrigger>
@@ -76,7 +76,7 @@ const CreateSalesInvoice = () => {
             </Select>
           </Field>
 
-          <Field className="w-fit">
+          <Field className="max-w-50">
             <Label>Customer Name</Label>
             <Combobox items={dummyCustomers.map((customer) => customer.fullName)}>
               <ComboboxInput placeholder="Type and search..." />
@@ -93,7 +93,7 @@ const CreateSalesInvoice = () => {
             </Combobox>
           </Field>
 
-          {invoiceType === "tax" && <Field className="w-fit">
+          {invoiceType === "tax" && <Field className="max-w-50">
             <Label>Select Project (Optional)</Label>
             <Combobox items={dummyProjects.map((project) => project.name)}>
               <ComboboxInput placeholder="Type and search..." />
@@ -110,23 +110,26 @@ const CreateSalesInvoice = () => {
             </Combobox>
           </Field>}
 
-          <Field className="w-fit">
+          <Field className="max-w-50">
             <Label>Salesman</Label>
-            <Combobox>
+            <Combobox items={dummySalesmen.map((salesman) => salesman.name)}>
               <ComboboxInput placeholder="Type and search..." />
               <ComboboxContent>
                 <ComboboxEmpty>No Salesman found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
-                  <ComboboxItem value="Salesman 1">Salesman 1</ComboboxItem>
-                  <ComboboxItem value="Salesman 2">Salesman 2</ComboboxItem>
+                  {(item, index) => (
+                    <ComboboxItem key={`${item}-${index}`} value={item}>
+                      {item}
+                    </ComboboxItem>
+                  )}
                 </ComboboxList>
               </ComboboxContent>
             </Combobox>
           </Field>
 
-          <Field className="w-fit">
+          <Field className="max-w-50">
             <Label>Responsible Person</Label>
-            <Combobox multiple autoHighlight>
+            <Combobox multiple autoHighlight items={dummyResponsiblePersons.map((res) => res.name)}>
               <ComboboxChips ref={anchor}>
                 <ComboboxValue>
                   {(values) => (
@@ -140,16 +143,17 @@ const CreateSalesInvoice = () => {
               <ComboboxContent anchor={anchor}>
                 <ComboboxEmpty>No person found.</ComboboxEmpty>
                 <ComboboxList className="scrollbar-none">
-                  <ComboboxItem value="Person 1">Person 1</ComboboxItem>
-                  <ComboboxItem value="Person 2">Person 2</ComboboxItem>
-                  <ComboboxItem value="Person 3">Person 3</ComboboxItem>
-                  <ComboboxItem value="Person 4">Person 4</ComboboxItem>
+                  {(item, index) => (
+                    <ComboboxItem key={`${item}-${index}`} value={item}>
+                      {item}
+                    </ComboboxItem>
+                  )}
                 </ComboboxList>
               </ComboboxContent>
             </Combobox>
           </Field>
 
-          <Field className="w-fit">
+          <Field className="max-w-50">
             <Label>Issue Date</Label>
             <Popover>
               <PopoverTrigger asChild>
@@ -173,7 +177,7 @@ const CreateSalesInvoice = () => {
             </Popover>
           </Field>
 
-          <Field className="w-fit">
+          <Field className="max-w-50">
             <Label>Supply Date</Label>
             <Popover>
               <PopoverTrigger asChild>
@@ -197,7 +201,7 @@ const CreateSalesInvoice = () => {
             </Popover>
           </Field>
 
-          {invoiceType === "tax" && <Field className="w-fit">
+          {invoiceType === "tax" && <Field className="max-w-50">
             <Label>VAT No.</Label>
             <Input type="number" placeholder="Enter VAT No." />
           </Field>}
@@ -475,7 +479,7 @@ const CreateSalesInvoice = () => {
                   </div>
                   <div className="p-4 rounded-md border space-y-4">
                     <div className="flex gap-2">
-                      <RadioGroup defaultValue="cash" className="flex flex-col lg:flex-row min-w-sm">
+                      <RadioGroup defaultValue="cash" className="flex flex-col lg:flex-row w-full lg:min-w-md">
                         <FieldLabel htmlFor="cash" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
                           <Field orientation="horizontal">
                             <Banknote size={18} />
