@@ -167,6 +167,6 @@ export const dummyServices = Array.from({ length: 10 }, (_, i) => ({
   stock: 0,
   barcode: `992288${i}`,
   unit: "hr",
-  category: "Services",
+  category: "Maintainance",
   description: "Professional services provided by certified engineers.",
 }));

@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyProducts, dummyServices } from "@/lib/data"
-import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
+import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2, X } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
@@ -111,7 +111,7 @@ const CreateSalesInvoice = () => {
     },
   });
 
-  const { watch, control, handleSubmit } = form;
+  const { watch, control, handleSubmit, formState: { errors } } = form;
 
   const invoiceType = watch("invoiceType");
   // const anchor = useComboboxAnchor()
@@ -222,7 +222,7 @@ const CreateSalesInvoice = () => {
                   </SelectContent>
                 </Select>
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.transactionType?.message}</p>
+            <p className="text-sm text-red-500">{errors.transactionType?.message}</p>
           </Field>
 
           {/* <Field className="max-w-50">
@@ -249,7 +249,7 @@ const CreateSalesInvoice = () => {
                   </ComboboxContent>
                 </Combobox>
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.customerId?.message}</p>
+            <p className="text-sm text-red-500">{errors.customerId?.message}</p>
           </Field> */}
 
           <Field className="max-w-50">
@@ -279,7 +279,7 @@ const CreateSalesInvoice = () => {
                   </PopoverContent>
                 </Popover>
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.issueDate?.message}</p>
+            <p className="text-sm text-red-500">{errors.issueDate?.message}</p>
           </Field>
 
           <Field className="max-w-50">
@@ -309,7 +309,7 @@ const CreateSalesInvoice = () => {
                   </PopoverContent>
                 </Popover>
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.supplyDate?.message}</p>
+            <p className="text-sm text-red-500">{errors.supplyDate?.message}</p>
           </Field>
 
           {invoiceType === "simplified-tax" && <Field className="max-w-50">
@@ -320,7 +320,7 @@ const CreateSalesInvoice = () => {
               render={({ field }) => (
                 <Input {...field} placeholder="Enter VAT No." />
               )} />
-            <p className="text-sm text-red-500">{form.formState.errors.vatNumber?.message}</p>
+            <p className="text-sm text-red-500">{errors.vatNumber?.message}</p>
           </Field>}
         </div>
 
@@ -340,6 +340,7 @@ const CreateSalesInvoice = () => {
               }}
               placeholder="Search products (e.g cement, steel, concrete etc)"
             />
+            {isProductSearchOpen && <Button type="button" variant="ghost" onClick={() => { setIsProductSearchOpen(false); setProductSearch("") }}><X /></Button>}
             {isProductSearchOpen && (
               <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
                 {filteredProducts.map((product) => (
@@ -396,7 +397,7 @@ const CreateSalesInvoice = () => {
               </div>
             )}
           </InputGroup>
-          <p className="text-sm text-red-500">{form.formState.errors.products?.message}</p>
+          <p className="text-sm text-red-500">{errors.products?.message}</p>
 
           {productFields.length === 0 ? (
             <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
@@ -429,7 +430,7 @@ const CreateSalesInvoice = () => {
                   <li>Standard {field.vatRate}%</li>
                   <li>{field.vatAmount}</li>
                   <li>{field.total}</li>
-                  <Button type="button" size="icon" variant="ghost" onClick={() => removeService(index)}><Trash2 className="size-4" /></Button>
+                  <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
                 </ul>
               ))}
             </div>
@@ -452,6 +453,7 @@ const CreateSalesInvoice = () => {
               }}
               placeholder="Search services (e.g cement, steel, concrete etc)"
             />
+            {isServiceSearchOpen && <Button type="button" variant="ghost" onClick={() => { setIsServiceSearchOpen(false); setServiceSearch("") }}><X /></Button>}
             {isServiceSearchOpen && (
               <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
                 {filteredServices.map((service) => (
@@ -500,15 +502,22 @@ const CreateSalesInvoice = () => {
                     </div>
                   </div>
                 ))}
-                <Button type="button" variant="outline" className="w-full text-theme1">
-                  <Box />
-                  Add New Service
-                  <Kbd className="border">Shift+S</Kbd>
-                </Button>
+                <div className="flex gap-4 items-center justify-center">
+                  <Button type="button" variant="outline" className="w-fit text-green-500">
+                    <PlusCircle />
+                    Add As Non Created Service
+                    <Kbd className="border">Enter</Kbd>
+                  </Button>
+                  <Button type="button" variant="outline" className="w-fit text-theme1">
+                    <Settings />
+                    Add New Service
+                    <Kbd className="border">Shift+S</Kbd>
+                  </Button>
+                </div>
               </div>
             )}
           </InputGroup>
-          <p className="text-sm text-red-500">{form.formState.errors.services?.message}</p>
+          <p className="text-sm text-red-500">{errors.services?.message}</p>
 
           {serviceFields.length === 0 ? (
             <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
