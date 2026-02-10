@@ -1,14 +1,13 @@
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-// import { Combobox, ComboboxChip, ComboboxChips, ComboboxChipsInput, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, ComboboxValue, useComboboxAnchor } from "@/components/ui/combobox"
 import { Field, FieldLabel, FieldTitle } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-// import { dummyCustomers, dummyProjects, dummyResponsiblePersons, dummySalesmen } from "@/lib/data"
+import {  dummyProducts } from "@/lib/data"
 import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
@@ -19,8 +18,9 @@ import { Kbd } from "@/components/ui/kbd"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
 import * as z from "zod";
-import { Controller, useForm } from "react-hook-form"
+import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
 
 export const invoiceSchema = z.object({
   invoiceType: z.enum(["tax", "simplified-tax"]),
@@ -34,6 +34,18 @@ export const invoiceSchema = z.object({
   paymentType: z.enum(["full", "partial", "none"]),
   splitPayment: z.boolean(),
   paymentMethod: z.enum(["cash", "card", "e-transfer"]),
+  products: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    unit: z.string(),
+    unitPrice: z.number(),
+    quantity: z.number().min(1),
+    discount: z.number(),
+    vatRate: z.number(),
+    lineTotal: z.number(),
+    vatAmount: z.number(),
+    total: z.number(),
+  })).min(1, "No products added"),
 })
   .superRefine((data, ctx) => {
     if (!data.issueDate) {
@@ -63,6 +75,9 @@ export type InvoiceFormValues = z.infer<typeof invoiceSchema>;
 
 const CreateSalesInvoice = () => {
 
+  const [productSearch, setProductSearch] = useState("");
+  const [isProductSearchOpen, setIsProductSearchOpen] = useState(false);
+
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
     defaultValues: {
@@ -77,12 +92,37 @@ const CreateSalesInvoice = () => {
       paymentType: "full",
       splitPayment: false,
       paymentMethod: "cash",
+      products: [],
     },
   });
 
   const { watch, control, handleSubmit } = form;
+
   const invoiceType = watch("invoiceType");
   // const anchor = useComboboxAnchor()
+
+  const { fields: productFields, append: appendProduct, remove: removeProduct } = useFieldArray({ control, name: "products", });
+
+  const filteredProducts = dummyProducts.filter(p => p.name.toLowerCase().includes(productSearch.toLowerCase()) || p.barcode.includes(productSearch));
+
+  const handleAddProduct = (product: typeof dummyProducts[0]) => {
+    const lineTotal = product.sellPrice * 1;
+    const vatAmount = (lineTotal * product.vatRate) / 100;
+    appendProduct({
+      id: product.id,
+      name: product.name,
+      unit: product.unit,
+      unitPrice: product.sellPrice,
+      quantity: 1,
+      discount: 0,
+      lineTotal: lineTotal,
+      vatRate: product.vatRate,
+      vatAmount: vatAmount,
+      total: lineTotal + vatAmount,
+    });
+    setProductSearch("");
+    setIsProductSearchOpen(false);
+  };
 
   const onSubmit = handleSubmit((data) => {
     console.log("Form Errors:", form.formState.errors);
@@ -128,6 +168,7 @@ const CreateSalesInvoice = () => {
               </FieldLabel>
             </RadioGroup>
           )} />
+
         <div className="flex flex-wrap gap-4 mt-6">
           <Field className="max-w-50">
             <Label>Transaction Type</Label>
@@ -147,6 +188,33 @@ const CreateSalesInvoice = () => {
               )} />
             <p className="text-sm text-red-500">{form.formState.errors.transactionType?.message}</p>
           </Field>
+
+          {/* <Field className="max-w-50">
+            <Label>Customer Name</Label>
+            <Controller
+              name="customerId"
+              control={control}
+              render={({ field }) => (
+                <Combobox
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  items={dummyCustomers.map((c) => ({ id: c.id, name: c.fullName }))}
+                >
+                  <ComboboxInput placeholder="Type and search..." />
+                  <ComboboxContent>
+                    <ComboboxEmpty>No customers found.</ComboboxEmpty>
+                    <ComboboxList className="scrollbar-none">
+                      {(item) => (
+                        <ComboboxItem key={item.id} value={item.id}>
+                          {item.name}
+                        </ComboboxItem>
+                      )}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              )} />
+            <p className="text-sm text-red-500">{form.formState.errors.customerId?.message}</p>
+          </Field> */}
 
           <Field className="max-w-50">
             <Label>Issue Date</Label>
@@ -223,95 +291,113 @@ const CreateSalesInvoice = () => {
         {/* Products */}
         <div className="p-4 border rounded-md space-y-4">
           <div className="flex justify-between space-y-4">
-            <h2 className="font-semibold text-theme1">Products (0)</h2>
+            <h2 className="font-semibold text-theme1">Products ({productFields.length})</h2>
             <Button variant="outline" size="sm">Clear all products</Button>
           </div>
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
-            <InputGroupInput placeholder="Search products (e.g cement, steel, concrete etc)" />
-            <div className="hidden w-full space-y-4 bg-card absolute top-14">
-              <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
-                <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
-                <div className="w-full space-y-2">
-                  <div className="flex justify-between">
-                    <h3 className="text-xl">HP Elite 840 G9</h3>
-                    <div className="flex gap-4">
-                      <Button variant="outline"><History />View Price History</Button>
-                      <Button className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
+            <InputGroupInput
+              value={productSearch}
+              onChange={(e) => {
+                setProductSearch(e.target.value)
+                setIsProductSearchOpen(e.target.value.length > 0);
+              }}
+              placeholder="Search products (e.g cement, steel, concrete etc)"
+            />
+            {isProductSearchOpen && (
+              <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
+                {filteredProducts.map((product) => (
+                  <div key={product.id} className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
+                    <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
+                    <div className="w-full space-y-2">
+                      <div className="flex justify-between">
+                        <h3 className="text-xl">{product.name}</h3>
+                        <div className="flex gap-4">
+                          <Button variant="outline"><History />View Price History</Button>
+                          <Button type="button" onClick={() => handleAddProduct(product)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 text-sm">
+                        <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">product</p>
+                        <p className="border bg-muted rounded px-1">{product.category}</p>
+                      </div>
+                      <div className="grid grid-cols-3">
+                        <div className="grid grid-cols-2">
+                          <span>Sell Price:</span>
+                          <span className="text-green-500">{product.sellPrice} &#65020;</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>VAT Rate</span>
+                          <span>{product.vatRate}%</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Stock</span>
+                          <span className="text-green-500">{product.stock}</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Cost Price</span>
+                          <span>{product.costPrice} &#65020;</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Barcode</span>
+                          <span>{product.barcode}</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Unit</span>
+                          <span>{product.unit}</span>
+                        </div>
+                      </div>
+                      <Separator />
+                      <p>{product.description}</p>
                     </div>
                   </div>
-                  <div className="flex gap-2 text-sm">
-                    <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">product</p>
-                    <p className="border bg-muted rounded px-1">electronics</p>
-                  </div>
-                  <div className="grid grid-cols-3">
-                    <div className="grid grid-cols-2">
-                      <span>Sell Price:</span>
-                      <span className="text-green-500">4250.00 &#65020;</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>VAT Rate</span>
-                      <span>15%</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Stock</span>
-                      <span className="text-green-500">15</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Cost Price</span>
-                      <span>3400.00 &#65020;</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Barcode</span>
-                      <span>123456789</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Unit</span>
-                      <span>psc &#65020;</span>
-                    </div>
-                  </div>
-                  <Separator />
-                  <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
-                </div>
+                ))}
+                <Button variant="outline" className="w-full text-theme1">
+                  <Box />
+                  Add New Product
+                  <Kbd className="border">Shift+P</Kbd>
+                </Button>
               </div>
-              <Button variant="outline" className="w-full text-theme1">
-                <Box />
-                Add New Product
-                <Kbd className="border">Shift+P</Kbd>
-              </Button>
-            </div>
+            )}
           </InputGroup>
-          <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
-            <Box className="size-15" />
-            <h2 className="text-theme1">No products added</h2>
-            <p>Search and add products using the search box above</p>
-          </div>
-          <div className="hidden">
-            <div className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
-              <span>Product name</span>
-              <span>Unit</span>
-              <span>Unit Price</span>
-              <span>Quantity</span>
-              <span>Discount</span>
-              <span>Line Total</span>
-              <span>VAT Category</span>
-              <span>VAT Amount</span>
-              <span>Total</span>
-              <span>Actions</span>
+          <p className="text-sm text-red-500">{form.formState.errors.products?.message}</p>
+
+          {productFields.length === 0 ? (
+            <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
+              <Box className="size-15" />
+              <h2 className="text-theme1">No products added</h2>
+              <p>Search and add products using the search box above</p>
             </div>
-            <div className="p-2 grid grid-cols-10 gap-2 text-sm wrap-anywhere">
-              <span>Steel Rebar 12mm</span>
-              <span>Ton</span>
-              <span>120.00</span>
-              <span>1</span>
-              <span>0%</span>
-              <span>130.00</span>
-              <span>Standard 15%</span>
-              <span>18.00</span>
-              <span>138.00</span>
-              <span><Trash2 className="size-4" /></span>
+          ) : (
+            <div className="">
+              <ul className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
+                <li>Product name</li>
+                <li>Unit</li>
+                <li>Unit Price</li>
+                <li>Quantity</li>
+                <li>Discount</li>
+                <li>Line Total</li>
+                <li>VAT Category</li>
+                <li>VAT Amount</li>
+                <li>Total</li>
+                <li>Actions</li>
+              </ul>
+              {productFields.map((field, index) => (
+                <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
+                  <li>Steel Rebar 12mm</li>
+                  <li>Ton</li>
+                  <li>120.00</li>
+                  <li>1</li>
+                  <li>0%</li>
+                  <li>130.00</li>
+                  <li>Standard 15%</li>
+                  <li>18.00</li>
+                  <li>138.00</li>
+                  <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
+                </ul>
+              ))}
             </div>
-          </div>
+          )}
         </div>
 
         {/* Services */}
@@ -564,9 +650,9 @@ const CreateSalesInvoice = () => {
           </div>
         </div>
 
-      </form>
+      </form >
 
-    </div>
+    </div >
   )
 }
 

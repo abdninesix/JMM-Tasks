@@ -147,7 +147,6 @@ export const dummyResponsiblePersons = Array.from({ length: 10 }, (_, i) => ({
 export const dummyProducts = Array.from({ length: 15 }, (_, i) => ({
   id: `PRD-${200 + i}`,
   name: ["HP Elite 840 G9", "Steel Rebar 12mm", "Cement Bag 50kg", "Concrete Mix"][i % 4],
-  fullNameAr: ["إتش بي إليت", "حديد تسليح", "كيس أسمنت", "خلطة خرسانية"][i % 4],
   sellPrice: 1000 + (i * 150),
   costPrice: 800 + (i * 100),
   vatRate: 15,
@@ -162,7 +161,6 @@ export const dummyProducts = Array.from({ length: 15 }, (_, i) => ({
 export const dummyServices = Array.from({ length: 10 }, (_, i) => ({
   id: `SRV-${300 + i}`,
   name: ["Consultation Service", "Delivery Service", "Site Inspection", "Maintenance"][i % 4],
-  fullNameAr: ["خدمة استشارية", "خدمة التوصيل", "فحص الموقع", "صيانة"][i % 4],
   sellPrice: 500 + (i * 50),
   costPrice: 200 + (i * 20),
   vatRate: 15,
