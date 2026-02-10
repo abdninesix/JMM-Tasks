@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import {  dummyProducts } from "@/lib/data"
+import { dummyProducts, dummyServices } from "@/lib/data"
 import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
@@ -46,6 +46,18 @@ export const invoiceSchema = z.object({
     vatAmount: z.number(),
     total: z.number(),
   })).min(1, "No products added"),
+  services: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    unit: z.string(),
+    unitPrice: z.number(),
+    quantity: z.number().min(1),
+    discount: z.number(),
+    vatRate: z.number(),
+    lineTotal: z.number(),
+    vatAmount: z.number(),
+    total: z.number(),
+  })).min(1, "No services added"),
 })
   .superRefine((data, ctx) => {
     if (!data.issueDate) {
@@ -77,6 +89,8 @@ const CreateSalesInvoice = () => {
 
   const [productSearch, setProductSearch] = useState("");
   const [isProductSearchOpen, setIsProductSearchOpen] = useState(false);
+  const [serviceSearch, setServiceSearch] = useState("");
+  const [isServiceSearchOpen, setIsServiceSearchOpen] = useState(false);
 
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
@@ -93,6 +107,7 @@ const CreateSalesInvoice = () => {
       splitPayment: false,
       paymentMethod: "cash",
       products: [],
+      services: [],
     },
   });
 
@@ -101,9 +116,11 @@ const CreateSalesInvoice = () => {
   const invoiceType = watch("invoiceType");
   // const anchor = useComboboxAnchor()
 
-  const { fields: productFields, append: appendProduct, remove: removeProduct } = useFieldArray({ control, name: "products", });
+  const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "products", });
+  const { fields: serviceFields, append: appendService, remove: removeService, replace: replaceServices } = useFieldArray({ control, name: "services", });
 
   const filteredProducts = dummyProducts.filter(p => p.name.toLowerCase().includes(productSearch.toLowerCase()) || p.barcode.includes(productSearch));
+  const filteredServices = dummyServices.filter(p => p.name.toLowerCase().includes(serviceSearch.toLowerCase()) || p.barcode.includes(serviceSearch));
 
   const handleAddProduct = (product: typeof dummyProducts[0]) => {
     const lineTotal = product.sellPrice * 1;
@@ -122,6 +139,25 @@ const CreateSalesInvoice = () => {
     });
     setProductSearch("");
     setIsProductSearchOpen(false);
+  };
+
+  const handleAddService = (service: typeof dummyServices[0]) => {
+    const lineTotal = service.sellPrice * 1;
+    const vatAmount = (lineTotal * service.vatRate) / 100;
+    appendService({
+      id: service.id,
+      name: service.name,
+      unit: service.unit,
+      unitPrice: service.sellPrice,
+      quantity: 1,
+      discount: 0,
+      lineTotal: lineTotal,
+      vatRate: service.vatRate,
+      vatAmount: vatAmount,
+      total: lineTotal + vatAmount,
+    });
+    setServiceSearch("");
+    setIsServiceSearchOpen(false);
   };
 
   const onSubmit = handleSubmit((data) => {
@@ -292,7 +328,7 @@ const CreateSalesInvoice = () => {
         <div className="p-4 border rounded-md space-y-4">
           <div className="flex justify-between space-y-4">
             <h2 className="font-semibold text-theme1">Products ({productFields.length})</h2>
-            <Button variant="outline" size="sm">Clear all products</Button>
+            <Button type="button" variant="outline" size="sm" onClick={() => replaceProducts([])}>Clear all products</Button>
           </div>
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
@@ -313,7 +349,7 @@ const CreateSalesInvoice = () => {
                       <div className="flex justify-between">
                         <h3 className="text-xl">{product.name}</h3>
                         <div className="flex gap-4">
-                          <Button variant="outline"><History />View Price History</Button>
+                          <Button type="button" variant="outline"><History />View Price History</Button>
                           <Button type="button" onClick={() => handleAddProduct(product)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
                         </div>
                       </div>
@@ -352,7 +388,7 @@ const CreateSalesInvoice = () => {
                     </div>
                   </div>
                 ))}
-                <Button variant="outline" className="w-full text-theme1">
+                <Button type="button" variant="outline" className="w-full text-theme1">
                   <Box />
                   Add New Product
                   <Kbd className="border">Shift+P</Kbd>
@@ -370,7 +406,7 @@ const CreateSalesInvoice = () => {
             </div>
           ) : (
             <div className="">
-              <ul className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
+              <ul className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10 items-center">
                 <li>Product name</li>
                 <li>Unit</li>
                 <li>Unit Price</li>
@@ -384,16 +420,16 @@ const CreateSalesInvoice = () => {
               </ul>
               {productFields.map((field, index) => (
                 <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
-                  <li>Steel Rebar 12mm</li>
-                  <li>Ton</li>
-                  <li>120.00</li>
-                  <li>1</li>
-                  <li>0%</li>
-                  <li>130.00</li>
-                  <li>Standard 15%</li>
-                  <li>18.00</li>
-                  <li>138.00</li>
-                  <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
+                  <li>{field.name}</li>
+                  <li>{field.unit}</li>
+                  <li>{field.unitPrice}</li>
+                  <li>{field.quantity}</li>
+                  <li>{field.discount}%</li>
+                  <li>{field.lineTotal}</li>
+                  <li>Standard {field.vatRate}%</li>
+                  <li>{field.vatAmount}</li>
+                  <li>{field.total}</li>
+                  <Button type="button" size="icon" variant="ghost" onClick={() => removeService(index)}><Trash2 className="size-4" /></Button>
                 </ul>
               ))}
             </div>
@@ -403,103 +439,113 @@ const CreateSalesInvoice = () => {
         {/* Services */}
         <div className="p-4 border rounded-md space-y-4">
           <div className="flex justify-between space-y-4">
-            <h2 className="font-semibold text-theme1">Services (0)</h2>
-            <Button variant="outline" size="sm">Clear all services</Button>
+            <h2 className="font-semibold text-theme1">Services ({serviceFields.length})</h2>
+            <Button type="button" variant="outline" size="sm" onClick={() => replaceServices([])}>Clear all services</Button>
           </div>
           <InputGroup className="relative">
             <InputGroupAddon><Search /></InputGroupAddon>
-            <InputGroupInput placeholder="Search services (e.g cement, steel, concrete etc)" />
-            {/* This opens during search */}
-            <div className="hidden w-full space-y-4 bg-card absolute top-14">
-              <div className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
-                <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
-                <div className="w-full space-y-2">
-                  <div className="flex justify-between">
-                    <h3 className="text-xl">Consultation Service</h3>
-                    <div className="flex gap-4">
-                      <Button variant="outline"><History />View Price History</Button>
-                      <Button className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
+            <InputGroupInput
+              value={serviceSearch}
+              onChange={(e) => {
+                setServiceSearch(e.target.value)
+                setIsServiceSearchOpen(e.target.value.length > 0);
+              }}
+              placeholder="Search services (e.g cement, steel, concrete etc)"
+            />
+            {isServiceSearchOpen && (
+              <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
+                {filteredServices.map((service) => (
+                  <div key={service.id} className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
+                    <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
+                    <div className="w-full space-y-2">
+                      <div className="flex justify-between">
+                        <h3 className="text-xl">{service.name}</h3>
+                        <div className="flex gap-4">
+                          <Button type="button" variant="outline"><History />View Price History</Button>
+                          <Button type="button" onClick={() => handleAddService(service)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 text-sm">
+                        <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">service</p>
+                        <p className="border bg-muted rounded px-1">{service.category}</p>
+                      </div>
+                      <div className="grid grid-cols-3">
+                        <div className="grid grid-cols-2">
+                          <span>Sell Price:</span>
+                          <span className="text-green-500">{service.sellPrice} &#65020;</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>VAT Rate</span>
+                          <span>{service.vatRate}%</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Stock</span>
+                          <span className="text-green-500">{service.stock}</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Cost Price</span>
+                          <span>{service.costPrice} &#65020;</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Barcode</span>
+                          <span>{service.barcode}</span>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          <span>Unit</span>
+                          <span>{service.unit}</span>
+                        </div>
+                      </div>
+                      <Separator />
+                      <p>{service.description}</p>
                     </div>
                   </div>
-                  <div className="flex gap-2 text-sm">
-                    <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">service</p>
-                    <p className="border bg-muted rounded px-1">electronics</p>
-                  </div>
-                  <div className="grid grid-cols-3">
-                    <div className="grid grid-cols-2">
-                      <span>Sell Price:</span>
-                      <span className="text-green-500">4250.00 &#65020;</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>VAT Rate</span>
-                      <span>15%</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Stock</span>
-                      <span className="text-green-500">15</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Cost Price</span>
-                      <span>3400.00 &#65020;</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Barcode</span>
-                      <span>123456789</span>
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <span>Unit</span>
-                      <span>psc &#65020;</span>
-                    </div>
-                  </div>
-                  <Separator />
-                  <p>Introducing the latest cutting edge technology: The Smart TechPro 3000.</p>
-                </div>
-              </div>
-              <div className="flex justify-center gap-4">
-                <Button variant="outline" className="text-green-500">
-                  <PlusCircle />
-                  Add As Non Created Service
-                  <Kbd className="border">Shift+P</Kbd>
-                </Button>
-                <Button variant="outline" className="text-theme1">
-                  <Settings />
+                ))}
+                <Button type="button" variant="outline" className="w-full text-theme1">
+                  <Box />
                   Add New Service
-                  <Kbd className="border">Shift+P</Kbd>
+                  <Kbd className="border">Shift+S</Kbd>
                 </Button>
               </div>
-            </div>
+            )}
           </InputGroup>
-          <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
-            <Settings className="size-15" />
-            <h2 className="text-theme1">No services added</h2>
-            <p>Search and add services using the search box above</p>
-          </div>
-          <div className="hidden">
-            <div className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
-              <span>Service name</span>
-              <span>Unit</span>
-              <span>Unit Price</span>
-              <span>Quantity</span>
-              <span>Discount</span>
-              <span>Line Total</span>
-              <span>VAT Category</span>
-              <span>VAT Amount</span>
-              <span>Total</span>
-              <span>Actions</span>
+          <p className="text-sm text-red-500">{form.formState.errors.services?.message}</p>
+
+          {serviceFields.length === 0 ? (
+            <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
+              <Settings className="size-15" />
+              <h2 className="text-theme1">No services added</h2>
+              <p>Search and add services using the search box above</p>
             </div>
-            <div className="p-2 grid grid-cols-10 gap-2 text-sm wrap-anywhere">
-              <span>Delivery Service</span>
-              <span>Ton</span>
-              <span>120.00</span>
-              <span>1</span>
-              <span>0%</span>
-              <span>130.00</span>
-              <span>Standard 15%</span>
-              <span>18.00</span>
-              <span>138.00</span>
-              <span><Trash2 className="size-4" /></span>
+          ) : (
+            <div className="">
+              <ul className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
+                <li>Service name</li>
+                <li>Unit</li>
+                <li>Unit Price</li>
+                <li>Quantity</li>
+                <li>Discount</li>
+                <li>Line Total</li>
+                <li>VAT Category</li>
+                <li>VAT Amount</li>
+                <li>Total</li>
+                <li>Actions</li>
+              </ul>
+              {serviceFields.map((field, index) => (
+                <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
+                  <li>{field.name}</li>
+                  <li>{field.unit}</li>
+                  <li>{field.unitPrice}</li>
+                  <li>{field.quantity}</li>
+                  <li>{field.discount}%</li>
+                  <li>{field.lineTotal}</li>
+                  <li>Standard {field.vatRate}%</li>
+                  <li>{field.vatAmount}</li>
+                  <li>{field.total}</li>
+                  <Button type="button" size="icon" variant="ghost" onClick={() => removeService(index)}><Trash2 className="size-4" /></Button>
+                </ul>
+              ))}
             </div>
-          </div>
+          )}
         </div>
 
         <div className="flex flex-col lg:flex-row gap-4">
