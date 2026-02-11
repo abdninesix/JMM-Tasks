@@ -212,7 +212,7 @@ const CreateSalesInvoice = () => {
 
       <Separator />
 
-      <form className="space-y-4" onSubmit={onSubmit}>
+      <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
 
         {/* Inputs */}
         <Label>Invoice Type</Label>
@@ -744,7 +744,7 @@ const CreateSalesInvoice = () => {
                     </TabsContent>
                   </Tabs>
                 )} />
-              <Button type="submit" className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
+              <Button type="submit" onClick={onSubmit} className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
                 Save and Proceed
                 <Kbd className="border border-white text-white bg-transparent">Ctrl+Enter</Kbd>
               </Button>
