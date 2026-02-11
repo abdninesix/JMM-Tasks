@@ -455,7 +455,7 @@ const CreateSalesInvoice = () => {
                 setServiceSearch(e.target.value)
                 setIsServiceSearchOpen(e.target.value.length > 0);
               }}
-              placeholder="Search services (e.g cement, steel, concrete etc)"
+              placeholder="Search services (e.g delivery, maintenance, consultation etc)"
             />
             {isServiceSearchOpen && <Button type="button" variant="ghost" onClick={() => { setIsServiceSearchOpen(false); setServiceSearch("") }}><X /></Button>}
             {isServiceSearchOpen && (
