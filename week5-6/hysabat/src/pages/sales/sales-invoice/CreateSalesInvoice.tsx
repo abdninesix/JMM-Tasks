@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
+import { toast } from "sonner"
 
 export const invoiceSchema = z.object({
   invoiceType: z.enum(["tax", "simplified-tax"]),
@@ -139,6 +140,7 @@ const CreateSalesInvoice = () => {
     });
     setProductSearch("");
     setIsProductSearchOpen(false);
+    toast.success("Product added!")
   };
 
   const handleAddService = (service: typeof dummyServices[0]) => {
@@ -158,11 +160,13 @@ const CreateSalesInvoice = () => {
     });
     setServiceSearch("");
     setIsServiceSearchOpen(false);
+    toast.success("Service added!")
   };
 
   const onSubmit = handleSubmit((data) => {
-    console.log("Form Errors:", form.formState.errors);
+    console.log("Form Errors:", errors);
     console.log("Form Data:", data);
+    toast.success("Invoice created!")
   });
 
   return (
@@ -344,21 +348,21 @@ const CreateSalesInvoice = () => {
             {isProductSearchOpen && (
               <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
                 {filteredProducts.map((product) => (
-                  <div key={product.id} className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
-                    <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
+                  <div key={product.id} className="w-full p-4 bg-card hover:bg-muted group border flex flex-col lg:flex-row gap-4 rounded-md">
+                    <div className="p-2 size-20 lg:size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
                     <div className="w-full space-y-2">
-                      <div className="flex justify-between">
-                        <h3 className="text-xl">{product.name}</h3>
+                      <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
+                        <h3 className="text-lg lg:text-xl">{product.name}</h3>
                         <div className="flex gap-4">
                           <Button type="button" variant="outline"><History />View Price History</Button>
                           <Button type="button" onClick={() => handleAddProduct(product)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
                         </div>
                       </div>
-                      <div className="flex gap-2 text-sm">
+                      <div className="flex flex-wrap gap-2 text-sm">
                         <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">product</p>
                         <p className="border bg-muted rounded px-1">{product.category}</p>
                       </div>
-                      <div className="grid grid-cols-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                         <div className="grid grid-cols-2">
                           <span>Sell Price:</span>
                           <span className="text-green-500">{product.sellPrice} &#65020;</span>
@@ -403,7 +407,7 @@ const CreateSalesInvoice = () => {
             <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
               <Box className="size-15" />
               <h2 className="text-theme1">No products added</h2>
-              <p>Search and add products using the search box above</p>
+              <p className="text-sm">Search and add products using the search box above</p>
             </div>
           ) : (
             <div className="">
@@ -523,7 +527,7 @@ const CreateSalesInvoice = () => {
             <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
               <Settings className="size-15" />
               <h2 className="text-theme1">No services added</h2>
-              <p>Search and add services using the search box above</p>
+              <p className="text-sm">Search and add services using the search box above</p>
             </div>
           ) : (
             <div className="">
