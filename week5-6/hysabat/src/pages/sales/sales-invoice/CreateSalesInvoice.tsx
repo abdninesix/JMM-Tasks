@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -75,7 +75,7 @@ export const invoiceSchema = z.object({
         code: "custom",
       });
     }
-    if (!data.vatNumber && data.invoiceType === "simplified-tax") {
+    if (!data.vatNumber && data.invoiceType === "tax") {
       ctx.addIssue({
         path: ["vatNumber"],
         message: "VAT Number is required",
@@ -115,13 +115,15 @@ const CreateSalesInvoice = () => {
   const { watch, control, handleSubmit, formState: { errors } } = form;
 
   const invoiceType = watch("invoiceType");
+  const products = watch("products", []);
+  const services = watch("services", []);
   // const anchor = useComboboxAnchor()
 
   const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "products", });
   const { fields: serviceFields, append: appendService, remove: removeService, replace: replaceServices } = useFieldArray({ control, name: "services", });
 
-  const filteredProducts = dummyProducts.filter(p => p.name.toLowerCase().includes(productSearch.toLowerCase()) || p.barcode.includes(productSearch));
-  const filteredServices = dummyServices.filter(p => p.name.toLowerCase().includes(serviceSearch.toLowerCase()) || p.barcode.includes(serviceSearch));
+  const filteredProducts = dummyProducts.filter(p => p.name.toLowerCase().includes(productSearch.toLowerCase()) || p.barcode.includes(productSearch)).slice(0, 4);
+  const filteredServices = dummyServices.filter(p => p.name.toLowerCase().includes(serviceSearch.toLowerCase()) || p.barcode.includes(serviceSearch)).slice(0, 4);
 
   const handleAddProduct = (product: typeof dummyProducts[0]) => {
     const lineTotal = product.sellPrice * 1;
@@ -143,6 +145,18 @@ const CreateSalesInvoice = () => {
     toast.success("Product added!")
   };
 
+  useEffect(() => {
+    products.forEach((p, i) => {
+      const lineTotal = p.unitPrice * p.quantity - p.discount;
+      const vatAmount = (lineTotal * p.vatRate) / 100;
+      const total = lineTotal + vatAmount;
+
+      form.setValue(`products.${i}.lineTotal`, lineTotal);
+      form.setValue(`products.${i}.vatAmount`, vatAmount);
+      form.setValue(`products.${i}.total`, total);
+    });
+  }, [JSON.stringify(products)]);
+
   const handleAddService = (service: typeof dummyServices[0]) => {
     const lineTotal = service.sellPrice * 1;
     const vatAmount = (lineTotal * service.vatRate) / 100;
@@ -162,6 +176,18 @@ const CreateSalesInvoice = () => {
     setIsServiceSearchOpen(false);
     toast.success("Service added!")
   };
+
+  useEffect(() => {
+    services.forEach((p, i) => {
+      const lineTotal = p.unitPrice * p.quantity - p.discount;
+      const vatAmount = (lineTotal * p.vatRate) / 100;
+      const total = lineTotal + vatAmount;
+
+      form.setValue(`services.${i}.lineTotal`, lineTotal);
+      form.setValue(`services.${i}.vatAmount`, vatAmount);
+      form.setValue(`services.${i}.total`, total);
+    });
+  }, [JSON.stringify(services)]);
 
   const onSubmit = handleSubmit((data) => {
     console.log("Form Errors:", errors);
@@ -316,7 +342,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.supplyDate?.message}</p>
           </Field>
 
-          {invoiceType === "simplified-tax" && <Field className="max-w-50">
+          {invoiceType === "tax" && <Field className="max-w-50">
             <Label>VAT No.</Label>
             <Controller
               name="vatNumber"
@@ -428,12 +454,20 @@ const CreateSalesInvoice = () => {
                   <li>{field.name}</li>
                   <li>{field.unit}</li>
                   <li>{field.unitPrice}</li>
-                  <li>{field.quantity}</li>
-                  <li>{field.discount}%</li>
-                  <li>{field.lineTotal}</li>
+                  <input
+                    type="number"
+                    min={1}
+                    {...form.register(`products.${index}.quantity`, { valueAsNumber: true })}
+                  />
+                  <input
+                    type="number"
+                    min={0}
+                    {...form.register(`products.${index}.discount`, { valueAsNumber: true })}
+                  />
+                  <li>{products[index]?.lineTotal}</li>
                   <li>Standard {field.vatRate}%</li>
-                  <li>{field.vatAmount}</li>
-                  <li>{field.total}</li>
+                  <li>{products[index]?.vatAmount}</li>
+                  <li>{products[index]?.total}</li>
                   <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
                 </ul>
               ))}
@@ -548,12 +582,20 @@ const CreateSalesInvoice = () => {
                   <li>{field.name}</li>
                   <li>{field.unit}</li>
                   <li>{field.unitPrice}</li>
-                  <li>{field.quantity}</li>
-                  <li>{field.discount}%</li>
-                  <li>{field.lineTotal}</li>
+                  <input
+                    type="number"
+                    min={1}
+                    {...form.register(`services.${index}.quantity`, { valueAsNumber: true })}
+                  />
+                  <input
+                    type="number"
+                    min={0}
+                    {...form.register(`services.${index}.discount`, { valueAsNumber: true })}
+                  />
+                  <li>{services[index]?.lineTotal}</li>
                   <li>Standard {field.vatRate}%</li>
-                  <li>{field.vatAmount}</li>
-                  <li>{field.total}</li>
+                  <li>{services[index]?.vatAmount}</li>
+                  <li>{services[index]?.total}</li>
                   <Button type="button" size="icon" variant="ghost" onClick={() => removeService(index)}><Trash2 className="size-4" /></Button>
                 </ul>
               ))}
