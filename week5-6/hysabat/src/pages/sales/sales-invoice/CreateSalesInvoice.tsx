@@ -22,6 +22,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { toast } from "sonner"
+import { useDebounce } from "@/hooks/useDebounce"
 
 export const invoiceSchema = z.object({
   invoiceType: z.enum(["tax", "simplified-tax"]),
@@ -122,8 +123,8 @@ const CreateSalesInvoice = () => {
   const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "products", });
   const { fields: serviceFields, append: appendService, remove: removeService, replace: replaceServices } = useFieldArray({ control, name: "services", });
 
-  const filteredProducts = dummyProducts.filter(p => p.name.toLowerCase().includes(productSearch.toLowerCase()) || p.barcode.includes(productSearch)).slice(0, 4);
-  const filteredServices = dummyServices.filter(p => p.name.toLowerCase().includes(serviceSearch.toLowerCase()) || p.barcode.includes(serviceSearch)).slice(0, 4);
+  const filteredProducts = dummyProducts.filter(p => p.name.toLowerCase().includes(useDebounce(productSearch, 1000).toLowerCase())).slice(0, 4);
+  const filteredServices = dummyServices.filter(p => p.name.toLowerCase().includes(useDebounce(serviceSearch, 1000).toLowerCase())).slice(0, 4);
 
   const handleAddProduct = (product: typeof dummyProducts[0]) => {
     const lineTotal = product.sellPrice * 1;
