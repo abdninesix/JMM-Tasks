@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -189,6 +189,18 @@ const CreateSalesInvoice = () => {
       form.setValue(`services.${i}.total`, total);
     });
   }, [JSON.stringify(services)]);
+
+  const summary = useMemo(() => {
+    const allItems = [...(products ?? []), ...(services ?? [])];
+
+    const subTotal = allItems.reduce((s, i) => s + i.lineTotal, 0);
+    const vatTotal = allItems.reduce((s, i) => s + i.vatAmount, 0);
+    const discountTotal = allItems.reduce((s, i) => s + i.discount, 0);
+    const grandTotal = subTotal + vatTotal - discountTotal;
+
+    return { subTotal, vatTotal, discountTotal, grandTotal };
+  }, [JSON.stringify(products), JSON.stringify(services)]);
+
 
   const onSubmit = handleSubmit((data) => {
     console.log("Form Errors:", errors);
@@ -646,19 +658,19 @@ const CreateSalesInvoice = () => {
               <h2 className="text-xl text-theme1">Summary</h2>
               <div className="grid grid-cols-2">
                 <span>Total (Exc VAT)</span>
-                <span className="font-semibold text-end">500 &#65020;</span>
+                <span className="font-semibold text-end">{summary.subTotal} &#65020;</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>VAT Category</span>
-                <span className="font-semibold text-end">S 5%</span>
+                <span className="font-semibold text-end">S 15%</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>Discount%</span>
-                <span className="font-semibold text-end">15%</span>
+                <span className="font-semibold text-end">0%</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>Discount Amount</span>
-                <span className="font-semibold text-end">00 &#65020;</span>
+                <span className="font-semibold text-end">{summary.discountTotal} &#65020;</span>
               </div>
               <div className="grid grid-cols-2">
                 <span>Taxable Amount</span>
@@ -666,11 +678,11 @@ const CreateSalesInvoice = () => {
               </div>
               <div className="grid grid-cols-2">
                 <span>VAT Total</span>
-                <span className="font-semibold text-end">500 &#65020;</span>
+                <span className="font-semibold text-end">{summary.vatTotal} &#65020;</span>
               </div>
               <div className="grid grid-cols-2 text-theme1">
                 <span>Grand Total</span>
-                <span className="text-end">1500 &#65020;</span>
+                <span className="text-end">{summary.grandTotal} &#65020;</span>
               </div>
             </div>
             {/* Payment Type */}
