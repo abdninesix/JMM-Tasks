@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { toast } from "sonner"
 import { useDebounce } from "@/hooks/useDebounce"
+import Summary from "@/components/pages-components/sales-invoice/Summary"
 
 export const invoiceSchema = z.object({
   invoiceType: z.enum(["tax", "simplified-tax"]),
@@ -192,15 +193,12 @@ const CreateSalesInvoice = () => {
 
   const summary = useMemo(() => {
     const allItems = [...(products ?? []), ...(services ?? [])];
-
     const subTotal = allItems.reduce((s, i) => s + i.lineTotal, 0);
     const vatTotal = allItems.reduce((s, i) => s + i.vatAmount, 0);
     const discountTotal = allItems.reduce((s, i) => s + i.discount, 0);
     const grandTotal = subTotal + vatTotal - discountTotal;
-
     return { subTotal, vatTotal, discountTotal, grandTotal };
   }, [JSON.stringify(products), JSON.stringify(services)]);
-
 
   const onSubmit = handleSubmit((data) => {
     console.log("Form Errors:", errors);
@@ -654,37 +652,12 @@ const CreateSalesInvoice = () => {
           </div>
           <div className="w-full space-y-4">
             {/* Summary */}
-            <div className="p-4 space-y-4 bg-card border rounded-md font-extrabold">
-              <h2 className="text-xl text-theme1">Summary</h2>
-              <div className="grid grid-cols-2">
-                <span>Total (Exc VAT)</span>
-                <span className="font-semibold text-end">{summary.subTotal} &#65020;</span>
-              </div>
-              <div className="grid grid-cols-2">
-                <span>VAT Category</span>
-                <span className="font-semibold text-end">S 15%</span>
-              </div>
-              <div className="grid grid-cols-2">
-                <span>Discount%</span>
-                <span className="font-semibold text-end">0%</span>
-              </div>
-              <div className="grid grid-cols-2">
-                <span>Discount Amount</span>
-                <span className="font-semibold text-end">{summary.discountTotal} &#65020;</span>
-              </div>
-              <div className="grid grid-cols-2">
-                <span>Taxable Amount</span>
-                <span className="font-semibold text-end">500 &#65020;</span>
-              </div>
-              <div className="grid grid-cols-2">
-                <span>VAT Total</span>
-                <span className="font-semibold text-end">{summary.vatTotal} &#65020;</span>
-              </div>
-              <div className="grid grid-cols-2 text-theme1">
-                <span>Grand Total</span>
-                <span className="text-end">{summary.grandTotal} &#65020;</span>
-              </div>
-            </div>
+            <Summary
+              subTotal={summary.subTotal}
+              vatTotal={summary.vatTotal}
+              discountTotal={summary.discountTotal}
+              grandTotal={summary.grandTotal}
+            />
             {/* Payment Type */}
             <div className="p-4 space-y-4 bg-card border rounded-md">
               <h2 className="text-xl font-bold">Payment Type</h2>
