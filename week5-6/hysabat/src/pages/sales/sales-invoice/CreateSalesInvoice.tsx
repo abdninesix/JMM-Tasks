@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { dummyProducts, dummyServices } from "@/lib/data"
-import { Banknote, BookText, Box, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2, X } from "lucide-react"
+import { Banknote, BookText, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, History, Landmark, Plus, PlusCircle, Search, Settings, Tag, Trash2, X } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
@@ -18,12 +18,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Kbd } from "@/components/ui/kbd"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
-import { Controller, useFieldArray, useForm } from "react-hook-form"
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { toast } from "sonner"
 import { useDebounce } from "@/hooks/useDebounce"
 import Summary from "@/components/pages-components/sales-invoice/Summary"
+import Products from "@/components/pages-components/sales-invoice/Products"
 
 export const invoiceSchema = z.object({
   invoiceType: z.enum(["tax", "simplified-tax"]),
@@ -117,15 +118,26 @@ const CreateSalesInvoice = () => {
   const { watch, control, handleSubmit, formState: { errors } } = form;
 
   const invoiceType = watch("invoiceType");
-  const products = watch("products", []);
-  const services = watch("services", []);
+  const products = useWatch({ control, name: "products" });
+  const services = useWatch({ control, name: "services" });
   // const anchor = useComboboxAnchor()
 
   const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "products", });
   const { fields: serviceFields, append: appendService, remove: removeService, replace: replaceServices } = useFieldArray({ control, name: "services", });
 
-  const filteredProducts = dummyProducts.filter(p => p.name.toLowerCase().includes(useDebounce(productSearch, 1000).toLowerCase())).slice(0, 4);
-  const filteredServices = dummyServices.filter(p => p.name.toLowerCase().includes(useDebounce(serviceSearch, 1000).toLowerCase())).slice(0, 4);
+  const debouncedProductSearch = useDebounce(productSearch, 500);
+  const filteredProducts = useMemo(() => {
+    return dummyProducts
+      .filter(p => p.name.toLowerCase().includes(debouncedProductSearch.toLowerCase()))
+      .slice(0, 4);
+  }, [debouncedProductSearch]);
+  
+  const debouncedServiceSearch = useDebounce(serviceSearch, 500);
+  const filteredServices = useMemo(() => {
+    return dummyServices
+      .filter(p => p.name.toLowerCase().includes(debouncedServiceSearch.toLowerCase()))
+      .slice(0, 4);
+  }, [debouncedServiceSearch]);
 
   const handleAddProduct = (product: typeof dummyProducts[0]) => {
     const lineTotal = product.sellPrice * 1;
@@ -366,125 +378,20 @@ const CreateSalesInvoice = () => {
         </div>
 
         {/* Products */}
-        <div className="p-4 border rounded-md space-y-4">
-          <div className="flex justify-between space-y-4">
-            <h2 className="font-semibold text-theme1">Products ({productFields.length})</h2>
-            <Button type="button" variant="outline" size="sm" onClick={() => replaceProducts([])}>Clear all products</Button>
-          </div>
-          <InputGroup className="relative">
-            <InputGroupAddon><Search /></InputGroupAddon>
-            <InputGroupInput
-              value={productSearch}
-              onChange={(e) => {
-                setProductSearch(e.target.value)
-                setIsProductSearchOpen(e.target.value.length > 0);
-              }}
-              placeholder="Search products (e.g cement, steel, concrete etc)"
-            />
-            {isProductSearchOpen && <Button type="button" variant="ghost" onClick={() => { setIsProductSearchOpen(false); setProductSearch("") }}><X /></Button>}
-            {isProductSearchOpen && (
-              <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
-                {filteredProducts.map((product) => (
-                  <div key={product.id} className="w-full p-4 bg-card hover:bg-muted group border flex flex-col lg:flex-row gap-4 rounded-md">
-                    <div className="p-2 size-20 lg:size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
-                    <div className="w-full space-y-2">
-                      <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
-                        <h3 className="text-lg lg:text-xl">{product.name}</h3>
-                        <div className="flex gap-4">
-                          <Button type="button" variant="outline"><History />View Price History</Button>
-                          <Button type="button" onClick={() => handleAddProduct(product)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap gap-2 text-sm">
-                        <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">product</p>
-                        <p className="border bg-muted rounded px-1">{product.category}</p>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                        <div className="grid grid-cols-2">
-                          <span>Sell Price:</span>
-                          <span className="text-green-500">{product.sellPrice} &#65020;</span>
-                        </div>
-                        <div className="grid grid-cols-2">
-                          <span>VAT Rate</span>
-                          <span>{product.vatRate}%</span>
-                        </div>
-                        <div className="grid grid-cols-2">
-                          <span>Stock</span>
-                          <span className="text-green-500">{product.stock}</span>
-                        </div>
-                        <div className="grid grid-cols-2">
-                          <span>Cost Price</span>
-                          <span>{product.costPrice} &#65020;</span>
-                        </div>
-                        <div className="grid grid-cols-2">
-                          <span>Barcode</span>
-                          <span>{product.barcode}</span>
-                        </div>
-                        <div className="grid grid-cols-2">
-                          <span>Unit</span>
-                          <span>{product.unit}</span>
-                        </div>
-                      </div>
-                      <Separator />
-                      <p>{product.description}</p>
-                    </div>
-                  </div>
-                ))}
-                <Button type="button" variant="outline" className="w-full text-theme1">
-                  <Box />
-                  Add New Product
-                  <Kbd className="border">Shift+P</Kbd>
-                </Button>
-              </div>
-            )}
-          </InputGroup>
-          <p className="text-sm text-red-500">{errors.products?.message}</p>
-
-          {productFields.length === 0 ? (
-            <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
-              <Box className="size-15" />
-              <h2 className="text-theme1">No products added</h2>
-              <p className="text-sm">Search and add products using the search box above</p>
-            </div>
-          ) : (
-            <div className="">
-              <ul className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10 items-center">
-                <li>Product name</li>
-                <li>Unit</li>
-                <li>Unit Price</li>
-                <li>Quantity</li>
-                <li>Discount</li>
-                <li>Line Total</li>
-                <li>VAT Category</li>
-                <li>VAT Amount</li>
-                <li>Total</li>
-                <li>Actions</li>
-              </ul>
-              {productFields.map((field, index) => (
-                <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
-                  <li>{field.name}</li>
-                  <li>{field.unit}</li>
-                  <li>{field.unitPrice}</li>
-                  <input
-                    type="number"
-                    min={1}
-                    {...form.register(`products.${index}.quantity`, { valueAsNumber: true })}
-                  />
-                  <input
-                    type="number"
-                    min={0}
-                    {...form.register(`products.${index}.discount`, { valueAsNumber: true })}
-                  />
-                  <li>{products[index]?.lineTotal}</li>
-                  <li>Standard {field.vatRate}%</li>
-                  <li>{products[index]?.vatAmount}</li>
-                  <li>{products[index]?.total}</li>
-                  <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
-                </ul>
-              ))}
-            </div>
-          )}
-        </div>
+        <Products
+          form={form}
+          productSearch={productSearch}
+          setProductSearch={setProductSearch}
+          isOpen={isProductSearchOpen}
+          setIsOpen={setIsProductSearchOpen}
+          filteredProducts={filteredProducts}
+          productFields={productFields}
+          productValues={products}
+          onAdd={handleAddProduct}
+          onRemove={removeProduct}
+          onClear={() => replaceProducts([])}
+          error={errors.products?.message}
+        />
 
         {/* Services */}
         <div className="p-4 border rounded-md space-y-4">
