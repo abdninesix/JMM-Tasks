@@ -2,57 +2,79 @@ import { Button } from '@/components/ui/button';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
+import { useDebounce } from '@/hooks/useDebounce';
+import { dummyProducts } from '@/lib/data';
 import type { InvoiceFormValues } from '@/pages/sales/sales-invoice/CreateSalesInvoice';
 import { Box, History, Plus, Search, Tag, Trash2, X } from 'lucide-react';
-import type { UseFormReturn } from 'react-hook-form';
+import { useEffect, useMemo, useState } from 'react';
+import { useFieldArray, useWatch, type UseFormReturn } from 'react-hook-form';
+import { toast } from 'sonner';
 
-type Props = {
-    form: UseFormReturn<InvoiceFormValues>;
-    productSearch: string;
-    setProductSearch: (v: string) => void;
-    isOpen: boolean;
-    setIsOpen: (v: boolean) => void;
-    filteredProducts: any[];
-    productFields: any[];
-    productValues?: InvoiceFormValues["products"];
-    onAdd: (p: any) => void;
-    onRemove: (index: number) => void;
-    onClear: () => void;
-    error: any;
-};
+const Products = ({ form } : { form: UseFormReturn<InvoiceFormValues>; }) => {
 
-const Products = ({
-    form,
-    productSearch,
-    setProductSearch,
-    isOpen,
-    setIsOpen,
-    filteredProducts,
-    productFields,
-    productValues,
-    onAdd,
-    onRemove,
-    onClear,
-    error
-}: Props) => {
+    const [search, setSearch] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
+
+    const debouncedSearch = useDebounce(search, 500);
+    const filteredProducts = useMemo(() => {
+        return dummyProducts
+            .filter(p => p.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
+            .slice(0, 4);
+    }, [debouncedSearch]);
+
+    const { control, register, formState: { errors } } = form;
+    const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "products", });
+    const productValues = useWatch({ control, name: "products" });
+
+    const handleAddProduct = (product: typeof dummyProducts[0]) => {
+        const lineTotal = product.sellPrice * 1;
+        const vatAmount = (lineTotal * product.vatRate) / 100;
+        appendProduct({
+            id: product.id,
+            name: product.name,
+            unit: product.unit,
+            unitPrice: product.sellPrice,
+            quantity: 1,
+            discount: 0,
+            lineTotal: lineTotal,
+            vatRate: product.vatRate,
+            vatAmount: vatAmount,
+            total: lineTotal + vatAmount,
+        });
+        setSearch("");
+        setIsOpen(false);
+        toast.success("Product added!")
+    };
+
+    useEffect(() => {
+        productValues.forEach((p, i) => {
+            const lineTotal = p.unitPrice * p.quantity - p.discount;
+            const vatAmount = (lineTotal * p.vatRate) / 100;
+            const total = lineTotal + vatAmount;
+
+            form.setValue(`products.${i}.lineTotal`, lineTotal);
+            form.setValue(`products.${i}.vatAmount`, vatAmount);
+            form.setValue(`products.${i}.total`, total);
+        });
+    }, [productValues]);
 
     return (
         <div className="p-4 border rounded-md space-y-4">
             <div className="flex justify-between space-y-4">
                 <h2 className="font-semibold text-theme1">Products ({productFields.length})</h2>
-                <Button type="button" variant="outline" size="sm" onClick={onClear}>Clear all products</Button>
+                <Button type="button" variant="outline" size="sm" onClick={() => replaceProducts([])}>Clear all products</Button>
             </div>
             <InputGroup className="relative">
                 <InputGroupAddon><Search /></InputGroupAddon>
                 <InputGroupInput
-                    value={productSearch}
+                    value={search}
                     onChange={(e) => {
-                        setProductSearch(e.target.value)
+                        setSearch(e.target.value)
                         setIsOpen(e.target.value.length > 0);
                     }}
                     placeholder="Search products (e.g cement, steel, concrete etc)"
                 />
-                {isOpen && <Button type="button" variant="ghost" onClick={() => { setIsOpen(false); setProductSearch("") }}><X /></Button>}
+                {isOpen && <Button type="button" variant="ghost" onClick={() => { setIsOpen(false); setSearch("") }}><X /></Button>}
                 {isOpen && (
                     <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
                         {filteredProducts.map((product) => (
@@ -63,7 +85,7 @@ const Products = ({
                                         <h3 className="text-lg lg:text-xl">{product.name}</h3>
                                         <div className="flex gap-4">
                                             <Button type="button" variant="outline"><History />View Price History</Button>
-                                            <Button type="button" onClick={() => onAdd(product)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
+                                            <Button type="button" onClick={() => handleAddProduct(product)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
                                         </div>
                                     </div>
                                     <div className="flex flex-wrap gap-2 text-sm">
@@ -109,7 +131,7 @@ const Products = ({
                     </div>
                 )}
             </InputGroup>
-            <p className="text-sm text-red-500">{error}</p>
+            <p className="text-sm text-red-500">{errors.products?.message}</p>
 
             {productFields.length === 0 ? (
                 <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
@@ -139,18 +161,18 @@ const Products = ({
                             <input
                                 type="number"
                                 min={1}
-                                {...form.register(`products.${index}.quantity`, { valueAsNumber: true })}
+                                {...register(`products.${index}.quantity`, { valueAsNumber: true })}
                             />
                             <input
                                 type="number"
                                 min={0}
-                                {...form.register(`products.${index}.discount`, { valueAsNumber: true })}
+                                {...register(`products.${index}.discount`, { valueAsNumber: true })}
                             />
                             <li>{productValues[index]?.lineTotal}</li>
                             <li>Standard {field.vatRate}%</li>
                             <li>{productValues[index]?.vatAmount}</li>
                             <li>{productValues[index]?.total}</li>
-                            <Button type="button" size="icon" variant="ghost" onClick={() => onRemove(index)}><Trash2 className="size-4" /></Button>
+                            <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
                         </ul>
                     ))}
                 </div>
