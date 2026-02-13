@@ -1,6 +1,6 @@
-import type { InvoiceFormValues } from "@/pages/sales/sales-invoice/CreateSalesInvoice";
 import { memo, useMemo } from "react";
 import { useWatch, type UseFormReturn } from "react-hook-form";
+import type { InvoiceFormValues } from "./InvoiceSchema";
 
 const Summary = memo(({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
