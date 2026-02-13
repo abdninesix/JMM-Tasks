@@ -6,7 +6,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { dummyServices } from "@/lib/data";
 import type { InvoiceFormValues } from "@/pages/sales/sales-invoice/CreateSalesInvoice";
 import { History, Plus, PlusCircle, Search, Settings, Tag, Trash2, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useFieldArray, useWatch, type UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -27,8 +27,6 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
   const serviceValues = useWatch({ control, name: "services" });
 
   const handleAddService = (service: typeof dummyServices[0]) => {
-    const lineTotal = service.sellPrice * 1;
-    const vatAmount = (lineTotal * service.vatRate) / 100;
     appendService({
       id: service.id,
       name: service.name,
@@ -36,25 +34,23 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
       unitPrice: service.sellPrice,
       quantity: 1,
       discount: 0,
-      lineTotal: lineTotal,
       vatRate: service.vatRate,
-      vatAmount: vatAmount,
-      total: lineTotal + vatAmount,
     });
     setSearch("");
     setIsOpen(false);
     toast.success("Service added!")
   };
 
-  useEffect(() => {
-    serviceValues.forEach((p, i) => {
+  const computedServices = useMemo(() => {
+    return serviceValues.map(p => {
       const lineTotal = p.unitPrice * p.quantity - p.discount;
       const vatAmount = (lineTotal * p.vatRate) / 100;
-      const total = lineTotal + vatAmount;
-
-      form.setValue(`services.${i}.lineTotal`, lineTotal);
-      form.setValue(`services.${i}.vatAmount`, vatAmount);
-      form.setValue(`services.${i}.total`, total);
+      return {
+        ...p,
+        lineTotal,
+        vatAmount,
+        total: lineTotal + vatAmount,
+      };
     });
   }, [serviceValues]);
 
@@ -175,10 +171,10 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                 min={0}
                 {...register(`services.${index}.discount`, { valueAsNumber: true })}
               />
-              <li>{serviceValues[index]?.lineTotal}</li>
+              <li>{computedServices[index]?.lineTotal}</li>
               <li>Standard {field.vatRate}%</li>
-              <li>{serviceValues[index]?.vatAmount}</li>
-              <li>{serviceValues[index]?.total}</li>
+              <li>{computedServices[index]?.vatAmount}</li>
+              <li>{computedServices[index]?.total}</li>
               <Button type="button" size="icon" variant="ghost" onClick={() => removeService(index)}><Trash2 className="size-4" /></Button>
             </ul>
           ))}

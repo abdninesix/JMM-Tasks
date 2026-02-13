@@ -1,4 +1,3 @@
-import { useMemo } from "react"
 import { AppBreadcrumb } from "@/components/AppBreadcrumb"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -16,7 +15,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Kbd } from "@/components/ui/kbd"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
-import { Controller, useForm, useWatch } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { toast } from "sonner"
@@ -44,9 +43,6 @@ export const invoiceSchema = z.object({
     quantity: z.number().min(1),
     discount: z.number(),
     vatRate: z.number(),
-    lineTotal: z.number(),
-    vatAmount: z.number(),
-    total: z.number(),
   })).min(1, "No products added"),
   services: z.array(z.object({
     id: z.string(),
@@ -56,9 +52,6 @@ export const invoiceSchema = z.object({
     quantity: z.number().min(1),
     discount: z.number(),
     vatRate: z.number(),
-    lineTotal: z.number(),
-    vatAmount: z.number(),
-    total: z.number(),
   })).min(1, "No services added"),
 })
   .superRefine((data, ctx) => {
@@ -111,24 +104,13 @@ const CreateSalesInvoice = () => {
   const { watch, control, handleSubmit, formState: { errors } } = form;
 
   const invoiceType = watch("invoiceType");
-  const products = useWatch({ control, name: "products" });
-  const services = useWatch({ control, name: "services" });
   // const anchor = useComboboxAnchor()
 
-  const summary = useMemo(() => {
-    const allItems = [...(products ?? []), ...(services ?? [])];
-    const subTotal = allItems.reduce((s, i) => s + i.lineTotal, 0);
-    const vatTotal = allItems.reduce((s, i) => s + i.vatAmount, 0);
-    const discountTotal = allItems.reduce((s, i) => s + i.discount, 0);
-    const grandTotal = subTotal + vatTotal - discountTotal;
-    return { subTotal, vatTotal, discountTotal, grandTotal };
-  }, [JSON.stringify(products), JSON.stringify(services)]);
-
   const onSubmit = handleSubmit((data) => {
-    console.log("Form Errors:", errors);
     console.log("Form Data:", data);
     toast.success("Invoice created!")
   });
+  console.log("Form Errors:", errors);
 
   return (
     <div className="bg-card border rounded-md p-4 space-y-4">
@@ -334,10 +316,7 @@ const CreateSalesInvoice = () => {
           <div className="w-full space-y-4">
             {/* Summary */}
             <Summary
-              subTotal={summary.subTotal}
-              vatTotal={summary.vatTotal}
-              discountTotal={summary.discountTotal}
-              grandTotal={summary.grandTotal}
+              form={form}
             />
             {/* Payment Type */}
             <div className="p-4 space-y-4 bg-card border rounded-md">

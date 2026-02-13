@@ -6,11 +6,11 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { dummyProducts } from '@/lib/data';
 import type { InvoiceFormValues } from '@/pages/sales/sales-invoice/CreateSalesInvoice';
 import { Box, History, Plus, Search, Tag, Trash2, X } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useFieldArray, useWatch, type UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 
-const Products = ({ form } : { form: UseFormReturn<InvoiceFormValues>; }) => {
+const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
     const [search, setSearch] = useState("");
     const [isOpen, setIsOpen] = useState(false);
@@ -27,8 +27,6 @@ const Products = ({ form } : { form: UseFormReturn<InvoiceFormValues>; }) => {
     const productValues = useWatch({ control, name: "products" });
 
     const handleAddProduct = (product: typeof dummyProducts[0]) => {
-        const lineTotal = product.sellPrice * 1;
-        const vatAmount = (lineTotal * product.vatRate) / 100;
         appendProduct({
             id: product.id,
             name: product.name,
@@ -36,27 +34,26 @@ const Products = ({ form } : { form: UseFormReturn<InvoiceFormValues>; }) => {
             unitPrice: product.sellPrice,
             quantity: 1,
             discount: 0,
-            lineTotal: lineTotal,
             vatRate: product.vatRate,
-            vatAmount: vatAmount,
-            total: lineTotal + vatAmount,
         });
         setSearch("");
         setIsOpen(false);
         toast.success("Product added!")
     };
 
-    useEffect(() => {
-        productValues.forEach((p, i) => {
+    const computedProducts = useMemo(() => {
+        return productValues.map(p => {
             const lineTotal = p.unitPrice * p.quantity - p.discount;
             const vatAmount = (lineTotal * p.vatRate) / 100;
-            const total = lineTotal + vatAmount;
-
-            form.setValue(`products.${i}.lineTotal`, lineTotal);
-            form.setValue(`products.${i}.vatAmount`, vatAmount);
-            form.setValue(`products.${i}.total`, total);
+            return {
+                ...p,
+                lineTotal,
+                vatAmount,
+                total: lineTotal + vatAmount,
+            };
         });
     }, [productValues]);
+
 
     return (
         <div className="p-4 border rounded-md space-y-4">
@@ -153,7 +150,7 @@ const Products = ({ form } : { form: UseFormReturn<InvoiceFormValues>; }) => {
                         <li>Total</li>
                         <li>Actions</li>
                     </ul>
-                    {productValues?.map((field, index) => (
+                    {productFields.map((field, index) => (
                         <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
                             <li>{field.name}</li>
                             <li>{field.unit}</li>
@@ -168,10 +165,10 @@ const Products = ({ form } : { form: UseFormReturn<InvoiceFormValues>; }) => {
                                 min={0}
                                 {...register(`products.${index}.discount`, { valueAsNumber: true })}
                             />
-                            <li>{productValues[index]?.lineTotal}</li>
+                            <li>{computedProducts[index]?.lineTotal}</li>
                             <li>Standard {field.vatRate}%</li>
-                            <li>{productValues[index]?.vatAmount}</li>
-                            <li>{productValues[index]?.total}</li>
+                            <li>{computedProducts[index]?.vatAmount}</li>
+                            <li>{computedProducts[index]?.total}</li>
                             <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
                         </ul>
                     ))}
