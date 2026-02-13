@@ -4,11 +4,11 @@ import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
 import { useDebounce } from '@/hooks/useDebounce';
 import { dummyProducts } from '@/lib/data';
-import type { InvoiceFormValues } from '@/pages/sales/sales-invoice/CreateSalesInvoice';
 import { Box, History, Plus, Search, Tag, Trash2, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useFieldArray, useWatch, type UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
+import type { InvoiceFormValues } from './InvoiceSchema';
 
 const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
@@ -42,7 +42,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
     };
 
     const computedProducts = useMemo(() => {
-        return productValues.map(p => {
+        return productValues.map((p: InvoiceFormValues["products"][number]) => {
             const lineTotal = p.unitPrice * p.quantity - p.discount;
             const vatAmount = (lineTotal * p.vatRate) / 100;
             return {
