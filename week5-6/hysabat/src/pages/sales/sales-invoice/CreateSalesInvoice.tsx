@@ -53,7 +53,6 @@ const CreateSalesInvoice = () => {
     console.log("Form Data:", data);
     toast.success("Invoice created!")
   });
-  console.log("Form Errors:", errors);
 
   return (
     <div className="bg-card border rounded-md p-4 space-y-4">
@@ -219,7 +218,7 @@ const CreateSalesInvoice = () => {
         <Services form={form} />
 
         <div className="flex flex-col lg:flex-row gap-4">
-          
+
           {/* Additional Info */}
           <div className="lg:w-3/5 h-fit space-y-4 p-4 bg-card border rounded-md">
             <h2 className="font-semibold">Additional Information</h2>
