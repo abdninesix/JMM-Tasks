@@ -17,68 +17,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
 import { toast } from "sonner"
 import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Products from "@/components/pages-components/sales-invoice/Products"
 import Services from "@/components/pages-components/sales-invoice/Services"
-
-export const invoiceSchema = z.object({
-  invoiceType: z.enum(["tax", "simplified-tax"]),
-  transactionType: z.string().min(1, "Transaction type is required"),
-  // customerId: z.string().min(1, "Customer is required"),
-  issueDate: z.date().nullable(),
-  supplyDate: z.date().nullable(),
-  vatNumber: z.string().optional(),
-  notes: z.string().optional(),
-  terms: z.string().optional(),
-  paymentType: z.enum(["full", "partial", "none"]),
-  splitPayment: z.boolean(),
-  paymentMethod: z.enum(["cash", "card", "e-transfer"]),
-  products: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-    unit: z.string(),
-    unitPrice: z.number(),
-    quantity: z.number().min(1),
-    discount: z.number(),
-    vatRate: z.number(),
-  })).min(1, "No products added"),
-  services: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-    unit: z.string(),
-    unitPrice: z.number(),
-    quantity: z.number().min(1),
-    discount: z.number(),
-    vatRate: z.number(),
-  })).min(1, "No services added"),
-})
-  .superRefine((data, ctx) => {
-    if (!data.issueDate) {
-      ctx.addIssue({
-        path: ["issueDate"],
-        message: "Issue date is required",
-        code: "custom",
-      });
-    }
-    if (!data.supplyDate) {
-      ctx.addIssue({
-        path: ["supplyDate"],
-        message: "Supply date is required",
-        code: "custom",
-      });
-    }
-    if (!data.vatNumber && data.invoiceType === "tax") {
-      ctx.addIssue({
-        path: ["vatNumber"],
-        message: "VAT Number is required",
-        code: "custom",
-      });
-    }
-  })
-
-export type InvoiceFormValues = z.infer<typeof invoiceSchema>;
+import { invoiceSchema, type InvoiceFormValues } from "@/lib/data"
 
 const CreateSalesInvoice = () => {
 
@@ -271,13 +214,12 @@ const CreateSalesInvoice = () => {
           </Field>}
         </div>
 
-        {/* Products */}
         <Products form={form} />
 
-        {/* Services */}
         <Services form={form} />
 
         <div className="flex flex-col lg:flex-row gap-4">
+          
           {/* Additional Info */}
           <div className="lg:w-3/5 h-fit space-y-4 p-4 bg-card border rounded-md">
             <h2 className="font-semibold">Additional Information</h2>
@@ -313,11 +255,12 @@ const CreateSalesInvoice = () => {
               </CollapsibleContent>
             </Collapsible>
           </div>
+
           <div className="w-full space-y-4">
+
             {/* Summary */}
-            <Summary
-              form={form}
-            />
+            <Summary form={form} />
+
             {/* Payment Type */}
             <div className="p-4 space-y-4 bg-card border rounded-md">
               <h2 className="text-xl font-bold">Payment Type</h2>
