@@ -21,7 +21,7 @@ import { toast } from "sonner"
 import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Products from "@/components/pages-components/sales-invoice/Products"
 import Services from "@/components/pages-components/sales-invoice/Services"
-import { invoiceSchema, type InvoiceFormValues } from "@/lib/data"
+import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
 
 const CreateSalesInvoice = () => {
 
