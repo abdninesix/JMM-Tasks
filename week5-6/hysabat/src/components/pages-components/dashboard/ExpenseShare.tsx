@@ -24,7 +24,7 @@ const ExpenseShare = () => {
     const totalExpense = chartData[0].purchases + chartData[0].others
 
     return (
-        <div className="w-full lg:w-1/3 bg-card rounded-md border p-4 space-y-4">
+        <div className="col-span-1 bg-card rounded-md border p-4 space-y-4">
             <h1 className="text-xl font-extrabold">Expense Share</h1>
             <ChartContainer
                 config={chartConfig}

@@ -94,7 +94,7 @@ const MainChart = () => {
     } satisfies ChartConfig
 
     return (
-        <div className="w-full bg-card rounded-md border p-4 col-span-3 flex flex-wrap justify-between">
+        <div className="col-span-3 bg-card rounded-md border p-4 flex flex-wrap justify-between">
             <div className="flex gap-4">
                 <Ticket className="size-8 text-theme1" />
                 <div>
