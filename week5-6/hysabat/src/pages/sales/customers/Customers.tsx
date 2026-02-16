@@ -38,7 +38,7 @@ const Customers = () => {
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     state: { rowSelection, globalFilter, sorting, columnFilters },
-    initialState: { pagination: { pageSize: 10 } },
+    initialState: { pagination: { pageSize: 8 } },
   })
 
   return (
@@ -46,7 +46,7 @@ const Customers = () => {
       {/* Header Section */}
       <header className="space-y-2">
         <AppBreadcrumb items={[{ label: "Sales" }, { label: "Customers" }]} />
-        <div className="flex justify-between gap-2">
+        <div className="flex flex-col lg:flex-row gap-4 justify-between">
           <h1 className="text-2xl font-semibold text-theme1">Customers</h1>
           <div className="flex items-center gap-4">
             <Button variant="outline"><CloudUpload />Bulk Import</Button>
