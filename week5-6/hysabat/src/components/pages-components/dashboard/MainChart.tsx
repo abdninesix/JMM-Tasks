@@ -94,8 +94,8 @@ const MainChart = () => {
     } satisfies ChartConfig
 
     return (
-        <div className="col-span-3 bg-card rounded-md border p-4 flex flex-wrap justify-between">
-            <div className="flex gap-4">
+        <div className="col-span-1 lg:col-span-3 bg-card rounded-md border p-4 flex flex-wrap gap-4 justify-between">
+            <div className="flex items-center gap-4">
                 <Ticket className="size-8 text-theme1" />
                 <div>
                     <span className="text-xl font-bold">24,000 &#65020;</span>
@@ -126,7 +126,7 @@ const MainChart = () => {
                 </ChartContainer>
             </div>
             <Separator orientation="vertical" className="h-14! hidden lg:block" />
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4">
                 <ShoppingCart className="size-8 text-theme1" />
                 <div>
                     <span className="text-xl font-bold">24,000 &#65020;</span>
@@ -157,7 +157,7 @@ const MainChart = () => {
                 </ChartContainer>
             </div>
             <Separator orientation="vertical" className="h-14! hidden lg:block" />
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4">
                 <ChartLine className="size-8 text-theme1" />
                 <div>
                     <span className="text-xl font-bold">24,000 &#65020;</span>
@@ -187,7 +187,8 @@ const MainChart = () => {
                     </LineChart>
                 </ChartContainer>
             </div>
-            <Separator orientation="vertical" className="h-14! hidden lg:block" /><div className="flex gap-4">
+            <Separator orientation="vertical" className="h-14! hidden lg:block" />
+            <div className="flex items-center gap-4">
                 <BanknoteArrowDown className="size-8 text-theme1" />
                 <div>
                     <span className="text-xl font-bold">3000 &#65020;</span>

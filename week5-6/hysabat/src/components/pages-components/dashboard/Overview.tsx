@@ -27,11 +27,11 @@ const Overview = () => {
     } satisfies ChartConfig
 
     return (
-        <div className="col-span-2 bg-card rounded-md border p-4 space-y-4">
+        <div className="col-span-1 lg:col-span-2 bg-card rounded-md border p-4 space-y-4">
             <header className="flex justify-between">
                 <div className="flex gap-2">
                     <h1 className="text-xl font-extrabold">Overview</h1>
-                    <p className="flex items-center text-sm"><ChevronUp className="text-theme1" />10% inc from last Month</p>
+                    <p className="flex items-center text-xs"><ChevronUp className="text-theme1" />10% inc from last Month</p>
                 </div>
                 <Select defaultValue="d">
                     <SelectTrigger className="p-2">
@@ -45,7 +45,7 @@ const Overview = () => {
                 </Select>
             </header>
 
-            <ChartContainer config={chartConfig} className="w-full h-72">
+            <ChartContainer config={chartConfig} className="w-full lg:h-72">
                 <AreaChart
                     accessibilityLayer
                     data={chartData}

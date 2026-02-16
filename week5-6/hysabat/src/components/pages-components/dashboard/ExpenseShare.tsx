@@ -29,7 +29,7 @@ const ExpenseShare = () => {
             <h1 className="text-xl font-extrabold">Expense Share</h1>
             <ChartContainer
                 config={chartConfig}
-                className="mx-auto aspect-square max-h-62.5"
+                className="mx-auto aspect-square max-h-62"
             >
                 <PieChart>
                     <ChartLegend layout="horizontal" verticalAlign="top" content={<ChartLegendContent />} />
