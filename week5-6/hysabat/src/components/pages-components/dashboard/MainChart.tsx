@@ -1,6 +1,6 @@
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart'
 import { Separator } from '@/components/ui/separator'
-import { BanknoteArrowDown, ChartLine, ShoppingCart, Ticket } from 'lucide-react'
+import { BanknoteArrowDown, ChartLine, SaudiRiyal, ShoppingCart, Ticket } from 'lucide-react'
 import { CartesianGrid, Line, LineChart } from 'recharts'
 
 type StatLineChartProps = {
@@ -16,7 +16,7 @@ const StatLineChart = ({ icon, title, value, data, config }: StatLineChartProps)
         <div className="flex items-center justify-center">
             {icon}
             <div className='ml-4'>
-                <span className="text-xl font-bold">{value} &#65020;</span>
+                <span className="flex items-center text-xl font-bold"><SaudiRiyal size={16} />{value}</span>
                 <h3 className="text-sm">{title}</h3>
             </div>
             <ChartContainer config={config} className='h-14'>

@@ -1,5 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, Copy, MoreHorizontal, Pencil, Trash2 } from "lucide-react"
+import { ArrowUpDown, Copy, MoreHorizontal, Pencil, SaudiRiyal, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
@@ -99,7 +99,7 @@ export const columns: ColumnDef<Customer>[] = [
             )
         },
         cell: ({ row }) => (
-            <span className="px-2 rounded-full bg-green-100 dark:bg-green-800">&#65020; {row.original.creditLimit.toLocaleString()}</span>
+            <span className="px-2 w-fit flex items-center rounded-full bg-green-100 dark:bg-green-800"><SaudiRiyal size={15} /> {row.original.creditLimit.toLocaleString()}</span>
         )
     },
     {
