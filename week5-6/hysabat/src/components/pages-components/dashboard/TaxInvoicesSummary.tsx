@@ -28,7 +28,7 @@ const TaxInvoicesSummary = () => {
     return (
         <div className="col-span-1 lg:col-span-3 flex flex-col lg:flex-row gap-4 bg-card rounded-md border p-4">
             {/* Tax Invoices */}
-            <div className="w-2/3 space-y-4">
+            <div className="w-full lg:w-2/3 space-y-4">
                 <div className="flex justify-between">
                     <h1 className="text-xl font-extrabold flex items-center gap-2">Tax Invoices<ArrowRightLeft className="p-1 bg-theme1 rounded-md text-white" /></h1>
                     <Link to="/sales-invoice" className="text-theme1 hover:underline">View All</Link>
@@ -39,7 +39,7 @@ const TaxInvoicesSummary = () => {
             <Separator orientation="vertical" className="h-72! hidden lg:block" />
 
             {/* Summary */}
-            <div className="w-1/3 space-y-4">
+            <div className="w-full lg:w-1/3 space-y-4">
                 <div className="flex justify-between">
                     <h1 className="text-xl font-extrabold">Summary</h1>
                     <Select defaultValue="w">
