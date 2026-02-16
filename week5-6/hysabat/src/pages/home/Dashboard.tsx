@@ -1,4 +1,5 @@
 import ExpenseShare from "@/components/pages-components/dashboard/ExpenseShare"
+import Inventory from "@/components/pages-components/dashboard/Inventory"
 import MainChart from "@/components/pages-components/dashboard/MainChart"
 import Overview from "@/components/pages-components/dashboard/Overview"
 import TaxInvoicesSummary from "@/components/pages-components/dashboard/TaxInvoicesSummary"
@@ -39,6 +40,7 @@ const Dashboard = () => {
         <Overview />
         <ExpenseShare />
         <TaxInvoicesSummary />
+        <Inventory />
       </div>
     </div>
   )

@@ -37,6 +37,7 @@ const TaxInvoicesSummary = () => {
             </div>
 
             <Separator orientation="vertical" className="h-72! hidden lg:block" />
+            <Separator orientation="horizontal" className=" lg:hidden" />
 
             {/* Summary */}
             <div className="w-full lg:w-1/3 space-y-4">
@@ -58,7 +59,7 @@ const TaxInvoicesSummary = () => {
                     className="mx-auto aspect-square max-h-62"
                 >
                     <PieChart>
-                        <ChartLegend layout="horizontal" verticalAlign="top" content={<ChartLegendContent />} />
+                        <ChartLegend layout="horizontal" verticalAlign="bottom" content={<ChartLegendContent />} />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
@@ -67,7 +68,7 @@ const TaxInvoicesSummary = () => {
                             data={chartData}
                             dataKey="value"
                             nameKey="invoice"
-                            innerRadius={65}
+                            innerRadius={70}
                             strokeWidth={5}
                         >
                             <Label
@@ -92,7 +93,7 @@ const TaxInvoicesSummary = () => {
                                                     y={(viewBox.cy || 0) + 14}
                                                     className="fill-foreground text-lg"
                                                 >
-                                                    Total Expense
+                                                    Total Invoices
                                                 </tspan>
                                             </text>
                                         )

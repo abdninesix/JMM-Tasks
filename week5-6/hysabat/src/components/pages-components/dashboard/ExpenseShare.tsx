@@ -41,7 +41,7 @@ const ExpenseShare = () => {
                         data={chartData}
                         dataKey="value"
                         nameKey="expense"
-                        innerRadius={65}
+                        innerRadius={70}
                         strokeWidth={5}
                     >
                         <Label
