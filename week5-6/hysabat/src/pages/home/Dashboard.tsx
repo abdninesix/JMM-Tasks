@@ -1,6 +1,7 @@
 import ExpenseShare from "@/components/pages-components/dashboard/ExpenseShare"
 import MainChart from "@/components/pages-components/dashboard/MainChart"
 import Overview from "@/components/pages-components/dashboard/Overview"
+import TaxInvoicesSummary from "@/components/pages-components/dashboard/TaxInvoicesSummary"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { Calendar } from "lucide-react"
@@ -37,6 +38,7 @@ const Dashboard = () => {
         <MainChart />
         <Overview />
         <ExpenseShare />
+        <TaxInvoicesSummary />
       </div>
     </div>
   )
