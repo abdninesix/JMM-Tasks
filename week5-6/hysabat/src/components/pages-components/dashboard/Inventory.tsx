@@ -1,6 +1,6 @@
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import { Separator } from "@/components/ui/separator"
-import { Bar, BarChart, Label, Pie, PieChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, Label, LabelList, Pie, PieChart, XAxis, YAxis } from "recharts"
 
 const barChartData = [
     { itemType: "electronics", sold: 275, fill: "var(--color-electronics)" },
@@ -87,7 +87,14 @@ const Inventory = () => {
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="sold" layout="vertical" radius={5} />
+                        <Bar dataKey="sold" layout="vertical" radius={5} >
+                            <LabelList
+                                dataKey="sold"
+                                position="top"
+                                formatter={(v: number) => `${v} Sold Items`}
+                                style={{ fill: "var(--foreground)", fontSize: 14, fontWeight: 600 }}
+                            />
+                        </Bar>
                     </BarChart>
                 </ChartContainer>
             </div>

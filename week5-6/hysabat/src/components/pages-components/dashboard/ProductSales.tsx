@@ -1,5 +1,5 @@
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts"
 
 const barChartData = [
     { itemType: "electronics", sale: 2750, fill: "var(--color-electronics)" },
@@ -11,7 +11,7 @@ const barChartData = [
 
 const barChartConfig = {
     sale: {
-        label: "&#65020;",
+        label: "﷼",
     },
     electronics: {
         label: "Electronics",
@@ -39,36 +39,43 @@ const ProductSales = () => {
 
     return (
         <div className="col-span-1 lg:col-span-2 gap-4 bg-card rounded-md border p-4">
-                <h1 className="text-xl font-extrabold flex items-center gap-2">Product Sales</h1>
-                <ChartContainer config={barChartConfig} className="w-full lg:h-64">
-                    <BarChart
-                        accessibilityLayer
-                        barSize={10}
-                        data={barChartData}
-                        layout="vertical"
-                        margin={{
-                            left: 35,
-                        }}
-                    >
-                        <YAxis
-                            dataKey="itemType"
-                            type="category"
-                            tickLine={false}
-                            tickMargin={85}
-                            axisLine={false}
-                            tick={{ fontSize: 16, textAnchor: "start" }}
-                            tickFormatter={(value) =>
-                                barChartConfig[value as keyof typeof barChartConfig]?.label
-                            }
+            <h1 className="text-xl font-extrabold flex items-center gap-2">Product Sales</h1>
+            <ChartContainer config={barChartConfig} className="w-full lg:h-64">
+                <BarChart
+                    accessibilityLayer
+                    barSize={10}
+                    data={barChartData}
+                    layout="vertical"
+                    margin={{
+                        left: 35,
+                    }}
+                >
+                    <YAxis
+                        dataKey="itemType"
+                        type="category"
+                        tickLine={false}
+                        tickMargin={85}
+                        axisLine={false}
+                        tick={{ fontSize: 16, textAnchor: "start" }}
+                        tickFormatter={(value) =>
+                            barChartConfig[value as keyof typeof barChartConfig]?.label
+                        }
+                    />
+                    <XAxis dataKey="sale" type="number" hide />
+                    <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent hideLabel />}
+                    />
+                    <Bar dataKey="sale" layout="vertical" radius={5}>
+                        <LabelList
+                            dataKey="sale"
+                            position="top"
+                            formatter={(v: number) => `${v} ﷼`}
+                            style={{ fill: "var(--foreground)", fontSize: 14, fontWeight: 600 }}
                         />
-                        <XAxis dataKey="sale" type="number" hide />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
-                        />
-                        <Bar dataKey="sale" layout="vertical" radius={5} />
-                    </BarChart>
-                </ChartContainer>
+                    </Bar>
+                </BarChart>
+            </ChartContainer>
         </div>
     )
 }
