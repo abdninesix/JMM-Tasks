@@ -1,3 +1,6 @@
+import ExpenseShare from "@/components/pages-components/dashboard/ExpenseShare"
+import MainChart from "@/components/pages-components/dashboard/MainChart"
+import Overview from "@/components/pages-components/dashboard/Overview"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { Calendar } from "lucide-react"
@@ -30,7 +33,16 @@ const Dashboard = () => {
       <Separator />
 
       {/* Content */}
-      
+      <MainChart />
+      <div className="flex flex-col lg:flex-row gap-4">
+        <Overview />
+        <ExpenseShare />
+      </div>
+      {/* <TaxInvoicesSummary />
+      <div className="flex flex-col lg:flex-row gap-4">
+        <Inventory />
+        <ExpenseRevenue />
+      </div> */}
     </div>
   )
 }
