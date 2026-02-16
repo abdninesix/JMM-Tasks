@@ -38,11 +38,6 @@ const Dashboard = () => {
         <Overview />
         <ExpenseShare />
       </div>
-      {/* <TaxInvoicesSummary />
-      <div className="flex flex-col lg:flex-row gap-4">
-        <Inventory />
-        <ExpenseRevenue />
-      </div> */}
     </div>
   )
 }
