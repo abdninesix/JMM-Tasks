@@ -83,10 +83,6 @@ const Inventory = () => {
                             }
                         />
                         <XAxis dataKey="sold" type="number" hide />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
-                        />
                         <Bar dataKey="sold" layout="vertical" radius={5} >
                             <LabelList
                                 dataKey="sold"

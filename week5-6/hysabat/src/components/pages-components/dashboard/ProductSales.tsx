@@ -1,4 +1,4 @@
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
+import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
 import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts"
 
 const barChartData = [
@@ -62,10 +62,6 @@ const ProductSales = () => {
                         }
                     />
                     <XAxis dataKey="sale" type="number" hide />
-                    <ChartTooltip
-                        cursor={false}
-                        content={<ChartTooltipContent hideLabel />}
-                    />
                     <Bar dataKey="sale" layout="vertical" radius={5}>
                         <LabelList
                             dataKey="sale"
