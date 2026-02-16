@@ -1,24 +1,24 @@
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
+import { Bar, BarChart, XAxis, YAxis } from "recharts"
 
 const ExpenseRevenue = () => {
 
     const chartData = [
-        { month: "January", desktop: 186, mobile: 80 },
-        { month: "February", desktop: 305, mobile: 200 },
-        { month: "March", desktop: 237, mobile: 120 },
-        { month: "April", desktop: 73, mobile: 190 },
-        { month: "May", desktop: 209, mobile: 130 },
-        { month: "June", desktop: 214, mobile: 140 },
+        { month: "January", expense: 1860, revenue: 800 },
+        { month: "February", expense: 3050, revenue: 2000 },
+        { month: "March", expense: 2370, revenue: 1200 },
+        { month: "April", expense: 730, revenue: 1900 },
+        { month: "May", expense: 2090, revenue: 1300 },
+        { month: "June", expense: 2140, revenue: 1400 },
     ]
     const chartConfig = {
-        desktop: {
-            label: "Desktop",
-            color: "var(--chart-1)",
+        expense: {
+            label: "Expense",
+            color: "var(--chart-0)",
         },
-        mobile: {
-            label: "Mobile",
-            color: "var(--chart-2)",
+        revenue: {
+            label: "Revenue",
+            color: "var(--chart-01)",
         },
     } satisfies ChartConfig
 
@@ -26,8 +26,8 @@ const ExpenseRevenue = () => {
         <div className="col-span-1 bg-card rounded-md border p-4 space-y-4">
             <h1 className="text-xl font-extrabold">Expense/Revenue</h1>
             <ChartContainer config={chartConfig}>
-                <BarChart accessibilityLayer data={chartData}>
-                    <CartesianGrid vertical={false} />
+                <BarChart accessibilityLayer data={chartData} barGap={0}>
+                    <ChartLegend layout="horizontal" verticalAlign="top" content={<ChartLegendContent />} />
                     <XAxis
                         dataKey="month"
                         tickLine={false}
@@ -35,12 +35,18 @@ const ExpenseRevenue = () => {
                         axisLine={false}
                         tickFormatter={(value) => value.slice(0, 3)}
                     />
+                    <YAxis
+                        dataKey="expense"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={true}
+                    />
                     <ChartTooltip
                         cursor={false}
                         content={<ChartTooltipContent indicator="dashed" />}
                     />
-                    <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-                    <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+                    <Bar dataKey="expense" fill="var(--color-expense)" barSize={10} radius={4} />
+                    <Bar dataKey="revenue" fill="var(--color-revenue)" barSize={10} radius={4} />
                 </BarChart>
             </ChartContainer>
         </div>

@@ -1,7 +1,9 @@
+import ExpenseRevenue from "@/components/pages-components/dashboard/ExpenseRevenue"
 import ExpenseShare from "@/components/pages-components/dashboard/ExpenseShare"
 import Inventory from "@/components/pages-components/dashboard/Inventory"
 import MainChart from "@/components/pages-components/dashboard/MainChart"
 import Overview from "@/components/pages-components/dashboard/Overview"
+import ProductSales from "@/components/pages-components/dashboard/ProductSales"
 import TaxInvoicesSummary from "@/components/pages-components/dashboard/TaxInvoicesSummary"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
@@ -41,6 +43,8 @@ const Dashboard = () => {
         <ExpenseShare />
         <TaxInvoicesSummary />
         <Inventory />
+        <ExpenseRevenue />
+        <ProductSales />
       </div>
     </div>
   )
