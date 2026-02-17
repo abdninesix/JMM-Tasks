@@ -19,8 +19,13 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - CSS3  
 - JavaScript (ES6)  
 - React.js
-- Next.js  
 - TailwindCSS
+- ShadCN/UI Components
+- Recharts
+- Tanstack Tables
+- zod
+- Reacy-Hook-Form
+- 
 - 
 - 
 *(More will be added)*
@@ -41,8 +46,16 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Professional versoin control practices using Git and Github
 - Particapation in a real life product dashboard UI design
 - Complex form handling with different types of inputs
+- Controlling the inputs
+- Structuring the output of form
+- Several payment totalling logics
+- Carefully structuring the layout of dashboards
+- Controlling the charts of dashboard
+- Passing the data through out components
+- Context APIs to avoid prop drilling
 - 
-
+- 
+- 
 *(More will be added)*
 
 ---
