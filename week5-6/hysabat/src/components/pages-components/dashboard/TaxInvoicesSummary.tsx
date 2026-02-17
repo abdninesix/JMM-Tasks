@@ -50,7 +50,7 @@ const TaxInvoicesSummary = () => {
                         {table.getHeaderGroups().map((hg) => (
                             <TableRow key={hg.id}>
                                 {hg.headers.map((header) => (
-                                    <TableHead key={header.id}>
+                                    <TableHead key={header.id} className="font-bold text-muted-foreground">
                                         {flexRender(header.column.columnDef.header, header.getContext())}
                                     </TableHead>
                                 ))}

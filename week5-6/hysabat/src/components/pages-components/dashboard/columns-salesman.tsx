@@ -15,18 +15,7 @@ export type Salesman = {
 export const columns: ColumnDef<Salesman>[] = [
     {
         accessorKey: "fullName",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    className="has-[>svg]:px-0"
-                >
-                    Employee Name
-                    <ArrowUpDown className="size-3" />
-                </Button>
-            )
-        },
+        header: "Employee Name",
         cell: ({ row }) => (
             <div className="flex items-center gap-2">
                 <div className="flex items-center justify-center rounded-full size-6 bg-theme1">{row.original.fullName.charAt(0)}</div>
@@ -36,18 +25,7 @@ export const columns: ColumnDef<Salesman>[] = [
     },
     {
         accessorKey: "itemsSold",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    className="has-[>svg]:px-0"
-                >
-                    Items Sold
-                    <ArrowUpDown className="size-3" />
-                </Button>
-            )
-        },
+        header: "Items Sold",
         cell: ({ row }) => (
             <span>{row.original.itemsSold.toLocaleString()}</span>
         )
