@@ -28,9 +28,9 @@ export const columns: ColumnDef<Salesman>[] = [
             )
         },
         cell: ({ row }) => (
-            <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center rounded-full size-6 bg-theme1">{row.original.fullName.charAt(0)}</div>
                 <span>{row.original.fullName}</span>
-                <span className="text-muted-foreground">{row.original.fullNameAr}</span>
             </div>
         ),
     },

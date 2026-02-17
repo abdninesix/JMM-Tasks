@@ -40,7 +40,7 @@ const ProductSales = () => {
     return (
         <div className="col-span-1 lg:col-span-2 gap-4 bg-card rounded-md border p-4">
             <h1 className="text-xl font-extrabold flex items-center gap-2">Product Sales</h1>
-            <ChartContainer config={barChartConfig} className="w-full lg:h-82">
+            <ChartContainer config={barChartConfig} className="w-full lg:h-64">
                 <BarChart
                     accessibilityLayer
                     barSize={10}

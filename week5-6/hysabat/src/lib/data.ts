@@ -141,7 +141,6 @@ export const dummySalesmen = Array.from({ length: 20 }, (_, i) => ({
   totalAmount: 15000 + i * 1250,
 }))
 
-
 // Responsible Persons
 export const dummyResponsiblePersons = Array.from({ length: 10 }, (_, i) => ({
   id: `RESP-${i + 1}`,
@@ -175,3 +174,15 @@ export const dummyServices = Array.from({ length: 10 }, (_, i) => ({
   category: "Maintainance",
   description: "Professional services provided by certified engineers.",
 }));
+
+// Invoices
+export const dummyInvoices = Array.from({ length: 30 }, (_, i) => ({
+  id: `INV-10${100 + i}`,
+  customerName: ["John Doe", "Sarah Smith", "TechCorp", "Jane Roe"][i % 4],
+  invoiceType: i % 2 === 0 ? "Tax" : "Simplified Tax",
+  totalItems: 1 + (i % 8),
+  grandTotal: 500 + i * 150,
+  vatAmount: i % 2 === 0 ? (500 + i * 150) * 0.15 : 0,
+  issueDate: new Date(2025, 1, 1 + i).toISOString().split("T")[0],
+  paymentStatus: ["Paid", "Unpaid", "Partially Paid"][i % 3],
+}))
