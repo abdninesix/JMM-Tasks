@@ -1,4 +1,3 @@
-import type { Customer } from "@/pages/sales/customers/columns";
 import { Box, ChartColumnIncreasing, CirclePercent, Coins, Landmark, NotepadText, Settings, ShoppingBag, ShoppingCart, Truck, Users } from "lucide-react";
 
 // Sidebar Items
@@ -114,7 +113,7 @@ export const sidebarItems = [
 ]
 
 // Customers
-export const dummyCustomers: Customer[] = Array.from({ length: 25 }, (_, i) => ({
+export const dummyCustomers = Array.from({ length: 25 }, (_, i) => ({
     id: `CUS-00${i + 1}`,
     fullName: ["John Doe", "Sarah Smith", "TechCorp", "Jane Roe"][i % 4],
     fullNameAr: ["جون دو", "سارة سميث", "تيك كوورب", "جين رو"][i % 4],
