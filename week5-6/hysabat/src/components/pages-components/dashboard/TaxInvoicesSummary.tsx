@@ -1,9 +1,13 @@
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { dummyInvoices } from "@/lib/data"
 import { ArrowRightLeft } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Label, Pie, PieChart } from "recharts"
+import { columns } from "./columns-invoices"
+import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 
 const chartData = [
     { invoice: "cleared", value: 10000, fill: "var(--color-cleared)" },
@@ -23,6 +27,14 @@ const chartConfig = {
 
 const TaxInvoicesSummary = () => {
 
+    const invoices = dummyInvoices.slice(0, 5)
+
+    const table = useReactTable({
+        data: invoices,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    })
+
     const totalInvoices = chartData[0].value + chartData[1].value
 
     return (
@@ -33,7 +45,30 @@ const TaxInvoicesSummary = () => {
                     <h1 className="text-xl font-extrabold flex items-center gap-2">Tax Invoices<ArrowRightLeft className="p-1 bg-theme1 rounded-md text-white" /></h1>
                     <Link to="/sales-invoice" className="text-theme1 hover:underline">View All</Link>
                 </div>
-                <div className="flex items-center justify-center h-2/3">Invoice table</div>
+                <Table>
+                    <TableHeader>
+                        {table.getHeaderGroups().map((hg) => (
+                            <TableRow key={hg.id}>
+                                {hg.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {flexRender(header.column.columnDef.header, header.getContext())}
+                                    </TableHead>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableHeader>
+                    <TableBody>
+                        {table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </div>
 
             <Separator orientation="vertical" className="h-72! hidden lg:block" />
