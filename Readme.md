@@ -20,7 +20,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - JavaScript (ES6)  
 - React.js
 - TailwindCSS
-- ShadCN/UI Components
+- Radix UI Components
 - Recharts
 - Tanstack Tables
 - zod
