@@ -15,21 +15,21 @@ export const columns: ColumnDef<Invoice>[] = [
     },
     {
         accessorKey: "totalItems",
-        header: "Total Items",
+        header: "T. Items",
         cell: ({ row }) => (
             <span>{row.original.totalItems.toLocaleString()}</span>
         )
     },
     {
         accessorKey: "grandTotal",
-        header: "Grand Total",
+        header: "G. Total",
         cell: ({ row }) => (
             <span className="flex items-center"><SaudiRiyal size={15} /> {row.original.grandTotal.toLocaleString()}</span>
         )
     },
     {
         accessorKey: "vatAmount",
-        header: "VAT Amount",
+        header: "VAT Am.",
         cell: ({ row }) => (
             <span className="flex items-center"><SaudiRiyal size={15} /> {row.original.vatAmount.toLocaleString()}</span>
         )
