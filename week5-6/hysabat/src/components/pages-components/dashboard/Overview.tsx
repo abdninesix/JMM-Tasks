@@ -45,13 +45,13 @@ const Overview = () => {
                 </Select>
             </header>
 
-            <ChartContainer config={chartConfig} className="w-full lg:h-72">
+            <ChartContainer config={chartConfig} className="w-full lg:h-64">
                 <AreaChart
                     accessibilityLayer
                     data={chartData}
                     margin={{
-                        left: 12,
-                        right: 12,
+                        left: 0,
+                        right: 0,
                     }}
                 >
                     <CartesianGrid vertical={true} />
@@ -66,7 +66,7 @@ const Overview = () => {
                         dataKey="expense"
                         tickLine={false}
                         axisLine={false}
-                        tickMargin={8}
+                        tickMargin={16}
                     />
                     <ChartTooltip
                         cursor={false}

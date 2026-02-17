@@ -105,7 +105,7 @@ const Inventory = () => {
                     className="mx-auto aspect-square size-full max-h-62"
                 >
                     <PieChart>
-                        <ChartLegend layout="horizontal" verticalAlign="top" content={<ChartLegendContent />} />
+                        <ChartLegend layout="horizontal" verticalAlign="bottom" content={<ChartLegendContent />} />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}

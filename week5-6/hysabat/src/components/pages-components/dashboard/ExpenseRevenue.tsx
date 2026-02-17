@@ -27,7 +27,7 @@ const ExpenseRevenue = () => {
             <h1 className="text-xl font-extrabold">Expense/Revenue</h1>
             <ChartContainer config={chartConfig}>
                 <BarChart accessibilityLayer data={chartData} barGap={0}>
-                    <ChartLegend layout="horizontal" verticalAlign="top" content={<ChartLegendContent />} />
+                    <ChartLegend layout="horizontal" verticalAlign="bottom" content={<ChartLegendContent />} />
                     <XAxis
                         dataKey="month"
                         tickLine={false}
