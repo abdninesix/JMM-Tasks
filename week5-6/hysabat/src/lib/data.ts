@@ -114,14 +114,14 @@ export const sidebarItems = [
 
 // Customers
 export const dummyCustomers = Array.from({ length: 25 }, (_, i) => ({
-    id: `CUS-00${i + 1}`,
-    fullName: ["John Doe", "Sarah Smith", "TechCorp", "Jane Roe"][i % 4],
-    fullNameAr: ["جون دو", "سارة سميث", "تيك كوورب", "جين رو"][i % 4],
-    phone: `+44-555-010${i + 1000}`,
-    contact: `contact${i}@example.com`,
-    creditLimit: 5000 + (i * 100),
-    vatNumber: `VAT${10000 + i}`,
-    invoiceCount: i + 2,
+  id: `CUS-00${i + 1}`,
+  fullName: ["John Doe", "Sarah Smith", "TechCorp", "Jane Roe"][i % 4],
+  fullNameAr: ["جون دو", "سارة سميث", "تيك كوورب", "جين رو"][i % 4],
+  phone: `+44-555-010${i + 1000}`,
+  contact: `contact${i}@example.com`,
+  creditLimit: 5000 + (i * 100),
+  vatNumber: `VAT${10000 + i}`,
+  invoiceCount: i + 2,
 }));
 
 // Projects
@@ -131,10 +131,16 @@ export const dummyProjects = Array.from({ length: 5 }, (_, i) => ({
 }));
 
 // Salesmen
-export const dummySalesmen = Array.from({ length: 5 }, (_, i) => ({
-  id: `SLS-${i + 1}`,
-  name: `Salesman ${i + 1}`,
-}));
+export const dummySalesmen = Array.from({ length: 20 }, (_, i) => ({
+  id: `SAL-00${i + 1}`,
+  fullName: ["Ali Khan", "Ahmed Raza", "Sara Malik", "Omar Hassan"][i % 4],
+  fullNameAr: ["علي خان", "أحمد رضا", "سارة مالك", "عمر حسن"][i % 4],
+  phone: `+92-300-555-${1000 + i}`,
+  email: `salesman${i}@example.com`,
+  itemsSold: 50 + i * 7,
+  totalAmount: 15000 + i * 1250,
+}))
+
 
 // Responsible Persons
 export const dummyResponsiblePersons = Array.from({ length: 10 }, (_, i) => ({

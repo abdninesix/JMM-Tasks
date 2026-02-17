@@ -23,7 +23,7 @@ export const columns: ColumnDef<Customer>[] = [
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     className="has-[>svg]:px-0"
                 >
-                    Full Name
+                    Name
                     <ArrowUpDown className="size-3" />
                 </Button>
             )
@@ -44,7 +44,7 @@ export const columns: ColumnDef<Customer>[] = [
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     className="has-[>svg]:px-0"
                 >
-                    Credit Limit
+                    Purchase
                     <ArrowUpDown className="size-3" />
                 </Button>
             )
