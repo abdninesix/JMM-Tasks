@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, SaudiRiyal } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { SaudiRiyal } from "lucide-react"
 
 export type Salesman = {
     id: string
@@ -18,7 +17,7 @@ export const columns: ColumnDef<Salesman>[] = [
         header: "Employee Name",
         cell: ({ row }) => (
             <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center rounded-full size-6 bg-theme1">{row.original.fullName.charAt(0)}</div>
+                <div className="flex items-center justify-center rounded-full size-6 bg-theme1 text-white">{row.original.fullName.charAt(0)}</div>
                 <span>{row.original.fullName}</span>
             </div>
         ),
@@ -32,18 +31,7 @@ export const columns: ColumnDef<Salesman>[] = [
     },
     {
         accessorKey: "totalAmount",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    className="has-[>svg]:px-0"
-                >
-                    Total Amount
-                    <ArrowUpDown className="size-3" />
-                </Button>
-            )
-        },
+        header: "Total Amount",
         cell: ({ row }) => (
             <span className="flex items-center"><SaudiRiyal size={15} /> {row.original.totalAmount.toLocaleString()}</span>
         )
