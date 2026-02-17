@@ -1,17 +1,7 @@
+import type { Invoice } from "@/pages/sales/sales-invoice/columns"
 import type { ColumnDef } from "@tanstack/react-table"
 import { SaudiRiyal } from "lucide-react"
 import { Link } from "react-router-dom"
-
-export type Invoice = {
-    id: string
-    customerName: string
-    invoiceType: string
-    totalItems: number
-    grandTotal: number
-    vatAmount: number
-    issueDate: string
-    paymentStatus: string
-}
 
 export const columns: ColumnDef<Invoice>[] = [
     {

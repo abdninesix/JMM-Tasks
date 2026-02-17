@@ -1,16 +1,6 @@
+import type { Customer } from "@/pages/sales/customers/columns"
 import type { ColumnDef } from "@tanstack/react-table"
 import { SaudiRiyal } from "lucide-react"
-
-export type Customer = {
-    id: string
-    fullName: string
-    fullNameAr: string
-    phone: string
-    contact: string
-    creditLimit: number
-    vatNumber: string
-    invoiceCount: number
-}
 
 export const columns: ColumnDef<Customer>[] = [
     {
