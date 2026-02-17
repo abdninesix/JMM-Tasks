@@ -72,7 +72,18 @@ export const columns: ColumnDef<Invoice>[] = [
     },
     {
         accessorKey: "invoiceType",
-        header: "Invoice Type",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="has-[>svg]:px-0"
+                >
+                    Invoice Type
+                    <ArrowUpDown className="size-3" />
+                </Button>
+            )
+        },
         cell: ({ row }) => (
             <span>{row.original.invoiceType}</span>
         ),
