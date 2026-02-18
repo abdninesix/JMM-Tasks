@@ -15,6 +15,11 @@ const Navbar = () => {
 
     const { theme, setTheme } = useTheme();
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
+
     return (
         <nav className='bg-card text-muted-foreground border rounded-md shadow-sm flex items-center justify-between px-2 py-4 sm:px-4 lg:py-0'>
             <div className='flex items-center gap-2'>
@@ -46,7 +51,7 @@ const Navbar = () => {
                 </Select>
                 <Button variant='ghost'><CircleQuestionMark className='size-5' /></Button>
                 <Button variant='ghost'><Bell className='size-5' /></Button>
-                <Button variant='outline' onClick={() => navigate('/login')} className='ml-2'>Logout<LogOut className='size-5' /></Button>
+                <Button variant='outline' onClick={handleLogout} className='ml-2'>Logout<LogOut className='size-5' /></Button>
             </div>
 
             {/* Mobile Menu */}
@@ -65,7 +70,7 @@ const Navbar = () => {
                             <CircleQuestionMark className="size-4" />
                             <span>Help Center</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => navigate('/login')} className="text-destructive">
+                        <DropdownMenuItem onClick={handleLogout} className="text-destructive">
                             <LogOut className="size-4" />
                             <span>Logout</span>
                         </DropdownMenuItem>

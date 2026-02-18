@@ -4,11 +4,28 @@ import './index.css'
 import App from './App.tsx'
 import { ThemeProvider } from './components/providers/ThemeProvider.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 
+const httpLink = new HttpLink({
+  uri: import.meta.env.VITE_GRAPHQL_URL,
+});
+
+const authLink = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem("token");
+
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      tenant: "shahmir",
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  }));
+  return forward(operation);
+});
+
 const client = new ApolloClient({
-  link: new HttpLink({ uri: "https://flyby-router-demo.herokuapp.com/" }),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

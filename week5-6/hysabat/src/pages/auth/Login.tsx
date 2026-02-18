@@ -7,6 +7,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
 import * as z from 'zod'
+import { useMutation } from '@apollo/client/react'
+import { LOGIN_MUTATION } from '@/graphql/mutations'
+import { toast } from 'sonner'
 
 const schema = z.object({
     username: z.string().min(5, 'Username must be at least 5 characters'),
@@ -15,21 +18,43 @@ const schema = z.object({
 
 type LoginFormData = z.infer<typeof schema>
 
+export type LoginResponse = {
+    login: {
+        token: string;
+        userName: string;
+        userId: string;
+    };
+};
+
 const Login = () => {
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginFormData>({
-        resolver: zodResolver(schema),
-    })
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({ resolver: zodResolver(schema) })
 
     const navigate = useNavigate();
+    const [login, { loading }] = useMutation<LoginResponse>(LOGIN_MUTATION);
 
-    const onSubmit = (data: LoginFormData) => {
-        console.log(data)
-        navigate('/')
+    const onSubmit = async (data: LoginFormData) => {
+        try {
+            const { data: response } = await login({
+                variables: {
+                    username: data.username,
+                    password: data.password,
+                },
+            });
+
+            const token = response?.login?.token;
+
+            if (token) {
+                localStorage.setItem('token', token);
+                toast.success("Login success!");
+                navigate('/');
+            } else {
+                toast.error("Login failed. No token received.");
+            }
+        } catch (err) {
+            const error = err as Error;
+            toast.error(error.message || "An error occurred during login.");
+        }
     }
 
     return (
@@ -69,7 +94,9 @@ const Login = () => {
                             {errors.password && <p className='text-red-500 text-sm mt-2'>{errors.password.message}</p>}
                         </div>
 
-                        <Button type='submit' className='text-white bg-theme1 hover:bg-theme1/90 py-2'>Login</Button>
+                        <Button type='submit' disabled={loading} className='text-white bg-theme1 hover:bg-theme1/90 py-2'>
+                            {loading ? "Authenticating..." : "Login"}
+                        </Button>
 
                         <p className='text-center text-sm'>
                             Don't have an account? <a href='#' className='text-theme1 hover:underline'>Sign up</a>
