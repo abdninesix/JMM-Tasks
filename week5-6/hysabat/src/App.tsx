@@ -5,6 +5,7 @@ import Customers from "./pages/sales/customers/Customers";
 import Dashboard from "./pages/home/Dashboard";
 import SalesInvoice from "./pages/sales/sales-invoice/SalesInvoice";
 import CreateSalesInvoice from "./pages/sales/sales-invoice/CreateSalesInvoice";
+import CustomersClearance from "./pages/sales/customers-clearance/CustomersClearance";
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="/customers" index element={<Customers />} />
+          <Route path="/customers-clearance" index element={<CustomersClearance />} />
           <Route path="/sales-invoice" index element={<SalesInvoice />} />
           <Route path="/sales-invoice/create" index element={<CreateSalesInvoice />} />
         </Route>

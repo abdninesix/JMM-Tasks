@@ -13,7 +13,7 @@ export const sidebarItems = [
     icon: CirclePercent,
     children: [
       { title: "Customers", url: "/customers" },
-      { title: "Customers Clearance", url: "#" },
+      { title: "Customers Clearance", url: "/customers-clearance" },
       { title: "Sales Invoice", url: "/sales-invoice" },
       { title: "Sales Quotation", url: "#" },
       { title: "Performa Invoice", url: "#" },
