@@ -16,15 +16,41 @@ import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Badge } from "@/components/ui/badge"
-import { CloudUpload, Plus, Search } from "lucide-react"
+import { CloudUpload, Loader2Icon, Plus, Search } from "lucide-react"
 import { columns } from "./columns"
 import { dummyCustomers } from "@/lib/data"
+import { gql } from "@apollo/client"
+import { useQuery } from "@apollo/client/react"
+
+const GET_LOCATIONS = gql`
+  query GetLocations {
+    locations {
+      id
+      name
+      description
+      photo
+    }
+  }
+`;
+
+type Location = {
+  id: string
+  name: string
+  description: string
+  photo: string
+}
+
+type LocationsQueryData = {
+  locations: Location[]
+}
 
 const Customers = () => {
   const [rowSelection, setRowSelection] = React.useState({})
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+
+  const { loading, error, data } = useQuery<LocationsQueryData>(GET_LOCATIONS);
 
   const table = useReactTable({
     data: dummyCustomers,
@@ -130,6 +156,21 @@ const Customers = () => {
           </Button>
         </div>
       </div>
+
+      <div>
+        {loading ? <Loader2Icon className="animate-spin" /> : error ? <p>{error.message}</p> : (
+          <ul className="grid grid-cols-2 gap-4">
+            {data?.locations.map((location) => (
+              <li key={location.id} className="bg-accent rounded-md p-4 space-y-2">
+                <h1 className="text-2xl font-semibold">{location.name}</h1>
+                <img src={location.photo} alt={location.name} className="w-full rounded-md" />
+                <p>{location.description}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
     </div>
   )
 }
