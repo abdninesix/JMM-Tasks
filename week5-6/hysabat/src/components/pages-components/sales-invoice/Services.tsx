@@ -3,12 +3,34 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/in
 import { Kbd } from "@/components/ui/kbd";
 import { Separator } from "@/components/ui/separator";
 import { useDebounce } from "@/hooks/useDebounce";
-import { dummyServices } from "@/lib/data";
-import { History, Plus, PlusCircle, Search, Settings, Tag, Trash2, X } from "lucide-react";
+import { History, Plus, PlusCircle, SaudiRiyal, Search, Settings, Tag, Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useFieldArray, useWatch, type UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
 import type { InvoiceFormValues } from "./InvoiceSchema";
+import { useQuery } from "@apollo/client/react";
+import { SERVICE_QUERY } from "@/graphql/queries";
+
+type ApiService = {
+  serviceId: number;
+  serviceNameEnglish: string;
+  price: number;
+  costPrice: number;
+  barCode: string;
+  category?: {
+    categoryNameEnglish: string;
+  };
+}
+
+type ServiceQueryData = {
+  services: {
+    nodes: ApiService[];
+  };
+}
+
+type ServiceQueryVariables = {
+  search: string;
+}
 
 const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
@@ -16,25 +38,27 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const debouncedSearch = useDebounce(search, 500);
-  const filteredServices = useMemo(() => {
-    return dummyServices
-      .filter(p => p.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
-      .slice(0, 4);
-  }, [debouncedSearch]);
+
+  const { data, loading } = useQuery<ServiceQueryData, ServiceQueryVariables>(SERVICE_QUERY, {
+    variables: { search: debouncedSearch },
+    skip: !debouncedSearch,
+  });
+
+  const services: ApiService[] = data?.services?.nodes || [];
 
   const { control, register, formState: { errors } } = form;
   const { fields: serviceFields, append: appendService, remove: removeService, replace: replaceServices } = useFieldArray({ control, name: "services", });
   const serviceValues = useWatch({ control, name: "services" });
 
-  const handleAddService = (service: typeof dummyServices[0]) => {
+  const handleAddService = (service: ApiService) => {
     appendService({
-      id: service.id,
-      name: service.name,
-      unit: service.unit,
-      unitPrice: service.sellPrice,
+      id: service.serviceId,
+      name: service.serviceNameEnglish,
+      unit: "hr",
+      unitPrice: service.price,
       quantity: 1,
       discount: 0,
-      vatRate: service.vatRate,
+      vatRate: 15,
     });
     setSearch("");
     setIsOpen(false);
@@ -73,12 +97,12 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
         {isOpen && <Button type="button" variant="ghost" onClick={() => { setIsOpen(false); setSearch("") }}><X /></Button>}
         {isOpen && (
           <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
-            {filteredServices.map((service) => (
-              <div key={service.id} className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
+            {services.length > 0 ? (services.map((service) => (
+              <div key={service.serviceId} className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
                 <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
                 <div className="w-full space-y-2">
                   <div className="flex justify-between">
-                    <h3 className="text-xl">{service.name}</h3>
+                    <h3 className="text-xl">{service.serviceNameEnglish}</h3>
                     <div className="flex gap-4">
                       <Button type="button" variant="outline"><History />View Price History</Button>
                       <Button type="button" onClick={() => handleAddService(service)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
@@ -86,39 +110,44 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                   </div>
                   <div className="flex gap-2 text-sm">
                     <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">service</p>
-                    <p className="border bg-muted rounded px-1">{service.category}</p>
+                    {service.category && <p className="border bg-muted rounded px-1">{service.category?.categoryNameEnglish}</p>}
                   </div>
                   <div className="grid grid-cols-3">
                     <div className="grid grid-cols-2">
                       <span>Sell Price:</span>
-                      <span className="text-green-500">{service.sellPrice} &#65020;</span>
+                      <span className="flex items-center text-green-500"><SaudiRiyal size={15} />{service.price}</span>
                     </div>
                     <div className="grid grid-cols-2">
                       <span>VAT Rate</span>
-                      <span>{service.vatRate}%</span>
+                      <span>15%</span>
                     </div>
                     <div className="grid grid-cols-2">
                       <span>Stock</span>
-                      <span className="text-green-500">{service.stock}</span>
+                      <span className="text-green-500">15</span>
                     </div>
                     <div className="grid grid-cols-2">
                       <span>Cost Price</span>
-                      <span>{service.costPrice} &#65020;</span>
+                      <span className="flex items-center"><SaudiRiyal size={15} />{service.costPrice}</span>
                     </div>
                     <div className="grid grid-cols-2">
                       <span>Barcode</span>
-                      <span>{service.barcode}</span>
+                      <span>{service.barCode}</span>
                     </div>
                     <div className="grid grid-cols-2">
                       <span>Unit</span>
-                      <span>{service.unit}</span>
+                      <span>hr</span>
                     </div>
                   </div>
                   <Separator />
-                  <p>{service.description}</p>
+                  <p>No description</p>
                 </div>
               </div>
-            ))}
+            ))) : (
+              <p className="p-4 text-center text-muted-foreground">
+                {loading ? "Searching..." : "No services found"}
+              </p>
+            )
+            }
             <div className="flex gap-4 items-center justify-center">
               <Button type="button" variant="outline" className="w-fit text-green-500">
                 <PlusCircle />

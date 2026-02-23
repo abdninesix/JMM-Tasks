@@ -3,12 +3,34 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/in
 import { Kbd } from '@/components/ui/kbd';
 import { Separator } from '@/components/ui/separator';
 import { useDebounce } from '@/hooks/useDebounce';
-import { dummyProducts } from '@/lib/data';
-import { Box, History, Plus, Search, Tag, Trash2, X } from 'lucide-react';
+import { Box, History, Plus, SaudiRiyal, Search, Tag, Trash2, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useFieldArray, useWatch, type UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 import type { InvoiceFormValues } from './InvoiceSchema';
+import { useQuery } from '@apollo/client/react';
+import { PRODUCT_QUERY } from '@/graphql/queries';
+
+type ApiProduct = {
+    itemId: number;
+    itemNameEnglish: string;
+    wholeSellPrice: number;
+    costPrice: number;
+    barCode: string;
+    category?: {
+        categoryNameEnglish: string;
+    };
+}
+
+type ProductQueryData = {
+    items: {
+        nodes: ApiProduct[];
+    };
+}
+
+type ProductQueryVariables = {
+    search: string;
+}
 
 const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
@@ -16,25 +38,27 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const debouncedSearch = useDebounce(search, 500);
-    const filteredProducts = useMemo(() => {
-        return dummyProducts
-            .filter(p => p.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
-            .slice(0, 4);
-    }, [debouncedSearch]);
+
+    const { data, loading } = useQuery<ProductQueryData, ProductQueryVariables>(PRODUCT_QUERY, {
+        variables: { search: debouncedSearch },
+        skip: !debouncedSearch,
+    });
+
+    const products: ApiProduct[] = data?.items?.nodes || [];
 
     const { control, register, formState: { errors } } = form;
     const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "products", });
     const productValues = useWatch({ control, name: "products" });
 
-    const handleAddProduct = (product: typeof dummyProducts[0]) => {
+    const handleAddProduct = (product: ApiProduct) => {
         appendProduct({
-            id: product.id,
-            name: product.name,
-            unit: product.unit,
-            unitPrice: product.sellPrice,
+            id: product.itemId,
+            name: product.itemNameEnglish,
+            unit: "psc",
+            unitPrice: product.wholeSellPrice,
             quantity: 1,
             discount: 0,
-            vatRate: product.vatRate,
+            vatRate: 15,
         });
         setSearch("");
         setIsOpen(false);
@@ -74,12 +98,12 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                 {isOpen && <Button type="button" variant="ghost" onClick={() => { setIsOpen(false); setSearch("") }}><X /></Button>}
                 {isOpen && (
                     <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
-                        {filteredProducts.map((product) => (
-                            <div key={product.id} className="w-full p-4 bg-card hover:bg-muted group border flex flex-col lg:flex-row gap-4 rounded-md">
+                        {products.length > 0 ? (products.map((product: ApiProduct) => (
+                            <div key={product.itemId} className="w-full p-4 bg-card hover:bg-muted group border flex flex-col lg:flex-row gap-4 rounded-md">
                                 <div className="p-2 size-20 lg:size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
                                 <div className="w-full space-y-2">
                                     <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
-                                        <h3 className="text-lg lg:text-xl">{product.name}</h3>
+                                        <h3 className="text-lg lg:text-xl">{product.itemNameEnglish}</h3>
                                         <div className="flex gap-4">
                                             <Button type="button" variant="outline"><History />View Price History</Button>
                                             <Button type="button" onClick={() => handleAddProduct(product)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
@@ -87,39 +111,44 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                     </div>
                                     <div className="flex flex-wrap gap-2 text-sm">
                                         <p className="border border-theme1 bg-theme1/10 text-theme1 rounded px-1">product</p>
-                                        <p className="border bg-muted rounded px-1">{product.category}</p>
+                                        {product.category && <p className="border bg-muted rounded px-1">{product.category?.categoryNameEnglish}</p>}
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                                         <div className="grid grid-cols-2">
                                             <span>Sell Price:</span>
-                                            <span className="text-green-500">{product.sellPrice} &#65020;</span>
+                                            <span className="flex items-center text-green-500"><SaudiRiyal size={15} />{product.wholeSellPrice}</span>
                                         </div>
                                         <div className="grid grid-cols-2">
                                             <span>VAT Rate</span>
-                                            <span>{product.vatRate}%</span>
+                                            <span>15%</span>
                                         </div>
                                         <div className="grid grid-cols-2">
                                             <span>Stock</span>
-                                            <span className="text-green-500">{product.stock}</span>
+                                            <span className="text-green-500">15</span>
                                         </div>
                                         <div className="grid grid-cols-2">
                                             <span>Cost Price</span>
-                                            <span>{product.costPrice} &#65020;</span>
+                                            <span className="flex items-center"><SaudiRiyal size={15} />{product.costPrice}</span>
                                         </div>
                                         <div className="grid grid-cols-2">
                                             <span>Barcode</span>
-                                            <span>{product.barcode}</span>
+                                            <span>{product.barCode}</span>
                                         </div>
                                         <div className="grid grid-cols-2">
                                             <span>Unit</span>
-                                            <span>{product.unit}</span>
+                                            <span>psc</span>
                                         </div>
                                     </div>
                                     <Separator />
-                                    <p>{product.description}</p>
+                                    <p>No description</p>
                                 </div>
                             </div>
-                        ))}
+                        ))) : (
+                            <p className="p-4 text-center text-muted-foreground">
+                                {loading ? "Searching..." : "No products found"}
+                            </p>
+                        )
+                        }
                         <Button type="button" variant="outline" className="w-full text-theme1">
                             <Box />
                             Add New Product
@@ -154,7 +183,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                         <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
                             <li>{field.name}</li>
                             <li>{field.unit}</li>
-                            <li>{field.unitPrice}</li>
+                            <li>{field.unitPrice.toFixed(2)}</li>
                             <input
                                 type="number"
                                 min={1}
@@ -165,10 +194,10 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                 min={0}
                                 {...register(`products.${index}.discount`, { valueAsNumber: true })}
                             />
-                            <li>{computedProducts[index]?.lineTotal}</li>
+                            <li>{computedProducts[index]?.lineTotal.toFixed(2)}</li>
                             <li>Standard {field.vatRate}%</li>
-                            <li>{computedProducts[index]?.vatAmount}</li>
-                            <li>{computedProducts[index]?.total}</li>
+                            <li>{computedProducts[index]?.vatAmount.toFixed(2)}</li>
+                            <li>{computedProducts[index]?.total.toFixed(2)}</li>
                             <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
                         </ul>
                     ))}

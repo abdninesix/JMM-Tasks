@@ -22,11 +22,9 @@ const Hello = () => {
 
   return (
     <div>
-      {data?.items && data?.items.nodes.length > 0 ? data?.items.nodes.map((item,index)=><p key={index}>{item.itemNameEnglish}</p>) : <p>No data</p>}
+      {data?.items && data?.items.nodes.length > 0 ? data?.items.nodes.map((item, index) => <p key={index}>{item.itemNameEnglish}</p>) : <p>No data</p>}
     </div>
   )
-
-
 }
 
 export default Hello

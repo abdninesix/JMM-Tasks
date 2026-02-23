@@ -13,7 +13,7 @@ export const invoiceSchema = z.object({
   splitPayment: z.boolean(),
   paymentMethod: z.enum(["cash", "card", "e-transfer"]),
   products: z.array(z.object({
-    id: z.string(),
+    id: z.number(),
     name: z.string(),
     unit: z.string(),
     unitPrice: z.number(),
@@ -22,7 +22,7 @@ export const invoiceSchema = z.object({
     vatRate: z.number(),
   })).min(1, "No products added"),
   services: z.array(z.object({
-    id: z.string(),
+    id: z.number(),
     name: z.string(),
     unit: z.string(),
     unitPrice: z.number(),
