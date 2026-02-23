@@ -17,7 +17,8 @@ const authLink = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      tenant: "shahmir",
+      tenant: import.meta.env.VITE_TENANT,
+      branchID: token ? import.meta.env.VITE_BRANCH_ID : "",
       authorization: token ? `Bearer ${token}` : "",
     },
   }));

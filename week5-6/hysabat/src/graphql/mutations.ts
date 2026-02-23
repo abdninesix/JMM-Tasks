@@ -9,11 +9,3 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
-
-export const GET_SALES_INVOICES = gql`
-  query GetSalesInvoices {
-    salesInvoices {
-    amountPaid
-    }
-  }
-`;

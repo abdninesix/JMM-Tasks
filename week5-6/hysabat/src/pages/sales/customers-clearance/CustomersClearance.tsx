@@ -1,51 +1,32 @@
-import { gql } from "@apollo/client"
-import { useQuery } from "@apollo/client/react"
-import { Loader2Icon } from "lucide-react";
+import { PRODUCT_QUERY } from "@/graphql/queries";
+import { useQuery } from "@apollo/client/react";
 
-const GET_LOCATIONS = gql`
-  query GetLocations {
-    locations {
-      id
-      name
-      description
-      photo
-    }
-  }
-`;
+type Item = {
+  itemNameEnglish: string;
+};
 
-type Location = {
-    id: string
-    name: string
-    description: string
-    photo: string
+type ItemsQueryResponse = {
+  items: {
+    nodes: Item[];
+  };
+};
+
+const Hello = () => {
+
+  const { data, loading, error } = useQuery<ItemsQueryResponse>(PRODUCT_QUERY);
+
+  console.log(data)
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error.message}</p>;
+
+  return (
+    <div>
+      {data?.items && data?.items.nodes.length > 0 ? data?.items.nodes.map((item,index)=><p key={index}>{item.itemNameEnglish}</p>) : <p>No data</p>}
+    </div>
+  )
+
+
 }
 
-type LocationsQueryData = {
-    locations: Location[]
-}
-
-const CustomersClearance = () => {
-
-    const { loading, error, data } = useQuery<LocationsQueryData>(GET_LOCATIONS);
-
-    return (
-        <div>
-            <h1 className="text-4xl text-center mb-4">Apollo client test</h1>
-            {loading ? <div className="h-[60dvh] flex items-center justify-center"><Loader2Icon className="animate-spin" /></div> :
-                error ? <p>{error.message}</p> :
-                    (
-                        <ul className="grid grid-cols-3 gap-4">
-                            {data?.locations.map((location) => (
-                                <li key={location.id} className="bg-accent rounded-md p-4 space-y-2">
-                                    <h1 className="text-2xl font-semibold">{location.name}</h1>
-                                    <img src={location.photo} alt={location.name} className="w-full rounded-md" />
-                                    <p>{location.description.slice(0, 300) + (location.description.length > 300 ? '......' : '')}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-        </div>
-    )
-}
-
-export default CustomersClearance
+export default Hello
