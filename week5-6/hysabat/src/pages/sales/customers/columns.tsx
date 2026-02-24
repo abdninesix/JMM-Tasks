@@ -7,14 +7,20 @@ import { Link } from "react-router-dom"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export type Customer = {
-    id: string
-    fullName: string
-    fullNameAr: string
-    phone: string
+    id: number
+    nameEnglish: string
+    nameArabic: string
     contact: string
-    creditLimit: number
-    vatNumber: string
-    invoiceCount: number
+    email: string
+    creditAmountLimit: number
+    vATNo: string
+    invoicesCount: number
+}
+
+export type CustomerQueryData = {
+    customers: {
+        nodes: Customer[];
+    };
 }
 
 export const columns: ColumnDef<Customer>[] = [
@@ -69,8 +75,8 @@ export const columns: ColumnDef<Customer>[] = [
         },
         cell: ({ row }) => (
             <div className="flex flex-col">
-                <span>{row.original.fullName}</span>
-                <span className="text-muted-foreground">{row.original.fullNameAr}</span>
+                <span>{row.original.nameEnglish}</span>
+                <span className="text-muted-foreground">{row.original.nameArabic}</span>
             </div>
         ),
     },
@@ -79,8 +85,8 @@ export const columns: ColumnDef<Customer>[] = [
         header: "Contact",
         cell: ({ row }) => (
             <div className="flex flex-col">
-                <span>{row.original.phone}</span>
-                <span className="text-muted-foreground">{row.original.contact}</span>
+                <span>{row.original.contact}</span>
+                <span className="text-muted-foreground">{row.original.email}</span>
             </div>
         ),
     },
@@ -99,11 +105,11 @@ export const columns: ColumnDef<Customer>[] = [
             )
         },
         cell: ({ row }) => (
-            <span className="px-2 w-fit flex items-center rounded-full bg-green-100 dark:bg-green-800"><SaudiRiyal size={15} /> {row.original.creditLimit.toLocaleString()}</span>
+            <span className="px-2 w-fit flex items-center rounded-full bg-green-100 dark:bg-green-800"><SaudiRiyal size={15} /> {row.original.creditAmountLimit.toLocaleString()}</span>
         )
     },
     {
-        accessorKey: "vatNumber",
+        accessorKey: "vATNo",
         header: ({ column }) => {
             return (
                 <Button
@@ -118,7 +124,7 @@ export const columns: ColumnDef<Customer>[] = [
         },
     },
     {
-        accessorKey: "invoiceCount",
+        accessorKey: "invoicesCount",
         header: ({ column }) => {
             return (
                 <Button
@@ -151,7 +157,7 @@ export const columns: ColumnDef<Customer>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(column.id)}
+                            onClick={() => navigator.clipboard.writeText(column.id.toString())}
                         >
                             <Copy />
                             Copy customer ID

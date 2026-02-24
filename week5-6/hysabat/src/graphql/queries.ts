@@ -33,3 +33,20 @@ query GetServices($search: String) {
   }
 }
 `;
+
+export const CUSTOMER_QUERY = gql`
+query GetCustomers {
+  customers {
+    nodes {
+      id
+      nameEnglish
+      nameArabic
+      contact
+      email
+      creditAmountLimit
+      vATNo
+      invoicesCount
+    }
+  }
+}
+`;

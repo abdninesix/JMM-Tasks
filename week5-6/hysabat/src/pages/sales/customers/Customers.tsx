@@ -16,9 +16,10 @@ import { Separator } from "@/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Badge } from "@/components/ui/badge"
-import { CloudUpload, Plus, Search } from "lucide-react"
-import { columns } from "./columns"
-import { dummyCustomers } from "@/lib/data"
+import { CloudUpload, Loader, Plus, Search } from "lucide-react"
+import { columns, type Customer, type CustomerQueryData } from "./columns"
+import { CUSTOMER_QUERY } from "@/graphql/queries"
+import { useQuery } from "@apollo/client/react"
 
 const Customers = () => {
   const [rowSelection, setRowSelection] = React.useState({})
@@ -26,8 +27,11 @@ const Customers = () => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
 
+  const { data, loading } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
+  const customers: Customer[] = data?.customers.nodes || []
+
   const table = useReactTable({
-    data: dummyCustomers,
+    data: customers,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -64,7 +68,7 @@ const Customers = () => {
         <div className="flex flex-col lg:flex-row justify-between gap-2 p-4">
           <div className="flex items-center gap-2">
             <span className="text-lg font-semibold">Total Customers</span>
-            <Badge variant="outline">{dummyCustomers.length}</Badge>
+            <Badge variant="outline">{customers.length}</Badge>
           </div>
           <InputGroup className="max-w-3xs">
             <InputGroupInput
@@ -76,30 +80,32 @@ const Customers = () => {
           </InputGroup>
         </div>
         {/* Table Section */}
-        <Table>
-          <TableHeader className="bg-muted">
-            {table.getHeaderGroups().map((hg) => (
-              <TableRow key={hg.id}>
-                {hg.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        {loading ? (<div className="h-96 flex items-center justify-center"><Loader className="animate-spin"/></div>) : (
+          <Table>
+            <TableHeader className="bg-muted">
+              {table.getHeaderGroups().map((hg) => (
+                <TableRow key={hg.id}>
+                  {hg.headers.map((header) => (
+                    <TableHead key={header.id}>
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
 
       {/* Pagination Section */}

@@ -10,7 +10,6 @@ import { Separator } from "@/components/ui/separator"
 import { Banknote, BookText, CalendarIcon, ChevronDownIcon, CreditCard, FileIcon, Landmark } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Kbd } from "@/components/ui/kbd"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -22,6 +21,17 @@ import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Products from "@/components/pages-components/sales-invoice/Products"
 import Services from "@/components/pages-components/sales-invoice/Services"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
+import ReactQuill from "react-quill-new"
+
+const modules = {
+  toolbar: [
+    ["bold", "italic", "underline"],
+    [{ color: [] }, { background: [] }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link"],
+    ["clean"],
+  ],
+};
 
 const CreateSalesInvoice = () => {
 
@@ -233,7 +243,15 @@ const CreateSalesInvoice = () => {
                   name="notes"
                   control={control}
                   render={({ field }) => (
-                    <Textarea {...field} className="wrap-anywhere" placeholder="Type and hit enter" />
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      value={field.value || ""}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      placeholder="Type and hit enter..."
+                      className="[&_.ql-editor]:min-h-30 [&_.ql-editor]:max-w-md"
+                    />
                   )} />
               </CollapsibleContent>
             </Collapsible>
@@ -249,7 +267,15 @@ const CreateSalesInvoice = () => {
                   name="terms"
                   control={control}
                   render={({ field }) => (
-                    <Textarea {...field} className="wrap-anywhere" placeholder="Type and hit enter" />
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      value={field.value || ""}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      placeholder="Type and hit enter..."
+                      className="[&_.ql-editor]:min-h-30 [&_.ql-editor]:max-w-md"
+                    />
                   )} />
               </CollapsibleContent>
             </Collapsible>
