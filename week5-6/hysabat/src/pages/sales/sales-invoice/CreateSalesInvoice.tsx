@@ -282,8 +282,6 @@ const CreateSalesInvoice = () => {
           </div>
 
           <div className="w-full space-y-4">
-
-            {/* Summary */}
             <Summary form={form} />
 
             {/* Payment Type */}

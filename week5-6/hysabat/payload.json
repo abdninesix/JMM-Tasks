@@ -1,0 +1,90 @@
+{
+    "input": {
+        "id": "2622414501",
+        "customerType": "REGISTERED",
+        "isScheduled": false,
+        "qrCodePayload": "DUMMY",
+        "receiveAs": "TAKEAWAY",
+        "receiveType": "NO_ITEMS",
+        "saleInvoiceClearenceStatus": "UN_CLEAR",
+        "customerId": 170,
+        "issuedDate": "2026-02-24T12:47:15+03:00",
+        "vatCategoryId": 13,
+        "paymentMethod": "CASH",
+        "invoiceType": "TAX",
+        "paymentType": "FULL",
+        "saleManId": 36,
+        "saleInvoiceSpecialTransactionType": "SUMMARY",
+        "projectId": null,
+        "discountPercentage": 0,
+        "discountAmount": 0,
+        "supplyDate": "2026-02-24T12:49:12+03:00",
+        "termsAndConditions": [
+            "<p><strong>Learn More23</strong></p><ol><li><span style=\"color: rgb(68, 147, 248);\">You can learn more in the&nbsp;Create React App documentation.</span></li><li><span style=\"color: rgb(68, 147, 248);\">To learn React, check out the&nbsp;React documentation.</span></li><li>Code Splitting</li></ol><p><strong style=\"color: rgb(68, 147, 248);\">This section has moved</strong></p><p><strong> </strong></p><p>here:&nbsp;</p><p><span style=\"color: rgb(68, 147, 248);\">https://facebook.github.io/create-react-app/docs/code-splitting</span></p><p>Analyzing the Bundle Size</p><p><span style=\"color: rgb(68, 147, 248);\">This section has moved </span></p><ol><li><span style=\"color: rgb(68, 147, 248);\">here:&nbsp;https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size</span></li><li>Making a Progressive Web App</li></ol><p><span style=\"color: rgb(68, 147, 248);\">This section has moved</span></p><p>here:&nbsp;</p><p><span style=\"color: rgb(68, 147, 248);\">https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app</span></p><p>Advanced Configuration</p><p><strong style=\"color: rgb(68, 147, 248);\">This section has moved</strong></p><p><strong> </strong></p><p>here:&nbsp;</p><p><span style=\"color: rgb(68, 147, 248);\">https://facebook.github.io/create-react-app/docs/advanced-configuration</span></p><ol><li>Deployment</li></ol><p><span style=\"color: rgb(68, 147, 248);\">This section has moved</span></p><p>here:&nbsp;</p><p><span style=\"color: rgb(68, 147, 248);\">https://facebook.github.io/create-react-app/docs/deployment</span></p>"
+        ],
+        "notes": "<p><strong>Runs the app in the development mode.2</strong></p><p>Open&nbsp;</p><p><span style=\"color: rgb(68, 147, 248);\">http://localhost:3000</span></p><ol><li>&nbsp;to view it in your browser.</li><li>The page will reload when you make changes.</li><li>You may also see any lint errors in the console.</li><li>npm test</li></ol><p>Launches the test runner in the interactive watch mode.</p><p>See the section about&nbsp;</p><p><span style=\"color: rgb(68, 147, 248);\">running tests</span></p><p>&nbsp;for more information.</p><p><strong>npm run build</strong></p><p>Builds the app for production to the&nbsp;build&nbsp;folder.</p><p>It correctly bundles React in production mode and optimizes the build for the best performance.</p><p>The build is minified and the filenames include the hashes.</p><p>Your app is ready to be deployed!</p><p>See the section about&nbsp;</p><p><span style=\"color: rgb(68, 147, 248);\">deployment</span></p><p>&nbsp;for more information.</p><p><strong>npm run eject</strong></p><p><strong>Note: </strong></p><p>this is a one-way operation. Once you&nbsp;eject, you can't go back!</p><p>If you aren't satisfied with the build tool and configuration choices, you can&nbsp;eject&nbsp;at any time. This command will remove the single build dependency from your project.</p><p>Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except&nbsp;eject&nbsp;will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.</p><p>You don't have to ever use&nbsp;eject. The curated feature set is suitable for small and middle</p><p><span style=\"color: rgb(68, 147, 248);\">deployment</span></p><p>s, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.</p>",
+        "amountPaid": 0,
+        "invoiceItems": [
+            {
+                "discountAmount": 0,
+                "discountPercentage": 0,
+                "itemId": 38,
+                "quantity": 10,
+                "sellPrice": 13043.4783,
+                "taxId": 13,
+                "unitId": 4,
+                "vATPercentage": 15,
+                "metaDescription": "Sand",
+                "isNetTotalEdited": false
+            },
+            {
+                "discountAmount": 0,
+                "discountPercentage": 0,
+                "itemId": 44,
+                "quantity": 5,
+                "sellPrice": 13.0435,
+                "taxId": 13,
+                "unitId": 14,
+                "vATPercentage": 15,
+                "metaDescription": "bulf water heater",
+                "isNetTotalEdited": false
+            },
+            {
+                "discountAmount": 0,
+                "discountPercentage": 0,
+                "itemId": 47,
+                "quantity": 5,
+                "sellPrice": 1.7391,
+                "taxId": 13,
+                "unitId": 14,
+                "vATPercentage": 15,
+                "metaDescription": "nakhas chrome 1/2*3/4",
+                "isNetTotalEdited": false
+            }
+        ],
+        "invoiceServices": [
+            {
+                "serviceDescription": "ZawarCar",
+                "discountAmount": 0,
+                "price": 1000,
+                "quantity": 10,
+                "serviceId": 13,
+                "taxId": 13,
+                "vATPercentage": 15,
+                "isNetTotalEdited": false
+            },
+            {
+                "serviceDescription": "DevOps",
+                "discountAmount": 0,
+                "price": 250,
+                "quantity": 5,
+                "serviceId": 5,
+                "taxId": 13,
+                "vATPercentage": 15,
+                "isNetTotalEdited": false
+            }
+        ],
+        "branchId": "d4550ea5-d656-4f0e-a1ea-d1fafcee2783",
+        "amountPaidCash": 0
+    }
+}

@@ -36,12 +36,13 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const debouncedSearch = useDebounce(search, 500);
 
   const { data, loading } = useQuery<ServiceQueryData, ServiceQueryVariables>(SERVICE_QUERY, {
-    variables: { search: debouncedSearch },
-    skip: !debouncedSearch,
+    variables: { search: debouncedSearch || "" },
+    skip: !isFocused && !debouncedSearch,
   });
 
   const services: ApiService[] = data?.services?.nodes || [];
@@ -92,6 +93,14 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
             setSearch(e.target.value)
             setIsOpen(e.target.value.length > 0);
           }}
+          onFocus={() => {
+            setIsFocused(true);
+            setIsOpen(true);
+          }}
+          onBlur={() => setTimeout(() => {
+            setIsFocused(false);
+            setIsOpen(false);
+          }, 200)}
           placeholder="Search services (e.g delivery, maintenance, consultation etc)"
         />
         {isOpen && <Button type="button" variant="ghost" onClick={() => { setIsOpen(false); setSearch("") }}><X /></Button>}
