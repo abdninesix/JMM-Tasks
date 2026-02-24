@@ -1,12 +1,16 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { dummyCustomers } from "@/lib/data"
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { columns } from "./columns-customers"
+import { useQuery } from "@apollo/client/react"
+import type { Customer, CustomerQueryData } from "@/pages/sales/customers/columns"
+import { CUSTOMER_QUERY } from "@/graphql/queries"
 
 const TopCustomers = () => {
 
-    const topCustomers = [...dummyCustomers]
-        .sort((a, b) => b.creditLimit - a.creditLimit)
+    const { data } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
+    const customers: Customer[] = data?.customers.nodes || []
+    const topCustomers = [...customers]
+        .sort((a, b) => b.creditAmountLimit - a.creditAmountLimit)
         .slice(0, 5)
 
     const table = useReactTable({

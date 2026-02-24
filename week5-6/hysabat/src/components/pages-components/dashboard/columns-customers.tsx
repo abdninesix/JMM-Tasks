@@ -8,7 +8,7 @@ export const columns: ColumnDef<Customer>[] = [
         header: "Name",
         cell: ({ row }) => (
             <div className="flex flex-col">
-                <span>{row.original.fullName}</span>
+                <span>{row.original.nameEnglish}</span>
             </div>
         ),
     },
@@ -16,7 +16,7 @@ export const columns: ColumnDef<Customer>[] = [
         accessorKey: "creditLimit",
         header: "Purchase",
         cell: ({ row }) => (
-            <span className="flex items-center"><SaudiRiyal size={15} /> {row.original.creditLimit.toLocaleString()}</span>
+            <span className="flex items-center"><SaudiRiyal size={15} /> {row.original.creditAmountLimit.toLocaleString()}</span>
         )
     },
 ]
