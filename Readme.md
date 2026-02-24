@@ -25,7 +25,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Tanstack Tables
 - zod
 - Reacy-Hook-Form
-- 
+- apollo/client
 - 
 - 
 *(More will be added)*
@@ -53,17 +53,10 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Controlling the charts of dashboard
 - Passing the data through out components
 - Context APIs to avoid prop drilling
-- 
+- Fetching GraphQL based data from backend using apollo/client
 - 
 - 
 *(More will be added)*
-
----
-
-## Challenges Faced
-- 
-- 
-*(Will be added)*
 
 ---
 
