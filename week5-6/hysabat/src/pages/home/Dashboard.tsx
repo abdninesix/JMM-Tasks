@@ -1,7 +1,7 @@
 import MainChart from "@/components/pages-components/dashboard/MainChart"
 import Overview from "@/components/pages-components/dashboard/Overview"
+import ExpenseShare from "@/components/pages-components/dashboard/ExpenseShare"
 // import ExpenseRevenue from "@/components/pages-components/dashboard/ExpenseRevenue"
-// import ExpenseShare from "@/components/pages-components/dashboard/ExpenseShare"
 // import Inventory from "@/components/pages-components/dashboard/Inventory"
 // import ProductSales from "@/components/pages-components/dashboard/ProductSales"
 // import TaxInvoicesSummary from "@/components/pages-components/dashboard/TaxInvoicesSummary"
@@ -42,8 +42,8 @@ const Dashboard = () => {
       <div className="grid grid-col-1 lg:grid-cols-3 gap-4">
         <MainChart />
         <Overview />
-        {/* <ExpenseShare />
-        <TaxInvoicesSummary />
+        <ExpenseShare />
+        {/* <TaxInvoicesSummary />
         <Inventory />
         <ExpenseRevenue />
         <ProductSales />
