@@ -1,18 +1,19 @@
 import z from "zod";
 
 export const invoiceSchema = z.object({
-  invoiceType: z.enum(["tax", "simplified-tax"]),
-  transactionType: z.string().min(1, "Transaction type is required"),
+  invoiceType: z.enum(["TAX", "SIMPLIFIED_TAX"]),
+  saleInvoiceSpecialTransactionType: z.string().min(1, "Transaction type is required"),
   // customerId: z.string().min(1, "Customer is required"),
-  issueDate: z.date().nullable(),
+  // salesmanId: z.string().min(1, "Salesman is required"),
+  issuedDate: z.date().nullable(),
   supplyDate: z.date().nullable(),
-  vatNumber: z.string().optional(),
+  vatCategoryId: z.number().optional(),
   notes: z.string().optional(),
-  terms: z.string().optional(),
-  paymentType: z.enum(["full", "partial", "none"]),
-  splitPayment: z.boolean(),
-  paymentMethod: z.enum(["cash", "card", "e-transfer"]),
-  products: z.array(z.object({
+  termsAndConditions: z.string().optional(),
+  paymentType: z.enum(["FULL", "PARTIAL", "NONE"]),
+  // splitPayment: z.boolean(),
+  paymentMethod: z.enum(["CASH", "CARD", "E_TRANSFER"]),
+  invoiceItems: z.array(z.object({
     id: z.number(),
     name: z.string(),
     unit: z.string(),
@@ -21,7 +22,7 @@ export const invoiceSchema = z.object({
     discount: z.number(),
     vatRate: z.number(),
   })).min(1, "No products added"),
-  services: z.array(z.object({
+  invoiceServices: z.array(z.object({
     id: z.number(),
     name: z.string(),
     unit: z.string(),
@@ -32,9 +33,9 @@ export const invoiceSchema = z.object({
   })).min(1, "No services added"),
 })
   .superRefine((data, ctx) => {
-    if (!data.issueDate) {
+    if (!data.issuedDate) {
       ctx.addIssue({
-        path: ["issueDate"],
+        path: ["issuedDate"],
         message: "Issue date is required",
         code: "custom",
       });
@@ -46,9 +47,9 @@ export const invoiceSchema = z.object({
         code: "custom",
       });
     }
-    if (!data.vatNumber && data.invoiceType === "tax") {
+    if (!data.vatCategoryId && data.invoiceType === "TAX") {
       ctx.addIssue({
-        path: ["vatNumber"],
+        path: ["vatCategoryId"],
         message: "VAT Number is required",
         code: "custom",
       });

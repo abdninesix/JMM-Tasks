@@ -22,6 +22,7 @@ import Products from "@/components/pages-components/sales-invoice/Products"
 import Services from "@/components/pages-components/sales-invoice/Services"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
 import ReactQuill from "react-quill-new"
+import { formatInTimeZone } from 'date-fns-tz'
 
 const modules = {
   toolbar: [
@@ -33,24 +34,30 @@ const modules = {
   ],
 };
 
+const apiDate = (date: Date) => formatInTimeZone(
+  date,
+  "Etc/GMT-3",
+  "yyyy-MM-dd'T'HH:mm:ssXXX"
+);
+
 const CreateSalesInvoice = () => {
 
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
     defaultValues: {
-      invoiceType: "tax",
-      transactionType: "",
+      invoiceType: "TAX",
+      saleInvoiceSpecialTransactionType: "",
       // customerId: "",
-      issueDate: null,
+      issuedDate: null,
       supplyDate: null,
-      vatNumber: "",
+      vatCategoryId: undefined,
       notes: "",
-      terms: "",
-      paymentType: "full",
-      splitPayment: false,
-      paymentMethod: "cash",
-      products: [],
-      services: [],
+      termsAndConditions: "",
+      paymentType: "FULL",
+      // splitPayment: false,
+      paymentMethod: "CASH",
+      invoiceItems: [],
+      invoiceServices: [],
     },
   });
 
@@ -60,7 +67,12 @@ const CreateSalesInvoice = () => {
   // const anchor = useComboboxAnchor()
 
   const onSubmit = handleSubmit((data) => {
-    console.log("Form Data:", data);
+    const payload = {
+      ...data,
+      issuedDate: apiDate(data.issuedDate!),
+      supplyDate: apiDate(data.supplyDate!),
+    };
+    console.log("Form Data:", payload);
     toast.success("Invoice created!")
   });
 
@@ -92,13 +104,13 @@ const CreateSalesInvoice = () => {
               <FieldLabel htmlFor="tax" className="has-data-[state=checked]:border-theme1">
                 <Field orientation="horizontal">
                   <FieldTitle>Tax</FieldTitle>
-                  <RadioGroupItem value="tax" id="tax" className="text-white" />
+                  <RadioGroupItem value="TAX" id="tax" className="text-white" />
                 </Field>
               </FieldLabel>
               <FieldLabel htmlFor="simplified-tax" className="has-data-[state=checked]:border-theme1">
                 <Field orientation="horizontal">
                   <FieldTitle>Simplified Tax</FieldTitle>
-                  <RadioGroupItem value="simplified-tax" id="simplified-tax" className="text-white" />
+                  <RadioGroupItem value="SIMPLIFIED_TAX" id="simplified-tax" className="text-white" />
                 </Field>
               </FieldLabel>
             </RadioGroup>
@@ -108,7 +120,7 @@ const CreateSalesInvoice = () => {
           <Field className="max-w-50">
             <Label>Transaction Type</Label>
             <Controller
-              name="transactionType"
+              name="saleInvoiceSpecialTransactionType"
               control={control}
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
@@ -116,12 +128,12 @@ const CreateSalesInvoice = () => {
                     <SelectValue placeholder="Select transaction type" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="type-a">Type A</SelectItem>
-                    <SelectItem value="type-b">Type B</SelectItem>
+                    <SelectItem value="SUMMARY">Summary</SelectItem>
+                    <SelectItem value="OTHER">Other</SelectItem>
                   </SelectContent>
                 </Select>
               )} />
-            <p className="text-sm text-red-500">{errors.transactionType?.message}</p>
+            <p className="text-sm text-red-500">{errors.saleInvoiceSpecialTransactionType?.message}</p>
           </Field>
 
           {/* <Field className="max-w-50">
@@ -152,9 +164,9 @@ const CreateSalesInvoice = () => {
           </Field> */}
 
           <Field className="max-w-50">
-            <Label>Issue Date</Label>
+            <Label>Issued Date</Label>
             <Controller
-              name="issueDate"
+              name="issuedDate"
               control={control}
               render={({ field }) => (
                 <Popover>
@@ -178,7 +190,7 @@ const CreateSalesInvoice = () => {
                   </PopoverContent>
                 </Popover>
               )} />
-            <p className="text-sm text-red-500">{errors.issueDate?.message}</p>
+            <p className="text-sm text-red-500">{errors.issuedDate?.message}</p>
           </Field>
 
           <Field className="max-w-50">
@@ -211,15 +223,20 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.supplyDate?.message}</p>
           </Field>
 
-          {invoiceType === "tax" && <Field className="max-w-50">
+          {invoiceType === "TAX" && <Field className="max-w-50">
             <Label>VAT No.</Label>
             <Controller
-              name="vatNumber"
+              name="vatCategoryId"
               control={control}
               render={({ field }) => (
-                <Input {...field} placeholder="Enter VAT No." />
+                <Input
+                  type="number"
+                  {...field}
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
+                  placeholder="Enter VAT Category ID" />
               )} />
-            <p className="text-sm text-red-500">{errors.vatNumber?.message}</p>
+            <p className="text-sm text-red-500">{errors.vatCategoryId?.message}</p>
           </Field>}
         </div>
 
@@ -264,7 +281,7 @@ const CreateSalesInvoice = () => {
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-4">
                 <Controller
-                  name="terms"
+                  name="termsAndConditions"
                   control={control}
                   render={({ field }) => (
                     <ReactQuill
@@ -293,18 +310,19 @@ const CreateSalesInvoice = () => {
                 render={({ field }) => (
                   <Tabs value={field.value} onValueChange={field.onChange}>
                     <TabsList>
-                      <TabsTrigger className="p-4 rounded-r-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="full">Full</TabsTrigger>
-                      <TabsTrigger className="p-4 rounded-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="partial">Partial</TabsTrigger>
-                      <TabsTrigger className="p-4 rounded-l-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="none">No Payment</TabsTrigger>
+                      <TabsTrigger className="p-4 rounded-r-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="FULL">Full</TabsTrigger>
+                      <TabsTrigger className="p-4 rounded-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="PARTIAL">Partial</TabsTrigger>
+                      <TabsTrigger className="p-4 rounded-l-none dark:data-[state=active]:bg-theme1 dark:data-[state=active]:text-white data-[state=active]:bg-theme1 data-[state=active]:text-white" value="NONE">No Payment</TabsTrigger>
                     </TabsList>
-                    <TabsContent className="py-4 space-y-4" value="full">
+                    <TabsContent className="py-4 space-y-4" value="FULL">
                       <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-                        <Controller
+                        {/* <Controller
                           name="splitPayment"
                           control={control}
                           render={({ field }) => (
                             <Switch checked={field.value} onCheckedChange={field.onChange} />
-                          )} />
+                          )} /> */}
+                        <Switch />
                         <h2 className="text-lg font-semibold text-theme1">Split Payment</h2>
                         <p className="text-sm text-muted-foreground">You can choose two payment methods if split payment is enabled.</p>
                       </div>
@@ -319,21 +337,21 @@ const CreateSalesInvoice = () => {
                                   <Field orientation="horizontal">
                                     <Banknote size={18} />
                                     <FieldTitle className="font-bold">Cash</FieldTitle>
-                                    <RadioGroupItem value="cash" id="cash" className="hidden" />
+                                    <RadioGroupItem value="CASH" id="cash" className="hidden" />
                                   </Field>
                                 </FieldLabel>
                                 <FieldLabel htmlFor="card" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
                                   <Field orientation="horizontal">
                                     <CreditCard size={18} />
                                     <FieldTitle className="font-bold">Card</FieldTitle>
-                                    <RadioGroupItem value="card" id="card" className="hidden" />
+                                    <RadioGroupItem value="CARD" id="card" className="hidden" />
                                   </Field>
                                 </FieldLabel>
                                 <FieldLabel htmlFor="e-transfer" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
                                   <Field orientation="horizontal">
                                     <Landmark size={18} />
                                     <FieldTitle className="font-bold">E-transfer</FieldTitle>
-                                    <RadioGroupItem value="e-transfer" id="e-transfer" className="hidden" />
+                                    <RadioGroupItem value="E_TRANSFER" id="e-transfer" className="hidden" />
                                   </Field>
                                 </FieldLabel>
                               </RadioGroup>
@@ -346,11 +364,11 @@ const CreateSalesInvoice = () => {
                         </div>
                       </div>
                     </TabsContent>
-                    <TabsContent className="py-4 space-y-4" value="partial">
+                    <TabsContent className="py-4 space-y-4" value="PARTIAL">
                       <p className="text-muted-foreground">Partial payment is selected.</p>
                     </TabsContent>
 
-                    <TabsContent className="py-4 space-y-4" value="none">
+                    <TabsContent className="py-4 space-y-4" value="NONE">
                       <p className="text-muted-foreground">No payment is selected.</p>
                     </TabsContent>
                   </Tabs>

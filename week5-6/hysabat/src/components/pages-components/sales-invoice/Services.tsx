@@ -48,8 +48,8 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
   const services: ApiService[] = data?.services?.nodes || [];
 
   const { control, register, formState: { errors } } = form;
-  const { fields: serviceFields, append: appendService, remove: removeService, replace: replaceServices } = useFieldArray({ control, name: "services", });
-  const serviceValues = useWatch({ control, name: "services" });
+  const { fields: serviceFields, append: appendService, remove: removeService, replace: replaceServices } = useFieldArray({ control, name: "invoiceServices", });
+  const serviceValues = useWatch({ control, name: "invoiceServices" });
 
   const handleAddService = (service: ApiService) => {
     appendService({
@@ -67,7 +67,7 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
   };
 
   const computedServices = useMemo(() => {
-    return serviceValues.map((s: InvoiceFormValues["services"][number]) => {
+    return serviceValues.map((s: InvoiceFormValues["invoiceServices"][number]) => {
       const lineTotal = s.unitPrice * s.quantity - s.discount;
       const vatAmount = (lineTotal * s.vatRate) / 100;
       return {
@@ -172,7 +172,7 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
           </div>
         )}
       </InputGroup>
-      <p className="text-sm text-red-500">{errors.services?.message}</p>
+      <p className="text-sm text-red-500">{errors.invoiceServices?.message}</p>
 
       {serviceFields.length === 0 ? (
         <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
@@ -202,12 +202,12 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
               <input
                 type="number"
                 min={1}
-                {...register(`services.${index}.quantity`, { valueAsNumber: true })}
+                {...register(`invoiceServices.${index}.quantity`, { valueAsNumber: true })}
               />
               <input
                 type="number"
                 min={0}
-                {...register(`services.${index}.discount`, { valueAsNumber: true })}
+                {...register(`invoiceServices.${index}.discount`, { valueAsNumber: true })}
               />
               <li>{computedServices[index]?.lineTotal}</li>
               <li>Standard {field.vatRate}%</li>

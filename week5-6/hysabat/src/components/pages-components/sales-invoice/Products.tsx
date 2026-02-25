@@ -48,8 +48,8 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
     const products: ApiProduct[] = data?.items?.nodes || [];
 
     const { control, register, formState: { errors } } = form;
-    const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "products", });
-    const productValues = useWatch({ control, name: "products" });
+    const { fields: productFields, append: appendProduct, remove: removeProduct, replace: replaceProducts } = useFieldArray({ control, name: "invoiceItems", });
+    const productValues = useWatch({ control, name: "invoiceItems" });
 
     const handleAddProduct = (product: ApiProduct) => {
         appendProduct({
@@ -67,7 +67,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
     };
 
     const computedProducts = useMemo(() => {
-        return productValues.map((p: InvoiceFormValues["products"][number]) => {
+        return productValues.map((p: InvoiceFormValues["invoiceItems"][number]) => {
             const lineTotal = p.unitPrice * p.quantity - p.discount;
             const vatAmount = (lineTotal * p.vatRate) / 100;
             return {
@@ -167,7 +167,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                     </div>
                 )}
             </InputGroup>
-            <p className="text-sm text-red-500">{errors.products?.message}</p>
+            <p className="text-sm text-red-500">{errors.invoiceItems?.message}</p>
 
             {productFields.length === 0 ? (
                 <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
@@ -197,12 +197,12 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                             <input
                                 type="number"
                                 min={1}
-                                {...register(`products.${index}.quantity`, { valueAsNumber: true })}
+                                {...register(`invoiceItems.${index}.quantity`, { valueAsNumber: true })}
                             />
                             <input
                                 type="number"
                                 min={0}
-                                {...register(`products.${index}.discount`, { valueAsNumber: true })}
+                                {...register(`invoiceItems.${index}.discount`, { valueAsNumber: true })}
                             />
                             <li>{computedProducts[index]?.lineTotal.toFixed(2)}</li>
                             <li>Standard {field.vatRate}%</li>
