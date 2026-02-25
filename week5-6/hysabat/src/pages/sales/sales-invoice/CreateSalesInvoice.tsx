@@ -48,6 +48,7 @@ const CreateSalesInvoice = () => {
       invoiceType: "TAX",
       saleInvoiceSpecialTransactionType: "",
       // customerId: "",
+      // salesmanId: "",
       issuedDate: null,
       supplyDate: null,
       vatCategoryId: undefined,

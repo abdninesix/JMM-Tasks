@@ -5,8 +5,8 @@ import { SaudiRiyal } from "lucide-react";
 
 const Summary = memo(({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
-    const products = useWatch({ control: form.control, name: "products" }) || [];
-    const services = useWatch({ control: form.control, name: "services" }) || [];
+    const products = useWatch({ control: form.control, name: "invoiceItems" }) || [];
+    const services = useWatch({ control: form.control, name: "invoiceServices" }) || [];
 
     const totals = useMemo(() => {
         const allItems = [...products, ...services];
