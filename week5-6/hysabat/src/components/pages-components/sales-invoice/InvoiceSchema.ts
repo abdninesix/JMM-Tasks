@@ -10,7 +10,7 @@ export const invoiceSchema = z.object({
   vatCategoryId: z.number().optional(),
   notes: z.string().optional(),
   termsAndConditions: z.string().optional(),
-  paymentType: z.enum(["FULL", "PARTIAL", "NONE"]),
+  paymentType: z.enum(["FULL", "PARTIAL", "NO_PAYMENT"]),
   // splitPayment: z.boolean(),
   paymentMethod: z.enum(["CASH", "CARD", "E_TRANSFER"]),
   invoiceItems: z.array(z.object({
