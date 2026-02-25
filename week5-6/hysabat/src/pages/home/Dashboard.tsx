@@ -2,9 +2,9 @@ import MainChart from "@/components/pages-components/dashboard/MainChart"
 import Overview from "@/components/pages-components/dashboard/Overview"
 import ExpenseShare from "@/components/pages-components/dashboard/ExpenseShare"
 import TaxInvoicesSummary from "@/components/pages-components/dashboard/TaxInvoicesSummary"
-// import ExpenseRevenue from "@/components/pages-components/dashboard/ExpenseRevenue"
-// import Inventory from "@/components/pages-components/dashboard/Inventory"
-// import ProductSales from "@/components/pages-components/dashboard/ProductSales"
+import Inventory from "@/components/pages-components/dashboard/Inventory"
+import ExpenseRevenue from "@/components/pages-components/dashboard/ExpenseRevenue"
+import ProductSales from "@/components/pages-components/dashboard/ProductSales"
 // import TopCustomers from "@/components/pages-components/dashboard/TopCustomers"
 // import TopSalesman from "@/components/pages-components/dashboard/TopSalesman"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -44,10 +44,10 @@ const Dashboard = () => {
         <Overview />
         <ExpenseShare />
         <TaxInvoicesSummary />
-        {/* <Inventory />
+        <Inventory />
         <ExpenseRevenue />
         <ProductSales />
-        <TopCustomers />
+        {/* <TopCustomers />
         <TopSalesman /> */}
       </div>
     </div>
