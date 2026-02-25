@@ -14,13 +14,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
-import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Products from "@/components/pages-components/sales-invoice/Products"
 import Services from "@/components/pages-components/sales-invoice/Services"
+import Summary from "@/components/pages-components/sales-invoice/Summary"
+import Payment from "@/components/pages-components/sales-invoice/Payment"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
 import ReactQuill from "react-quill-new"
 import { formatInTimeZone } from 'date-fns-tz'
-import Payment from "@/components/pages-components/sales-invoice/Payment"
 
 const modules = {
   toolbar: [
@@ -32,7 +32,7 @@ const modules = {
   ],
 };
 
-const apiDate = (date: Date) => formatInTimeZone(
+const payloadDate = (date: Date) => formatInTimeZone(
   date,
   "Etc/GMT-3",
   "yyyy-MM-dd'T'HH:mm:ssXXX"
@@ -68,8 +68,8 @@ const CreateSalesInvoice = () => {
   const onSubmit = handleSubmit((data) => {
     const payload = {
       ...data,
-      issuedDate: apiDate(data.issuedDate!),
-      supplyDate: apiDate(data.supplyDate!),
+      issuedDate: payloadDate(data.issuedDate!),
+      supplyDate: payloadDate(data.supplyDate!),
     };
     console.log("Form Data:", payload);
     toast.success("Invoice created!")
