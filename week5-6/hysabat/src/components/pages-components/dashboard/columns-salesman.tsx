@@ -2,7 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table"
 import { SaudiRiyal } from "lucide-react"
 
 export type Salesman = {
-    id: string
+    id: number
     fullName: string
     fullNameAr: string
     phone: string
