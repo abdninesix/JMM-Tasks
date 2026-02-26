@@ -3,8 +3,8 @@ import z from "zod";
 export const invoiceSchema = z.object({
   invoiceType: z.enum(["TAX", "SIMPLIFIED_TAX"]),
   saleInvoiceSpecialTransactionType: z.string().min(1, "Transaction type is required"),
-  // customerId: z.string().min(1, "Customer is required"),
-  // salesmanId: z.string().min(1, "Salesman is required"),
+  customerId: z.number().nullable(),
+  saleManId: z.number().nullable(),
   issuedDate: z.date().nullable(),
   supplyDate: z.date().nullable(),
   vatCategoryId: z.number().optional(),
@@ -33,6 +33,20 @@ export const invoiceSchema = z.object({
   })).min(1, "No services added"),
 })
   .superRefine((data, ctx) => {
+    if (!data.customerId) {
+      ctx.addIssue({
+        path: ["customerId"],
+        message: "Customer is required",
+        code: "custom",
+      });
+    }
+    if (!data.saleManId) {
+      ctx.addIssue({
+        path: ["saleManId"],
+        message: "Salesman is required",
+        code: "custom",
+      });
+    }
     if (!data.issuedDate) {
       ctx.addIssue({
         path: ["issuedDate"],

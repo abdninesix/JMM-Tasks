@@ -6,8 +6,7 @@ const Hello = () => {
     <div>
       <h1>Text Editor test</h1>
       <ReactQuill
-        placeholder="Write something..."
-        className="bg-white"
+        placeholder="Write label..."
       />
     </div>
   )

@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import {  BookText, CalendarIcon, ChevronDownIcon, FileIcon} from "lucide-react"
+import { BookText, CalendarIcon, ChevronDownIcon, FileIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
@@ -21,6 +21,10 @@ import Payment from "@/components/pages-components/sales-invoice/Payment"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
 import ReactQuill from "react-quill-new"
 import { formatInTimeZone } from 'date-fns-tz'
+import { useQuery } from "@apollo/client/react"
+import type { Customer, CustomerQueryData } from "../customers/columns"
+import { CUSTOMER_QUERY } from "@/graphql/queries"
+import NewComboBox from "@/components/NewComboBox"
 
 const modules = {
   toolbar: [
@@ -45,8 +49,8 @@ const CreateSalesInvoice = () => {
     defaultValues: {
       invoiceType: "TAX",
       saleInvoiceSpecialTransactionType: "",
-      // customerId: "",
-      // salesmanId: "",
+      customerId: null,
+      saleManId: null,
       issuedDate: null,
       supplyDate: null,
       vatCategoryId: undefined,
@@ -64,6 +68,9 @@ const CreateSalesInvoice = () => {
 
   const invoiceType = watch("invoiceType");
   // const anchor = useComboboxAnchor()
+
+  const { data } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
+  const customers: Customer[] = data?.customers.nodes || []
 
   const onSubmit = handleSubmit((data) => {
     const payload = {
@@ -135,32 +142,39 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.saleInvoiceSpecialTransactionType?.message}</p>
           </Field>
 
-          {/* <Field className="max-w-50">
+          <Field className="max-w-50">
             <Label>Customer Name</Label>
             <Controller
               name="customerId"
               control={control}
               render={({ field }) => (
-                <Combobox
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  items={dummyCustomers.map((c) => ({ id: c.id, name: c.fullName }))}
-                >
-                  <ComboboxInput placeholder="Type and search..." />
-                  <ComboboxContent>
-                    <ComboboxEmpty>No customers found.</ComboboxEmpty>
-                    <ComboboxList className="scrollbar-none">
-                      {(item) => (
-                        <ComboboxItem key={item.id} value={item.id}>
-                          {item.name}
-                        </ComboboxItem>
-                      )}
-                    </ComboboxList>
-                  </ComboboxContent>
-                </Combobox>
+                <NewComboBox
+                  options={customers}
+                  placeholder="Search or select"
+                  getOptionLabel={(customer) => customer.nameEnglish}
+                  getOptionValue={(customer) => customer.id}
+                  onSelect={(customer) => { field.onChange(customer ? customer.id : null); }}
+                />
               )} />
             <p className="text-sm text-red-500">{errors.customerId?.message}</p>
-          </Field> */}
+          </Field>
+
+          <Field className="max-w-50">
+            <Label>Salesman Name</Label>
+            <Controller
+              name="saleManId"
+              control={control}
+              render={({ field }) => (
+                <NewComboBox
+                  options={customers}
+                  placeholder="Search or select"
+                  getOptionLabel={(salesman) => salesman.nameEnglish}
+                  getOptionValue={(salesman) => salesman.id}
+                  onSelect={(salesman) => { field.onChange(salesman ? salesman.id : null); }}
+                />
+              )} />
+            <p className="text-sm text-red-500">{errors.saleManId?.message}</p>
+          </Field>
 
           <Field className="max-w-50">
             <Label>Issued Date</Label>
