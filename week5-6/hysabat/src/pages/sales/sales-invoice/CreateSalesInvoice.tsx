@@ -20,12 +20,12 @@ import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Payment from "@/components/pages-components/sales-invoice/Payment"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
 import ReactQuill from "react-quill-new"
-import { formatInTimeZone } from 'date-fns-tz'
 import { useQuery } from "@apollo/client/react"
 import type { Customer, CustomerQueryData } from "../customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
 import NewComboBox from "@/components/NewComboBox"
 import { dummyProjects, dummySalesmen } from "@/lib/data"
+import { payloadDate } from "@/lib/utils"
 
 const modules = {
   toolbar: [
@@ -36,12 +36,6 @@ const modules = {
     ["clean"],
   ],
 };
-
-const payloadDate = (date: Date) => formatInTimeZone(
-  date,
-  "Etc/GMT-3",
-  "yyyy-MM-dd'T'HH:mm:ssXXX"
-);
 
 const CreateSalesInvoice = () => {
 
