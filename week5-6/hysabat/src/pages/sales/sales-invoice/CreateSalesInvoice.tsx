@@ -178,7 +178,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.saleManId?.message}</p>
           </Field>
 
-          <Field className="max-w-50">
+          {invoiceType === "TAX" && <Field className="max-w-50">
             <Label>Project Name</Label>
             <Controller
               name="projectId"
@@ -193,7 +193,7 @@ const CreateSalesInvoice = () => {
                 />
               )} />
             <p className="text-sm text-red-500">{errors.projectId?.message}</p>
-          </Field>
+          </Field>}
 
           <Field className="max-w-50">
             <Label>Issued Date</Label>
