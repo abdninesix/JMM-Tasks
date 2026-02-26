@@ -25,6 +25,7 @@ import { useQuery } from "@apollo/client/react"
 import type { Customer, CustomerQueryData } from "../customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
 import NewComboBox from "@/components/NewComboBox"
+import { dummyProjects, dummySalesmen } from "@/lib/data"
 
 const modules = {
   toolbar: [
@@ -51,6 +52,7 @@ const CreateSalesInvoice = () => {
       saleInvoiceSpecialTransactionType: "",
       customerId: null,
       saleManId: null,
+      projectId: null,
       issuedDate: null,
       supplyDate: null,
       vatCategoryId: undefined,
@@ -166,14 +168,31 @@ const CreateSalesInvoice = () => {
               control={control}
               render={({ field }) => (
                 <NewComboBox
-                  options={customers}
+                  options={dummySalesmen}
                   placeholder="Search or select"
-                  getOptionLabel={(salesman) => salesman.nameEnglish}
+                  getOptionLabel={(salesman) => salesman.fullNameAr}
                   getOptionValue={(salesman) => salesman.id}
                   onSelect={(salesman) => { field.onChange(salesman ? salesman.id : null); }}
                 />
               )} />
             <p className="text-sm text-red-500">{errors.saleManId?.message}</p>
+          </Field>
+
+          <Field className="max-w-50">
+            <Label>Project Name</Label>
+            <Controller
+              name="projectId"
+              control={control}
+              render={({ field }) => (
+                <NewComboBox
+                  options={dummyProjects}
+                  placeholder="Search or select"
+                  getOptionLabel={(project) => project.name}
+                  getOptionValue={(project) => project.id}
+                  onSelect={(project) => { field.onChange(project ? project.id : null); }}
+                />
+              )} />
+            <p className="text-sm text-red-500">{errors.projectId?.message}</p>
           </Field>
 
           <Field className="max-w-50">

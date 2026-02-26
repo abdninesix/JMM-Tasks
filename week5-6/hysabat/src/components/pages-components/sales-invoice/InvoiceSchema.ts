@@ -5,6 +5,7 @@ export const invoiceSchema = z.object({
   saleInvoiceSpecialTransactionType: z.string().min(1, "Transaction type is required"),
   customerId: z.number().nullable(),
   saleManId: z.number().nullable(),
+  projectId: z.number().nullable(),
   issuedDate: z.date().nullable(),
   supplyDate: z.date().nullable(),
   vatCategoryId: z.number().optional(),
@@ -44,6 +45,13 @@ export const invoiceSchema = z.object({
       ctx.addIssue({
         path: ["saleManId"],
         message: "Salesman is required",
+        code: "custom",
+      });
+    }
+    if (!data.projectId && data.invoiceType === "TAX") {
+      ctx.addIssue({
+        path: ["projectId"],
+        message: "Project is required",
         code: "custom",
       });
     }

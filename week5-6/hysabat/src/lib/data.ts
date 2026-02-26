@@ -126,13 +126,13 @@ export const dummyCustomers = Array.from({ length: 25 }, (_, i) => ({
 
 // Projects
 export const dummyProjects = Array.from({ length: 5 }, (_, i) => ({
-  id: `PROJ-${100 + i}`,
+  id: i + 1,
   name: `Project ${String.fromCharCode(65 + i)}`,
 }));
 
 // Salesmen
 export const dummySalesmen = Array.from({ length: 20 }, (_, i) => ({
-  id: `SAL-00${i + 1}`,
+  id: i + 1,
   fullName: ["Ali Khan", "Ahmed Raza", "Sara Malik", "Omar Hassan"][i % 4],
   fullNameAr: ["علي خان", "أحمد رضا", "سارة مالك", "عمر حسن"][i % 4],
   phone: `+92-300-555-${1000 + i}`,
