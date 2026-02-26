@@ -6,7 +6,7 @@ import Inventory from "@/components/pages-components/dashboard/Inventory"
 import ExpenseRevenue from "@/components/pages-components/dashboard/ExpenseRevenue"
 import ProductSales from "@/components/pages-components/dashboard/ProductSales"
 // import TopCustomers from "@/components/pages-components/dashboard/TopCustomers"
-// import TopSalesman from "@/components/pages-components/dashboard/TopSalesman"
+import TopSalesman from "@/components/pages-components/dashboard/TopSalesman"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { Calendar } from "lucide-react"
@@ -47,8 +47,8 @@ const Dashboard = () => {
         <Inventory />
         <ExpenseRevenue />
         <ProductSales />
-        {/* <TopCustomers />
-        <TopSalesman /> */}
+        {/* <TopCustomers /> */}
+        <TopSalesman />
       </div>
     </div>
   )
