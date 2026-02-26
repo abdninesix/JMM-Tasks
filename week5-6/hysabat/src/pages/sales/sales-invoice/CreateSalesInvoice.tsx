@@ -69,7 +69,6 @@ const CreateSalesInvoice = () => {
   const { watch, control, handleSubmit, formState: { errors } } = form;
 
   const invoiceType = watch("invoiceType");
-  // const anchor = useComboboxAnchor()
 
   const { data } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
   const customers: Customer[] = data?.customers.nodes || []
@@ -264,7 +263,7 @@ const CreateSalesInvoice = () => {
                 <Input
                   type="number"
                   {...field}
-                  value={field.value}
+                  value={field.value || ""}
                   onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
                   placeholder="Enter VAT Category ID" />
               )} />
