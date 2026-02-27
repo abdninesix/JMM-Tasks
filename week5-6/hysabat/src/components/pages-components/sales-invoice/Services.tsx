@@ -13,6 +13,7 @@ import { SERVICE_QUERY } from "@/graphql/queries";
 
 type ApiService = {
   serviceId: number;
+  taxId: number;
   serviceNameEnglish: string;
   price: number;
   costPrice: number;
@@ -53,13 +54,14 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
   const handleAddService = (service: ApiService) => {
     appendService({
-      id: service.serviceId,
-      name: service.serviceNameEnglish,
-      unit: "hr",
-      unitPrice: service.price,
+      serviceId: service.serviceId,
+      taxId: service.taxId,
+      serviceDescription: service.serviceNameEnglish,
+      price: service.price,
       quantity: 1,
-      discount: 0,
-      vatRate: 15,
+      discountAmount: 0,
+      discountPercentage: 0,
+      vATPercentage: 15,
     });
     setSearch("");
     setIsOpen(false);
@@ -68,10 +70,13 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
   const computedServices = useMemo(() => {
     return serviceValues.map((s: InvoiceFormValues["invoiceServices"][number]) => {
-      const lineTotal = s.unitPrice * s.quantity - s.discount;
-      const vatAmount = (lineTotal * s.vatRate) / 100;
+      const grossTotal = s.price * s.quantity;
+      const discountAmount = (grossTotal * s.discountPercentage) / 100;
+      const lineTotal = grossTotal - discountAmount;
+      const vatAmount = (lineTotal * s.vATPercentage) / 100;
       return {
         ...s,
+        discountAmount,
         lineTotal,
         vatAmount,
         total: lineTotal + vatAmount,
@@ -178,45 +183,69 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
         <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
           <Settings className="size-15" />
           <h2 className="text-theme1">No services added</h2>
-          <p className="text-sm">Search and add services using the search box above</p>
+          <p className="text-xs lg:text-sm">Search and add services using the search box above</p>
         </div>
       ) : (
-        <div className="">
-          <ul className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10">
-            <li>Service name</li>
-            <li>Unit</li>
-            <li>Unit Price</li>
-            <li>Quantity</li>
-            <li>Discount</li>
-            <li>Line Total</li>
-            <li>VAT Category</li>
-            <li>VAT Amount</li>
-            <li>Total</li>
-            <li>Actions</li>
-          </ul>
-          {serviceFields.map((field, index) => (
-            <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
-              <li>{field.name}</li>
-              <li>{field.unit}</li>
-              <li>{field.unitPrice}</li>
-              <input
-                type="number"
-                min={1}
-                {...register(`invoiceServices.${index}.quantity`, { valueAsNumber: true })}
-              />
-              <input
-                type="number"
-                min={0}
-                {...register(`invoiceServices.${index}.discount`, { valueAsNumber: true })}
-              />
-              <li>{computedServices[index]?.lineTotal}</li>
-              <li>Standard {field.vatRate}%</li>
-              <li>{computedServices[index]?.vatAmount}</li>
-              <li>{computedServices[index]?.total}</li>
-              <Button type="button" size="icon" variant="ghost" onClick={() => removeService(index)}><Trash2 className="size-4" /></Button>
-            </ul>
-          ))}
-        </div>
+        <>
+          {serviceFields.map((field, index) => {
+            const computed = computedServices[index];
+            return (
+              <div key={field.id} className='bg-accent grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 2xl:grid-cols-10 border'>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>Product name</h3>
+                  <p className='p-2 text-sm'>{field.serviceDescription}</p>
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>Unit</h3>
+                  <p className='p-2 text-sm'>No unit</p>
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Unit Price (<SaudiRiyal size={14} />)</h3>
+                  <p className='p-2 text-sm'>{field.price.toFixed(2)}</p>
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>Quantity</h3>
+                  <input
+                    type="number"
+                    min={1}
+                    className='p-2 text-sm bg-input'
+                    {...register(`invoiceServices.${index}.quantity`, { valueAsNumber: true })}
+                  />
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>Discount (%)</h3>
+                  <input
+                    type="number"
+                    min={0}
+                    max={100}
+                    className='p-2 text-sm bg-input'
+                    {...register(`invoiceServices.${index}.discountPercentage`, { valueAsNumber: true })}
+                  />
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>Line Total</h3>
+                  <p className='p-2 text-sm'>{computed?.lineTotal.toFixed(2)}</p>
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>VAT Category</h3>
+                  <p className='p-2 text-sm'>Standard {field.vATPercentage}%</p>
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>VAT Amount</h3>
+                  <p className='p-2 text-sm'>{computed?.vatAmount.toFixed(2)}</p>
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Total (<SaudiRiyal size={14} />)</h3>
+                  <p className='p-2 text-sm'>{computed?.total.toFixed(2)}</p>
+                </div>
+                <div className='space-y-1'>
+                  <h3 className='p-2 bg-theme1 text-white font-semibold'>Actions</h3>
+                  <Button type="button" size="icon" variant="ghost" onClick={() => removeService(index)}><Trash2 className="size-4" /></Button>
+                </div>
+              </div>
+            )
+          })}
+        </>
       )}
     </div>
   )

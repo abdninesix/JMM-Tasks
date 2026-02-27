@@ -204,7 +204,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                     <p className='p-2 text-sm'>{field.sellPrice.toFixed(2)}</p>
                                 </div>
                                 <div className='space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Quantity</h3>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>Quantity</h3>
                                     <input
                                         type="number"
                                         min={1}
@@ -213,7 +213,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                     />
                                 </div>
                                 <div className='space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Discount (%)</h3>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>Discount (%)</h3>
                                     <input
                                         type="number"
                                         min={0}
@@ -223,23 +223,23 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                     />
                                 </div>
                                 <div className='space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Line Total</h3>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>Line Total</h3>
                                     <p className='p-2 text-sm'>{computed?.lineTotal.toFixed(2)}</p>
                                 </div>
                                 <div className='space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>VAT Category</h3>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>VAT Category</h3>
                                     <p className='p-2 text-sm'>Standard {field.vATPercentage}%</p>
                                 </div>
                                 <div className='space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>VAT Amount</h3>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>VAT Amount</h3>
                                     <p className='p-2 text-sm'>{computed?.vatAmount.toFixed(2)}</p>
                                 </div>
                                 <div className='space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Total</h3>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Total (<SaudiRiyal size={14} />)</h3>
                                     <p className='p-2 text-sm'>{computed?.total.toFixed(2)}</p>
                                 </div>
                                 <div className='space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Actions</h3>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>Actions</h3>
                                     <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
                                 </div>
                             </div>

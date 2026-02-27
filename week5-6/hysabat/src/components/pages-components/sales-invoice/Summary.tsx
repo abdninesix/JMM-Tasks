@@ -24,12 +24,14 @@ const Summary = memo(({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => 
 
     const ServiceTotals = useMemo(() => {
         return services.reduce((acc, item) => {
-            const lineTotal = (item.unitPrice * item.quantity) - item.discount;
-            const vatAmount = (lineTotal * item.vatRate) / 100;
+            const grossTotal = item.price * item.quantity;
+            const discountAmount = (grossTotal * item.discountPercentage) / 100;
+            const lineTotal = grossTotal - discountAmount;
+            const vatAmount = (lineTotal * item.vATPercentage) / 100;
 
             acc.subTotal += lineTotal;
             acc.vatTotal += vatAmount;
-            acc.discountTotal += item.discount;
+            acc.discountTotal += item.discountAmount;
             return acc;
         }, { subTotal: 0, vatTotal: 0, discountTotal: 0 });
     }, [services]);

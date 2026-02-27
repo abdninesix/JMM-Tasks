@@ -27,13 +27,14 @@ query GetServices($search: String) {
   services (where: { serviceNameEnglish: { contains: $search } }) {
     nodes {
       serviceId
+      taxId
       serviceNameEnglish
+      costPrice
+      price
+      barCode
       category {
         categoryNameEnglish
       }
-      price
-      costPrice
-      barCode
     }
   }
 }
