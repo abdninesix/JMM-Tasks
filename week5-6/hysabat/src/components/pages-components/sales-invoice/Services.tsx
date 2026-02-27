@@ -112,12 +112,18 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
         {isOpen && (
           <div className="w-full space-y-4 bg-card border rounded-md shadow-md absolute overflow-y-autos p-2 z-50 top-12">
             {services.length > 0 ? (services.map((service) => (
-              <div key={service.serviceId} className="w-full p-4 bg-card hover:bg-muted group border flex gap-4 rounded-md">
-                <div className="p-2 size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
-                <div className="w-full space-y-2">
-                  <div className="flex justify-between">
-                    <h3 className="text-xl">{service.serviceNameEnglish}</h3>
-                    <div className="flex gap-4">
+              <div key={service.serviceId} className="w-full p-4 bg-card hover:bg-muted group border flex flex-col lg:flex-row gap-4 rounded-md">
+                <div className='flex justify-between'>
+                  <div className="p-2 size-20 lg:size-32 rounded-md bg-muted text-muted-foreground" ><Tag className="size-full" /></div>
+                  <div className="flex flex-col lg:hidden gap-4">
+                    <Button type="button" variant="outline" size="sm"><History />View Price History</Button>
+                    <Button type="button" size="sm" onClick={() => handleAddService(service)} className="bg-theme1 text-white"><Plus />Add to Cart</Button>
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="flex flex-col lg:flex-row lg:justify-between gap-4">
+                    <h3 className="text-xl lg:text-2xl mb-2 wrap-anywhere">{service.serviceNameEnglish}</h3>
+                    <div className="hidden lg:flex gap-4">
                       <Button type="button" variant="outline"><History />View Price History</Button>
                       <Button type="button" onClick={() => handleAddService(service)} className="bg-theme1 hover:bg-theme1/90 text-white"><Plus />Add to Cart</Button>
                     </div>
@@ -145,14 +151,14 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                     </div>
                     <div className="grid grid-cols-2">
                       <span>Barcode</span>
-                      <span>{service.barCode}</span>
+                      <span>{service.barCode || "No barcode"}</span>
                     </div>
                     <div className="grid grid-cols-2">
                       <span>Unit</span>
-                      <span>hr</span>
+                      <span>No unit</span>
                     </div>
                   </div>
-                  <Separator />
+                  <Separator className='my-2' />
                   <p>No description</p>
                 </div>
               </div>
@@ -162,7 +168,7 @@ const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
               </p>
             )
             }
-            <div className="flex gap-4 items-center justify-center">
+            <div className="flex flex-col lg:flex-row gap-4 items-center justify-center">
               <Button type="button" variant="outline" className="w-fit text-green-500">
                 <PlusCircle />
                 Add As Non Created Service
