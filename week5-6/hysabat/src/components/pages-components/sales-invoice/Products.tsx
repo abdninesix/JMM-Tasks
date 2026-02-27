@@ -199,7 +199,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                             <div key={field.id} className='bg-accent grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 2xl:grid-cols-10 border'>
                                 <div className='space-y-1'>
                                     <h3 className='p-2 bg-theme1 text-white font-semibold'>Product name</h3>
-                                    <p className='p-2 text-sm'>{field.metaDescription}</p>
+                                    <p className='p-2 text-sm wrap-anywhere'>{field.metaDescription}</p>
                                 </div>
                                 <div className='space-y-1'>
                                     <h3 className='p-2 bg-theme1 text-white font-semibold'>Unit</h3>
