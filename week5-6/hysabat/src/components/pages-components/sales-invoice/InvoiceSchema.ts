@@ -9,7 +9,7 @@ export const invoiceSchema = z.object({
   projectId: z.number().nullable(),
   issuedDate: z.date().nullable(),
   supplyDate: z.date().nullable(),
-  vatCategoryId: z.number().optional(),
+  vatCategoryId: z.number().nullable(),
   notes: z.string().optional(),
   termsAndConditions: z.string().optional(),
   paymentType: z.enum(["FULL", "PARTIAL", "NO_PAYMENT"]),

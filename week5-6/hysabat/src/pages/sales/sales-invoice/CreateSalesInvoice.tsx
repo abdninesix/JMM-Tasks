@@ -54,7 +54,7 @@ const CreateSalesInvoice = () => {
       projectId: null,
       issuedDate: null,
       supplyDate: null,
-      vatCategoryId: undefined,
+      vatCategoryId: null,
       notes: "",
       termsAndConditions: "",
       paymentType: "FULL",
@@ -76,11 +76,23 @@ const CreateSalesInvoice = () => {
   const customers: Customer[] = data?.customers.nodes || []
 
   const onSubmit = handleSubmit((data) => {
+
+    const finalItems = data.invoiceItems.map((item) => {
+      const grossTotal = item.sellPrice * item.quantity;
+      const discountAmount = (grossTotal * item.discountPercentage) / 100;
+      const { unit, ...rest } = item;
+      return {
+        ...rest,
+        discountAmount,
+      };
+    });
+
     const payload = {
       ...data,
       id: generateInvoiceId(),
       issuedDate: payloadDate(data.issuedDate!),
       supplyDate: payloadDate(data.supplyDate!),
+      invoiceItems: finalItems,
     };
     console.log("Form Data:", payload);
     toast.success("Invoice created!")

@@ -76,17 +76,19 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
     const computedProducts = useMemo(() => {
         return productValues.map((p: InvoiceFormValues["invoiceItems"][number]) => {
-            const lineTotal = p.sellPrice * p.quantity - p.discountAmount;
+            const grossTotal = p.sellPrice * p.quantity;
+            const discountAmount = (grossTotal * p.discountPercentage) / 100;
+            const lineTotal = grossTotal - discountAmount;
             const vatAmount = (lineTotal * p.vATPercentage) / 100;
             return {
                 ...p,
+                discountAmount,
                 lineTotal,
                 vatAmount,
                 total: lineTotal + vatAmount,
             };
         });
     }, [productValues]);
-
 
     return (
         <div className="p-4 border rounded-md space-y-4">
@@ -181,61 +183,62 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                 <div className="text-muted-foreground flex flex-col items-center justify-center gap-2">
                     <Box className="size-12 lg:size-15" />
                     <h2 className="text-theme1">No products added</h2>
-                    <p className="text-sm">Search and add products using the search box above</p>
+                    <p className="text-xs lg:text-sm">Search and add products using the search box above</p>
                 </div>
             ) : (
                 <>
                     {productFields.map((field, index) => {
                         const computed = computedProducts[index];
                         return (
-                            <div key={field.id} className='flex flex-wrap border'>
-                                <div className='w-fit space-y-1'>
+                            <div key={field.id} className='bg-accent grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 2xl:grid-cols-10 border'>
+                                <div className='space-y-1'>
                                     <h3 className='p-2 bg-theme1 text-white font-semibold'>Product name</h3>
                                     <p className='p-2 text-sm'>{field.metaDescription}</p>
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='p-2 bg-theme1 text-white font-semibold'>Unit</h3>
                                     <p className='p-2 text-sm'>{field.unit}</p>
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Unit Price (<SaudiRiyal size={14} />)</h3>
                                     <p className='p-2 text-sm'>{field.sellPrice.toFixed(2)}</p>
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Quantity</h3>
                                     <input
                                         type="number"
                                         min={1}
-                                        className='p-2 text-sm'
+                                        className='p-2 text-sm bg-input'
                                         {...register(`invoiceItems.${index}.quantity`, { valueAsNumber: true })}
                                     />
                                 </div>
-                                <div className='w-fit space-y-1'>
-                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Discount</h3>
+                                <div className='space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Discount (%)</h3>
                                     <input
                                         type="number"
                                         min={0}
-                                        className='p-2 text-sm'
-                                        {...register(`invoiceItems.${index}.discountAmount`, { valueAsNumber: true })}
+                                        max={100}
+                                        className='p-2 text-sm bg-input'
+                                        {...register(`invoiceItems.${index}.discountPercentage`, { valueAsNumber: true })}
                                     />
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Line Total</h3>
                                     <p className='p-2 text-sm'>{computed?.lineTotal.toFixed(2)}</p>
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>VAT Category</h3>
                                     <p className='p-2 text-sm'>Standard {field.vATPercentage}%</p>
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>VAT Amount</h3>
                                     <p className='p-2 text-sm'>{computed?.vatAmount.toFixed(2)}</p>
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Total</h3>
                                     <p className='p-2 text-sm'>{computed?.total.toFixed(2)}</p>
                                 </div>
-                                <div className='w-fit space-y-1'>
+                                <div className='space-y-1'>
                                     <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Actions</h3>
                                     <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
                                 </div>

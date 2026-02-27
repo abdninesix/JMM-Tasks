@@ -10,7 +10,9 @@ const Summary = memo(({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => 
 
     const productTotals = useMemo(() => {
         return products.reduce((acc, item) => {
-            const lineTotal = (item.sellPrice * item.quantity) - item.discountAmount;
+            const grossTotal = item.sellPrice * item.quantity;
+            const discountAmount = (grossTotal * item.discountPercentage) / 100;
+            const lineTotal = grossTotal - discountAmount;
             const vatAmount = (lineTotal * item.vATPercentage) / 100;
 
             acc.subTotal += lineTotal;
@@ -39,7 +41,7 @@ const Summary = memo(({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => 
     };
 
     const grandTotal = productTotals.subTotal + productTotals.vatTotal + ServiceTotals.subTotal + ServiceTotals.vatTotal;
-    
+
     return (
         <div className="p-4 space-y-4 bg-card border rounded-md font-extrabold">
             <h2 className="text-xl text-theme1">Summary</h2>
@@ -61,7 +63,7 @@ const Summary = memo(({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => 
             </div>
             <div className="grid grid-cols-2">
                 <span>Taxable Amount</span>
-                <span className="flex items-center justify-end font-semibold"><SaudiRiyal size={15} />500</span>
+                <span className="flex items-center justify-end font-semibold"><SaudiRiyal size={15} />0</span>
             </div>
             <div className="grid grid-cols-2">
                 <span>VAT Total</span>
