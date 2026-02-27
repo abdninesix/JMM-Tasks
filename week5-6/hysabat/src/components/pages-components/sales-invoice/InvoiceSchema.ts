@@ -1,6 +1,7 @@
 import z from "zod";
 
 export const invoiceSchema = z.object({
+  id: z.string(),
   invoiceType: z.enum(["TAX", "SIMPLIFIED_TAX"]),
   saleInvoiceSpecialTransactionType: z.string().min(1, "Transaction type is required"),
   customerId: z.number().nullable(),
@@ -15,13 +16,16 @@ export const invoiceSchema = z.object({
   // splitPayment: z.boolean(),
   paymentMethod: z.enum(["CASH", "CARD", "E_TRANSFER"]),
   invoiceItems: z.array(z.object({
-    id: z.number(),
-    name: z.string(),
+    itemId: z.number(),
+    taxId: z.number(),
+    metaDescription: z.string(),
+    unitId: z.number(),
     unit: z.string(),
-    unitPrice: z.number(),
+    sellPrice: z.number(),
     quantity: z.number().min(1),
-    discount: z.number(),
-    vatRate: z.number(),
+    discountAmount: z.number(),
+    discountPercentage: z.number().min(0).max(100),
+    vATPercentage: z.number(),
   })).min(1, "No products added"),
   invoiceServices: z.array(z.object({
     id: z.number(),
@@ -32,6 +36,9 @@ export const invoiceSchema = z.object({
     discount: z.number(),
     vatRate: z.number(),
   })).min(1, "No services added"),
+  discountPercentage: z.number().min(0).max(100).optional(),
+  discountAmount: z.number().min(0).optional(),
+  amountPaid: z.number().min(0).optional(),
 })
   .superRefine((data, ctx) => {
     if (!data.customerId) {

@@ -37,11 +37,16 @@ const modules = {
   ],
 };
 
+const generateInvoiceId = (): string => {
+  return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+};
+
 const CreateSalesInvoice = () => {
 
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
     defaultValues: {
+      id: "",
       invoiceType: "TAX",
       saleInvoiceSpecialTransactionType: "",
       customerId: null,
@@ -57,6 +62,9 @@ const CreateSalesInvoice = () => {
       paymentMethod: "CASH",
       invoiceItems: [],
       invoiceServices: [],
+      discountPercentage: 0,
+      discountAmount: 0,
+      amountPaid: 0,
     },
   });
 
@@ -70,6 +78,7 @@ const CreateSalesInvoice = () => {
   const onSubmit = handleSubmit((data) => {
     const payload = {
       ...data,
+      id: generateInvoiceId(),
       issuedDate: payloadDate(data.issuedDate!),
       supplyDate: payloadDate(data.supplyDate!),
     };

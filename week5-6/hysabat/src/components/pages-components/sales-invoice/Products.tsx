@@ -13,6 +13,7 @@ import { PRODUCT_QUERY } from '@/graphql/queries';
 
 type ApiProduct = {
     itemId: number;
+    taxId: number;
     itemNameEnglish: string;
     wholeSellPrice: number;
     costPrice: number;
@@ -20,6 +21,10 @@ type ApiProduct = {
     category?: {
         categoryNameEnglish: string;
     };
+    itemUnitOfMeasure?: Array<{
+        nameEnglish: string;
+        unitId: number;
+    }>;
 }
 
 type ProductQueryData = {
@@ -53,13 +58,16 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
     const handleAddProduct = (product: ApiProduct) => {
         appendProduct({
-            id: product.itemId,
-            name: product.itemNameEnglish,
-            unit: "psc",
-            unitPrice: product.wholeSellPrice,
+            itemId: product.itemId,
+            taxId: product.taxId,
+            metaDescription: product.itemNameEnglish,
+            unitId: product.itemUnitOfMeasure?.[0].unitId || 0,
+            unit: product.itemUnitOfMeasure?.[0].nameEnglish || "No unit",
+            sellPrice: product.wholeSellPrice,
             quantity: 1,
-            discount: 0,
-            vatRate: 15,
+            discountAmount: 0,
+            discountPercentage: 0,
+            vATPercentage: 15,
         });
         setSearch("");
         setIsOpen(false);
@@ -68,8 +76,8 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
     const computedProducts = useMemo(() => {
         return productValues.map((p: InvoiceFormValues["invoiceItems"][number]) => {
-            const lineTotal = p.unitPrice * p.quantity - p.discount;
-            const vatAmount = (lineTotal * p.vatRate) / 100;
+            const lineTotal = p.sellPrice * p.quantity - p.discountAmount;
+            const vatAmount = (lineTotal * p.vATPercentage) / 100;
             return {
                 ...p,
                 lineTotal,
@@ -142,11 +150,11 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                         </div>
                                         <div className="grid grid-cols-2">
                                             <span>Barcode</span>
-                                            <span>{product.barCode}</span>
+                                            <span>{product.barCode || "No barcode"}</span>
                                         </div>
                                         <div className="grid grid-cols-2">
                                             <span>Unit</span>
-                                            <span>psc</span>
+                                            <span>{product.itemUnitOfMeasure?.[0].nameEnglish || "No unit"}</span>
                                         </div>
                                     </div>
                                     <Separator />
@@ -176,42 +184,65 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                     <p className="text-sm">Search and add products using the search box above</p>
                 </div>
             ) : (
-                <div className="">
-                    <ul className="p-2 bg-theme1 text-white font-semibold grid grid-cols-10 items-center">
-                        <li>Product name</li>
-                        <li>Unit</li>
-                        <li>Unit Price</li>
-                        <li>Quantity</li>
-                        <li>Discount</li>
-                        <li>Line Total</li>
-                        <li>VAT Category</li>
-                        <li>VAT Amount</li>
-                        <li>Total</li>
-                        <li>Actions</li>
-                    </ul>
-                    {productFields.map((field, index) => (
-                        <ul key={field.id} className="p-2 grid grid-cols-10 items-center gap-2 text-sm wrap-anywhere">
-                            <li>{field.name}</li>
-                            <li>{field.unit}</li>
-                            <li>{field.unitPrice.toFixed(2)}</li>
-                            <input
-                                type="number"
-                                min={1}
-                                {...register(`invoiceItems.${index}.quantity`, { valueAsNumber: true })}
-                            />
-                            <input
-                                type="number"
-                                min={0}
-                                {...register(`invoiceItems.${index}.discount`, { valueAsNumber: true })}
-                            />
-                            <li>{computedProducts[index]?.lineTotal.toFixed(2)}</li>
-                            <li>Standard {field.vatRate}%</li>
-                            <li>{computedProducts[index]?.vatAmount.toFixed(2)}</li>
-                            <li>{computedProducts[index]?.total.toFixed(2)}</li>
-                            <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
-                        </ul>
-                    ))}
-                </div>
+                <>
+                    {productFields.map((field, index) => {
+                        const computed = computedProducts[index];
+                        return (
+                            <div key={field.id} className='flex flex-wrap border'>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>Product name</h3>
+                                    <p className='p-2 text-sm'>{field.metaDescription}</p>
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='p-2 bg-theme1 text-white font-semibold'>Unit</h3>
+                                    <p className='p-2 text-sm'>{field.unit}</p>
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Unit Price (<SaudiRiyal size={14} />)</h3>
+                                    <p className='p-2 text-sm'>{field.sellPrice.toFixed(2)}</p>
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Quantity</h3>
+                                    <input
+                                        type="number"
+                                        min={1}
+                                        className='p-2 text-sm'
+                                        {...register(`invoiceItems.${index}.quantity`, { valueAsNumber: true })}
+                                    />
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Discount</h3>
+                                    <input
+                                        type="number"
+                                        min={0}
+                                        className='p-2 text-sm'
+                                        {...register(`invoiceItems.${index}.discountAmount`, { valueAsNumber: true })}
+                                    />
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Line Total</h3>
+                                    <p className='p-2 text-sm'>{computed?.lineTotal.toFixed(2)}</p>
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>VAT Category</h3>
+                                    <p className='p-2 text-sm'>Standard {field.vATPercentage}%</p>
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>VAT Amount</h3>
+                                    <p className='p-2 text-sm'>{computed?.vatAmount.toFixed(2)}</p>
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Total</h3>
+                                    <p className='p-2 text-sm'>{computed?.total.toFixed(2)}</p>
+                                </div>
+                                <div className='w-fit space-y-1'>
+                                    <h3 className='flex items-center p-2 bg-theme1 text-white font-semibold'>Actions</h3>
+                                    <Button type="button" size="icon" variant="ghost" onClick={() => removeProduct(index)}><Trash2 className="size-4" /></Button>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </>
             )}
         </div>
     )

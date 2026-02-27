@@ -45,21 +45,21 @@ const Payment = ({ form, onSubmit }: { form: UseFormReturn<InvoiceFormValues>; o
                                         control={control}
                                         render={({ field }) => (
                                             <RadioGroup value={field.value} onValueChange={field.onChange} className="flex flex-col lg:flex-row w-full lg:max-w-md">
-                                                <FieldLabel htmlFor="cash" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
+                                                <FieldLabel htmlFor="cash" className="border-none bg-accent has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
                                                     <Field orientation="horizontal">
                                                         <Banknote size={18} />
                                                         <FieldTitle className="font-bold">Cash</FieldTitle>
                                                         <RadioGroupItem value="CASH" id="cash" className="hidden" />
                                                     </Field>
                                                 </FieldLabel>
-                                                <FieldLabel htmlFor="card" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
+                                                <FieldLabel htmlFor="card" className="border-none bg-accent has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
                                                     <Field orientation="horizontal">
                                                         <CreditCard size={18} />
                                                         <FieldTitle className="font-bold">Card</FieldTitle>
                                                         <RadioGroupItem value="CARD" id="card" className="hidden" />
                                                     </Field>
                                                 </FieldLabel>
-                                                <FieldLabel htmlFor="e-transfer" className="border-none bg-accent has-data-[state=checked]:bg-green-500 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-500 dark:has-data-[state=checked]:text-white">
+                                                <FieldLabel htmlFor="e-transfer" className="border-none bg-accent has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
                                                     <Field orientation="horizontal">
                                                         <Landmark size={18} />
                                                         <FieldTitle className="font-bold">E-transfer</FieldTitle>
@@ -70,7 +70,7 @@ const Payment = ({ form, onSubmit }: { form: UseFormReturn<InvoiceFormValues>; o
                                         )} />
                                 </div>
                                 <Separator />
-                                <div className="grid grid-cols-2 font-extrabold text-green-500">
+                                <div className="grid grid-cols-2 font-extrabold text-green-600">
                                     <span>Change</span>
                                     <span className="flex items-center justify-end"><SaudiRiyal size={15} />1500</span>
                                 </div>

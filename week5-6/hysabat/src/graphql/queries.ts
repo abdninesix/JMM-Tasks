@@ -4,14 +4,19 @@ export const PRODUCT_QUERY = gql`
 query GetItems($search: String) {
     items (where: { itemNameEnglish: { contains: $search } }) {
         nodes {
-        itemId
-        itemNameEnglish
-        category {
+          itemId
+          taxId
+          itemNameEnglish
+          costPrice
+          wholeSellPrice
+          barCode
+          category {
             categoryNameEnglish
-        }
-        wholeSellPrice
-        costPrice
-        barCode
+          }
+          itemUnitOfMeasure {
+            nameEnglish
+            unitId
+          }
         }
     }
 }
