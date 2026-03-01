@@ -7,6 +7,7 @@ import SalesInvoice from "./pages/sales/sales-invoice/SalesInvoice";
 import CreateSalesInvoice from "./pages/sales/sales-invoice/CreateSalesInvoice";
 import CustomersClearance from "./pages/sales/customers-clearance/CustomersClearance";
 import UsersRoles from "./pages/settings/users-roles/UsersRoles";
+import CreateRole from "./pages/settings/users-roles/CreateRole";
 
 
 export default function App() {
@@ -30,7 +31,7 @@ export default function App() {
           <Route path="/sales-invoice" index element={<SalesInvoice />} />
           <Route path="/sales-invoice/create" index element={<CreateSalesInvoice />} />
           <Route path="/users-roles" index element={<UsersRoles />} />
-          <Route path="/users-roles/create-role" index element={<UsersRoles />} />
+          <Route path="/users-roles/create-role" index element={<CreateRole />} />
         </Route>
 
       </Routes>

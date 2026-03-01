@@ -23,8 +23,6 @@ const UsersRoles = () => {
 
             <Separator />
 
-
-
         </div>
     )
 }
