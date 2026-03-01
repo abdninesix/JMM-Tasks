@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { BookText, CalendarIcon, ChevronDownIcon, FileIcon } from "lucide-react"
+import { BookText, CalendarIcon, ChevronDown, FileIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
@@ -299,7 +299,7 @@ const CreateSalesInvoice = () => {
               <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
                 <FileIcon className="size-5" />
                 <span className="font-semibold">Notes</span>
-                <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+                <ChevronDown className="ml-auto group-data-[state=open]:rotate-180" />
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-4">
                 <Controller
@@ -323,7 +323,7 @@ const CreateSalesInvoice = () => {
               <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
                 <BookText className="size-5" />
                 <span className="font-semibold">Terms & Conditions</span>
-                <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
+                <ChevronDown className="ml-auto group-data-[state=open]:rotate-180" />
               </CollapsibleTrigger>
               <CollapsibleContent className="mt-4">
                 <Controller

@@ -1,15 +1,47 @@
 import { AppBreadcrumb } from "@/components/AppBreadcrumb";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Field, FieldTitle } from "@/components/ui/field";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
-import { ArrowLeft, ChevronDownIcon, Plus, User } from "lucide-react";
+import { ArrowLeft, ChevronDown, Plus, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
+type Permission = {
+    id: string
+    label: string
+}
+
+type Module = {
+    id: string
+    label: string
+    permissions: Permission[]
+}
+
+const modules: Module[] = [
+    {
+        id: "dashboard",
+        label: "Dashboard",
+        permissions: [
+            { id: "overview", label: "Overview" },
+            { id: "reports", label: "Reports" },
+        ],
+    },
+    {
+        id: "users",
+        label: "Users",
+        permissions: [
+            { id: "create", label: "Create User" },
+            { id: "edit", label: "Edit User" },
+        ],
+    },
+]
 
 const CreateRole = () => {
 
@@ -56,18 +88,18 @@ const CreateRole = () => {
 
                     <Field>
                         <Label>Description (Arabic)</Label>
-                        <Textarea placeholder="Enter description" />
+                        <Textarea className="wrap-anywhere" placeholder="Enter description" />
                     </Field>
 
                     <Field>
                         <Label>Description (Arabic)</Label>
-                        <Textarea placeholder="Enter description" />
+                        <Textarea className="wrap-anywhere" placeholder="Enter description" />
                     </Field>
                 </div>
 
                 {/* Access Management */}
                 <div className="w-full lg:w-2/3 border rounded-md p-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
                         <h3 className="font-bold">Access Management</h3>
                         <RadioGroup className="flex min-w-56">
                             <Field orientation="horizontal">
@@ -80,49 +112,67 @@ const CreateRole = () => {
                             </Field>
                         </RadioGroup>
                     </div>
-                    <table className="w-full">
-                        <thead>
-                            <tr className="flex justify-between">
-                                <th>Module</th>
-                                <th>Read</th>
-                                <th>Write</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <Collapsible>
-                                <>
-                                    <tr className="flex justify-between">
-                                        <td>
-                                            <CollapsibleTrigger className="flex items-center gap-1 group text-theme1">
-                                                <ChevronDownIcon className="ml-auto group-data-[state=open]:rotate-180" />
-                                                <span className="font-bold">Dashboard</span>
-                                            </CollapsibleTrigger>
-                                        </td>
-                                        <td><input type="checkbox" /></td>
-                                        <td><input type="checkbox" /></td>
-                                        <td><input type="checkbox" /></td>
-                                    </tr>
-                                    <CollapsibleContent>
-                                        <>
-                                            <tr className="flex justify-between">
-                                                <td><span>Dashboard</span></td>
-                                                <td><input type="checkbox" /></td>
-                                                <td><input type="checkbox" /></td>
-                                                <td><input type="checkbox" /></td>
-                                            </tr>
-                                            <tr className="flex justify-between">
-                                                <td><span>Dashboard2</span></td>
-                                                <td><input type="checkbox" /></td>
-                                                <td><input type="checkbox" /></td>
-                                                <td><input type="checkbox" /></td>
-                                            </tr>
-                                        </>
-                                    </CollapsibleContent>
-                                </>
-                            </Collapsible>
-                        </tbody>
-                    </table>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-1/2 font-bold">Module</TableHead>
+                                <TableHead className="text-center font-bold">Read</TableHead>
+                                <TableHead className="text-center font-bold">Write</TableHead>
+                                <TableHead className="text-center font-bold">Delete</TableHead>
+                            </TableRow>
+                        </TableHeader>
+
+                        <TableBody>
+                            {modules.map((module) => (
+                                <Collapsible asChild>
+                                    <>
+                                        {/* Parent Row */}
+                                        <TableRow>
+                                            <TableCell>
+                                                <CollapsibleTrigger className="flex items-center group text-theme1">
+                                                    <ChevronDown className="ml-auto group-data-[state=open]:rotate-180" />
+                                                    <span className="font-bold">{module.label}</span>
+                                                </CollapsibleTrigger>
+                                            </TableCell>
+
+                                            <TableCell className="text-center">
+                                                <Checkbox />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Checkbox />
+                                            </TableCell>
+                                            <TableCell className="text-center">
+                                                <Checkbox />
+                                            </TableCell>
+                                        </TableRow>
+
+                                        {/* Children Rows */}
+                                        <CollapsibleContent asChild>
+                                            <>
+                                                {module.permissions.map((perm) => (
+                                                    <TableRow key={perm.id}>
+                                                        <TableCell className="pl-8">
+                                                            {perm.label}
+                                                        </TableCell>
+
+                                                        <TableCell className="text-center">
+                                                            <Checkbox />
+                                                        </TableCell>
+                                                        <TableCell className="text-center">
+                                                            <Checkbox />
+                                                        </TableCell>
+                                                        <TableCell className="text-center">
+                                                            <Checkbox />
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </>
+                                        </CollapsibleContent>
+                                    </>
+                                </Collapsible>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </div>
             </div>
 
