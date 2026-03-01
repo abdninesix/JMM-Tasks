@@ -13,7 +13,7 @@ export const invoiceSchema = z.object({
   notes: z.string().optional(),
   termsAndConditions: z.string().optional(),
   paymentType: z.enum(["FULL", "PARTIAL", "NO_PAYMENT"]),
-  // splitPayment: z.boolean(),
+  splitPayment: z.boolean(),
   paymentMethod: z.enum(["CASH", "CARD", "E_TRANSFER"]),
   invoiceItems: z.array(z.object({
     itemId: z.number(),
@@ -36,7 +36,8 @@ export const invoiceSchema = z.object({
     discountAmount: z.number(),
     discountPercentage: z.number().min(0).max(100),
     vATPercentage: z.number(),
-  })).min(1, "No services added"),
+  }))
+  .min(1, "No services added"),
   discountPercentage: z.number().min(0).max(100).optional(),
   discountAmount: z.number().min(0).optional(),
   amountPaid: z.number().min(0).optional(),

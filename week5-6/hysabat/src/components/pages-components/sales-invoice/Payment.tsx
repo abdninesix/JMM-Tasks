@@ -28,13 +28,12 @@ const Payment = ({ form, onSubmit }: { form: UseFormReturn<InvoiceFormValues>; o
                         </TabsList>
                         <TabsContent className="py-4 space-y-4" value="FULL">
                             <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-                                {/* <Controller
-                          name="splitPayment"
-                          control={control}
-                          render={({ field }) => (
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
-                          )} /> */}
-                                <Switch />
+                                <Controller
+                                    name="splitPayment"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                    )} />
                                 <h2 className="text-lg font-semibold text-theme1">Split Payment</h2>
                                 <p className="text-sm text-muted-foreground">You can choose two payment methods if split payment is enabled.</p>
                             </div>

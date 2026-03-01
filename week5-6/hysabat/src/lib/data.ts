@@ -104,7 +104,7 @@ export const sidebarItems = [
     url: "#",
     icon: Settings,
     children: [
-      { title: "Users and Roles", url: "#" },
+      { title: "Users and Roles", url: "/users-roles" },
       { title: "Payment Methods", url: "#" },
       { title: "Preferences", url: "#" },
       { title: "Business Info", url: "#" },

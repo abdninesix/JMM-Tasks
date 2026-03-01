@@ -1,5 +1,6 @@
 "use client";
 
+import { Search } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 interface ComboBoxProps<T> {
@@ -149,6 +150,7 @@ const NewComboBox = <T,>({
     return (
         <div className="relative w-full max-w-md" ref={comboBoxRef}>
             <div className="relative">
+                <Search className="size-5 absolute left-2 top-1/4 text-gray-400 dark:text-gray-500" />
                 <input
                     type="text"
                     value={inputValue}
@@ -156,7 +158,7 @@ const NewComboBox = <T,>({
                     onFocus={handleInputFocus}
                     onKeyDown={handleKeyDown}
                     placeholder={placeholder}
-                    className="w-full px-4 py-2.5 pr-20 border border-input dark:border-input dark:bg-input/30 dark:hover:bg-input/50 text-foreground dark:text-foreground text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-theme1 focus:border-transparent placeholder-gray-500 dark:placeholder-gray-400"
+                    className="w-full pl-8 py-2.5 pr-20 border border-input dark:border-input dark:bg-input/30 dark:hover:bg-input/50 text-foreground dark:text-foreground text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-theme1 focus:border-transparent placeholder-gray-500 dark:placeholder-gray-400"
                     role="combobox"
                     aria-expanded={isOpen}
                     aria-haspopup="listbox"

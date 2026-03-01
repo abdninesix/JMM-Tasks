@@ -58,7 +58,7 @@ const CreateSalesInvoice = () => {
       notes: "",
       termsAndConditions: "",
       paymentType: "FULL",
-      // splitPayment: false,
+      splitPayment: false,
       paymentMethod: "CASH",
       invoiceItems: [],
       invoiceServices: [],
@@ -87,7 +87,7 @@ const CreateSalesInvoice = () => {
       };
     });
 
-    const payload = {
+    const { splitPayment, ...payload } = {
       ...data,
       id: generateInvoiceId(),
       issuedDate: payloadDate(data.issuedDate!),
