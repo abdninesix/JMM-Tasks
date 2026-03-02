@@ -48,8 +48,14 @@ const CreateSalesInvoice = () => {
     defaultValues: {
       id: "",
       invoiceType: "TAX",
+      saleInvoiceClearenceStatus: "UN_CLEAR",
       saleInvoiceSpecialTransactionType: "",
+      isScheduled: false,
+      qrCodePayload: "DUMMY",
+      receiveAs: "TAKEAWAY",
+      receiveType: "NO_ITEMS",
       customerId: null,
+      customerType: "REGISTERED",
       saleManId: null,
       projectId: null,
       issuedDate: null,
@@ -65,13 +71,14 @@ const CreateSalesInvoice = () => {
       discountPercentage: 0,
       discountAmount: 0,
       amountPaidCash: 0,
-      branchId: "d4550ea5-d656-4f0e-a1ea-d1fafcee2783"
+      branchId: "d4550ea5-d656-4f0e-a1ea-d1fafcee2783",
     },
   });
 
-  const { watch, control, handleSubmit, formState: { errors } } = form;
+  const { watch, control, handleSubmit, setValue, formState: { errors } } = form;
 
   const invoiceType = watch("invoiceType");
+  invoiceType === "TAX" ? setValue("customerType", "REGISTERED") : setValue("customerType", "CASH_CUSTOMER")
 
   const { data } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
   const customers: Customer[] = data?.customers.nodes || []
