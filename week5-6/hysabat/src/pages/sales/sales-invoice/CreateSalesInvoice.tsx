@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import Products from "@/components/pages-components/sales-invoice/Products"
 import Services from "@/components/pages-components/sales-invoice/Services"
+import Additionalinfo from "@/components/pages-components/sales-invoice/Additionalinfo"
 import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Payment from "@/components/pages-components/sales-invoice/Payment"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
@@ -25,7 +26,6 @@ import { dummyProjects, dummySalesmen } from "@/lib/data"
 import { payloadDate } from "@/lib/utils"
 import NewComboBox from "@/components/ui/new-combobox"
 import { CREATE_INVOICE_MUTATION } from "@/graphql/mutations"
-import Additionalinfo from "@/components/pages-components/sales-invoice/Additionalinfo"
 
 const generateInvoiceId = (): string => {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();
