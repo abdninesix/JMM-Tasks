@@ -7,10 +7,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { BookText, CalendarIcon, ChevronDown, FileIcon } from "lucide-react"
+import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
@@ -19,7 +18,6 @@ import Services from "@/components/pages-components/sales-invoice/Services"
 import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Payment from "@/components/pages-components/sales-invoice/Payment"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
-import ReactQuill from "react-quill-new"
 import { useMutation, useQuery } from "@apollo/client/react"
 import type { Customer, CustomerQueryData } from "../customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
@@ -27,16 +25,7 @@ import { dummyProjects, dummySalesmen } from "@/lib/data"
 import { payloadDate } from "@/lib/utils"
 import NewComboBox from "@/components/ui/new-combobox"
 import { CREATE_INVOICE_MUTATION } from "@/graphql/mutations"
-
-const modules = {
-  toolbar: [
-    ["bold", "italic", "underline"],
-    [{ color: [] }, { background: [] }],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link"],
-    ["clean"],
-  ],
-};
+import Additionalinfo from "@/components/pages-components/sales-invoice/Additionalinfo"
 
 const generateInvoiceId = (): string => {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();
@@ -93,10 +82,7 @@ const CreateSalesInvoice = () => {
       const grossTotal = item.sellPrice * item.quantity;
       const discountAmount = (grossTotal * item.discountPercentage) / 100;
       const { unit, ...rest } = item;
-      return {
-        ...rest,
-        discountAmount,
-      };
+      return { ...rest, discountAmount };
     });
 
     const { splitPayment, ...rest } = data;
@@ -107,6 +93,7 @@ const CreateSalesInvoice = () => {
       supplyDate: payloadDate(data.supplyDate!),
       invoiceItems: finalItems,
     };
+    console.log("Form Data:", payload);
 
     try {
       await createInvoice({ variables: { input: payload } });
@@ -114,7 +101,6 @@ const CreateSalesInvoice = () => {
     } catch (err: any) {
       toast.error(err.message || "Failed to create invoice");
     }
-    console.log("Form Data:", payload);
   });
 
   return (
@@ -310,64 +296,11 @@ const CreateSalesInvoice = () => {
         <Services form={form} />
 
         <div className="flex flex-col lg:flex-row gap-4">
-
-          {/* Additional Info */}
-          <div className="lg:w-3/5 h-fit space-y-4 p-4 bg-card border rounded-md">
-            <h2 className="font-semibold">Additional Information</h2>
-            <Collapsible>
-              <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
-                <FileIcon className="size-5" />
-                <span className="font-semibold">Notes</span>
-                <ChevronDown className="ml-auto group-data-[state=open]:rotate-180" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="mt-4">
-                <Controller
-                  name="notes"
-                  control={control}
-                  render={({ field }) => (
-                    <ReactQuill
-                      theme="snow"
-                      modules={modules}
-                      value={field.value || ""}
-                      onChange={field.onChange}
-                      onBlur={field.onBlur}
-                      placeholder="Type and hit enter..."
-                      className="[&_.ql-editor]:min-h-30 [&_.ql-editor]:max-w-md"
-                    />
-                  )} />
-              </CollapsibleContent>
-            </Collapsible>
-            <Separator />
-            <Collapsible>
-              <CollapsibleTrigger className="flex items-center gap-1 w-full group text-theme1">
-                <BookText className="size-5" />
-                <span className="font-semibold">Terms & Conditions</span>
-                <ChevronDown className="ml-auto group-data-[state=open]:rotate-180" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="mt-4">
-                <Controller
-                  name="termsAndConditions"
-                  control={control}
-                  render={({ field }) => (
-                    <ReactQuill
-                      theme="snow"
-                      modules={modules}
-                      value={field.value || ""}
-                      onChange={field.onChange}
-                      onBlur={field.onBlur}
-                      placeholder="Type and hit enter..."
-                      className="[&_.ql-editor]:min-h-30 [&_.ql-editor]:max-w-md"
-                    />
-                  )} />
-              </CollapsibleContent>
-            </Collapsible>
-          </div>
-
+          <Additionalinfo form={form} />
           <div className="w-full space-y-4">
             <Summary form={form} />
             <Payment form={form} onSubmit={onSubmit} loading={loading} />
           </div>
-
         </div>
 
       </form >
