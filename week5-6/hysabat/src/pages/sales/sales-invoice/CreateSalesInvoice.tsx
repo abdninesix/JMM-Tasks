@@ -20,12 +20,13 @@ import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Payment from "@/components/pages-components/sales-invoice/Payment"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
 import ReactQuill from "react-quill-new"
-import { useQuery } from "@apollo/client/react"
+import { useMutation, useQuery } from "@apollo/client/react"
 import type { Customer, CustomerQueryData } from "../customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
 import { dummyProjects, dummySalesmen } from "@/lib/data"
 import { payloadDate } from "@/lib/utils"
 import NewComboBox from "@/components/ui/new-combobox"
+import { CREATE_INVOICE_MUTATION } from "@/graphql/mutations"
 
 const modules = {
   toolbar: [
@@ -70,6 +71,7 @@ const CreateSalesInvoice = () => {
       invoiceServices: [],
       discountPercentage: 0,
       discountAmount: 0,
+      amountPaid: 0,
       amountPaidCash: 0,
       branchId: "d4550ea5-d656-4f0e-a1ea-d1fafcee2783",
     },
@@ -83,7 +85,9 @@ const CreateSalesInvoice = () => {
   const { data } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
   const customers: Customer[] = data?.customers.nodes || []
 
-  const onSubmit = handleSubmit((data) => {
+  const [createInvoice, { loading }] = useMutation(CREATE_INVOICE_MUTATION);
+
+  const onSubmit = handleSubmit(async (data) => {
 
     const finalItems = data.invoiceItems.map((item) => {
       const grossTotal = item.sellPrice * item.quantity;
@@ -95,15 +99,22 @@ const CreateSalesInvoice = () => {
       };
     });
 
-    const { splitPayment, ...payload } = {
-      ...data,
+    const { splitPayment, ...rest } = data;
+    const payload = {
+      ...rest,
       id: generateInvoiceId(),
       issuedDate: payloadDate(data.issuedDate!),
       supplyDate: payloadDate(data.supplyDate!),
       invoiceItems: finalItems,
     };
+
+    try {
+      await createInvoice({ variables: { input: payload } });
+      toast.success("Invoice created successfully!");
+    } catch (err: any) {
+      toast.error(err.message || "Failed to create invoice");
+    }
     console.log("Form Data:", payload);
-    toast.success("Invoice created!")
   });
 
   return (
@@ -354,7 +365,7 @@ const CreateSalesInvoice = () => {
 
           <div className="w-full space-y-4">
             <Summary form={form} />
-            <Payment form={form} onSubmit={onSubmit} />
+            <Payment form={form} onSubmit={onSubmit} loading={loading} />
           </div>
 
         </div>

@@ -9,7 +9,7 @@ import { Banknote, CreditCard, Landmark, SaudiRiyal } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 
-const Payment = ({ form, onSubmit }: { form: UseFormReturn<InvoiceFormValues>; onSubmit: () => void }) => {
+const Payment = ({ form, onSubmit, loading }: { form: UseFormReturn<InvoiceFormValues>; onSubmit: () => void; loading: boolean }) => {
 
     const { control } = form
 
@@ -84,8 +84,8 @@ const Payment = ({ form, onSubmit }: { form: UseFormReturn<InvoiceFormValues>; o
                         </TabsContent>
                     </Tabs>
                 )} />
-            <Button type="submit" onClick={onSubmit} className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
-                Save and Proceed
+            <Button type="submit" onClick={onSubmit} disabled={loading} className="py-6 bg-theme1 hover:bg-theme1/90 text-lg text-white w-full">
+                {loading ? "Processing..." : "Save and Proceed"}
                 <Kbd className="border border-white text-white bg-transparent">Ctrl+Enter</Kbd>
             </Button>
         </div>

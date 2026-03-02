@@ -45,6 +45,7 @@ export const invoiceSchema = z.object({
   })).min(1, "No services added"),
   discountPercentage: z.number().min(0).max(100).optional(),
   discountAmount: z.number().min(0).optional(),
+  amountPaid: z.number().min(0).optional(),
   amountPaidCash: z.number().min(0).optional(),
   branchId: z.string(),
 })

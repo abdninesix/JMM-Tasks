@@ -9,3 +9,9 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_INVOICE_MUTATION = gql`
+  mutation addSaleInvoice($input: CreateSaleInvoiceCommandInput!) {
+    addSaleInvoice(input: $input)
+  }
+`;
