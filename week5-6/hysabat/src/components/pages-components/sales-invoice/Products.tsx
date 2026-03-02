@@ -214,7 +214,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                     <input
                                         type="number"
                                         min={1}
-                                        className='p-2 text-sm bg-input'
+                                        className='p-2 text-sm bg-input max-w-20'
                                         {...register(`invoiceItems.${index}.quantity`, { valueAsNumber: true })}
                                     />
                                 </div>
@@ -224,7 +224,7 @@ const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
                                         type="number"
                                         min={0}
                                         max={100}
-                                        className='p-2 text-sm bg-input'
+                                        className='p-2 text-sm bg-input min-w-20'
                                         {...register(`invoiceItems.${index}.discountPercentage`, { valueAsNumber: true })}
                                     />
                                 </div>

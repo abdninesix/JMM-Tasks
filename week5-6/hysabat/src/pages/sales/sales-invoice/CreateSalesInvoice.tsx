@@ -64,7 +64,8 @@ const CreateSalesInvoice = () => {
       invoiceServices: [],
       discountPercentage: 0,
       discountAmount: 0,
-      amountPaid: 0,
+      amountPaidCash: 0,
+      branchId: "d4550ea5-d656-4f0e-a1ea-d1fafcee2783"
     },
   });
 
