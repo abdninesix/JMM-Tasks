@@ -23,9 +23,9 @@ import ReactQuill from "react-quill-new"
 import { useQuery } from "@apollo/client/react"
 import type { Customer, CustomerQueryData } from "../customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
-import NewComboBox from "@/components/NewComboBox"
 import { dummyProjects, dummySalesmen } from "@/lib/data"
 import { payloadDate } from "@/lib/utils"
+import NewComboBox from "@/components/ui/new-combobox"
 
 const modules = {
   toolbar: [

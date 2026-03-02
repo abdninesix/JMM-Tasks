@@ -26,6 +26,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - zod
 - Reacy-Hook-Form
 - apollo/client
+- date-fns
 - 
 - 
 *(More will be added)*
@@ -51,9 +52,10 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Several payment totalling logics
 - Carefully structuring the layout of dashboards
 - Controlling the charts of dashboard
-- Passing the data through out components
+- Passing the props through out components
 - Context APIs to avoid prop drilling
 - Fetching GraphQL based data from backend using apollo/client
+- Preparing the final payload object for backend
 - 
 - 
 *(More will be added)*
