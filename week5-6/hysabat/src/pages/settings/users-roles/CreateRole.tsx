@@ -1,24 +1,22 @@
 import { AppBreadcrumb } from "@/components/AppBreadcrumb";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Field, FieldTitle } from "@/components/ui/field";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
-import { CollapsibleContent } from "@radix-ui/react-collapsible";
-import { ArrowLeft, ChevronDown, Plus, User } from "lucide-react";
+import { ArrowLeft, Plus, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DataTable, type PermissionState, type PermissionAction } from "./data-table";
 
-type Permission = {
+export type Permission = {
     id: string
     label: string
 }
 
-type Module = {
+export type Module = {
     id: string
     label: string
     permissions: Permission[]
@@ -26,26 +24,99 @@ type Module = {
 
 const modules: Module[] = [
     {
-        id: "dashboard",
-        label: "Dashboard",
+        id: "sales",
+        label: "Sales",
         permissions: [
-            { id: "overview", label: "Overview" },
-            { id: "reports", label: "Reports" },
+            { id: "orders", label: "Orders" },
+            { id: "invoices", label: "Invoices" },
+            { id: "customers", label: "Customers" },
         ],
     },
     {
-        id: "users",
-        label: "Users",
+        id: "inventory",
+        label: "Inventory",
         permissions: [
-            { id: "create", label: "Create User" },
-            { id: "edit", label: "Edit User" },
+            { id: "products", label: "Products" },
+            { id: "stock", label: "Stock" },
         ],
     },
 ]
 
 const CreateRole = () => {
-
     const navigate = useNavigate();
+    // Initialize with empty object to avoid "null" checks everywhere
+    const [permissionsState, setPermissionsState] = useState<PermissionState>({});
+
+    useEffect(() => {
+        const initial: PermissionState = {}
+        modules.forEach((module) => {
+            initial[module.id] = {}
+            module.permissions.forEach((perm) => {
+                initial[module.id][perm.id] = {
+                    read: false,
+                    write: false,
+                    delete: false,
+                }
+            })
+        })
+        setPermissionsState(initial)
+    }, [])
+
+    const toggleChild = (
+        moduleId: string,
+        permissionId: string,
+        type: PermissionAction
+    ) => {
+        setPermissionsState((prev) => ({
+            ...prev,
+            [moduleId]: {
+                ...prev[moduleId],
+                [permissionId]: {
+                    ...prev[moduleId][permissionId],
+                    [type]: !prev[moduleId][permissionId][type],
+                },
+            },
+        }))
+    }
+
+    const toggleParent = (
+        moduleId: string,
+        type: PermissionAction
+    ) => {
+        setPermissionsState((prev) => {
+            const children = prev[moduleId]
+            if (!children) return prev
+
+            const allChecked = Object.values(children).every((p) => p[type])
+
+            const updated = Object.fromEntries(
+                Object.entries(children).map(([permId, value]) => [
+                    permId,
+                    { ...value, [type]: !allChecked },
+                ])
+            )
+
+            return {
+                ...prev,
+                [moduleId]: updated,
+            }
+        })
+    }
+
+    const handleGlobalSelect = (value: "ALL" | "NONE") => {
+        const updated: PermissionState = {}
+        modules.forEach((module) => {
+            updated[module.id] = {}
+            module.permissions.forEach((perm) => {
+                updated[module.id][perm.id] = {
+                    read: value === "ALL",
+                    write: value === "ALL",
+                    delete: value === "ALL",
+                }
+            })
+        })
+        setPermissionsState(updated)
+    }
 
     return (
         <div className="bg-card border rounded-md p-4 space-y-4">
@@ -101,7 +172,7 @@ const CreateRole = () => {
                 <div className="w-full lg:w-2/3 border rounded-md p-4">
                     <div className="flex flex-col md:flex-row justify-between">
                         <h3 className="font-bold">Access Management</h3>
-                        <RadioGroup className="flex min-w-56">
+                        <RadioGroup onValueChange={(val) => handleGlobalSelect(val as any)} className="flex min-w-56">
                             <Field orientation="horizontal">
                                 <RadioGroupItem value="ALL" className="text-white" />
                                 <FieldTitle>Select All</FieldTitle>
@@ -112,67 +183,13 @@ const CreateRole = () => {
                             </Field>
                         </RadioGroup>
                     </div>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-1/2 font-bold">Module</TableHead>
-                                <TableHead className="text-center font-bold">Read</TableHead>
-                                <TableHead className="text-center font-bold">Write</TableHead>
-                                <TableHead className="text-center font-bold">Delete</TableHead>
-                            </TableRow>
-                        </TableHeader>
 
-                        <TableBody>
-                            {modules.map((module) => (
-                                <Collapsible asChild>
-                                    <>
-                                        {/* Parent Row */}
-                                        <TableRow>
-                                            <TableCell>
-                                                <CollapsibleTrigger className="flex items-center group text-theme1">
-                                                    <ChevronDown className="ml-auto group-data-[state=open]:rotate-180" />
-                                                    <span className="font-bold">{module.label}</span>
-                                                </CollapsibleTrigger>
-                                            </TableCell>
-
-                                            <TableCell className="text-center">
-                                                <Checkbox />
-                                            </TableCell>
-                                            <TableCell className="text-center">
-                                                <Checkbox />
-                                            </TableCell>
-                                            <TableCell className="text-center">
-                                                <Checkbox />
-                                            </TableCell>
-                                        </TableRow>
-
-                                        {/* Children Rows */}
-                                        <CollapsibleContent asChild>
-                                            <>
-                                                {module.permissions.map((perm) => (
-                                                    <TableRow key={perm.id}>
-                                                        <TableCell className="pl-8">
-                                                            {perm.label}
-                                                        </TableCell>
-
-                                                        <TableCell className="text-center">
-                                                            <Checkbox />
-                                                        </TableCell>
-                                                        <TableCell className="text-center">
-                                                            <Checkbox />
-                                                        </TableCell>
-                                                        <TableCell className="text-center">
-                                                            <Checkbox />
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))}
-                                            </>
-                                        </CollapsibleContent>
-                                    </>
-                                </Collapsible>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <DataTable
+                        modules={modules}
+                        permissionsState={permissionsState}
+                        toggleChild={toggleChild}
+                        toggleParent={toggleParent}
+                    />
                 </div>
             </div>
 

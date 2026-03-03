@@ -4,7 +4,7 @@ export const invoiceSchema = z.object({
   id: z.string(),
   invoiceType: z.enum(["TAX", "SIMPLIFIED_TAX"]),
   saleInvoiceClearenceStatus: z.enum(["UN_CLEAR", "CLEAR"]),
-  saleInvoiceSpecialTransactionType: z.string().min(1, "Transaction type is required"),
+  saleInvoiceSpecialTransactionType: z.string().nullable(),
   isScheduled: z.boolean(),
   qrCodePayload: z.string(),
   receiveAs: z.enum(["TAKEAWAY", "DELIVERY"]),
@@ -57,20 +57,20 @@ export const invoiceSchema = z.object({
         code: "custom",
       });
     }
-    if (!data.saleManId) {
-      ctx.addIssue({
-        path: ["saleManId"],
-        message: "Salesman is required",
-        code: "custom",
-      });
-    }
-    if (!data.projectId && data.invoiceType === "TAX") {
-      ctx.addIssue({
-        path: ["projectId"],
-        message: "Project is required",
-        code: "custom",
-      });
-    }
+    // if (!data.saleManId) {
+    //   ctx.addIssue({
+    //     path: ["saleManId"],
+    //     message: "Salesman is required",
+    //     code: "custom",
+    //   });
+    // }
+    // if (!data.projectId && data.invoiceType === "TAX") {
+    //   ctx.addIssue({
+    //     path: ["projectId"],
+    //     message: "Project is required",
+    //     code: "custom",
+    //   });
+    // }
     if (!data.issuedDate) {
       ctx.addIssue({
         path: ["issuedDate"],

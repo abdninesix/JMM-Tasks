@@ -39,7 +39,7 @@ const CreateSalesInvoice = () => {
       id: "",
       invoiceType: "TAX",
       saleInvoiceClearenceStatus: "UN_CLEAR",
-      saleInvoiceSpecialTransactionType: "",
+      saleInvoiceSpecialTransactionType: null,
       isScheduled: false,
       qrCodePayload: "DUMMY",
       receiveAs: "TAKEAWAY",
@@ -144,13 +144,13 @@ const CreateSalesInvoice = () => {
           )} />
 
         <div className="flex flex-wrap gap-4 mt-6">
-          <Field className="max-w-50">
+          <Field className="sm:max-w-50">
             <Label>Transaction Type</Label>
             <Controller
               name="saleInvoiceSpecialTransactionType"
               control={control}
               render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
+                <Select value={field.value || ""} onValueChange={field.onChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select transaction type" />
                   </SelectTrigger>
@@ -163,7 +163,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.saleInvoiceSpecialTransactionType?.message}</p>
           </Field>
 
-          <Field className="max-w-50">
+          <Field className="sm:max-w-50">
             <Label>Customer Name</Label>
             <Controller
               name="customerId"
@@ -180,7 +180,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.customerId?.message}</p>
           </Field>
 
-          <Field className="max-w-50">
+          <Field className="sm:max-w-50">
             <Label>Salesman Name</Label>
             <Controller
               name="saleManId"
@@ -197,7 +197,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.saleManId?.message}</p>
           </Field>
 
-          {invoiceType === "TAX" && <Field className="max-w-50">
+          {invoiceType === "TAX" && <Field className="sm:max-w-50">
             <Label>Project Name</Label>
             <Controller
               name="projectId"
@@ -214,7 +214,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.projectId?.message}</p>
           </Field>}
 
-          <Field className="max-w-50">
+          <Field className="sm:max-w-50">
             <Label>Issued Date</Label>
             <Controller
               name="issuedDate"
@@ -244,7 +244,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.issuedDate?.message}</p>
           </Field>
 
-          <Field className="max-w-50">
+          <Field className="sm:max-w-50">
             <Label>Supply Date</Label>
             <Controller
               name="supplyDate"
@@ -274,7 +274,7 @@ const CreateSalesInvoice = () => {
             <p className="text-sm text-red-500">{errors.supplyDate?.message}</p>
           </Field>
 
-          {invoiceType === "TAX" && <Field className="max-w-50">
+          {invoiceType === "TAX" && <Field className="sm:max-w-50">
             <Label>VAT No.</Label>
             <Controller
               name="vatCategoryId"

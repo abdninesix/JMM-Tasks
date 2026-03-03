@@ -43,25 +43,25 @@ const Payment = ({ form, onSubmit, loading }: { form: UseFormReturn<InvoiceFormV
                                         name="paymentMethod"
                                         control={control}
                                         render={({ field }) => (
-                                            <RadioGroup value={field.value} onValueChange={field.onChange} className="flex flex-col lg:flex-row w-full lg:max-w-md">
-                                                <FieldLabel htmlFor="cash" className="border-none bg-accent has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
+                                            <RadioGroup value={field.value} onValueChange={field.onChange} className="flex flex-wrap">
+                                                <FieldLabel htmlFor="cash" className="border-none bg-accent min-w-32 max-w-32 has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
                                                     <Field orientation="horizontal">
                                                         <Banknote size={18} />
-                                                        <FieldTitle className="font-bold">Cash</FieldTitle>
+                                                        <FieldTitle className="text-xs sm:text-sm font-bold">Cash</FieldTitle>
                                                         <RadioGroupItem value="CASH" id="cash" className="hidden" />
                                                     </Field>
                                                 </FieldLabel>
-                                                <FieldLabel htmlFor="card" className="border-none bg-accent has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
+                                                <FieldLabel htmlFor="card" className="border-none bg-accent min-w-32 max-w-32 has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
                                                     <Field orientation="horizontal">
                                                         <CreditCard size={18} />
-                                                        <FieldTitle className="font-bold">Card</FieldTitle>
+                                                        <FieldTitle className="text-xs sm:text-sm font-bold">Card</FieldTitle>
                                                         <RadioGroupItem value="CARD" id="card" className="hidden" />
                                                     </Field>
                                                 </FieldLabel>
-                                                <FieldLabel htmlFor="e-transfer" className="border-none bg-accent has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
+                                                <FieldLabel htmlFor="e-transfer" className="border-none bg-accent min-w-32 max-w-32 has-data-[state=checked]:bg-green-600 has-data-[state=checked]:text-white dark:has-data-[state=checked]:bg-green-600 dark:has-data-[state=checked]:text-white">
                                                     <Field orientation="horizontal">
                                                         <Landmark size={18} />
-                                                        <FieldTitle className="font-bold">E-transfer</FieldTitle>
+                                                        <FieldTitle className="text-xs sm:text-sm font-bold">E-transfer</FieldTitle>
                                                         <RadioGroupItem value="E_TRANSFER" id="e-transfer" className="hidden" />
                                                     </Field>
                                                 </FieldLabel>
