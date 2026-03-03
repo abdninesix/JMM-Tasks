@@ -75,6 +75,29 @@ export type ProductQueryVariables = {
     search: string;
 }
 
+// Servcies
+export type ApiService = {
+    serviceId: number;
+    taxId: number;
+    serviceNameEnglish: string;
+    price: number;
+    costPrice: number;
+    barCode: string;
+    category?: {
+        categoryNameEnglish: string;
+    };
+}
+
+export type ServiceQueryData = {
+    services: {
+        nodes: ApiService[];
+    };
+}
+
+export type ServiceQueryVariables = {
+    search: string;
+}
+
 // Permissions
 export type Permission = {
     id: string

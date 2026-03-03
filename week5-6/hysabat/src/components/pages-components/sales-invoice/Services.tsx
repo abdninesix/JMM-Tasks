@@ -10,28 +10,7 @@ import { toast } from "sonner";
 import type { InvoiceFormValues } from "./InvoiceSchema";
 import { useQuery } from "@apollo/client/react";
 import { SERVICE_QUERY } from "@/graphql/queries";
-
-type ApiService = {
-  serviceId: number;
-  taxId: number;
-  serviceNameEnglish: string;
-  price: number;
-  costPrice: number;
-  barCode: string;
-  category?: {
-    categoryNameEnglish: string;
-  };
-}
-
-type ServiceQueryData = {
-  services: {
-    nodes: ApiService[];
-  };
-}
-
-type ServiceQueryVariables = {
-  search: string;
-}
+import type { ApiService, ServiceQueryData, ServiceQueryVariables } from "@/lib/types";
 
 const Services = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
