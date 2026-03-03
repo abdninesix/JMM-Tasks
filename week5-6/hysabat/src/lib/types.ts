@@ -48,6 +48,33 @@ export type Invoice = {
     paymentStatus: string
 }
 
+// Products
+export type ApiProduct = {
+    itemId: number;
+    taxId: number;
+    itemNameEnglish: string;
+    wholeSellPrice: number;
+    costPrice: number;
+    barCode: string;
+    category?: {
+        categoryNameEnglish: string;
+    };
+    itemUnitOfMeasure?: Array<{
+        nameEnglish: string;
+        unitId: number;
+    }>;
+}
+
+export type ProductQueryData = {
+    items: {
+        nodes: ApiProduct[];
+    };
+}
+
+export type ProductQueryVariables = {
+    search: string;
+}
+
 // Permissions
 export type Permission = {
     id: string

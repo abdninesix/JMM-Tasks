@@ -10,32 +10,7 @@ import { toast } from 'sonner';
 import type { InvoiceFormValues } from './InvoiceSchema';
 import { useQuery } from '@apollo/client/react';
 import { PRODUCT_QUERY } from '@/graphql/queries';
-
-type ApiProduct = {
-    itemId: number;
-    taxId: number;
-    itemNameEnglish: string;
-    wholeSellPrice: number;
-    costPrice: number;
-    barCode: string;
-    category?: {
-        categoryNameEnglish: string;
-    };
-    itemUnitOfMeasure?: Array<{
-        nameEnglish: string;
-        unitId: number;
-    }>;
-}
-
-type ProductQueryData = {
-    items: {
-        nodes: ApiProduct[];
-    };
-}
-
-type ProductQueryVariables = {
-    search: string;
-}
+import type { ApiProduct, ProductQueryData, ProductQueryVariables } from '@/lib/types';
 
 const Products = ({ form }: { form: UseFormReturn<InvoiceFormValues>; }) => {
 
