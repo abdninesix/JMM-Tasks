@@ -1,4 +1,4 @@
-import type { Customer } from "@/pages/sales/customers/columns"
+import type { Customer } from "@/lib/types"
 import type { ColumnDef } from "@tanstack/react-table"
 import { SaudiRiyal } from "lucide-react"
 

@@ -1,4 +1,4 @@
-import type { Invoice } from "@/pages/sales/sales-invoice/columns"
+import type { Invoice } from "@/lib/types"
 import type { ColumnDef } from "@tanstack/react-table"
 import { SaudiRiyal } from "lucide-react"
 import { Link } from "react-router-dom"
