@@ -13,7 +13,7 @@ type StatLineChartProps = {
 
 const StatLineChart = ({ icon, title, value, data, config }: StatLineChartProps) => {
     return (
-        <div className="flex items-center justify-center">
+        <div className="w-full lg:w-fit flex items-center justify-between lg:justify-center">
             {icon}
             <div className='ml-4'>
                 <span className="flex items-center text-xl font-bold"><SaudiRiyal size={16} />{value}</span>
