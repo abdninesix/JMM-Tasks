@@ -4,17 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
-
-export type Invoice = {
-    id: string
-    customerName: string
-    invoiceType: string
-    totalItems: number
-    grandTotal: number
-    vatAmount: number
-    issueDate: string
-    paymentStatus: string
-}
+import type { Invoice } from "@/lib/types"
 
 export const columns: ColumnDef<Invoice>[] = [
     {

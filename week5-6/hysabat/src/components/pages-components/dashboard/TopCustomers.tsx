@@ -2,9 +2,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { columns } from "./columns-customers"
 import { useQuery } from "@apollo/client/react"
-import type { Customer, CustomerQueryData } from "@/pages/sales/customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
 import { Loader } from "lucide-react"
+import type { Customer, CustomerQueryData } from "@/lib/types"
 
 const TopCustomers = () => {
 

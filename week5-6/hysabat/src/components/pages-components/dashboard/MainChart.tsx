@@ -1,15 +1,8 @@
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart'
 import { Separator } from '@/components/ui/separator'
+import type { StatLineChartProps } from '@/lib/types'
 import { BanknoteArrowDown, ChartLine, SaudiRiyal, ShoppingCart, Ticket } from 'lucide-react'
 import { CartesianGrid, Line, LineChart } from 'recharts'
-
-type StatLineChartProps = {
-    icon: React.ReactNode
-    title: string
-    value: string
-    data: { month: string; desktop: number }[]
-    config: ChartConfig
-}
 
 const StatLineChart = ({ icon, title, value, data, config }: StatLineChartProps) => {
     return (

@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ChevronDown } from "lucide-react"
-import type { Module } from "./CreateRole"
 import React, { useState } from "react"
 import { cn } from "@/lib/utils"
+import type { Module } from "@/lib/types"
 
 export type PermissionAction = "read" | "write" | "delete"
 

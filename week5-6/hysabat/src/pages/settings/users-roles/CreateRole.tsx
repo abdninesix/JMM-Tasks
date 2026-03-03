@@ -10,41 +10,10 @@ import { ArrowLeft, Plus, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataTable, type PermissionState, type PermissionAction } from "./data-table";
-
-export type Permission = {
-    id: string
-    label: string
-}
-
-export type Module = {
-    id: string
-    label: string
-    permissions: Permission[]
-}
-
-const modules: Module[] = [
-    {
-        id: "sales",
-        label: "Sales",
-        permissions: [
-            { id: "orders", label: "Orders" },
-            { id: "invoices", label: "Invoices" },
-            { id: "customers", label: "Customers" },
-        ],
-    },
-    {
-        id: "inventory",
-        label: "Inventory",
-        permissions: [
-            { id: "products", label: "Products" },
-            { id: "stock", label: "Stock" },
-        ],
-    },
-]
+import { modules } from "@/lib/data";
 
 const CreateRole = () => {
     const navigate = useNavigate();
-    // Initialize with empty object to avoid "null" checks everywhere
     const [permissionsState, setPermissionsState] = useState<PermissionState>({});
 
     useEffect(() => {

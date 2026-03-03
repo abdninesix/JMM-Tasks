@@ -5,23 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-
-export type Customer = {
-    id: number
-    nameEnglish: string
-    nameArabic: string
-    contact: string
-    email: string
-    creditAmountLimit: number
-    vATNo: string
-    invoicesCount: number
-}
-
-export type CustomerQueryData = {
-    customers: {
-        nodes: Customer[];
-    };
-}
+import type { Customer } from "@/lib/types"
 
 export const columns: ColumnDef<Customer>[] = [
     {

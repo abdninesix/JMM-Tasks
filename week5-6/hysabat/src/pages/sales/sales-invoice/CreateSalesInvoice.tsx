@@ -20,12 +20,12 @@ import Summary from "@/components/pages-components/sales-invoice/Summary"
 import Payment from "@/components/pages-components/sales-invoice/Payment"
 import { invoiceSchema, type InvoiceFormValues } from "@/components/pages-components/sales-invoice/InvoiceSchema"
 import { useMutation, useQuery } from "@apollo/client/react"
-import type { Customer, CustomerQueryData } from "../customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
 import { dummyProjects, dummySalesmen } from "@/lib/data"
 import { payloadDate } from "@/lib/utils"
 import NewComboBox from "@/components/ui/new-combobox"
 import { CREATE_INVOICE_MUTATION } from "@/graphql/mutations"
+import type { Customer, CustomerQueryData } from "@/lib/types"
 
 const generateInvoiceId = (): string => {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();

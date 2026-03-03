@@ -1,4 +1,5 @@
 import { Box, ChartColumnIncreasing, CirclePercent, Coins, Landmark, NotepadText, Settings, ShoppingBag, ShoppingCart, Truck, Users } from "lucide-react";
+import type { Module } from "./types";
 
 // Sidebar Items
 export const sidebarItems = [
@@ -186,3 +187,24 @@ export const dummyInvoices = Array.from({ length: 30 }, (_, i) => ({
   issueDate: new Date(2025, 1, 1 + i).toISOString().split("T")[0],
   paymentStatus: ["Paid", "Unpaid", "Partially Paid"][i % 3],
 }))
+
+// Permission modules
+export const modules: Module[] = [
+    {
+        id: "sales",
+        label: "Sales",
+        permissions: [
+            { id: "orders", label: "Orders" },
+            { id: "invoices", label: "Invoices" },
+            { id: "customers", label: "Customers" },
+        ],
+    },
+    {
+        id: "inventory",
+        label: "Inventory",
+        permissions: [
+            { id: "products", label: "Products" },
+            { id: "stock", label: "Stock" },
+        ],
+    },
+]

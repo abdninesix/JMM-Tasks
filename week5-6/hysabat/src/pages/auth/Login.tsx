@@ -10,6 +10,7 @@ import * as z from 'zod'
 import { useMutation } from '@apollo/client/react'
 import { LOGIN_MUTATION } from '@/graphql/mutations'
 import { toast } from 'sonner'
+import type { LoginResponse } from '@/lib/types'
 
 const schema = z.object({
     username: z.string().min(5, 'Username must be at least 5 characters'),
@@ -17,14 +18,6 @@ const schema = z.object({
 })
 
 type LoginFormData = z.infer<typeof schema>
-
-export type LoginResponse = {
-    login: {
-        token: string;
-        userName: string;
-        userId: string;
-    };
-};
 
 const Login = () => {
 

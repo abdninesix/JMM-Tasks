@@ -17,9 +17,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Badge } from "@/components/ui/badge"
 import { CloudUpload, Loader, Plus, Search } from "lucide-react"
-import { columns, type Customer, type CustomerQueryData } from "./columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
 import { useQuery } from "@apollo/client/react"
+import type { Customer, CustomerQueryData } from "@/lib/types"
+import { columns } from './columns'
 
 const Customers = () => {
   const [rowSelection, setRowSelection] = React.useState({})
@@ -80,7 +81,7 @@ const Customers = () => {
           </InputGroup>
         </div>
         {/* Table Section */}
-        {loading ? (<div className="h-96 flex items-center justify-center"><Loader className="animate-spin"/></div>) : (
+        {loading ? (<div className="h-96 flex items-center justify-center"><Loader className="animate-spin" /></div>) : (
           <Table>
             <TableHeader className="bg-muted">
               {table.getHeaderGroups().map((hg) => (
