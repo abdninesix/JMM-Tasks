@@ -4,10 +4,11 @@ import { columns } from "./columns-customers"
 import { useQuery } from "@apollo/client/react"
 import type { Customer, CustomerQueryData } from "@/pages/sales/customers/columns"
 import { CUSTOMER_QUERY } from "@/graphql/queries"
+import { Loader } from "lucide-react"
 
 const TopCustomers = () => {
 
-    const { data } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
+    const { data, loading } = useQuery<CustomerQueryData>(CUSTOMER_QUERY)
     const customers: Customer[] = data?.customers.nodes || []
     const topCustomers = [...customers]
         .sort((a, b) => b.creditAmountLimit - a.creditAmountLimit)
@@ -22,30 +23,32 @@ const TopCustomers = () => {
     return (
         <div className="col-span-1 bg-card rounded-md border p-4 space-y-4">
             <h1 className="text-xl font-extrabold">Top 5 Customers</h1>
-            <Table>
-                <TableHeader>
-                    {table.getHeaderGroups().map((hg) => (
-                        <TableRow key={hg.id}>
-                            {hg.headers.map((header) => (
-                                <TableHead key={header.id} className="font-bold text-muted-foreground">
-                                    {flexRender(header.column.columnDef.header, header.getContext())}
-                                </TableHead>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableHeader>
-                <TableBody>
-                    {table.getRowModel().rows.map((row) => (
-                        <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                            {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id}>
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            {loading ? (<div className="h-96 flex items-center justify-center"><Loader className="animate-spin" /></div>) : (
+                <Table>
+                    <TableHeader>
+                        {table.getHeaderGroups().map((hg) => (
+                            <TableRow key={hg.id}>
+                                {hg.headers.map((header) => (
+                                    <TableHead key={header.id} className="font-bold text-muted-foreground">
+                                        {flexRender(header.column.columnDef.header, header.getContext())}
+                                    </TableHead>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableHeader>
+                    <TableBody>
+                        {table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            )}
         </div>
     )
 }
