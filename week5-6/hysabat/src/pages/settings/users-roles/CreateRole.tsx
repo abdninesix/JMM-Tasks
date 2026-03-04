@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Plus, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DataTable, type PermissionState, type PermissionAction } from "./data-table";
+import { DataTable, type PermissionState, type PermissionAction } from "./roles-data-table";
 import { modules } from "@/lib/data";
 
 const CreateRole = () => {
