@@ -15,7 +15,7 @@ import { modules } from "@/lib/data";
 const CreateRole = () => {
 
     const navigate = useNavigate();
-    
+
     const [permissionsState, setPermissionsState] = useState<PermissionState>({});
 
     useEffect(() => {
@@ -107,7 +107,7 @@ const CreateRole = () => {
 
             <div className="flex flex-col lg:flex-row gap-4 border rounded-md p-4">
                 {/* Inputs */}
-                <div className="w-full lg:w-1/3 border rounded-md p-4 space-y-4">
+                <div className="w-full lg:w-1/3 h-fit lg:sticky top-4 border rounded-md p-4 space-y-4">
                     <Field>
                         <Label>Role name (English)</Label>
                         <InputGroup>
