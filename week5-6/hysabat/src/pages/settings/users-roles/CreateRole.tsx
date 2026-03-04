@@ -13,7 +13,9 @@ import { DataTable, type PermissionState, type PermissionAction } from "./roles-
 import { modules } from "@/lib/data";
 
 const CreateRole = () => {
+
     const navigate = useNavigate();
+    
     const [permissionsState, setPermissionsState] = useState<PermissionState>({});
 
     useEffect(() => {

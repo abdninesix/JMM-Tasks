@@ -35,12 +35,7 @@ type Props = {
     ) => void
 }
 
-export function DataTable({
-    modules,
-    permissionsState,
-    toggleChild,
-    toggleParent,
-}: Props) {
+export const DataTable = ({ modules, permissionsState, toggleChild, toggleParent }: Props) => {
 
     const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({})
 
