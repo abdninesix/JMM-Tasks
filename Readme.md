@@ -2,10 +2,10 @@
 
 ## Basic Information
 - **Name:** Muhammad Abdullah  
-- **Company:** JMM
-- **Department:** Web  
+- **Company:** JMM Technologies
+- **Department:** React.js + Laravel
 - **Internship Duration:** 3 Months 
-- **Supervisor:** Shahmir Minhas  
+- **Supervisor:** Shahmir Minhas (React.js), Ali Sher (Laravel)
 
 ---
 
