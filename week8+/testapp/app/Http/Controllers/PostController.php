@@ -39,9 +39,12 @@ class PostController extends Controller
         ]);
 
         // Create the post in the database
-        Post::create($validated);
+        $post = Post::create($validated);
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully!');
+        return response()->json([
+            'message' => 'Post created successfully!',
+            'data' => $post
+        ], 201);
     }
 
     /**
@@ -49,7 +52,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return response()->json($post, 200);
     }
 
     /**
@@ -65,7 +68,18 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|required|string',
+            'author' => 'sometimes|required|string',
+        ]);
+
+        $post->update($validated);
+
+        return response()->json([
+            'message' => 'Post updated successfully!',
+            'data' => $post
+        ], 200);
     }
 
     /**
@@ -73,6 +87,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return response()->json([
+            'message' => 'Post deleted successfully!'
+        ], 200);
     }
 }
