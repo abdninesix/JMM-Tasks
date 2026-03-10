@@ -12,7 +12,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+
+        // dd($posts); // This "dumps" the data in a readable format and "dies" (stops)
+        //return $posts;  //simple way
+        return response()->json($posts, 200); //professional way
     }
 
     /**
