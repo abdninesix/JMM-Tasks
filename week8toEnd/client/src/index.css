@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+    --color-myblue: #3b82f6;
+    --color-hoverblue: #2563eb;
+}
