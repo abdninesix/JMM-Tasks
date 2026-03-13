@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://jmm-tasks.onrender.com/api',
 });
 
 // Automatically include token in requests
