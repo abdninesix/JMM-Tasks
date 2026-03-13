@@ -1,12 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import NewPost from './pages/NewPost';
 import EditPost from './pages/EditPost';
 import PostDetail from './pages/PostDetail';
 import Navbar from './components/Navbar';
-import About from './pages/About';
 
 function App() {
   return (
@@ -18,9 +15,6 @@ function App() {
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/edit/:id" element={<EditPost />} />
           <Route path="/new" element={<NewPost />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About />} />
         </Routes>
       </div>
     </Router>
