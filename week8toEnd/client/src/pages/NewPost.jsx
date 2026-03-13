@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import Banner from '../components/Banner';
 
 function NewPost() {
-  const [form, setForm] = useState({ title: '', content: '' });
+  const [form, setForm] = useState({ author: '', title: '', description: '' });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,9 +27,16 @@ function NewPost() {
   return (
     <>
       <Banner text="Enlighten us!" />
-      <div className="lg:absolute top-20 right-48 max-w-md mx-auto p-4 flex flex-col bg-gray-100 rounded shadow">
+      <div className="lg:absolute top-20 right-48 max-w-md mx-auto p-4 flex flex-col bg-gray-100 rounded shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Create New Post</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="author"
+            placeholder="Your name"
+            className="w-full p-2 bg-white rounded outline-none"
+            onChange={handleChange}
+            required
+          />
           <input
             name="title"
             placeholder="Post Title"
@@ -38,14 +45,14 @@ function NewPost() {
             required
           />
           <textarea
-            name="content"
+            name="description"
             rows="10"
             placeholder="Post Content"
             className="w-full p-2 rounded bg-white outline-none resize-none"
             onChange={handleChange}
             required
           ></textarea>
-          <button type="submit" className="w-full bg-myblue cursor-pointer text-white p-2 rounded">
+          <button type="submit" className="w-full bg-myblue hover:bg-myblue/80 cursor-pointer text-white p-2 rounded">
             Publish
           </button>
         </form>

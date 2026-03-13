@@ -6,14 +6,14 @@ import Banner from '../components/Banner';
 
 function EditPost() {
   const { id } = useParams();
-  const [form, setForm] = useState({ title: '', content: '' });
+  const [form, setForm] = useState({ author: '', title: '', description: '' });
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the existing post
     API.get(`/posts/${id}`)
       .then(res => {
-        setForm({ title: res.data.title, content: res.data.content });
+        setForm({ author: res.data.author, title: res.data.title, description: res.data.description });
       })
       .catch(() => {
         toast.error('Failed to load post');
@@ -38,25 +38,32 @@ function EditPost() {
   return (
     <>
       <Banner text="Edit your thoughts!" />
-      <div className="absolute top-20 right-48 max-w-md mx-auto p-4 flex flex-col bg-gray-100 rounded shadow">
+      <div className="absolute top-20 right-48 max-w-md mx-auto p-4 flex flex-col bg-gray-100 rounded shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Edit Post</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="author"
+            value={form.author}
+            onChange={handleChange}
+            className="w-full p-2 bg-white rounded outline-none"
+            required
+          />
           <input
             name="title"
             value={form.title}
             onChange={handleChange}
-            className="w-full outline-none p-2 border rounded"
+            className="w-full p-2 bg-white rounded outline-none"
             required
           />
           <textarea
             name="content"
-            value={form.content}
+            value={form.description}
             onChange={handleChange}
             rows="8"
-            className="w-full outline-none p-2 border rounded"
+            className="w-full p-2 bg-white rounded outline-none resize-none"
             required
           ></textarea>
-          <button type="submit" className="w-full cursor-pointer bg-myblue text-white p-2 rounded">
+          <button type="submit" className="w-full cursor-pointer bg-myblue hover:bg-myblue/80 text-white p-2 rounded">
             Update
           </button>
         </form>

@@ -56,7 +56,7 @@ function Register() {
             onChange={handleChange}
             required
           />
-          <button type="submit" className="w-full bg-myblue cursor-pointer text-white p-2 rounded hover:bg-hoverblue">
+          <button type="submit" className="w-full bg-myblue cursor-pointer text-white p-2 rounded hover:bg-myblue/80">
             Register
           </button>
         </form>

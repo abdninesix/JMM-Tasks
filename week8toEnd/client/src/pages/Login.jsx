@@ -47,7 +47,7 @@ function Login() {
             onChange={handleChange}
             required
           />
-          <button type="submit" className="w-full bg-myblue text-white p-2 rounded hover:bg-hoverblue">
+          <button type="submit" className="w-full bg-myblue text-white p-2 rounded hover:bg-myblue/80">
             Login
           </button>
         </form>

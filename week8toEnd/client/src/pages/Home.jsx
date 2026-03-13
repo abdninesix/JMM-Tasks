@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <div className="space-y-4">
-      <Banner text="Latest Posts" />
+      <Banner text="All Posts" />
       <div className='flex flex-wrap gap-6'>
         {posts.length === 0 ? (
           <p>No posts yet.</p>
@@ -24,9 +24,9 @@ function Home() {
           posts.map(post => (
             <div key={post.id} className="w-full md:w-72 p-3 flex flex-col bg-gray-100 hover:bg-gray-200 rounded-lg shadow duration-200">
               <div className='w-full mb-2 rounded-md overflow-hidden bg-white flex items-center justify-center'><img src="/cover.png" alt="cover" className='object-cover' /></div>
-              <h1 className="text-lg cursor-pointer font-semibold">{post.title}</h1>
+              <h1 className="text-lg cursor-pointer font-semibold">{post.title.length > 20 ? post.title.slice(0, 20) + '...' : post.title}</h1>
               <p className="text-xs text-gray-500">Posted {format(post.created_at)} by {post.author}</p>
-              <p className="mt-2 text-sm text-gray-700">{post.description.slice(0, 70)}...</p>
+              <p className="mt-2 text-sm text-gray-700">{post.description.length > 150 ? post.description.slice(0, 150) + '...' : post.description}</p>
               <Link to={`/post/${post.id}`} className="text-sm font-medium text-myblue hover:underline mt-auto ml-auto">Read more</Link>
             </div>
           ))
