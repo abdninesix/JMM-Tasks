@@ -25,7 +25,7 @@ function Home() {
             <div key={post.id} className="w-full md:w-72 p-3 flex flex-col bg-gray-100 hover:bg-gray-200 rounded-lg shadow duration-200">
               <div className='w-full mb-2 rounded-md overflow-hidden bg-white flex items-center justify-center'><img src="/cover.png" alt="cover" className='object-cover' /></div>
               <h1 className="text-lg cursor-pointer font-semibold">{post.title}</h1>
-              <p className="text-xs text-gray-500">Posted {format(post.createdAt)} by {post.author}</p>
+              <p className="text-xs text-gray-500">Posted {format(post.created_at)} by {post.author}</p>
               <p className="mt-2 text-sm text-gray-700">{post.description.slice(0, 70)}...</p>
               <Link to={`/post/${post.id}`} className="text-sm font-medium text-myblue hover:underline mt-auto ml-auto">Read more</Link>
             </div>
