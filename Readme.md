@@ -28,6 +28,11 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - apollo/client
 - date-fns
 - 
+- Laragon
+- Laravel
+- PHP
+- MySQL
+- 
 - 
 *(More will be added)*
 
