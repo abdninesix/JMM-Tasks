@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Category::all());
     }
 
     /**
@@ -28,7 +28,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:20',
+            'slug' => 'required|string|max:20'
+        ]);
+
+        $product = Category::create($data);
+        return response()->json("Category created successfully", 201);
     }
 
     /**
