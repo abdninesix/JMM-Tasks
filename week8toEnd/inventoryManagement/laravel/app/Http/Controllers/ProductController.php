@@ -12,7 +12,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Product::with('category')->latest()->get());
     }
 
     /**
@@ -28,7 +28,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'sku' => 'required|string|unique:products,sku',
+            'price' => 'required|numeric',
+            'stock_quantity' => 'required|integer',
+            'description' => 'nullable|string'
+        ]);
+
+        $product = Product::create($data);
+        return response()->json($product, 201);
     }
 
     /**
