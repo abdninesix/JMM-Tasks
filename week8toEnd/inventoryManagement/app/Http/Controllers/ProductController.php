@@ -46,7 +46,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return response()->json($product, 200);
     }
 
     /**
@@ -62,7 +62,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'category_id' => 'sometimes|required|exists:categories,id',
+            'name' => 'sometimes|required|string|max:255',
+            'sku' => 'sometimes|required|string|unique:products,sku',
+            'price' => 'sometimes|required|numeric',
+            'stock_quantity' => 'sometimes|required|integer',
+            'description' => 'sometimes|nullable|string'
+        ]);
+
+        $product->update($validated);
+
+        return response()->json([
+            'message' => 'Product updated successfully!',
+            'data' => $product
+        ], 200);
     }
 
     /**
@@ -70,6 +84,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'message' => 'Product deleted successfully!'
+        ], 200);
     }
 }

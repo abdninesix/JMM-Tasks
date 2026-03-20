@@ -4,34 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+    public function showLogin()
+    {
+        return Inertia::render('Login');
+    }
+
     public function login(Request $request)
     {
-        $validated = $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        /** @var \App\Models\User $user */ // <--- This "DocBlock" tells your IDE exactly what $user is
-        $user = User::where('email', $validated['email'])->first();
-
-        if (!$user || !Hash::check($validated['password'], $user->password) || !$user->is_admin) {
-            return response()->json(['message' => 'Invalid Admin Credentials.'], 401);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
         }
 
-        $token = $user->createToken('admin-token')->plainTextToken;
-
-        return response()->json(['token' => $token, 'user' => $user], 200);
+        return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
     }
 
     public function logout(Request $request)
     {
-        // Revoke the token that was used to authenticate the request
-        $request->user()->currentAccessToken()->delete();
-
-        return response()->json(['message' => 'Logged out successfully']);
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 }
