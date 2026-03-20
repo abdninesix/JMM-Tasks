@@ -20,7 +20,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard', [
-            'products' => Product::all()
+            'products' => Product::with('category')->latest()->get()
         ]);
     });
 

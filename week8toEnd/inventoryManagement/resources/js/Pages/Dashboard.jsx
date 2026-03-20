@@ -5,26 +5,28 @@ export default function Dashboard({ products }) {
     return (
         <div>
             <Navbar />
-            <div style={{ padding: '2rem' }}>
-                <h1>Product Inventory</h1>
-                <table border="1" width="100%" style={{ borderCollapse: 'collapse', textAlign: 'left' }}>
+            <div className='p-8'>
+                <h1 className='text-2xl text-center p-8'>Product Inventory</h1>
+                <table className='border text-left w-full'>
                     <thead>
-                        <tr style={{ background: '#f4f4f4' }}>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>SKU</th>
-                            <th>Price</th>
-                            <th>Stock</th>
+                        <tr>
+                            <th className='p-4'>ID</th>
+                            <th className='p-4'>Name</th>
+                            <th className='p-4'>SKU</th>
+                            <th className='p-4'>Category</th>
+                            <th className='p-4'>Price</th>
+                            <th className='p-4'>Stock</th>
                         </tr>
                     </thead>
                     <tbody>
                         {products.map(product => (
-                            <tr key={product.id}>
-                                <td style={{ padding: '8px' }}>{product.id}</td>
-                                <td style={{ padding: '8px' }}>{product.name}</td>
-                                <td style={{ padding: '8px' }}>{product.sku}</td>
-                                <td style={{ padding: '8px' }}>${product.price}</td>
-                                <td style={{ padding: '8px' }}>{product.stock_quantity}</td>
+                            <tr key={product.id} className={product.stock_quantity < 15 ? 'bg-red-50' : ''}>
+                                <td className='p-4'>{product.id}</td>
+                                <td className='p-4'>{product.name}</td>
+                                <td className='p-4'>{product.sku}</td>
+                                <td className='p-4'>{product.category.name}</td>
+                                <td className='p-4'>Rs.{product.price}</td>
+                                <td className='p-4'>{product.stock_quantity}</td>
                             </tr>
                         ))}
                     </tbody>
