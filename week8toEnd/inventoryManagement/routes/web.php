@@ -52,5 +52,10 @@ Route::middleware('auth')->group(function () {
         return back();
     });
 
+    Route::delete('/products/{product}', function (Product $product) {
+        $product->delete();
+        return back();
+    });
+
     Route::post('/logout', [AuthController::class, 'logout']);
 });

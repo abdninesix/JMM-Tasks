@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
-import { useForm } from '@inertiajs/react';
+import { useForm, router } from '@inertiajs/react';
 
 export default function Dashboard({ products, categories }) {
 
@@ -31,6 +31,14 @@ export default function Dashboard({ products, categories }) {
         });
     };
 
+    const handleDelete = (id) => {
+        if (confirm('Are you sure you want to delete this product?')) {
+            router.delete(`/products/${id}`, {
+                preserveScroll: true,
+            });
+        }
+    };
+
     return (
         <div>
             <Navbar />
@@ -45,47 +53,49 @@ export default function Dashboard({ products, categories }) {
                             <th className='p-4'>Category</th>
                             <th className='p-4'>Price</th>
                             <th className='p-4'>Stock</th>
+                            <th className='p-4'>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {products.map(product => (
-                            <tr key={product.id} className={product.stock_quantity < 15 ? 'bg-red-50' : ''}>
+                            <tr key={product.id} className={product.stock_quantity < 10 ? 'bg-red-100' : ''}>
                                 <td className='p-4'>{product.id}</td>
                                 <td className='p-4'>{product.name}</td>
                                 <td className='p-4'>{product.sku}</td>
                                 <td className='p-4'>{product.category.name}</td>
                                 <td className='p-4'>Rs.{product.price}</td>
                                 <td className='p-4'>{product.stock_quantity}</td>
+                                <td className='p-4'><button className='text-red-500 cursor-pointer hover:underline' onClick={()=>handleDelete(product.id)}>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
+                <div className='flex'>
 
-                    <section style={{ background: '#f9f9f9', padding: '20px', borderRadius: '8px' }}>
-                        <h3>Add New Category</h3>
-                        <form onSubmit={submitCategory}>
+                    <section className='w-1/2 p-4'>
+                        <h3 className='text-2xl mb-4'>Add New Category</h3>
+                        <form onSubmit={submitCategory} className='flex flex-col gap-4'>
                             <input
                                 type="text" placeholder="Category Name"
                                 value={categoryForm.data.name}
                                 onChange={e => categoryForm.setData('name', e.target.value)}
-                                style={{ width: '100%', marginBottom: '10px', padding: '8px' }}
+                                className='p-2'
                             />
                             {categoryForm.errors.name && <div style={{ color: 'red' }}>{categoryForm.errors.name}</div>}
-                            <button type="submit" disabled={categoryForm.processing}>
+                            <button type="submit" disabled={categoryForm.processing} className='bg-green-600 text-white p-2 w-fit'>
                                 {categoryForm.processing ? 'Saving...' : 'Add Category'}
                             </button>
                         </form>
                     </section>
 
-                    <section style={{ background: '#f9f9f9', padding: '20px', borderRadius: '8px' }}>
-                        <h3>Add New Product</h3>
-                        <form onSubmit={submitProduct}>
+                    <section className='w-1/2 p-4'>
+                        <h3 className='text-2xl mb-4'>Add New Product</h3>
+                        <form onSubmit={submitProduct} className='flex flex-col gap-4'>
                             <select
                                 value={productForm.data.category_id}
                                 onChange={e => productForm.setData('category_id', e.target.value)}
-                                style={{ width: '100%', marginBottom: '10px', padding: '8px' }}
+                                className='p-2'
                             >
                                 <option value="">Select Category</option>
                                 {categories.map(c => (
@@ -93,12 +103,12 @@ export default function Dashboard({ products, categories }) {
                                 ))}
                             </select>
 
-                            <input type="text" placeholder="Product Name" value={productForm.data.name} onChange={e => productForm.setData('name', e.target.value)} />
-                            <input type="text" placeholder="SKU" value={productForm.data.sku} onChange={e => productForm.setData('sku', e.target.value)} />
-                            <input type="number" placeholder="Price" value={productForm.data.price} onChange={e => productForm.setData('price', e.target.value)} />
-                            <input type="number" placeholder="Stock" value={productForm.data.stock_quantity} onChange={e => productForm.setData('stock_quantity', e.target.value)} />
+                            <input type="text" placeholder="Product Name" value={productForm.data.name} onChange={e => productForm.setData('name', e.target.value)} className='p-2' />
+                            <input type="text" placeholder="SKU" value={productForm.data.sku} onChange={e => productForm.setData('sku', e.target.value)} className='p-2' />
+                            <input type="number" placeholder="Price" value={productForm.data.price} onChange={e => productForm.setData('price', e.target.value)} className='p-2' />
+                            <input type="number" placeholder="Stock" value={productForm.data.stock_quantity} onChange={e => productForm.setData('stock_quantity', e.target.value)} className='p-2' />
 
-                            <button type="submit" disabled={productForm.processing} style={{ background: 'green', color: 'white', padding: '10px 20px', border: 'none', cursor: 'pointer' }}>
+                            <button type="submit" disabled={productForm.processing} className='bg-green-600 text-white p-2 w-fit'>
                                 {productForm.processing ? 'Saving...' : 'Add Product'}
                             </button>
                         </form>
