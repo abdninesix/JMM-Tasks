@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
-import { useForm, router } from '@inertiajs/react';
+import { useForm, router, Head } from '@inertiajs/react';
 
 export default function Dashboard({ products, categories }) {
 
@@ -40,7 +40,8 @@ export default function Dashboard({ products, categories }) {
     };
 
     return (
-        <div>
+        <>
+            <Head title='Dashboard' />
             <Navbar />
             <div className='p-8'>
                 <h1 className='text-2xl text-center p-8'>Product Inventory</h1>
@@ -65,7 +66,7 @@ export default function Dashboard({ products, categories }) {
                                 <td className='p-4'>{product.category.name}</td>
                                 <td className='p-4'>Rs.{product.price}</td>
                                 <td className='p-4'>{product.stock_quantity}</td>
-                                <td className='p-4'><button className='text-red-500 cursor-pointer hover:underline' onClick={()=>handleDelete(product.id)}>Delete</button></td>
+                                <td className='p-4'><button className='text-red-500 cursor-pointer hover:underline' onClick={() => handleDelete(product.id)}>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>
@@ -117,6 +118,6 @@ export default function Dashboard({ products, categories }) {
                 </div>
 
             </div>
-        </div>
+        </>
     );
 }
