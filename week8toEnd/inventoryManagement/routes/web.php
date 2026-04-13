@@ -3,9 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -21,11 +21,45 @@ Route::middleware('guest')->group(function () {
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function () {
+    Route::get('/dashboard', function (Request $request) {
+        $filters = $request->only(['search', 'category_id', 'stock']);
+
+        $products = Product::with('category')
+            ->when($filters['search'] ?? null, function ($query, $search) {
+                $query->where(function ($innerQuery) use ($search) {
+                    $innerQuery->where('name', 'like', "%{$search}%")
+                        ->orWhere('sku', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%");
+                });
+            })
+            ->when($filters['category_id'] ?? null, function ($query, $categoryId) {
+                $query->where('category_id', $categoryId);
+            })
+            ->when($filters['stock'] ?? null, function ($query, $stockFilter) {
+                if ($stockFilter === 'low') {
+                    $query->where('stock_quantity', '>', 0)->where('stock_quantity', '<', 10);
+                }
+
+                if ($stockFilter === 'out') {
+                    $query->where('stock_quantity', '<=', 0);
+                }
+
+                if ($stockFilter === 'available') {
+                    $query->where('stock_quantity', '>=', 10);
+                }
+            })
+            ->latest()
+            ->get();
+
         return Inertia::render('Dashboard', [
-            'products' => Product::with('category')->latest()->get(),
-            'categories' => Category::all()
+            'products' => $products,
+            'categories' => Category::orderBy('name')->get(),
+            'filters' => $filters,
         ]);
+    });
+
+    Route::get('/cart', function () {
+        return Inertia::render('Cart');
     });
 
     Route::post('/categories', function (Request $request) {
@@ -34,7 +68,7 @@ Route::middleware('auth')->group(function () {
         ]);
         Category::create([
             'name' => $validated['name'],
-            'slug' => \Illuminate\Support\Str::slug($validated['name']),
+            'slug' => Str::slug($validated['name']),
         ]);
         return back();
     });

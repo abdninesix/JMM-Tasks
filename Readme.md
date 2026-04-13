@@ -32,7 +32,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Laravel
 - PHP
 - MySQL
-- 
+- Inertia.js
 - 
 *(More will be added)*
 
