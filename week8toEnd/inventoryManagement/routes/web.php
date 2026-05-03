@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StudentController;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -93,3 +94,5 @@ Route::middleware('auth')->group(function () {
 });
 
 // Student routes
+Route::get('/students/create', [StudentController::class, 'create']);
+Route::post('/students', [StudentController::class, 'store']);
