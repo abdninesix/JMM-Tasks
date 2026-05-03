@@ -12,13 +12,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Guest Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-// Authenticated Routes
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', function (Request $request) {
@@ -93,3 +91,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+
+// Student routes
