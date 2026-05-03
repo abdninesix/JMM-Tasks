@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use function Laravel\Prompts\number;
 
 class StudentController extends Controller
 {
@@ -21,5 +22,13 @@ class StudentController extends Controller
     {
         Student::create($request->validated());
         return redirect()->back()->with('message', 'Student added successfully!');
+    }
+
+    public function edit(Student $student)
+    {
+        return Inertia::render('Students/Edit', [
+            'student' => $student,
+            'courses' => Course::all()
+        ]);
     }
 }
