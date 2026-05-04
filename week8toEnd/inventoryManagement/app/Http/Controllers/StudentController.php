@@ -16,8 +16,8 @@ class StudentController extends Controller
     public function index()
     {
         return Inertia::render('StudentForm', [
+            'students' => Student::with('course')->get(),
             'courses' => Course::all(),
-            'students' => Student::get()
         ]);
     }
 
@@ -49,7 +49,7 @@ class StudentController extends Controller
         return redirect()->back()->with('message', 'Student updated successfully!');
     }
 
-     public function destroy(Student $student)
+    public function destroy(Student $student)
     {
         $student->delete();
         return redirect()->back()->with('message', 'Student deleted successfully!');

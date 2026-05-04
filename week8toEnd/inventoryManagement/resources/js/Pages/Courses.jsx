@@ -1,4 +1,4 @@
-import { Head, router, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import React from 'react'
 
 const Courses = ({ courses }) => {
@@ -48,8 +48,8 @@ const Courses = ({ courses }) => {
                                         <span>{course.duration}</span>
                                     </td>
                                     <td className="space-x-4">
+                                        <Link href={`/courses/${course.id}`} className="text-blue-500">View</Link>
                                         <button className="text-red-500" onClick={() => handleDelete(course.id)}>Delete</button>
-                                        <button className="text-blue-500">View</button>
                                     </td>
                                 </tr>
                             ))}

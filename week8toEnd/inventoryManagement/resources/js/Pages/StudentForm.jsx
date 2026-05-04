@@ -37,6 +37,8 @@ const StudentForm = ({ courses, students }) => {
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Email</th>
+                                <th>Course</th>
                                 <th>Duration</th>
                                 <th>Actions</th>
                             </tr>
@@ -45,12 +47,11 @@ const StudentForm = ({ courses, students }) => {
                             {students.map((student) => (
                                 <tr key={student.id}>
                                     <td>{student.name}</td>
-                                    <td>
-                                        <span>{student.email}</span>
-                                    </td>
+                                    <td>{student.email}</td>
+                                    <td>{student.course.title}</td>
+                                    <td>{student.course.duration}</td>
                                     <td className="space-x-4">
                                         <button className="text-red-500" onClick={() => handleDelete(student.id)}>Delete</button>
-                                        <button className="text-blue-500">View</button>
                                     </td>
                                 </tr>
                             ))}
