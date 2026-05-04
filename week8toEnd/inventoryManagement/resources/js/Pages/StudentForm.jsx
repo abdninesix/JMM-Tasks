@@ -1,5 +1,6 @@
-import { Head, router, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import React from "react";
+import StudentNavbar from "../Components/StudentNavbar";
 
 const StudentForm = ({ courses, students }) => {
 
@@ -26,6 +27,7 @@ const StudentForm = ({ courses, students }) => {
     return (
         <>
             <Head title="Student Form" />
+            <StudentNavbar/>
             <div className="max-w-lg mt-10 mx-auto space-y-10">
 
                 {flash.message && <p className="text-green-600">{flash.message}</p>}
@@ -50,7 +52,8 @@ const StudentForm = ({ courses, students }) => {
                                     <td>{student.email}</td>
                                     <td>{student.course.title}</td>
                                     <td>{student.course.duration}</td>
-                                    <td className="space-x-4">
+                                    <td>
+                                        <Link href={`/students/${student.id}/edit`} className="text-green-500">Edit</Link>
                                         <button className="text-red-500" onClick={() => handleDelete(student.id)}>Delete</button>
                                     </td>
                                 </tr>

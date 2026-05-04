@@ -1,5 +1,6 @@
 import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import React from 'react'
+import StudentNavbar from "../Components/StudentNavbar";
 
 const Courses = ({ courses }) => {
 
@@ -24,6 +25,7 @@ const Courses = ({ courses }) => {
     return (
         <>
             <Head title="Courses" />
+            <StudentNavbar />
             <div className="max-w-lg mt-10 mx-auto space-y-10">
 
                 {flash.message && (<p className="text-green-600">{flash.message}</p>)}
@@ -47,7 +49,7 @@ const Courses = ({ courses }) => {
                                     <td>
                                         <span>{course.duration}</span>
                                     </td>
-                                    <td className="space-x-4">
+                                    <td>
                                         <Link href={`/courses/${course.id}`} className="text-blue-500">View</Link>
                                         <button className="text-red-500" onClick={() => handleDelete(course.id)}>Delete</button>
                                     </td>

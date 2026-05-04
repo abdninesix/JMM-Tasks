@@ -1,8 +1,12 @@
 import React from 'react'
+import StudentNavbar from '../Components/StudentNavbar'
+import { Head } from '@inertiajs/react'
 
 const CourseDetail = ({ course }) => {
     return (
-        <div>
+        <>
+            <Head title="Course Detail" />
+            <StudentNavbar />
             <h1>{course.title}</h1>
             <p>Duration: {course.duration}</p>
             <h2>Enrolled Students ({course.students.length})</h2>
@@ -11,7 +15,7 @@ const CourseDetail = ({ course }) => {
                     <li key={student.id}>{student.name}</li>
                 ))}
             </ul>
-        </div>
+        </>
     )
 }
 

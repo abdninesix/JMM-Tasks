@@ -1,5 +1,6 @@
 import { Head, useForm, usePage } from '@inertiajs/react'
 import React from 'react'
+import StudentNavbar from '../Components/StudentNavbar';
 
 const StudentEditForm = ({ student, courses }) => {
 
@@ -20,6 +21,7 @@ const StudentEditForm = ({ student, courses }) => {
     return (
         <>
             <Head title="Student Edit Form" />
+            <StudentNavbar/>
             <form onSubmit={submit} className="flex flex-col gap-4 max-w-lg mx-auto mt-10">
                 {flash.message && <p className="text-green-600">{flash.message}</p>}
                 <h1 className="text-4xl font-semibold">Student Edit Form</h1>
