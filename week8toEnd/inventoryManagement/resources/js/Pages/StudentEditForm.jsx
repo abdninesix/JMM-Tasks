@@ -1,28 +1,28 @@
-import { Head, useForm, usePage } from "@inertiajs/react";
-import React from "react";
+import { Head, useForm, usePage } from '@inertiajs/react'
+import React from 'react'
 
-const StudentForm = ({ courses }) => {
+const StudentEditForm = ({ student, courses }) => {
 
-    const { data, setData, post, processing, errors } = useForm({
-        name: '',
-        email: '',
-        age: '',
-        course_id: '',
+    const { data, setData, put, processing, errors } = useForm({
+        name: student.name,
+        email: student.email,
+        age: student.age,
+        course_id: student.course_id,
     });
 
     const { flash } = usePage().props;
 
     const submit = (e) => {
         e.preventDefault();
-        post('/students');
-    }
+        put(`/students/${student.id}`);
+    };
 
     return (
         <>
-            <Head title="Student Form" />
+            <Head title="Student Edit Form" />
             <form onSubmit={submit} className="flex flex-col gap-4 max-w-lg mx-auto mt-10">
                 {flash.message && <p className="text-green-600">{flash.message}</p>}
-                <h1 className="text-4xl font-semibold">Student Form</h1>
+                <h1 className="text-4xl font-semibold">Student Edit Form</h1>
                 <input value={data.name} onChange={e => setData('name', e.target.value)} type="text" className="border" />
                 {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
@@ -41,11 +41,11 @@ const StudentForm = ({ courses }) => {
                 {errors.course_id && <p className="text-red-500 text-sm">{errors.course_id}</p>}
 
                 <button type="submit" disabled={processing}>
-                    {processing ? "Creating" : "Create"}
+                    {processing ? "Updating" : "Update"}
                 </button>
             </form>
         </>
-    );
-};
+    )
+}
 
-export default StudentForm;
+export default StudentEditForm

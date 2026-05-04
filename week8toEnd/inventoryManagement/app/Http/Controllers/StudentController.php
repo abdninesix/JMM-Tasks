@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -26,9 +27,15 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
-        return Inertia::render('Students/Edit', [
+        return Inertia::render('StudentEditForm', [
             'student' => $student,
             'courses' => Course::all()
         ]);
+    }
+
+    public function update(UpdateStudentRequest $request, Student $student)
+    {
+        $student->update($request->validated());
+        return redirect()->back()->with('message', 'Student updated successfully!');
     }
 }
