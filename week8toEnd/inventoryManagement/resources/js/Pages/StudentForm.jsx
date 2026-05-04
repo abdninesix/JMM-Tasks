@@ -40,7 +40,7 @@ const StudentForm = ({ courses }) => {
                 </select>
                 {errors.course_id && <p className="text-red-500 text-sm">{errors.course_id}</p>}
 
-                <button type="submit" disabled={processing}>
+                <button type="submit" disabled={processing} className='bg-black text-white'>
                     {processing ? "Creating" : "Create"}
                 </button>
             </form>
