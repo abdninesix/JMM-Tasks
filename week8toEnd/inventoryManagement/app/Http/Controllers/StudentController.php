@@ -12,10 +12,20 @@ use function Laravel\Prompts\number;
 
 class StudentController extends Controller
 {
+
+    public function index()
+    {
+        return Inertia::render('StudentForm', [
+            'courses' => Course::all(),
+            'students' => Student::get()
+        ]);
+    }
+
     public function create()
     {
         return Inertia::render('StudentForm', [
-            'courses' => Course::all()
+            'courses' => Course::all(),
+            'students' => Student::get()
         ]);
     }
 
@@ -37,5 +47,11 @@ class StudentController extends Controller
     {
         $student->update($request->validated());
         return redirect()->back()->with('message', 'Student updated successfully!');
+    }
+
+     public function destroy(Student $student)
+    {
+        $student->delete();
+        return redirect()->back()->with('message', 'Student deleted successfully!');
     }
 }

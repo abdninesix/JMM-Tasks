@@ -23,15 +23,20 @@ const StudentEditForm = ({ student, courses }) => {
             <form onSubmit={submit} className="flex flex-col gap-4 max-w-lg mx-auto mt-10">
                 {flash.message && <p className="text-green-600">{flash.message}</p>}
                 <h1 className="text-4xl font-semibold">Student Edit Form</h1>
+
+                <label>Name</label>
                 <input value={data.name} onChange={e => setData('name', e.target.value)} type="text" className="border" />
                 {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
+                <label>Email</label>
                 <input value={data.email} onChange={e => setData('email', e.target.value)} type="email" className="border" />
                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
+                <label>Age</label>
                 <input value={data.age} onChange={e => setData('age', e.target.value)} type="number" className="border" />
                 {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
 
+                <label>Course</label>
                 <select value={data.course_id} onChange={e => setData('course_id', e.target.value)} className="border">
                     <option value="">Select a course</option>
                     {courses.map((course) => (

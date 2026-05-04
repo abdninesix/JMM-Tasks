@@ -1,7 +1,7 @@
-import { Head, useForm, usePage } from "@inertiajs/react";
+import { Head, router, useForm, usePage } from "@inertiajs/react";
 import React from "react";
 
-const StudentForm = ({ courses }) => {
+const StudentForm = ({ courses, students }) => {
 
     const { data, setData, post, processing, errors } = useForm({
         name: '',
@@ -17,33 +17,77 @@ const StudentForm = ({ courses }) => {
         post('/students');
     }
 
+    const handleDelete = (id) => {
+        if (confirm('Are you sure?')) {
+            router.delete(`/students/${id}`)
+        }
+    }
+
     return (
         <>
             <Head title="Student Form" />
-            <form onSubmit={submit} className="flex flex-col gap-4 max-w-lg mx-auto mt-10">
+            <div className="max-w-lg mt-10 mx-auto space-y-10">
+
                 {flash.message && <p className="text-green-600">{flash.message}</p>}
-                <h1 className="text-4xl font-semibold">Student Form</h1>
-                <input value={data.name} onChange={e => setData('name', e.target.value)} type="text" className="border" />
-                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                <h1 className="text-4xl font-semibold">Student Management</h1>
 
-                <input value={data.email} onChange={e => setData('email', e.target.value)} type="email" className="border" />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                <div className="space-y-4">
+                    <h2 className="text-2xl font-semibold">Students</h2>
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Duration</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {students.map((student) => (
+                                <tr key={student.id}>
+                                    <td>{student.name}</td>
+                                    <td>
+                                        <span>{student.email}</span>
+                                    </td>
+                                    <td className="space-x-4">
+                                        <button className="text-red-500" onClick={() => handleDelete(student.id)}>Delete</button>
+                                        <button className="text-blue-500">View</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
 
-                <input value={data.age} onChange={e => setData('age', e.target.value)} type="number" className="border" />
-                {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
+                <div className="space-y-4">
+                    <h2 className="text-2xl font-semibold">Add New Student</h2>
+                    <form onSubmit={submit} className="flex flex-col gap-4">
+                        <label>Name</label>
+                        <input value={data.name} onChange={e => setData('name', e.target.value)} type="text" className="border" />
+                        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
-                <select value={data.course_id} onChange={e => setData('course_id', e.target.value)} className="border">
-                    <option value="">Select a course</option>
-                    {courses.map((course) => (
-                        <option key={course.id} value={course.id}>{course.title}</option>
-                    ))}
-                </select>
-                {errors.course_id && <p className="text-red-500 text-sm">{errors.course_id}</p>}
+                        <label>Email</label>
+                        <input value={data.email} onChange={e => setData('email', e.target.value)} type="email" className="border" />
+                        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
-                <button type="submit" disabled={processing} className='bg-black text-white'>
-                    {processing ? "Creating" : "Create"}
-                </button>
-            </form>
+                        <label>Age</label>
+                        <input value={data.age} onChange={e => setData('age', e.target.value)} type="number" className="border" />
+                        {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
+
+                        <label>Course</label>
+                        <select value={data.course_id} onChange={e => setData('course_id', e.target.value)} className="border">
+                            <option value="">Select a course</option>
+                            {courses.map((course) => (
+                                <option key={course.id} value={course.id}>{course.title}</option>
+                            ))}
+                        </select>
+                        {errors.course_id && <p className="text-red-500 text-sm">{errors.course_id}</p>}
+
+                        <button type="submit" disabled={processing} className='bg-black text-white'>
+                            {processing ? "Creating" : "Create"}
+                        </button>
+                    </form>
+                </div>
+            </div>
         </>
     );
 };
