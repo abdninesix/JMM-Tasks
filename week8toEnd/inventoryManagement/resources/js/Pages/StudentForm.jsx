@@ -13,6 +13,15 @@ const StudentForm = ({ courses, students }) => {
 
     const { flash } = usePage().props;
 
+    const handleFilterChange = (e) => {
+        const courseId = e.target.value;
+        router.get('/students', { course_id: courseId }, {
+            preserveState: true,
+            replace: true
+        });
+    };
+
+
     const submit = (e) => {
         e.preventDefault();
         post('/students');
@@ -27,14 +36,24 @@ const StudentForm = ({ courses, students }) => {
     return (
         <>
             <Head title="Student Form" />
-            <StudentNavbar/>
+            <StudentNavbar />
             <div className="max-w-lg mt-10 mx-auto space-y-10">
 
                 {flash.message && <p className="text-green-600">{flash.message}</p>}
                 <h1 className="text-4xl font-semibold">Student Management</h1>
 
                 <div className="space-y-4">
-                    <h2 className="text-2xl font-semibold">Students</h2>
+                    <div className="flex justify-between">
+                        <h2 className="text-2xl font-semibold">Students</h2>
+                        <select onChange={handleFilterChange}>
+                            <option value="">All Courses</option>
+                            {courses.map(course => (
+                                <option key={course.id} value={course.id}>
+                                    {course.title}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                     <table className="w-full text-left">
                         <thead>
                             <tr>

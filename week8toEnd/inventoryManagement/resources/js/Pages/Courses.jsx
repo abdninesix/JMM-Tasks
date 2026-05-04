@@ -39,16 +39,16 @@ const Courses = ({ courses }) => {
                             <tr>
                                 <th>Title</th>
                                 <th>Duration</th>
+                                <th>Students</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {courses.map((course) => (
-                                <tr key={course.id}>
+                                <tr key={course.id} className={course.students.length ==0 ? "bg-yellow-100" : ""}>
                                     <td>{course.title}</td>
-                                    <td>
-                                        <span>{course.duration}</span>
-                                    </td>
+                                    <td>{course.duration}</td>
+                                    <td>{course.students.length}</td>
                                     <td>
                                         <Link href={`/courses/${course.id}`} className="text-blue-500">View</Link>
                                         <button className="text-red-500" onClick={() => handleDelete(course.id)}>Delete</button>

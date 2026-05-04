@@ -7,14 +7,19 @@ const CourseDetail = ({ course }) => {
         <>
             <Head title="Course Detail" />
             <StudentNavbar />
-            <h1>{course.title}</h1>
-            <p>Duration: {course.duration}</p>
-            <h2>Enrolled Students ({course.students.length})</h2>
-            <ul>
-                {course.students.map((student) => (
-                    <li key={student.id}>{student.name}</li>
-                ))}
-            </ul>
+            <div className="max-w-lg mt-10 mx-auto space-y-10">
+                <h1 className="text-4xl font-semibold">{course.title}</h1>
+                <p>Duration: {course.duration}</p>
+                <h2 className="text-2xl font-semibold">Enrolled Students ({course.students.length})</h2>
+                <ul>
+                    {course.students.map((student) => (
+                        <li key={student.id}>
+
+                            {student.name}&nbsp;({student.age} Years old)
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </>
     )
 }

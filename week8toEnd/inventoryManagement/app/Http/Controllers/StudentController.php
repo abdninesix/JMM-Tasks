@@ -13,19 +13,17 @@ use function Laravel\Prompts\number;
 class StudentController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('StudentForm', [
-            'students' => Student::with('course')->get(),
-            'courses' => Course::all(),
-        ]);
-    }
+        $students = Student::with('course')
+            ->when($request->course_id, function ($query, $courseId) {
+                $query->where('course_id', $courseId);
+            })
+            ->get();
 
-    public function create()
-    {
         return Inertia::render('StudentForm', [
+            'students' => $students,
             'courses' => Course::all(),
-            'students' => Student::get()
         ]);
     }
 
