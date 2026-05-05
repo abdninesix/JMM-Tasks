@@ -177,7 +177,7 @@ const Sample = () => {
                             <th>Total<p className='text-gray-500 font-normal'>/100</p></th>
                             <th>Grade</th>
                             <th>GPA</th>
-                            <th>Actions</th>
+                            <th className='text-end'>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -211,7 +211,7 @@ const Sample = () => {
                                         </span>
                                     </td>
                                     <td>{gpa}</td>
-                                    <td className='flex gap-2'>
+                                    <td className='flex justify-end gap-2'>
                                         {!isEditing && <button onClick={() => setEditRowId(s.ID)} className='text-yellow-800 cursor-pointer'><FaPen /></button>}
                                         {isEditing && <button onClick={() => setEditRowId(null)} className='text-green-500 cursor-pointer'><FaRegSave /></button>}
                                         {isEditing && <button onClick={() => setEditRowId(null)} className='text-red-500 cursor-pointer'><RxCross1 /></button>}
