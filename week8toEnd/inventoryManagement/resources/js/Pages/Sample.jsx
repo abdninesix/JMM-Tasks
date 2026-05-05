@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IoIosWarning } from "react-icons/io";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { FaPen, FaRegSave } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaPen, FaRegSave } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 
 const studentData = [
@@ -201,11 +201,11 @@ const Sample = () => {
                                     <td>
                                         <span
                                             className={`px-4 py-1 rounded-sm 
-                                            ${grade == "A" ? "bg-green-100 text-green-600" :
-                                                    grade == "B" ? "bg-blue-100" :
-                                                        grade == "C" ? "bg-yellow-100 text-yellow-600" :
-                                                            grade == "D" ? "bg-yellow-100 text-orange-600" :
-                                                                "bg-red-100 text-red-500"
+                                            ${grade == "A" ? "bg-green-50 text-green-500" :
+                                                    grade == "B" ? "bg-blue-50" :
+                                                        grade == "C" ? "bg-yellow-50 text-yellow-500" :
+                                                            grade == "D" ? "bg-yellow-50 text-orange-500" :
+                                                                "bg-red-50 text-red-500"
                                                 }`}>
                                             {grade}
                                         </span>
@@ -220,6 +220,13 @@ const Sample = () => {
                         })}
                     </tbody>
                 </table>
+
+                <div className='flex items-center justify-end gap-4'>
+                    <span>Rows per page</span>
+                    <span>1-5 of 13</span>
+                    <button><FaChevronLeft/></button>
+                    <button><FaChevronRight/></button>
+                </div>
             </div>
 
             <div className='p-4 bg-white border border-gray-200 rounded-sm space-y-4'>
