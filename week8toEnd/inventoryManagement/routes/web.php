@@ -108,3 +108,10 @@ Route::get('/courses/{course}/edit', [CourseController::class, 'edit']);
 Route::put('/courses/{course}', [CourseController::class, 'update']);
 Route::get('/courses/{course}', [CourseController::class, 'show']);
 Route::delete('/courses/{course}', [CourseController::class, 'destroy']);
+
+Route::get(
+    '/test',
+    function () {
+        return Inertia::render('Sample');
+    }
+);
