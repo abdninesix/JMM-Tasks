@@ -2,7 +2,7 @@ import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import React from 'react'
 import StudentNavbar from "../Components/StudentNavbar";
 
-const Courses = ({ courses }) => {
+const Courses = ({ courses, coursesCount }) => {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -33,7 +33,7 @@ const Courses = ({ courses }) => {
 
 
                 <div className="space-y-4">
-                    <h2 className="text-2xl font-semibold">Courses</h2>
+                    <h2 className="text-2xl font-semibold">Courses({coursesCount})</h2>
                     <table className="w-full text-left">
                         <thead>
                             <tr>
@@ -45,12 +45,13 @@ const Courses = ({ courses }) => {
                         </thead>
                         <tbody>
                             {courses.map((course) => (
-                                <tr key={course.id} className={course.students.length ==0 ? "bg-yellow-100" : ""}>
+                                <tr key={course.id} className={course.students.length == 0 ? "bg-yellow-100" : ""}>
                                     <td>{course.title}</td>
                                     <td>{course.duration}</td>
                                     <td>{course.students.length}</td>
                                     <td>
                                         <Link href={`/courses/${course.id}`} className="text-blue-500">View</Link>
+                                        <Link href={`/courses/${course.id}/edit`} className="text-green-500">Edit</Link>
                                         <button className="text-red-500" onClick={() => handleDelete(course.id)}>Delete</button>
                                     </td>
                                 </tr>

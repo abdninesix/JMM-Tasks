@@ -104,5 +104,7 @@ Route::delete('/students/{student}', [StudentController::class, 'destroy']);
 // Course routes
 Route::get('/courses', [CourseController::class, 'index']);
 Route::post('/courses', [CourseController::class, 'store']);
+Route::get('/courses/{course}/edit', [CourseController::class, 'edit']);
+Route::put('/courses/{course}', [CourseController::class, 'update']);
 Route::get('/courses/{course}', [CourseController::class, 'show']);
 Route::delete('/courses/{course}', [CourseController::class, 'destroy']);

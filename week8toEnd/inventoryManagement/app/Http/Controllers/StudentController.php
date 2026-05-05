@@ -16,6 +16,12 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $students = Student::with('course')
+            ->when($request->search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
             ->when($request->course_id, function ($query, $courseId) {
                 $query->where('course_id', $courseId);
             })
@@ -24,6 +30,7 @@ class StudentController extends Controller
         return Inertia::render('StudentForm', [
             'students' => $students,
             'courses' => Course::all(),
+            'filters' => $request->only(['course_id', 'search'])
         ]);
     }
 

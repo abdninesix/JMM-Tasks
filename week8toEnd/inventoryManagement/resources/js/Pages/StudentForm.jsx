@@ -1,8 +1,10 @@
 import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
-import React from "react";
+import React, { useState } from "react";
 import StudentNavbar from "../Components/StudentNavbar";
 
-const StudentForm = ({ courses, students }) => {
+const StudentForm = ({ courses, students, filters }) => {
+
+    const [search, setSearch] = useState(filters.search || '');
 
     const { data, setData, post, processing, errors } = useForm({
         name: '',
@@ -13,14 +15,23 @@ const StudentForm = ({ courses, students }) => {
 
     const { flash } = usePage().props;
 
-    const handleFilterChange = (e) => {
-        const courseId = e.target.value;
-        router.get('/students', { course_id: courseId }, {
+     const updateFilters = (newFilters) => {
+        router.get('/students', {
+            ...filters,
+            ...newFilters
+        }, {
             preserveState: true,
             replace: true
         });
     };
 
+    const handleSearch = () => {
+        updateFilters({ search: search });
+    };
+
+    const handleCourseChange = (e) => {
+        updateFilters({ course_id: e.target.value });
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -43,9 +54,13 @@ const StudentForm = ({ courses, students }) => {
                 <h1 className="text-4xl font-semibold">Student Management</h1>
 
                 <div className="space-y-4">
-                    <div className="flex justify-between">
+                    <div className="flex items-center justify-between">
                         <h2 className="text-2xl font-semibold">Students</h2>
-                        <select onChange={handleFilterChange}>
+                        <div>
+                            <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="Search students..." className="border" />
+                            <button type="button" onClick={handleSearch}>Search</button>
+                        </div>
+                        <select value={filters.course_id || ''} onChange={handleCourseChange}>
                             <option value="">All Courses</option>
                             {courses.map(course => (
                                 <option key={course.id} value={course.id}>
