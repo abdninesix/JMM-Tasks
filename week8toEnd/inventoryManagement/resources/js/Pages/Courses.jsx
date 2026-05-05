@@ -45,10 +45,10 @@ const Courses = ({ courses, coursesCount }) => {
                         </thead>
                         <tbody>
                             {courses.map((course) => (
-                                <tr key={course.id} className={course.students.length == 0 ? "bg-yellow-100" : ""}>
+                                <tr key={course.id} className={course.students_count == 0 ? "bg-yellow-100" : ""}>
                                     <td>{course.title}</td>
                                     <td>{course.duration}</td>
-                                    <td>{course.students.length}</td>
+                                    <td>{course.students_count}</td>
                                     <td>
                                         <Link href={`/courses/${course.id}`} className="text-blue-500">View</Link>
                                         <Link href={`/courses/${course.id}/edit`} className="text-green-500">Edit</Link>

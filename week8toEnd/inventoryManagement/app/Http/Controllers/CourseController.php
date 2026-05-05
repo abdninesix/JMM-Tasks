@@ -13,9 +13,19 @@ class CourseController extends Controller
     public function index()
     {
         return Inertia::render('Courses', [
-            'courses' => Course::with('students')->get(),
+            'courses' => Course::withCount('students')->get(),
             'coursesCount' => Course::get()->count(),
         ]);
+
+        // The N+1 problem:
+        // $courses = Course::all();
+        // foreach ($courses as $course) {
+        //     $course->students;
+        // }
+        // return Inertia::render('Courses', [
+        //     'courses' => $courses,
+        //     'coursesCount' => Course::count(),
+        // ]);
     }
 
     public function store(StoreCourseRequest $request)

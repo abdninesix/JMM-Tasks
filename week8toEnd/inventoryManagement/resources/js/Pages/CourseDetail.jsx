@@ -12,12 +12,11 @@ const CourseDetail = ({ course }) => {
                 <p>Duration: {course.duration}</p>
                 <h2 className="text-2xl font-semibold">Enrolled Students ({course.students.length})</h2>
                 <ul>
-                    {course.students.map((student) => (
+                    {course.students.length != 0 ? course.students.map((student) => (
                         <li key={student.id}>
-
                             {student.name}&nbsp;({student.age} Years old)
                         </li>
-                    ))}
+                    )) : (<p className='text-red-500'>No students enrolled in this courses</p>)}
                 </ul>
             </div>
         </>
