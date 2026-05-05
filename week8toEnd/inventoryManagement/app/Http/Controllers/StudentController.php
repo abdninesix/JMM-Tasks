@@ -25,7 +25,8 @@ class StudentController extends Controller
             ->when($request->course_id, function ($query, $courseId) {
                 $query->where('course_id', $courseId);
             })
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('StudentForm', [
             'students' => $students,

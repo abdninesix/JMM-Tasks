@@ -15,7 +15,7 @@ const StudentForm = ({ courses, students, filters }) => {
 
     const { flash } = usePage().props;
 
-     const updateFilters = (newFilters) => {
+    const updateFilters = (newFilters) => {
         router.get('/students', {
             ...filters,
             ...newFilters
@@ -48,7 +48,7 @@ const StudentForm = ({ courses, students, filters }) => {
         <>
             <Head title="Student Form" />
             <StudentNavbar />
-            <div className="max-w-lg mt-10 mx-auto space-y-10">
+            <div className="max-w-2xl mt-10 mx-auto space-y-10">
 
                 {flash.message && <p className="text-green-600">{flash.message}</p>}
                 <h1 className="text-4xl font-semibold">Student Management</h1>
@@ -80,7 +80,7 @@ const StudentForm = ({ courses, students, filters }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {students.map((student) => (
+                            {students.data.map((student) => (
                                 <tr key={student.id}>
                                     <td>{student.name}</td>
                                     <td>{student.email}</td>
@@ -94,6 +94,11 @@ const StudentForm = ({ courses, students, filters }) => {
                             ))}
                         </tbody>
                     </table>
+                    <div className="flex gap-2">
+                        {students.links.map((link, index) => (
+                            <Link key={index} href={link.url || '#'} dangerouslySetInnerHTML={{ __html: link.label }} />
+                        ))}
+                    </div>
                 </div>
 
                 <div className="space-y-4">
