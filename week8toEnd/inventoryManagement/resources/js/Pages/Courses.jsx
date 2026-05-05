@@ -2,7 +2,7 @@ import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import React from 'react'
 import StudentNavbar from "../Components/StudentNavbar";
 
-const Courses = ({ courses, coursesCount }) => {
+const Courses = ({ courses, coursesCount, filters }) => {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -22,6 +22,14 @@ const Courses = ({ courses, coursesCount }) => {
         }
     }
 
+    const handleSortChange = (e) => {
+        const sortValue = e.target.value;
+        router.get('/courses', { sort: sortValue }, {
+            preserveState: true,
+            replace: true
+        });
+    };
+
     return (
         <>
             <Head title="Courses" />
@@ -33,7 +41,14 @@ const Courses = ({ courses, coursesCount }) => {
 
 
                 <div className="space-y-4">
-                    <h2 className="text-2xl font-semibold">Courses({coursesCount})</h2>
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-2xl font-semibold">Courses({coursesCount})</h2>
+                        <select value={filters.sort || ''} onChange={handleSortChange}>
+                            <option value="">Newest First</option>
+                            <option value="max_students">Most Enrolled Students</option>
+                        </select>
+
+                    </div>
                     <table className="w-full text-left">
                         <thead>
                             <tr>

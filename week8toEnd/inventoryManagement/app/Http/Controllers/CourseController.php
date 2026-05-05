@@ -10,11 +10,20 @@ use Inertia\Inertia;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $courses = Course::withCount('students')
+            ->when($request->sort === 'max_students', function ($query) {
+                $query->orderBy('students_count', 'desc');
+            }, function ($query) {
+                $query->latest();
+            })
+            ->get();
+
         return Inertia::render('Courses', [
-            'courses' => Course::withCount('students')->get(),
+            'courses' => $courses,
             'coursesCount' => Course::get()->count(),
+            'filters' => $request->only(['sort'])
         ]);
 
         // The N+1 problem:
@@ -24,14 +33,13 @@ class CourseController extends Controller
         // }
         // return Inertia::render('Courses', [
         //     'courses' => $courses,
-        //     'coursesCount' => Course::count(),
         // ]);
     }
 
     public function store(StoreCourseRequest $request)
     {
         Course::create($request->validated());
-        return redirect()->route('courses.index')->with('message', 'Course created successfully!');
+        return redirect()->back()->with('message', 'Course created successfully!');
     }
 
     public function show(Course $course)
