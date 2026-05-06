@@ -100,6 +100,7 @@ Route::post('/students', [StudentController::class, 'store']);
 Route::get('/students/{student}/edit', [StudentController::class, 'edit']);
 Route::put('/students/{student}', [StudentController::class, 'update']);
 Route::delete('/students/{student}', [StudentController::class, 'destroy']);
+Route::post('/students/{id}/restore', [StudentController::class, 'restore']);
 
 // Course routes
 Route::get('/courses', [CourseController::class, 'index']);

@@ -16,6 +16,9 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $students = Student::with('course')
+            ->when($request->view_deleted, function ($query) {
+                $query->onlyTrashed();
+            })
             ->when($request->search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
@@ -59,5 +62,12 @@ class StudentController extends Controller
     {
         $student->delete();
         return redirect()->back()->with('message', 'Student deleted successfully!');
+    }
+
+    public function restore(string $id)
+    {
+        $student = Student::withTrashed()->findOrFail($id);
+        $student->restore();
+        return redirect()->back()->with('message', 'Student restored successfully.');
     }
 }
