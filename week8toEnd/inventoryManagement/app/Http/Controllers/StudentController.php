@@ -34,7 +34,7 @@ class StudentController extends Controller
         return Inertia::render('StudentForm', [
             'students' => $students,
             'courses' => Course::all(),
-            'filters' => $request->only(['course_id', 'search'])
+            'filters' => $request->only(['course_id', 'search', 'view_deleted'])
         ]);
     }
 

@@ -43,6 +43,17 @@ const StudentForm = ({ courses, students, filters }) => {
             router.delete(`/students/${id}`)
         }
     }
+    const handleRestore = (id) => {
+        router.post(`/students/${id}/restore`);
+    };
+
+    const toggleDeleted = () => {
+        const isViewingDeleted = filters.view_deleted === '1';
+        router.get('/students', { ...filters, view_deleted: isViewingDeleted ? null : '1', }, {
+            preserveState: true,
+            replace: true,
+        });
+    };
 
     return (
         <>
@@ -68,6 +79,7 @@ const StudentForm = ({ courses, students, filters }) => {
                                 </option>
                             ))}
                         </select>
+                        <button onClick={toggleDeleted}>{filters.view_deleted === "1" ? 'View Active' : 'View Deleted'}</button>
                     </div>
                     <table className="w-full text-left">
                         <thead>
@@ -88,7 +100,10 @@ const StudentForm = ({ courses, students, filters }) => {
                                     <td>{student.course.duration}</td>
                                     <td>
                                         <Link href={`/students/${student.id}/edit`} className="text-green-500">Edit</Link>
-                                        <button className="text-red-500" onClick={() => handleDelete(student.id)}>Delete</button>
+                                        {student.deleted_at
+                                            ? <button className="text-yellow-500" onClick={() => handleRestore(student.id)}>Restore</button>
+                                            : <button className="text-red-500" onClick={() => handleDelete(student.id)}>Delete</button>
+                                        }
                                     </td>
                                 </tr>
                             ))}
