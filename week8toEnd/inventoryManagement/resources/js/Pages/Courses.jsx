@@ -39,11 +39,10 @@ const Courses = ({ courses, coursesCount, filters }) => {
                 {flash.message && (<p className="text-green-600">{flash.message}</p>)}
                 <h1 className="text-4xl font-semibold">Course Management</h1>
 
-
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                         <h2 className="text-2xl font-semibold">Courses({coursesCount})</h2>
-                        <select value={filters.sort || ''} onChange={handleSortChange}>
+                        <select value={typeof filters.sort === 'string' ? filters.sort : ''} onChange={handleSortChange}>
                             <option value="">Newest First</option>
                             <option value="max_students">Most Enrolled Students</option>
                         </select>
