@@ -58,9 +58,8 @@ class StudentController extends Controller
         return response()->json(['message' => 'Student deleted (soft delete)']);
     }
 
-    public function restore($id)
+    public function restore(Student $student)
     {
-        $student = Student::withTrashed()->findOrFail($id);
         $student->restore();
         return response()->json(['message' => 'Student restored successfully']);
     }
