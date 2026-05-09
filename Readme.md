@@ -61,6 +61,14 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - Context APIs to avoid prop drilling
 - Fetching GraphQL based data from backend using apollo/client
 - Preparing the final payload object for backend
+- Learning Laravel fundamentals and ecosystem
+- Laravel project setup and database configuration
+- Integrating MySQL and PostgreSQL databases with Laravel
+- Working with blade views and Laravel routes
+- Integrating pre built bootstraped pages into Laravel applications
+- Working with eloquent, models, controllers, requests and services
+- Authentication and API protection using auth sanctum
+- Filtering, pagination, queries and search implementation in Laravel
 - 
 - 
 *(More will be added)*
@@ -68,4 +76,4 @@ I started my professional journey as a Frontend Developer where I worked on buil
 ---
 
 ## Final Remarks
-This internship laid a strong foundation for my career as a frontend developer and gave me hands-on experience with real-world projects, professional coding standards, and teamwork in a full-stack environment.
+This internship laid a strong foundation for my career as a full-stack developer and gave me hands-on experience with real-world projects, professional coding standards, and teamwork in a full-stack environment.
