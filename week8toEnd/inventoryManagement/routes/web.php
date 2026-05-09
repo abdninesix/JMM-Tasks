@@ -116,3 +116,8 @@ Route::get(
         return Inertia::render('Sample');
     }
 );
+
+
+Route::get('/integrate', function () {
+    return view('components.content');
+});
