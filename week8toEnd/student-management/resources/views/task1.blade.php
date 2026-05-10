@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 p-10">
 
     <div class="max-w-6xl mx-auto">
@@ -29,41 +31,45 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @foreach($students as $student)
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="py-4 px-6">
-                            <span class="font-medium">{{ $student['roll_no'] }}</span>
-                            <span class="text-xs block text-gray-400">{{ $student['roll_type'] }}</span>
-                        </td>
-                        <td class="py-4 px-6 font-medium text-gray-700">{{ $student['name'] }}</td>
-                        <td class="py-4 px-6">{{ $student['marks'] }}%</td>
-                        <td class="py-4 px-6">
-                            <span class="{{ $student['attendance_warning'] ? 'text-red-600 font-bold' : 'text-gray-600' }}">
-                                {{ $student['attendance'] }}%
-                            </span>
-                        </td>
-                        <td class="py-4 px-6">
-                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
-                                {{ $student['grade'] }}
-                            </span>
-                        </td>
-                        <td class="py-4 px-6">
-                                <span class="font-semibold {{ $student['status']=='Pass' ? 'text-green-600' : 'text-red-600' }}">{{ $student['status'] }}</span>
-                        </td>
-                        <td class="py-4 px-6">
-                            <span class="text-sm {{ $student['scholarship'] == 'Eligible' ? 'text-purple-600 font-bold' : 'text-gray-400' }}">
-                                {{ $student['scholarship'] }}
-                            </span>
-                        </td>
-                    </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-4 px-6">
+                                <span class="font-medium">{{ $student['roll_no'] }}</span>
+                                <span class="text-xs block text-gray-400">{{ $student['roll_type'] }}</span>
+                            </td>
+                            <td class="py-4 px-6 font-medium text-gray-700">{{ $student['name'] }}</td>
+                            <td class="py-4 px-6">{{ $student['marks'] }}%</td>
+                            <td class="py-4 px-6">
+                                <span
+                                    class="{{ $student['attendance_warning'] ? 'text-red-600 font-bold' : 'text-gray-600' }}">
+                                    {{ $student['attendance'] }}%
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+                                    {{ $student['grade'] }}
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span
+                                    class="font-semibold {{ $student['status'] == 'Pass' ? 'text-green-600' : 'text-red-600' }}">{{ $student['status'] }}</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <span
+                                    class="text-sm {{ $student['scholarship'] == 'Eligible' ? 'text-purple-600 font-bold' : 'text-gray-400' }}">
+                                    {{ $student['scholarship'] }}
+                                </span>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
 
         <footer class="mt-10 text-center text-gray-500 text-sm">
-            <p>Task 1 (Conditionals) & Task 4 (Arrays) Completed</p>
+            <p>Task 1</p>
         </footer>
     </div>
 
 </body>
+
 </html>

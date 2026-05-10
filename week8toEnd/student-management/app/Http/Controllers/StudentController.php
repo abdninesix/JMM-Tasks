@@ -8,7 +8,7 @@ class StudentController extends Controller
 {
     public function task1()
     {
-        // multidimensional arrays
+        // multidimensional array
         $students = [
             ['id' => 1, 'name' => 'John Doe', 'marks' => 85, 'attendance' => 80, 'roll_no' => 101],
             ['id' => 2, 'name' => 'Jane Smith', 'marks' => 35, 'attendance' => 90, 'roll_no' => 102],
@@ -50,38 +50,34 @@ class StudentController extends Controller
 
     public function task2()
     {
-        // Task 4: Multidimensional Array
+        // multidimensional array
         $students = [
-            ['id' => 1, 'name' => 'john doe', 'marks' => 85, 'attendance' => 80, 'roll_no' => 101],
-            ['id' => 2, 'name' => 'jane smith', 'marks' => 35, 'attendance' => 90, 'roll_no' => 102],
+            ['id' => 1, 'name' => 'joHn doe', 'marks' => 85, 'attendance' => 80, 'roll_no' => 101],
+            ['id' => 2, 'name' => 'jAne smith', 'marks' => 35, 'attendance' => 90, 'roll_no' => 102],
             ['id' => 3, 'name' => 'mike ross', 'marks' => 92, 'attendance' => 95, 'roll_no' => 103],
-            ['id' => 4, 'name' => 'rachel zane', 'marks' => 74, 'attendance' => 60, 'roll_no' => 104],
-            ['id' => 5, 'name' => 'harvey specter', 'marks' => 45, 'attendance' => 70, 'roll_no' => 105],
+            ['id' => 4, 'name' => 'raChel zaNe', 'marks' => 74, 'attendance' => 60, 'roll_no' => 104],
+            ['id' => 5, 'name' => 'harVey spEcter', 'marks' => 45, 'attendance' => 70, 'roll_no' => 105],
         ];
 
-        // Task 2.4: Products Array for practicing loops
+        // pProducts array for practicing loops
         $products = ['Laptop', 'Mouse', 'Keyboard', 'Monitor', 'Webcam'];
 
         $processedStudents = [];
-        $totalMarksSum = 0; // Task 2.3
-
+        $totalMarksSum = 0;
+        // using reusable functions
         foreach ($students as $student) {
-            // Task 3: Using Reusable Functions
             $student['name'] = $this->formatName($student['name']);
             $student['grade'] = $this->calculateGrade($student['marks']);
             $student['status'] = $this->checkStatus($student['marks']);
-            $student['scholarship'] = $this->isEligibleForScholarship($student['grade'], $student['attendance']);
+            $student['scholarship'] = $this->scholarshipEligibilty($student['grade'], $student['attendance']);
             $student['attendance_warning'] = ($student['attendance'] < 75);
             $student['roll_type'] = ($student['roll_no'] % 2 == 0) ? 'Even' : 'Odd';
-
-            // Task 3 Exercise: Username generation (Task 5 handling)
             $student['username'] = $this->generateUsername($student['name'], $student['roll_no']);
-
             $totalMarksSum += $student['marks'];
             $processedStudents[] = $student;
         }
 
-        // Task 2.2: Print multiplication table (using for loop)
+        // multiplication table using for loop
         $multiplicationNumber = 5;
         $table = [];
         for ($i = 1; $i <= 10; $i++) {
@@ -93,12 +89,11 @@ class StudentController extends Controller
             'products' => $products,
             'table' => $table,
             'total_marks' => $totalMarksSum,
-            'student_count' => count($processedStudents) // Task 2.5
+            'student_count' => count($processedStudents)
         ]);
     }
 
-    // --- Task 3: Reusable Functions ---
-
+    // reusable functions
     private function calculateGrade(int $marks)
     {
         if ($marks >= 90)
@@ -117,19 +112,18 @@ class StudentController extends Controller
         return ($marks >= 40) ? 'Pass' : 'Fail';
     }
 
-    private function isEligibleForScholarship(string $grade, int $attendance)
+    private function scholarshipEligibilty(string $grade, int $attendance)
     {
         return ($grade == 'A+' && $attendance >= 90) ? 'Eligible' : 'Not Eligible';
     }
 
     private function formatName(string $name)
     {
-        return ucwords(strtolower($name)); // Task 5 Handling
+        return ucwords(strtolower($name));
     }
 
     private function generateUsername(string $name, int $roll)
     {
-        // Task 5 & Task 3 Exercise
         return strtolower(explode(' ', $name)[0]) . $roll;
     }
 }
