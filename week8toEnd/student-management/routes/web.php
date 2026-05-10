@@ -3,9 +3,12 @@
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
-Route::get('/', [StudentController::class, 'index']);
+Route::get('task1', [StudentController::class, 'task1']);
+Route::get('task2', [StudentController::class, 'task2']);
+Route::get('task3', [StudentController::class, 'task3']);
+Route::get('task4', [StudentController::class, 'task4']);
