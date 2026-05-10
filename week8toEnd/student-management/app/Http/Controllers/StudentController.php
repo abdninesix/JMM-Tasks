@@ -95,25 +95,57 @@ class StudentController extends Controller
 
     public function task3()
     {
-        // 1. Greeting Message Logic
+        // greeting message
         $user = "Abdullah";
         $greeting = $this->getGreeting($user);
 
-        // 2. Square Calculation Exercise
+        // square of a number
         $numberToSquare = 8;
         $squareResult = $this->calculateSquare($numberToSquare);
 
-        // 3. BMI Calculator Exercise (Weight in kg, Height in meters)
+        // bmi calculation
         $bmiResult = $this->calculateBMI(70, 1.75);
 
-        // 4. Currency Formatting
+        // currency formatter
         $fees = 1500.50;
         $formattedFees = $this->formatCurrency($fees);
 
-        // 5. Attendance Calculation (Present days / Total days * 100)
+        // attendance percentage calculation
         $attendancePercent = $this->calculateAttendance(18, 22);
 
         return view('task3', [
+            'greeting' => $greeting,
+            'square' => [
+                'num' => $numberToSquare,
+                'result' => $squareResult
+            ],
+            'bmi' => $bmiResult,
+            'currency' => $formattedFees,
+            'attendance' => $attendancePercent
+        ]);
+    }
+
+    public function task4()
+    {
+        // greeting message
+        $user = "Abdullah";
+        $greeting = $this->getGreeting($user);
+
+        // square of a number
+        $numberToSquare = 8;
+        $squareResult = $this->calculateSquare($numberToSquare);
+
+        // bmi calculation
+        $bmiResult = $this->calculateBMI(70, 1.75);
+
+        // currency formatter
+        $fees = 1500.5;
+        $formattedFees = $this->formatCurrency($fees);
+
+        // attendance percentage calculation
+        $attendancePercent = $this->calculateAttendance(18, 22);
+
+        return view('task4', [
             'greeting' => $greeting,
             'square' => [
                 'num' => $numberToSquare,
@@ -160,7 +192,7 @@ class StudentController extends Controller
         return strtolower(explode(' ', $name)[0]) . $roll;
     }
 
-    private function getGreeting($name)
+    private function getGreeting(string $name)
     {
         $hour = date('H');
         if ($hour < 12)
@@ -170,17 +202,14 @@ class StudentController extends Controller
         return "Good Evening, $name!";
     }
 
-    private function calculateSquare($n)
+    private function calculateSquare(int $n)
     {
         return $n * $n;
     }
 
-    private function calculateBMI($weight, $height)
+    private function calculateBMI(float $weight, float $height)
     {
-        // Formula: weight (kg) / [height (m)]^2
         $bmi = $weight / ($height * $height);
-
-        // Determine category
         if ($bmi < 18.5)
             $category = "Underweight";
         elseif ($bmi < 25)
@@ -189,19 +218,18 @@ class StudentController extends Controller
             $category = "Overweight";
         else
             $category = "Obese";
-
         return [
             'value' => number_format($bmi, 1),
             'category' => $category
         ];
     }
 
-    private function formatCurrency($amount)
+    private function formatCurrency(float $amount)
     {
         return "$" . number_format($amount, 2);
     }
 
-    private function calculateAttendance($present, $total)
+    private function calculateAttendance(int $present, int $total)
     {
         return ($present / $total) * 100;
     }

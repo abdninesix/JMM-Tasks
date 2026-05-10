@@ -9,6 +9,8 @@
 </head>
 
 <body class="bg-gray-100 p-10">
+     @include('partials.header')
+
     <div class="max-w-6xl mx-auto">
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

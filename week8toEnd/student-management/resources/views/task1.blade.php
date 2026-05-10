@@ -11,10 +11,7 @@
 <body class="bg-gray-100 p-10">
 
     <div class="max-w-6xl mx-auto">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-gray-800">Student Result Dashboard</h1>
-            <p class="text-gray-600">Laravel Internship Weekly Task</p>
-        </header>
+        @include('partials.header')
 
         <div class="bg-white shadow-md rounded-lg overflow-auto">
             <table class="w-full text-left border-collapse min-w-full">
