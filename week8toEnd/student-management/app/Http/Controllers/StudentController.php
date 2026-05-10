@@ -93,6 +93,39 @@ class StudentController extends Controller
         ]);
     }
 
+    public function task3()
+    {
+        // 1. Greeting Message Logic
+        $user = "Abdullah";
+        $greeting = $this->getGreeting($user);
+
+        // 2. Square Calculation Exercise
+        $numberToSquare = 8;
+        $squareResult = $this->calculateSquare($numberToSquare);
+
+        // 3. BMI Calculator Exercise (Weight in kg, Height in meters)
+        $bmiResult = $this->calculateBMI(70, 1.75);
+
+        // 4. Currency Formatting
+        $fees = 1500.50;
+        $formattedFees = $this->formatCurrency($fees);
+
+        // 5. Attendance Calculation (Present days / Total days * 100)
+        $attendancePercent = $this->calculateAttendance(18, 22);
+
+        return view('task3', [
+            'greeting' => $greeting,
+            'square' => [
+                'num' => $numberToSquare,
+                'result' => $squareResult
+            ],
+            'bmi' => $bmiResult,
+            'currency' => $formattedFees,
+            'attendance' => $attendancePercent
+        ]);
+    }
+
+
     // reusable functions
     private function calculateGrade(int $marks)
     {
@@ -125,5 +158,51 @@ class StudentController extends Controller
     private function generateUsername(string $name, int $roll)
     {
         return strtolower(explode(' ', $name)[0]) . $roll;
+    }
+
+    private function getGreeting($name)
+    {
+        $hour = date('H');
+        if ($hour < 12)
+            return "Good Morning, $name!";
+        if ($hour < 17)
+            return "Good Afternoon, $name!";
+        return "Good Evening, $name!";
+    }
+
+    private function calculateSquare($n)
+    {
+        return $n * $n;
+    }
+
+    private function calculateBMI($weight, $height)
+    {
+        // Formula: weight (kg) / [height (m)]^2
+        $bmi = $weight / ($height * $height);
+
+        // Determine category
+        if ($bmi < 18.5)
+            $category = "Underweight";
+        elseif ($bmi < 25)
+            $category = "Normal";
+        elseif ($bmi < 30)
+            $category = "Overweight";
+        else
+            $category = "Obese";
+
+        return [
+            'value' => number_format($bmi, 1),
+            'category' => $category
+        ];
+    }
+
+    private function formatCurrency($amount)
+    {
+        return "$" . number_format($amount, 2);
+    }
+
+    private function calculateAttendance($present, $total)
+    {
+        return ($present / $total) * 100;
     }
 }

@@ -65,8 +65,9 @@
             </table>
         </div>
 
-        <footer class="mt-10 text-center text-gray-500 text-sm">
-            <p>Task 1</p>
+        <footer class="mt-10 text-center">
+            <span class="text-gray-300">|</span>
+            <a href="/task2" class="text-blue-500 hover:underline mr-4">Proceed to Task 2 →</a>
         </footer>
     </div>
 
