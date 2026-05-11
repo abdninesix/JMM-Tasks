@@ -19,7 +19,7 @@
                 <p class="text-2xl font-bold text-green-600">{{ $stats['high_attendance'] }}</p>
             </div>
             <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-                <p class="text-xs font-bold text-gray-400 uppercase">Top Scorer</p>
+                <p class="text-xs font-bold text-gray-400 uppercase">Topper</p>
                 <p class="text-sm font-bold text-gray-800 truncate">{{ $stats['topper']->name ?? 'N/A' }}</p>
                 <p class="text-xs text-purple-600 font-bold italic">{{ $stats['topper']->marks ?? 0 }}% - Grade
                     {{ $stats['topper']->grade ?? 'N/A' }}</p>
@@ -36,19 +36,19 @@
             @endif
         </form>
 
-        <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
-            <table class="w-full text-left border-collapse">
-                <thead class="bg-gray-50 border-b border-gray-200">
+        <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-auto">
+             <table class="w-full text-left border-collapse min-w-full">
+                <thead class="bg-gray-800 text-white">
                     <tr>
-                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Student Info</th>
-                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Marks</th>
-                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Attendance</th>
-                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Grade</th>
-                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Status</th>
-                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase">Scholarship</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Student Info</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Marks</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Attendance</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Grade</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Status</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Scholarship</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="divide-y divide-gray-200">
                     @forelse($students as $student)
                         <tr class="hover:bg-gray-50 transition-colors">
                             <td class="px-6 py-4">
@@ -74,20 +74,12 @@
                             <td class="px-6 py-4">
                                 <span
                                     class="px-2.5 py-0.5 rounded-full text-xs font-bold border 
-                                    {{ $student->grade == 'A+' ? 'bg-purple-50 border-purple-200 text-purple-700' : 'bg-blue-50 border-blue-200 text-blue-700' }}">
+                                    {{ $student->grade == 'A+' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-blue-50 border-blue-200 text-blue-700' }}">
                                     {{ $student->grade }}
                                 </span>
                             </td>
                             <td class="px-6 py-4">
-                                @if($student->status == 'Pass')
-                                    <span class="text-green-600 text-sm font-bold flex items-center gap-1">
-                                        Passed
-                                    </span>
-                                @else
-                                    <span class="text-red-600 text-sm font-bold flex items-center gap-1">
-                                        Failed
-                                    </span>
-                                @endif
+                               <span class="font-semibold {{ $student['status'] == 'Pass' ? 'text-green-600' : 'text-red-600' }}">{{ $student['status'] }}</span>
                             </td>
                             <td
                                 class="px-6 py-4 text-xs font-bold {{ $student->scholarship == 'Eligible' ? 'text-purple-600' : 'text-gray-300' }}">
