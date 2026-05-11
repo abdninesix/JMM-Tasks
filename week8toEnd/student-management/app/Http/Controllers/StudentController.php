@@ -178,6 +178,11 @@ class StudentController extends Controller
         ]);
     }
 
+    public function task5()
+    {
+        return view('task5');
+    }
+
     // reusable functions
     private function calculateGrade(int $marks)
     {

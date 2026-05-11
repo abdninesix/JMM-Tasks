@@ -11,9 +11,8 @@
 <body class="bg-gray-50 p-10">
 
     <div class="max-w-6xl mx-auto">
-       @include('partials.header')
+        @include('partials.header')
 
-        <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="bg-blue-600 text-white p-4 rounded-lg shadow">
                 <p class="text-xs uppercase opacity-80">Class Topper</p>
@@ -29,38 +28,32 @@
             </div>
         </div>
 
-        <!-- Search Form -->
         <form action="/task4" method="GET" class="mb-8 flex gap-2">
             <input type="text" name="search" value="{{ $searchTerm }}" placeholder="Search student by name..."
-                class="flex-1 p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                class="flex-1 p-1 border rounded shadow-sm focus:ring-2 focus:ring-blue-500 outline-none">
             <button type="submit"
-                class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition">Search</button>
+                class="bg-gray-800 text-white px-2 py-1 rounded hover:bg-gray-700 font-semibold">Search</button>
             @if($searchTerm)
-                <a href="/task4" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300">Clear</a>
+                <a href="/task4"
+                    class="bg-gray-200 text-gray-700 px-2 py-1 rounded hover:bg-gray-300 font-semibold">Clear</a>
             @endif
         </form>
 
-        <!-- Results Table -->
         <div class="bg-white rounded-lg shadow overflow-hidden">
-            <table class="w-full text-left">
-                <thead class="bg-gray-100 border-b">
+            <table class="w-full text-left border-collapse min-w-full">
+                <thead class="bg-gray-800 text-white">
                     <tr>
-                        <th class="p-4 font-bold text-gray-600">ID</th>
-                        <th class="p-4 font-bold text-gray-600">Student Name</th>
-                        <th class="p-4 font-bold text-gray-600">Marks</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">ID</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Student Name</th>
+                        <th class="py-4 px-6 font-semibold uppercase text-sm">Marks</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($searchResults as $index => $student)
-                        <tr class="border-b hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 transition-colors">
                             <td class="p-4">{{ $student['id'] }}</td>
                             <td class="p-4 font-medium">{{ $student['name'] }}</td>
-                            <td class="p-4">
-                                <div class="w-full bg-gray-200 rounded-full h-2 w-32">
-                                    <div class="bg-blue-500 h-2 rounded-full" style="width: {{ $student['marks'] }}%"></div>
-                                </div>
-                                <span class="text-xs text-gray-500">{{ $student['marks'] }}%</span>
-                            </td>
+                            <td class="py-4 px-6">{{ $student['marks'] }}%</td>
                         </tr>
                     @empty
                         <tr>
