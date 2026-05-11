@@ -44,11 +44,10 @@
 
         </div>
 
-        <div class="mt-10 text-center">
-            <a href="/task2" class="text-blue-500 hover:underline mr-4">← Back to Task 2</a>
-            <span class="text-gray-300">|</span>
-            <a href="/task4" class="text-blue-500 hover:underline mr-4">Proceed to Task 4 →</a>
-        </div>
+        <footer class="mt-12 text-center space-x-4">
+            <a href="/task2" class="text-slate-400 hover:text-slate-600 text-sm">Back to Task 2</a>
+            <a href="/task4" class="text-slate-400 hover:text-slate-600 text-sm">Proceed to Task 3</a>
+        </footer>
     </div>
 
 </body>

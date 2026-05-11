@@ -30,7 +30,7 @@
 
         <form action="/task4" method="GET" class="mb-8 flex gap-2">
             <input type="text" name="search" value="{{ $searchTerm }}" placeholder="Search student by name..."
-                class="flex-1 p-1 border rounded shadow-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                class="flex-1 p-1 border rounded shadow-sm focus:ring-2 focus:ring-gray-500 outline-none">
             <button type="submit"
                 class="bg-gray-800 text-white px-2 py-1 rounded hover:bg-gray-700 font-semibold">Search</button>
             @if($searchTerm)
@@ -64,6 +64,11 @@
                 </tbody>
             </table>
         </div>
+
+        <footer class="mt-12 text-center space-x-4">
+            <a href="/task3" class="text-slate-400 hover:text-slate-600 text-sm">Back to Task 3</a>
+            <a href="/task5" class="text-slate-400 hover:text-slate-600 text-sm">Proceed to Task 5</a>
+        </footer>
     </div>
 
 </body>

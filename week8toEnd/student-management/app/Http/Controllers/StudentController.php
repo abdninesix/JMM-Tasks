@@ -41,7 +41,7 @@ class StudentController extends Controller
             }
             // attendance below 75%
             $student['attendance_warning'] = ($student['attendance'] < 75) ? 'Low Attendance' : '';
-            // roll number is even or odd
+            // roll number even odd
             $student['roll_type'] = ($student['roll_no'] % 2 == 0) ? 'Even' : 'Odd';
             $processedStudents[] = $student;
         }
@@ -130,9 +130,9 @@ class StudentController extends Controller
         // students with duplicates
         $students = [
             ['id' => 1, 'name' => 'John Doe', 'marks' => 85],
-            ['id' => 2, 'name' => 'Jane Smith', 'marks' => 95],
+            ['id' => 2, 'name' => 'Jane Smith', 'marks' => 90],
             ['id' => 3, 'name' => 'Mike Ross', 'marks' => 92],
-            ['id' => 4, 'name' => 'John Doe', 'marks' => 85], // Duplicate
+            ['id' => 4, 'name' => 'John Doe', 'marks' => 85],
             ['id' => 5, 'name' => 'Rachel Zane', 'marks' => 74],
             ['id' => 6, 'name' => 'Harvey Specter', 'marks' => 88],
             ['id' => 7, 'name' => 'Harvey Specter', 'marks' => 88],
@@ -180,7 +180,33 @@ class StudentController extends Controller
 
     public function task5()
     {
-        return view('task5');
+        $rawName = "jOHN dOE";
+        $formattedName = ucwords(strtolower($rawName));
+
+        $blogTitle = "How to Learn Laravel 11 in One Week";
+        $slug = strtolower(str_replace(' ', '-', $blogTitle));
+
+        $fullName = "Harvey Specter";
+        $parts = explode(' ', $fullName);
+        $username = strtolower($parts[0]) . rand(10, 99);
+
+        $skillsArray = ['PHP', 'Laravel', 'Tailwind', 'MySQL'];
+        $skillsString = implode(' • ', $skillsArray);
+
+        $bio = "Passionate Laravel developer building awesome web applications.";
+        $charCount = strlen($bio);
+
+        $longDescription = "Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks.";
+        $shortDescription = substr($longDescription, 0, 50) . "...";
+
+        return view('task5', [
+            'name' => ['raw' => $rawName, 'clean' => $formattedName],
+            'slug' => ['title' => $blogTitle, 'slug' => $slug],
+            'user' => ['full' => $fullName, 'username' => $username],
+            'skills' => $skillsString,
+            'bio' => ['text' => $bio, 'count' => $charCount],
+            'description' => ['long' => $longDescription, 'short' => $shortDescription],
+        ]);
     }
 
     // reusable functions

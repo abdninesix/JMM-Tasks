@@ -86,10 +86,9 @@
             </div>
         </div>
 
-        <footer class="mt-10 text-center">
-            <a href="/task1" class="text-blue-500 hover:underline mr-4">← Back to Task 1</a>
-            <span class="text-gray-300">|</span>
-            <a href="/task3" class="text-blue-500 hover:underline mr-4">Proceed to Task 3 →</a>
+        <footer class="mt-12 text-center space-x-4">
+            <a href="/task1" class="text-slate-400 hover:text-slate-600 text-sm">Back to Task 1</a>
+            <a href="/task3" class="text-slate-400 hover:text-slate-600 text-sm">Proceed to Task 3</a>
         </footer>
     </div>
 </body>
