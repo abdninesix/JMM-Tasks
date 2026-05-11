@@ -125,9 +125,57 @@ class StudentController extends Controller
         ]);
     }
 
-    public function task4()
+    public function task4(Request $request)
     {
-        return view('task4');
+        // students with duplicates
+        $students = [
+            ['id' => 1, 'name' => 'John Doe', 'marks' => 85],
+            ['id' => 2, 'name' => 'Jane Smith', 'marks' => 95],
+            ['id' => 3, 'name' => 'Mike Ross', 'marks' => 92],
+            ['id' => 4, 'name' => 'John Doe', 'marks' => 85], // Duplicate
+            ['id' => 5, 'name' => 'Rachel Zane', 'marks' => 74],
+            ['id' => 6, 'name' => 'Harvey Specter', 'marks' => 88],
+            ['id' => 7, 'name' => 'Harvey Specter', 'marks' => 88],
+        ];
+
+        // remove duplicates
+        $uniqueStudents = [];
+        $namesSeen = [];
+        foreach ($students as $student) {
+            if (!in_array($student['name'], $namesSeen)) {
+                $uniqueStudents[] = $student;
+                $namesSeen[] = $student['name'];
+            }
+        }
+
+        $totalCount = count($uniqueStudents);
+
+        // sort by marks
+        $sortedStudents = $uniqueStudents;
+        usort($sortedStudents, function ($a, $b) {
+            return $b['marks'] <=> $a['marks'];
+        });
+
+        // select topper
+        $topper = $sortedStudents[0];
+
+        // search
+        $searchTerm = $request->query('search');
+        $searchResults = $uniqueStudents;
+        if ($searchTerm) {
+            $searchResults = array_filter($uniqueStudents, function ($student) use ($searchTerm) {
+                return str_contains(strtolower($student['name']), strtolower($searchTerm));
+            });
+        }
+
+        return view('task4', [
+            'originalCount' => count($students),
+            'students' => $sortedStudents,
+            'topper' => $topper,
+            'total' => $totalCount,
+            'searchResults' => $searchResults,
+            'searchTerm' => $searchTerm
+        ]);
     }
 
     // reusable functions
