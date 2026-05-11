@@ -10,10 +10,10 @@
 
 <body class="bg-gray-100 p-10">
 
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-6xl mx-auto">
         @include('partials.header')
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 
             <div class="bg-white p-6 rounded-xl shadow-md">
                 <h3 class="text-blue-500 font-bold uppercase text-xs mb-2">Math: Square Function</h3>

@@ -127,36 +127,8 @@ class StudentController extends Controller
 
     public function task4()
     {
-        // greeting message
-        $user = "Abdullah";
-        $greeting = $this->getGreeting($user);
-
-        // square of a number
-        $numberToSquare = 8;
-        $squareResult = $this->calculateSquare($numberToSquare);
-
-        // bmi calculation
-        $bmiResult = $this->calculateBMI(70, 1.75);
-
-        // currency formatter
-        $fees = 1500.5;
-        $formattedFees = $this->formatCurrency($fees);
-
-        // attendance percentage calculation
-        $attendancePercent = $this->calculateAttendance(18, 22);
-
-        return view('task4', [
-            'greeting' => $greeting,
-            'square' => [
-                'num' => $numberToSquare,
-                'result' => $squareResult
-            ],
-            'bmi' => $bmiResult,
-            'currency' => $formattedFees,
-            'attendance' => $attendancePercent
-        ]);
+        return view('task4');
     }
-
 
     // reusable functions
     private function calculateGrade(int $marks)

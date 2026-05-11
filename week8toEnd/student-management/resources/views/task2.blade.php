@@ -9,9 +9,9 @@
 </head>
 
 <body class="bg-gray-100 p-10">
-     @include('partials.header')
 
     <div class="max-w-6xl mx-auto">
+        @include('partials.header')
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -77,7 +77,7 @@
             </div>
 
             <div class="bg-white p-6 shadow-md rounded-lg">
-                <h3 class="font-bold text-gray-700 mb-4 border-b pb-2">Stationary Inventory (Foreach Loop)</h3>
+                <h3 class="font-bold text-gray-700 mb-4 border-b pb-2">Product Inventory (Foreach Loop)</h3>
                 <div class="flex flex-col gap-1">
                     @foreach($products as $item)
                         <span class="text-gray-700 text-sm">{{ $item }}</span>
