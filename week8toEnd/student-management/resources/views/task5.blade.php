@@ -23,8 +23,8 @@
             <div class="mt-4">
                 <p class="text-sm text-slate-600 mb-1 line-clamp-1">{{ $slug['title'] }}</p>
                 <code class="text-xs bg-blue-50 text-blue-700 p-2 rounded block border border-blue-100 hover:underline">
-                            /blog/{{ $slug['slug'] }}
-                        </code>
+                    /blog/{{ $slug['slug'] }}
+                    </code>
             </div>
         </div>
 
