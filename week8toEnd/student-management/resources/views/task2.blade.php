@@ -67,7 +67,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-            <div class="bg-white p-6 shadow-md rounded-lg">
+            <div class="h-fit bg-white p-6 shadow-md rounded-lg">
                 <h3 class="font-bold text-gray-700 mb-4 border-b pb-2">Multiplication Table (For Loop)</h3>
                 <ul class="space-y-1 text-gray-600 font-mono">
                     @foreach($table as $row)
@@ -76,7 +76,7 @@
                 </ul>
             </div>
 
-            <div class="bg-white p-6 shadow-md rounded-lg">
+            <div class="h-fit bg-white p-6 shadow-md rounded-lg">
                 <h3 class="font-bold text-gray-700 mb-4 border-b pb-2">Product Inventory (Foreach Loop)</h3>
                 <div class="flex flex-col gap-1">
                     @foreach($products as $item)
