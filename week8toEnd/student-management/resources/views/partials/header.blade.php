@@ -6,5 +6,6 @@
         <a href="/task3">Task3</a>
         <a href="/task4">Task4</a>
         <a href="/task5">Task5</a>
+        <a href="/dashboard">Dashboard</a>
     </div>
 </header>
