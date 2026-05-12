@@ -38,4 +38,7 @@ This project is divided into 5 learning tasks and a final capstone dashboard:
 
 ## Installation & Setup
 
-1.  **Clone the repository
+1.  Clone the repository
+2.  Setup the database for MySQL
+3.  Run migrations
+4.  Run command "php artisan serve"
