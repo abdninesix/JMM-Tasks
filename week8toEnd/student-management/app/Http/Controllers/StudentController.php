@@ -10,11 +10,16 @@ class StudentController extends Controller
     {
         // multidimensional array
         $students = [
-            ['id' => 1, 'name' => 'John Doe', 'marks' => 85, 'attendance' => 80, 'roll_no' => 101],
-            ['id' => 2, 'name' => 'Jane Smith', 'marks' => 35, 'attendance' => 90, 'roll_no' => 102],
-            ['id' => 3, 'name' => 'Mike Ross', 'marks' => 92, 'attendance' => 95, 'roll_no' => 103],
-            ['id' => 4, 'name' => 'Rachel Zane', 'marks' => 74, 'attendance' => 60, 'roll_no' => 104],
-            ['id' => 5, 'name' => 'Harvey Specter', 'marks' => 45, 'attendance' => 70, 'roll_no' => 105],
+            ['id' => 1, 'name' => 'Ali Raza', 'marks' => 85, 'attendance' => 80, 'roll_no' => 101],
+            ['id' => 2, 'name' => 'Ayesha Khan', 'marks' => 35, 'attendance' => 90, 'roll_no' => 102],
+            ['id' => 3, 'name' => 'Ahmed Hassan', 'marks' => 92, 'attendance' => 95, 'roll_no' => 103],
+            ['id' => 4, 'name' => 'Fatima Noor', 'marks' => 74, 'attendance' => 60, 'roll_no' => 104],
+            ['id' => 5, 'name' => 'Bilal Sheikh', 'marks' => 45, 'attendance' => 70, 'roll_no' => 105],
+            ['id' => 6, 'name' => 'Hassan Raza', 'marks' => 88, 'attendance' => 85, 'roll_no' => 106],
+            ['id' => 7, 'name' => 'Zainab Ali', 'marks' => 67, 'attendance' => 78, 'roll_no' => 107],
+            ['id' => 8, 'name' => 'Usman Tariq', 'marks' => 55, 'attendance' => 82, 'roll_no' => 108],
+            ['id' => 9, 'name' => 'Maryam Faisal', 'marks' => 98, 'attendance' => 96, 'roll_no' => 109],
+            ['id' => 10, 'name' => 'Saad Ahmed', 'marks' => 40, 'attendance' => 65, 'roll_no' => 110],
         ];
         $processedStudents = [];
         // for loop to process students
@@ -52,11 +57,16 @@ class StudentController extends Controller
     {
         // multidimensional array
         $students = [
-            ['id' => 1, 'name' => 'joHn doe', 'marks' => 85, 'attendance' => 80, 'roll_no' => 101],
-            ['id' => 2, 'name' => 'jAne smith', 'marks' => 35, 'attendance' => 90, 'roll_no' => 102],
-            ['id' => 3, 'name' => 'mike ross', 'marks' => 92, 'attendance' => 95, 'roll_no' => 103],
-            ['id' => 4, 'name' => 'raChel zaNe', 'marks' => 74, 'attendance' => 60, 'roll_no' => 104],
-            ['id' => 5, 'name' => 'harVey spEcter', 'marks' => 45, 'attendance' => 70, 'roll_no' => 105],
+            ['id' => 1, 'name' => 'aLi raZa', 'marks' => 85, 'attendance' => 80, 'roll_no' => 101],
+            ['id' => 2, 'name' => 'ayEsha khAn', 'marks' => 35, 'attendance' => 90, 'roll_no' => 102],
+            ['id' => 3, 'name' => 'ahMed hassAn', 'marks' => 92, 'attendance' => 95, 'roll_no' => 103],
+            ['id' => 4, 'name' => 'faTima noOr', 'marks' => 74, 'attendance' => 60, 'roll_no' => 104],
+            ['id' => 5, 'name' => 'biLal sheIkh', 'marks' => 45, 'attendance' => 70, 'roll_no' => 105],
+            ['id' => 6, 'name' => 'haSsan raZa', 'marks' => 88, 'attendance' => 85, 'roll_no' => 106],
+            ['id' => 7, 'name' => 'zaInab aLi', 'marks' => 67, 'attendance' => 78, 'roll_no' => 107],
+            ['id' => 8, 'name' => 'usMan tarIq', 'marks' => 55, 'attendance' => 82, 'roll_no' => 108],
+            ['id' => 9, 'name' => 'maRyam faIsal', 'marks' => 98, 'attendance' => 96, 'roll_no' => 109],
+            ['id' => 10, 'name' => 'saAd ahMed', 'marks' => 40, 'attendance' => 65, 'roll_no' => 110],
         ];
 
         // products array for practicing loops
@@ -129,13 +139,21 @@ class StudentController extends Controller
     {
         // students with duplicates
         $students = [
-            ['id' => 1, 'name' => 'John Doe', 'marks' => 85],
-            ['id' => 2, 'name' => 'Jane Smith', 'marks' => 90],
-            ['id' => 3, 'name' => 'Mike Ross', 'marks' => 92],
-            ['id' => 4, 'name' => 'John Doe', 'marks' => 85],
-            ['id' => 5, 'name' => 'Rachel Zane', 'marks' => 74],
-            ['id' => 6, 'name' => 'Harvey Specter', 'marks' => 88],
-            ['id' => 7, 'name' => 'Harvey Specter', 'marks' => 88],
+            ['id' => 1, 'name' => 'Ali Raza', 'marks' => 85],
+            ['id' => 2, 'name' => 'Ayesha Khan', 'marks' => 90],
+            ['id' => 3, 'name' => 'Ahmed Hassan', 'marks' => 92],
+            ['id' => 4, 'name' => 'Fatima Noor', 'marks' => 74],
+            ['id' => 5, 'name' => 'Bilal Sheikh', 'marks' => 88],
+            ['id' => 6, 'name' => 'Hassan Raza', 'marks' => 67],
+            ['id' => 7, 'name' => 'Zain Ali', 'marks' => 79],
+            ['id' => 8, 'name' => 'Maryam Faisal', 'marks' => 95],
+            ['id' => 9, 'name' => 'Usman Tariq', 'marks' => 81],
+            ['id' => 10, 'name' => 'Saad Ahmed', 'marks' => 69],
+            ['id' => 11, 'name' => 'Ali Raza', 'marks' => 85],
+            ['id' => 12, 'name' => 'Bilal Sheikh', 'marks' => 88],
+            ['id' => 13, 'name' => 'Maryam Faisal', 'marks' => 95],
+            ['id' => 14, 'name' => 'Ayesha Khan', 'marks' => 90],
+            ['id' => 15, 'name' => 'Usman Tariq', 'marks' => 81],
         ];
 
         // remove duplicates
@@ -180,15 +198,15 @@ class StudentController extends Controller
 
     public function task5()
     {
-        $rawName = "jOHN dOE";
+        $rawName = "muHamMaD aBdUlLaH";
         $formattedName = ucwords(strtolower($rawName));
 
-        $blogTitle = "How to Learn Laravel 11 in One Week";
+        $blogTitle = "How to Learn Laravel 13 in One Week";
         $slug = strtolower(str_replace(' ', '-', $blogTitle));
 
-        $fullName = "Harvey Specter";
+        $fullName = "Muhammad Abdullah";
         $parts = explode(' ', $fullName);
-        $username = strtolower($parts[0]) . rand(10, 99);
+        $username = strtolower($parts[1]) . rand(10, 99);
 
         $skillsArray = ['PHP', 'Laravel', 'Tailwind', 'MySQL'];
         $skillsString = implode(' • ', $skillsArray);

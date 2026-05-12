@@ -15,7 +15,7 @@
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md">
             <h3 class="text-gray-500 text-sm font-bold uppercase">Avg Percentage</h3>
-            <p class="text-2xl font-bold">{{ $total_marks / $student_count }}%</p>
+            <p class="text-2xl font-bold">{{ number_format($total_marks / $student_count, 1)  }}%</p>
         </div>
     </div>
 
