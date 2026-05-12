@@ -59,7 +59,7 @@ class StudentController extends Controller
             ['id' => 5, 'name' => 'harVey spEcter', 'marks' => 45, 'attendance' => 70, 'roll_no' => 105],
         ];
 
-        // pProducts array for practicing loops
+        // products array for practicing loops
         $products = ['Laptop', 'Mouse', 'Keyboard', 'Monitor', 'Webcam'];
 
         $processedStudents = [];
