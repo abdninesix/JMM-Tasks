@@ -4,6 +4,8 @@
 
 @section('content')
 
+    <h1 class="text-xl font-semibold mb-8 text-center">{{ $greeting }}</h1>
+
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 
         <div class="bg-white p-6 rounded-xl shadow-md">
