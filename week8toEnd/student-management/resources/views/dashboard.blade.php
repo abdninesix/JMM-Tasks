@@ -22,22 +22,24 @@
                 <p class="text-xs font-bold text-gray-400 uppercase">Topper</p>
                 <p class="text-sm font-bold text-gray-800 truncate">{{ $stats['topper']->name ?? 'N/A' }}</p>
                 <p class="text-xs text-purple-600 font-bold italic">{{ $stats['topper']->marks ?? 0 }}% - Grade
-                    {{ $stats['topper']->grade ?? 'N/A' }}</p>
+                    {{ $stats['topper']->grade ?? 'N/A' }}
+                </p>
             </div>
         </div>
 
-         <form action="/dashboard" method="GET" class="flex gap-2">
+        <form action="/dashboard" method="GET" class="flex gap-2">
             <input type="text" name="search" value="{{ $search }}" placeholder="Search name or roll no..."
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                class="flex-1 p-1 border rounded shadow-sm focus:ring-2 focus:ring-gray-500 outline-none">
             <button type="submit"
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Search</button>
+                class="bg-gray-800 text-white px-2 py-1 rounded hover:bg-gray-700 font-semibold">Search</button>
             @if($search)
-                <a href="/dashboard" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Clear</a>
+                <a href="/dashboard"
+                    class="bg-gray-200 text-gray-700 px-2 py-1 rounded hover:bg-gray-300 font-semibold">Clear</a>
             @endif
         </form>
 
         <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-auto">
-             <table class="w-full text-left border-collapse min-w-full">
+            <table class="w-full text-left border-collapse min-w-full">
                 <thead class="bg-gray-800 text-white">
                     <tr>
                         <th class="py-4 px-6 font-semibold uppercase text-sm">Student Info</th>
@@ -54,7 +56,8 @@
                             <td class="px-6 py-4">
                                 <div class="font-bold text-gray-800">{{ ucwords(strtolower($student->name)) }}</div>
                                 <div class="text-xs text-gray-400 font-mono">Roll: {{ $student->roll_no }} | @
-                                    {{ $student->username }}</div>
+                                    {{ $student->username }}
+                                </div>
                             </td>
                             <td class="px-6 py-4">
                                 <span class="text-sm font-medium">{{ $student->marks }}%</span>
@@ -74,12 +77,13 @@
                             <td class="px-6 py-4">
                                 <span
                                     class="px-2.5 py-0.5 rounded-full text-xs font-bold border 
-                                    {{ $student->grade == 'A+' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-blue-50 border-blue-200 text-blue-700' }}">
+                                            {{ $student->grade == 'A+' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-blue-50 border-blue-200 text-blue-700' }}">
                                     {{ $student->grade }}
                                 </span>
                             </td>
                             <td class="px-6 py-4">
-                               <span class="font-semibold {{ $student['status'] == 'Pass' ? 'text-green-600' : 'text-red-600' }}">{{ $student['status'] }}</span>
+                                <span
+                                    class="font-semibold {{ $student['status'] == 'Pass' ? 'text-green-600' : 'text-red-600' }}">{{ $student['status'] }}</span>
                             </td>
                             <td
                                 class="px-6 py-4 text-xs font-bold {{ $student->scholarship == 'Eligible' ? 'text-purple-600' : 'text-gray-300' }}">

@@ -80,5 +80,5 @@
 
 @section('pages')
     <a href="/task4" class="text-slate-400 hover:text-slate-600 text-sm">Back to Task 4</a>
-    <a href="/task5" class="text-slate-400 hover:text-slate-600 text-sm">Proceed to Dashboard</a>
+    <a href="/dashboard" class="text-slate-400 hover:text-slate-600 text-sm">Proceed to Dashboard</a>
 @endsection
