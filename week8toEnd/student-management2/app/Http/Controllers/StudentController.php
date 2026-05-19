@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -9,9 +10,15 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->input('search');
+
+        $students = Student::with('marks.subject')->when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")->orWhere('roll_no', 'like', "%{$search}%");
+        })->paginate(10)->withQueryString();
+
+        return view('students.index', ['students' => $students, 'search' => $search]);
     }
 
     /**
@@ -33,9 +40,11 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        $student->load('marks.subject');
+
+        return view('students.show', ['student' => $student]);
     }
 
     /**
@@ -57,8 +66,8 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
     }
 }
