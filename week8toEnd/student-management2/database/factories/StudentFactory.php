@@ -19,8 +19,8 @@ class StudentFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'roll_no' => $this->faker->unique()->numberBetween(1000, 9999),
-            'marks' => $this->faker->numberBetween(30, 100),
             'attendance' => $this->faker->numberBetween(60, 100),
         ];
     }
