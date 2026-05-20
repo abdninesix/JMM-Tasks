@@ -17,7 +17,7 @@ class StudentController extends Controller
 
         $students = Student::with('marks.subject')->when($search, function ($query, $search) {
             $query->where('name', 'like', "%{$search}%")->orWhere('roll_no', 'like', "%{$search}%");
-        })->paginate(10)->withQueryString();
+        })->latest()->paginate(10)->withQueryString();
 
         return view('students.index', ['students' => $students, 'search' => $search]);
     }
@@ -45,24 +45,24 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         $student->load('marks.subject');
-
         return view('students.show', ['student' => $student]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Student $student)
     {
-        //
+        return view('students.edit', ['student' => $student]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StudentRequest $request, Student $student)
     {
-        //
+        $student->update($request->validated());
+        return redirect()->route('students.index')->with('success', 'Student updated!');
     }
 
     /**
@@ -71,5 +71,6 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
+        return redirect()->route('students.index')->with('success', 'Student deleted!');
     }
 }

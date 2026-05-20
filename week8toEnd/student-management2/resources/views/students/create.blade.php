@@ -5,7 +5,7 @@
         <h2 class="text-2xl font-bold mb-6">Add New Student</h2>
 
         <form action="{{ route('students.store') }}" method="POST">
-            @csrf
+            {{-- @csrf --}}
             
             @include('partials.form')
 
