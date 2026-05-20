@@ -20,4 +20,9 @@ class Student extends Model
     {
         return $this->belongsToMany(Subject::class, 'marks')->withPivot('score');
     }
+
+    public function averageMark()
+    {
+        return $this->marks->avg('score') ?? 0;
+    }
 }

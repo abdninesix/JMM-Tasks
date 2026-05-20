@@ -13,13 +13,40 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        $query = Student::with('marks.subject');
 
-        $students = Student::with('marks.subject')->when($search, function ($query, $search) {
-            $query->where('name', 'like', "%{$search}%")->orWhere('roll_no', 'like', "%{$search}%");
-        })->latest()->paginate(10)->withQueryString();
+        if ($request->filled('search')) {
+            $query->where('name', 'like', "%{$request->search}%")
+                ->orWhere('roll_number', 'like', "%{$request->search}%");
+        }
 
-        return view('students.index', ['students' => $students, 'search' => $search]);
+        $sortField = $request->input('sort', 'name');
+        $sortOrder = $request->input('direction', 'asc');
+        $query->orderBy($sortField, $sortOrder);
+
+        $students = $query->paginate(10)->withQueryString();
+
+        $allStudents = Student::with('marks')->get();
+
+        $totalStudents = $allStudents->count();
+        $classAverage = $allStudents->flatMap->marks->avg('score') ?? 0;
+
+        $passCount = $allStudents->filter(fn($s) => $s->averageMark() >= 40)->count();
+        $failCount = $totalStudents - $passCount;
+
+        $topper = $allStudents->sortByDesc(fn($s) => $s->averageMark())->first();
+
+        return view('students.index', [
+            'students' => $students,
+            'search' => $request->search,
+            'stats' => [
+                'total' => $totalStudents,
+                'average' => round($classAverage, 2),
+                'pass' => $passCount,
+                'fail' => $failCount,
+            ],
+            'topper' => $topper
+        ]);
     }
 
     /**

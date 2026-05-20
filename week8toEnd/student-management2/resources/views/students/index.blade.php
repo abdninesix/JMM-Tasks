@@ -5,6 +5,29 @@
 @section('content')
     <div class="space-y-8">
 
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500">
+                <p class="text-xs font-bold text-gray-400 uppercase">Total Students</p>
+                <p class="text-2xl font-bold">{{ $stats['total'] }}</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-green-500">
+                <p class="text-xs font-bold text-gray-400 uppercase">Class Average</p>
+                <p class="text-2xl font-bold">{{ $stats['average'] }}%</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-l-4 border-yellow-500">
+                <p class="text-xs font-bold text-gray-400 uppercase">Pass / Fail</p>
+                <p class="text-lg font-bold"><span class="text-green-600">{{ $stats['pass'] }}</span> / <span
+                        class="text-red-500">{{ $stats['fail'] }}</span></p>
+            </div>
+            @if($topper)
+                <div class="bg-indigo-600 p-4 rounded-lg shadow text-white">
+                    <p class="text-xs font-bold uppercase opacity-80">Class Topper 🏆</p>
+                    <p class="text-lg font-bold truncate">{{ $topper->name }}</p>
+                    <p class="text-xs font-mono">{{ round($topper->averageMark(), 1) }}% Avg</p>
+                </div>
+            @endif
+        </div>
+
         <form action="{{ route('students.index') }}" method="GET" class="flex gap-2">
             <input type="text" name="search" value="{{ $search }}" placeholder="Search name or roll no..."
                 class="flex-1 p-1 border rounded shadow-sm focus:ring-2 focus:ring-gray-500 outline-none">
