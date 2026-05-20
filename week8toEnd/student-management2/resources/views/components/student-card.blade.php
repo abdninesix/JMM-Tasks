@@ -1,13 +1,13 @@
 @props(['student'])
 
-<div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-    <div class="bg-blue-600 p-6 text-white">
+<div class="bg-white rounded shadow-sm overflow-hidden border border-gray-200">
+    <div class="p-6 bg-gray-800 text-white">
         <h3 class="text-2xl font-bold">{{ $student->name }}</h3>
         <p class="opacity-80">Roll Number: {{ $student->roll_no }} | Email: {{ $student->email }}</p>
     </div>
     
     <div class="p-6">
-        <h4 class="font-bold text-gray-700 uppercase text-xs tracking-wider mb-4 border-b pb-2">Subject-wise Marks</h4>
+        <h4 class="font-bold text-gray-700 uppercase tracking-wider mb-4 border-b pb-2">Subject-wise Marks</h4>
         <div class="space-y-3">
             @foreach($student->marks as $mark)
                 <div class="flex justify-between items-center">

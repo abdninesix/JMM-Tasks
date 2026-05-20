@@ -34,6 +34,7 @@
                             <td class="px-6 py-4">{{ $student->attendance }}%</td>
                             <td class="px-6 py-4">
                                 <a class="text-blue-500" href="{{ route('students.show', $student) }}">View</a>
+                                <a href="{{ route('students.edit', $student) }}" class="text-yellow-500">Edit</a>
                             </td>
                         </tr>
                     @empty
