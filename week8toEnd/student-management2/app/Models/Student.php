@@ -28,16 +28,6 @@ class Student extends Model
 
     public function getGradeAttribute()
     {
-        $avg = $this->averageMark();
-
-        if ($avg >= 90)
-            return 'A+';
-        if ($avg >= 80)
-            return 'A';
-        if ($avg >= 70)
-            return 'B';
-        if ($avg >= 60)
-            return 'C';
-        return 'F';
+        return calculateGrade($this->averageMark());
     }
 }
