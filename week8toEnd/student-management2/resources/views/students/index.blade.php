@@ -37,6 +37,7 @@
                 <option value="A" {{ request('grade') == 'A' ? 'selected' : '' }}>Grade A</option>
                 <option value="B" {{ request('grade') == 'B' ? 'selected' : '' }}>Grade B</option>
                 <option value="C" {{ request('grade') == 'C' ? 'selected' : '' }}>Grade C</option>
+                <option value="D" {{ request('grade') == 'D' ? 'selected' : '' }}>Grade D</option>
                 <option value="F" {{ request('grade') == 'F' ? 'selected' : '' }}>Grade F</option>
             </select>
             <select name="sort" class="p-1 border rounded">
@@ -44,7 +45,7 @@
                 <option value="attendance" {{ request('sort') == 'attendance' ? 'selected' : '' }}>Sort by Attendance</option>
             </select>
             <button type="submit" class="bg-gray-800 text-white px-2 py-1 rounded font-semibold">Apply</button>
-            @if($search)
+            @if($search || $selectedGrade)
                 <a href="{{ route('students.index') }}"
                     class="bg-gray-200 text-gray-700 px-2 py-1 rounded font-semibold">Clear</a>
             @endif

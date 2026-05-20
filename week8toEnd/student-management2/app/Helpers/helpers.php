@@ -1,6 +1,6 @@
 <?php
 
-function calculateGrade($percentage)
+function calculateGrade(int $percentage)
 {
     if ($percentage >= 90)
         return 'A+';
@@ -10,5 +10,7 @@ function calculateGrade($percentage)
         return 'B';
     if ($percentage >= 60)
         return 'C';
+    if ($percentage >= 40)
+        return 'D';
     return 'F';
 }

@@ -34,8 +34,10 @@ class StudentController extends Controller
                     $q->havingRaw('AVG(score) >= 70 AND AVG(score) < 80');
                 elseif ($grade == 'C')
                     $q->havingRaw('AVG(score) >= 60 AND AVG(score) < 70');
+                elseif ($grade == 'D')
+                    $q->havingRaw('AVG(score) >= 40 AND AVG(score) < 60');
                 elseif ($grade == 'F')
-                    $q->havingRaw('AVG(score) < 60');
+                    $q->havingRaw('AVG(score) < 40');
             });
         }
 
