@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SubjectSeeder::class);
 
-        Student::factory(30)->create();
+        Student::factory(100)->create();
 
         $this->call(MarkSeeder::class);
 

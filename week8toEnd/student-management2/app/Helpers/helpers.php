@@ -1,6 +1,6 @@
 <?php
 
-function calculateGrade(int $percentage)
+function calculateGrade(float $percentage)
 {
     if ($percentage >= 90)
         return 'A+';

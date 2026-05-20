@@ -23,7 +23,7 @@ class MarkSeeder extends Seeder
                 Mark::create([
                     'student_id' => $student->id,
                     'subject_id' => $subject->id,
-                    'score' => rand(30, 100),
+                    'score' => rand(10, 100),
                 ]);
             }
         }
