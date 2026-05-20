@@ -17,7 +17,26 @@ class StudentController extends Controller
 
         if ($request->filled('search')) {
             $query->where('name', 'like', "%{$request->search}%")
-                ->orWhere('roll_number', 'like', "%{$request->search}%");
+                ->orWhere('roll_no', 'like', "%{$request->search}%");
+        }
+
+        if ($request->filled('grade')) {
+            $grade = $request->grade;
+            $query->whereHas('marks', function ($q) use ($grade) {
+                $q->select('student_id')
+                    ->groupBy('student_id');
+
+                if ($grade == 'A+')
+                    $q->havingRaw('AVG(score) >= 90');
+                elseif ($grade == 'A')
+                    $q->havingRaw('AVG(score) >= 80 AND AVG(score) < 90');
+                elseif ($grade == 'B')
+                    $q->havingRaw('AVG(score) >= 70 AND AVG(score) < 80');
+                elseif ($grade == 'C')
+                    $q->havingRaw('AVG(score) >= 60 AND AVG(score) < 70');
+                elseif ($grade == 'F')
+                    $q->havingRaw('AVG(score) < 60');
+            });
         }
 
         $sortField = $request->input('sort', 'name');
@@ -27,18 +46,16 @@ class StudentController extends Controller
         $students = $query->paginate(10)->withQueryString();
 
         $allStudents = Student::with('marks')->get();
-
         $totalStudents = $allStudents->count();
         $classAverage = $allStudents->flatMap->marks->avg('score') ?? 0;
-
         $passCount = $allStudents->filter(fn($s) => $s->averageMark() >= 40)->count();
         $failCount = $totalStudents - $passCount;
-
         $topper = $allStudents->sortByDesc(fn($s) => $s->averageMark())->first();
 
         return view('students.index', [
             'students' => $students,
             'search' => $request->search,
+            'selectedGrade' => $request->grade,
             'stats' => [
                 'total' => $totalStudents,
                 'average' => round($classAverage, 2),
