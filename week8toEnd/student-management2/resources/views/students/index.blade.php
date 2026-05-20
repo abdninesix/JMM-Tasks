@@ -76,9 +76,14 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4">{{ $student->attendance }}%</td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 flex items-center gap-1">
                                 <a class="text-blue-500" href="{{ route('students.show', $student) }}">View</a>
-                                <a href="{{ route('students.edit', $student) }}" class="text-yellow-500">Edit</a>
+                                <a href="{{ route('students.edit', $student) }}" class="text-green-500">Edit</a>
+                                <form action="{{ route('students.destroy', $student) }}" method="POST"
+                                    onsubmit="return confirm('Are you sure you want to delete this student?')">
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

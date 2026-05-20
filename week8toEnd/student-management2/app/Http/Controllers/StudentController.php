@@ -42,8 +42,7 @@ class StudentController extends Controller
         }
 
         $sortField = $request->input('sort', 'name');
-        $sortOrder = $request->input('direction', 'asc');
-        $query->orderBy($sortField, $sortOrder);
+        $query->orderBy($sortField, 'asc');
 
         $students = $query->paginate(10)->withQueryString();
 
