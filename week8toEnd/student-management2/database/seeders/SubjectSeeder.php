@@ -14,6 +14,7 @@ class SubjectSeeder extends Seeder
     public function run(): void
     {
         $subjects = ['Math', 'English', 'Physics', 'Chemistry', 'Computer'];
+        
         foreach ($subjects as $subject) {
             Subject::create(['name' => $subject]);
         }
