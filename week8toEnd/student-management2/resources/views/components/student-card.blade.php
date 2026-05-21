@@ -1,6 +1,6 @@
 @props(['student'])
 
-<div class="bg-white rounded shadow-sm overflow-hidden border border-gray-200">
+<div class="bg-white rounded shadow-sm overflow-hidden border-gray-200">
     <div class="flex flex-col md:items-center md:flex-row md:justify-between p-6 bg-gray-800 text-white">
         <h3 class="text-2xl font-bold">{{ $student->name }}</h3>
         <p class="opacity-80">Email: {{ $student->email }}</p>

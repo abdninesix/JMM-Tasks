@@ -51,7 +51,7 @@
             @endif
         </form>
 
-        <div class="bg-white shadow-sm border border-gray-200 rounded overflow-auto">
+        <div class="bg-white shadow-sm rounded overflow-auto">
             <table class="w-full text-left border-collapse min-w-full">
                 <thead class="bg-gray-800 text-white">
                     <tr>
