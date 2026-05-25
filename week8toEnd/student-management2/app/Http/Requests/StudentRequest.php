@@ -38,6 +38,8 @@ class StudentRequest extends FormRequest
             ],
 
             'attendance' => ['required', 'numeric', 'between:0,100'],
+            'marks' => ['required', 'array'],
+            'marks.*' => ['required', 'numeric', 'between:0,100'],
         ];
     }
 }

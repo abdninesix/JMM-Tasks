@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -72,7 +73,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        $subjects = Subject::all();
+        return view('students.create', [
+            'subjects' => $subjects
+        ]);
     }
 
     /**
@@ -80,7 +84,15 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        Student::create($request->validated());
+        $student = Student::create($request->validated());
+
+        foreach ($request->marks as $subjectId => $score) {
+            $student->marks()->create([
+                'subject_id' => $subjectId,
+                'score' => $score
+            ]);
+        }
+
         return redirect()->route('students.index')->with('success', 'Student created!');
     }
 
@@ -98,7 +110,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('students.edit', ['student' => $student]);
+        $subjects = Subject::all();
+        $student->load('marks');
+        return view('students.edit', ['student' => $student, 'subjects' => $subjects]);
     }
 
     /**
@@ -107,7 +121,15 @@ class StudentController extends Controller
     public function update(StudentRequest $request, Student $student)
     {
         $student->update($request->validated());
-        return redirect()->route('students.index')->with('success', 'Student updated!');
+
+        foreach ($request->marks as $subjectId => $score) {
+            $student->marks()->updateOrCreate(
+                ['subject_id' => $subjectId],
+                ['score' => $score]
+            );
+        }
+
+        return redirect()->route('students.show', $student)->with('success', 'Student updated!');
     }
 
     /**
