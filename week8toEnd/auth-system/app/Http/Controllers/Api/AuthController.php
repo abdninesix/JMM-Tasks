@@ -8,7 +8,9 @@ use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -57,9 +59,19 @@ class AuthController extends Controller
 
     public function forgotPassword(ForgotPasswordRequest $request)
     {
+        $token = Str::random(64);
+
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'token' => $token,
+                'created_at' => now()
+            ]
+        );
         return response()->json([
             'status' => true,
-            'message' => 'Password reset link sent to your email'
+            'message' => 'Password reset link sent to your email',
+            'token' => $token
         ], 200);
     }
 }
