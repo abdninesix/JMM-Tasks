@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
@@ -51,6 +52,14 @@ class AuthController extends Controller
                 'name' => $user->full_name,
                 'email' => $user->email,
             ]
+        ], 200);
+    }
+
+    public function forgotPassword(ForgotPasswordRequest $request)
+    {
+        return response()->json([
+            'status' => true,
+            'message' => 'Password reset link sent to your email'
         ], 200);
     }
 }
