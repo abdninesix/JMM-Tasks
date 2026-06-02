@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
@@ -62,8 +63,8 @@ class AuthController extends Controller
         $token = Str::random(64);
 
         DB::table('password_reset_tokens')->updateOrInsert(
-            ['email' => $request->email],
             [
+                'email' => $request->email,
                 'token' => $token,
                 'created_at' => now()
             ]
@@ -72,6 +73,30 @@ class AuthController extends Controller
             'status' => true,
             'message' => 'Password reset link sent to your email',
             'token' => $token
+        ], 200);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        $resetData = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->where('token', $request->token)
+            ->first();
+
+        if (!$resetData) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid token or email'
+            ], 400);
+        }
+
+        User::where('email', $request->email)->first()->update(['password' => Hash::make($request->password)]);
+
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Password has been reset successfully'
         ], 200);
     }
 }
