@@ -33,7 +33,6 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        // Verify password using Hash
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'status' => false,
