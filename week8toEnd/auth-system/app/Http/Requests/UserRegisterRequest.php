@@ -30,5 +30,44 @@ class UserRegisterRequest extends FormRequest
             'gender' => 'required|string',
             'dob' => 'required|date',
         ];
+
+        // return [
+        //     'username' => [
+        //         'required',
+        //         'string',
+        //         Rule::unique('users', 'username'),
+        //     ],
+
+        //     'full_name' => [
+        //         'required',
+        //         'string',
+        //     ],
+
+        //     'email' => [
+        //         'required',
+        //         'email',
+        //         Rule::unique('users', 'email'),
+        //     ],
+
+        //     'password' => [
+        //         'required',
+        //         'min:8',
+        //     ],
+
+        //     'confirm_password' => [
+        //         'required',
+        //         'same:password',
+        //     ],
+
+        //     'gender' => [
+        //         'required',
+        //         'string',
+        //     ],
+
+        //     'dob' => [
+        //         'required',
+        //         'date',
+        //     ],
+        // ];
     }
 }
