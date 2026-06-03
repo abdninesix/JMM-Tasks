@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../schemas/registerSchema";
 import { Link } from "react-router-dom";
+import { registerUser } from "../api/auth";
 
 export default function Register() {
     const { register, handleSubmit, formState: { errors }, } = useForm({
@@ -9,6 +10,7 @@ export default function Register() {
     });
 
     const onSubmit = (data) => {
+        registerUser(data);
         console.log(data);
     };
 
@@ -34,6 +36,16 @@ export default function Register() {
                 <label htmlFor="dob" className="font-semibold text-purple-500">Date of birth</label>
                 <input type="date" {...register("dob")} placeholder="Enter full name" id="dob" className="rounded bg-white p-2 outline-purple-500" />
                 <p className="text-xs text-red-500">{errors.dob?.message}</p>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+                <label htmlFor="gender" className="font-semibold text-purple-500">Gender</label>
+                <select id="gender" {...register("gender")} className="rounded bg-white p-2 outline-purple-500">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                 <p className="text-xs text-red-500">{errors.gender?.message}</p>
             </div>
             <div className="flex flex-col gap-2 text-sm">
                 <label htmlFor="password" className="font-semibold text-purple-500">Password</label>

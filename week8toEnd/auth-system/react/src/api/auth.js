@@ -1,6 +1,6 @@
 import { api } from "./axios";
 
 export const registerUser = async (payload) => {
-    const response = await api.post("/api/register", payload);
-    return response.data;
+    const { data } = await api.post("/register", payload);
+    return data;
 };
