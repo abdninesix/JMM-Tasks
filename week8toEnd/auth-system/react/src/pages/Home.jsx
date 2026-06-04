@@ -12,7 +12,7 @@ const Home = () => {
             {user && (
                 <div className="flex items-center gap-6">
                     <div className="w-24 h-24 rounded-full bg-theme text-white flex items-center justify-center text-3xl font-bold">
-                        {user.full_name?.charAt(0).toUpperCase()}
+                        {user.full_name?.split(" ").map(word => word.charAt(0).toUpperCase()).join("")}
                     </div>
 
                     <div>
