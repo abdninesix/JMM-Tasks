@@ -33,6 +33,7 @@ I started my professional journey as a Frontend Developer where I worked on buil
 - PHP
 - MySQL
 - Inertia.js
+- Postman
 - 
 *(More will be added)*
 
