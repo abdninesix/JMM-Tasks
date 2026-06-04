@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Navbar from './components/Navbar'
+import { ToastContainer } from 'react-toastify'
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ToastContainer position='bottom-right'/>
       <BrowserRouter>
         <Navbar />
         <Routes>

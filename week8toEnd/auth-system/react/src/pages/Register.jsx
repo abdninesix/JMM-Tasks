@@ -4,25 +4,30 @@ import { registerSchema } from "../schemas/registerSchema";
 import { Link } from "react-router-dom";
 import { registerUser } from "../api/auth";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export default function Register() {
-    const { register, handleSubmit, formState: { errors }, } = useForm({
+    const { register, handleSubmit, setError, formState: { errors }, } = useForm({
         resolver: zodResolver(registerSchema),
     });
 
     const registerMutation = useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
-            console.log("Registration Successful", data);
-            alert("Account created successfully!");
+            toast.success(data.message);
         },
         onError: (error) => {
             const errors = error.response?.data?.errors;
             if (errors) {
-                const messages = Object.values(errors).flat().forEach(message => alert(message));
-            } else {
-                alert(error.message);
+                Object.entries(errors).forEach(([field, messages]) => {
+                    setError(field, { type: "server", message: messages[0] });
+                });
             }
+            // if (errors) {
+            //     const messages = Object.values(errors).flat().forEach(message => toast.error(message));
+            // } else {
+            //     toast.error(error.message);
+            // }
         },
     });
 
