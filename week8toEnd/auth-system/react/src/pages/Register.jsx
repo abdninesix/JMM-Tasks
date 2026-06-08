@@ -21,10 +21,16 @@ export default function Register() {
         },
         onError: (error) => {
             const serverErrors = error.response?.data?.errors;
+            const message = error.response?.data?.message;
+
             if (serverErrors) {
                 Object.entries(serverErrors).forEach(([field, messages]) => {
                     setError(field, { type: "server", message: messages[0] });
                 });
+            } else if (message) {
+                toast.error(message);
+            } else {
+                toast.error("Something went wrong");
             }
             // if (serverErrors) {
             //     const messages = Object.values(serverErrors).flat().forEach(message => toast.error(message));
