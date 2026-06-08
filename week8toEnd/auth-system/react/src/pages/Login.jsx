@@ -30,7 +30,6 @@ export default function Login() {
                     setError(field, { type: "server", message: messages[0] });
                 });
             } else if (message) {
-                // Handle the 401 Unauthorized message specifically
                 toast.error(message);
             } else {
                 toast.error("Something went wrong");

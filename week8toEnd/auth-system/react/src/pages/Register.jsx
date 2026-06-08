@@ -20,14 +20,14 @@ export default function Register() {
             navigate("/login")
         },
         onError: (error) => {
-            const errors = error.response?.data?.errors;
-            if (errors) {
-                Object.entries(errors).forEach(([field, messages]) => {
+            const serverErrors = error.response?.data?.errors;
+            if (serverErrors) {
+                Object.entries(serverErrors).forEach(([field, messages]) => {
                     setError(field, { type: "server", message: messages[0] });
                 });
             }
-            // if (errors) {
-            //     const messages = Object.values(errors).flat().forEach(message => toast.error(message));
+            // if (serverErrors) {
+            //     const messages = Object.values(serverErrors).flat().forEach(message => toast.error(message));
             // } else {
             //     toast.error(error.message);
             // }
