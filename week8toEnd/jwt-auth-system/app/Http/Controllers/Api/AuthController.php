@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
         $token = auth('api')->login($user);
 
         return response()->json([
-            'status' => true,
+            'status' => 'success',
             'message' => 'User registered',
             'token' => $token,
             'user' => new UserResource($user),
@@ -45,11 +46,11 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json(['status' => false, 'message' => 'Invalid credentials'], 401);
+            return response()->json(['status' => 'error', 'message' => 'Invalid credentials'], 401);
         }
 
         return response()->json([
-            'status' => true,
+            'status' => 'success',
             'message' => 'Login successful',
             'token' => $token,
             'user' => new UserResource(auth('api')->user()),
@@ -60,7 +61,7 @@ class AuthController extends Controller
     {
         try {
             return response()->json([
-                'status' => true,
+                'status' => 'success',
                 'user' => new UserResource(auth('api')->userOrFail()),
             ]);
         } catch (JWTException $e) {
@@ -71,7 +72,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth('api')->logout();
-        return response()->json(['status' => true, 'message' => 'Logged out successfully']);
+        return response()->json(['status' => 'success', 'message' => 'Logged out successfully']);
     }
 
     public function refresh()
@@ -79,12 +80,14 @@ class AuthController extends Controller
         try {
             $token = auth('api')->refresh();
             return response()->json([
-                'status' => true,
+                'status' => 'success',
                 'message' => 'Token refreshed',
                 'token' => $token
             ]);
         } catch (TokenExpiredException $e) {
             return response()->json(['status' => 'error', 'message' => 'Token expired'], 401);
+        } catch (TokenInvalidException $e) {
+            return response()->json(['status' => 'error', 'message' => 'Token invalid'], 401);
         } catch (JWTException $e) {
             return response()->json(['status' => 'error', 'message' => 'Token invalid'], 401);
         }
@@ -95,14 +98,14 @@ class AuthController extends Controller
         $token = Str::random(64);
 
         DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
             [
-                'email' => $request->email,
                 'token' => $token,
                 'created_at' => now()
             ]
         );
         return response()->json([
-            'status' => true,
+            'status' => 'success',
             'message' => 'Password reset link sent to your email',
             'token' => $token
         ], 200);
@@ -117,7 +120,7 @@ class AuthController extends Controller
 
         if (!$resetData) {
             return response()->json([
-                'status' => false,
+                'status' => 'error',
                 'message' => 'Invalid token or email'
             ], 400);
         }
@@ -127,7 +130,7 @@ class AuthController extends Controller
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
         return response()->json([
-            'status' => true,
+            'status' => 'success',
             'message' => 'Password has been reset successfully'
         ], 200);
     }

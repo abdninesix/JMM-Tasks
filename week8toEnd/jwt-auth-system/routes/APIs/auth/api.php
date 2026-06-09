@@ -12,4 +12,13 @@ Route::prefix('auth')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/refresh', [AuthController::class, 'refresh']);
     });
+
+    Route::middleware(['auth:api', 'isAdmin'])->group(function () {
+        Route::get('/admin/users', function () {
+            return response()->json([
+                'status' => 'success',
+                'users' => \App\Http\Resources\UserResource::collection(\App\Models\User::all())
+            ]);
+        });
+    });
 });
