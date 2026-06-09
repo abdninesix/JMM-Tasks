@@ -8,10 +8,12 @@ use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -32,7 +34,7 @@ class AuthController extends Controller
             'role' => 'user',
         ]);
 
-        $token = JWTAuth::login($user);
+        $token = auth('api')->login($user);
 
         return response()->json([
             'status' => 'success',
@@ -46,7 +48,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (!$token = JWTAuth::attempt($credentials)) {
+        if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials'], 401);
         }
 
@@ -54,7 +56,7 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'Login successful',
             'token' => $token,
-            'user' => new UserResource(JWTAuth::user()),
+            'user' => new UserResource(auth('api')->user()),
         ]);
     }
 
@@ -63,7 +65,7 @@ class AuthController extends Controller
         try {
             return response()->json([
                 'status' => 'success',
-                'user' => new UserResource(JWTAuth::userOrFail()),
+                'user' => new UserResource(auth('api')->userOrFail()),
             ]);
         } catch (JWTException $e) {
             return response()->json(['status' => 'error', 'message' => 'Token not valid'], 401);
@@ -72,14 +74,14 @@ class AuthController extends Controller
 
     public function logout()
     {
-        JWTAuth::logout();
+        auth('api')->logout();
         return response()->json(['status' => 'success', 'message' => 'Logged out successfully']);
     }
 
     public function refresh()
     {
         try {
-            $token = JWTAuth::refresh();
+            $token = auth('api')->refresh();
             return response()->json([
                 'status' => 'success',
                 'message' => 'Token refreshed',
@@ -96,6 +98,7 @@ class AuthController extends Controller
 
     public function forgotPassword(ForgotPasswordRequest $request)
     {
+        $user = User::where('email', $request->email)->first();
         $token = Str::random(64);
 
         DB::table('password_reset_tokens')->updateOrInsert(
@@ -105,10 +108,12 @@ class AuthController extends Controller
                 'created_at' => now()
             ]
         );
+
+        Mail::to($user->email)->send(new ResetPasswordMail($user, $token));
+
         return response()->json([
             'status' => 'success',
             'message' => 'Password reset link sent to your email',
-            'token' => $token
         ], 200);
     }
 
