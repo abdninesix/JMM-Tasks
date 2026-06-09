@@ -1,59 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel JWT Authentication API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A secure RESTful API built with Laravel and JWT (JSON Web Token) for user authentication, role-based access control, and password management.
 
-## About Laravel
+## Features
+- **JWT Authentication:** Secure token-based auth using `tymon/jwt-auth`.
+- **User Management:** Registration and Login with custom fields (`username`, `full_name`, `gender`, `dob`).
+- **Role-Based Access Control (RBAC):** Middleware to protect routes for `admin` vs `user`.
+- **Password Recovery:** Forgot password via local email (Mailpit) and reset via token.
+- **Resource Formatting:** Consistent API responses using Laravel API Resources.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Setup Instructions
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone the repository and install dependencies:**
+   ```bash
+   composer install
+   ```
 
-## Learning Laravel
+2. **Setup Environment:**
+   ```bash
+   cp .env.example .env
+   # Update DB_DATABASE, DB_USERNAME, DB_PASSWORD in .env
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+3. **Generate Security Keys:**
+   ```bash
+   php artisan key:generate
+   php artisan jwt:secret
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Run Migrations:**
+   ```bash
+   php artisan migrate
+   ```
 
-## Laravel Sponsors
+5. **Serve the Application:**
+   ```bash
+   php artisan serve
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## API Documentation
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**Base URL:** `http://localhost:8000/api/auth`  
+**Headers:** 
+- `Accept: application/json`
+- `Authorization: Bearer {YOUR_TOKEN}` (for protected routes)
 
-## Contributing
+### 1. Authentication Endpoints
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### **Register User**
+`POST /register`
+- **Body (JSON):**
+```json
+{
+    "username": "ali123",
+    "full_name": "Ali Sher",
+    "email": "ali@example.com",
+    "password": "password123",
+    "password_confirmation": "password123",
+    "gender": "male",
+    "dob": "2000-01-01"
+}
+```
 
-## Code of Conduct
+#### **Login User**
+`POST /login`
+- **Body (JSON):**
+```json
+{
+    "email": "ali@example.com",
+    "password": "password123"
+}
+```
+- **Response:** Returns `token` and `user` object.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### **Get Profile (Protected)**
+`GET /me`
+- **Response:** Returns the authenticated user's data.
 
-## Security Vulnerabilities
+#### **Refresh Token (Protected)**
+`POST /refresh`
+- **Response:** Invalidates the old token and returns a new one.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### **Logout (Protected)**
+`POST /logout`
+- **Response:** Invalidate the current token.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 2. Password Management
+
+#### **Forgot Password**
+`POST /forgot-password`
+- **Body:** `{"email": "ali@example.com"}`
+- **Action:** Sends a 64-character token to the user's email (check Mailpit at `localhost:8025`).
+
+#### **Reset Password**
+`POST /reset-password`
+- **Body (JSON):**
+```json
+{
+    "email": "ali@example.com",
+    "token": "PASTE_TOKEN_FROM_EMAIL",
+    "password": "newpassword123",
+    "password_confirmation": "newpassword123"
+}
+```
+
+---
+
+### 3. Admin Endpoints (RBAC)
+
+#### **List All Users**
+`GET /admin/users`
+- **Middleware:** `auth:api`, `isAdmin`
+- **Response:** Returns a list of all registered users (Only accessible if `user.role === 'admin'`).
+
+---
+
+## Testing with Mailpit
+1. Ensure Laragon is running.
+2. Trigger the **Forgot Password** endpoint.
+3. Open `http://localhost:8025` in your browser.
+4. Copy the token from the email to use in the **Reset Password** request.
+
+## Project Structure
+- **`app/Http/Controllers/Api/AuthController.php`**: Main logic for all endpoints.
+- **`app/Http/Middleware/IsAdmin.php`**: Role checking logic.
+- **`app/Http/Resources/UserResource.php`**: Data transformation layer.
+- **`app/Mail/ResetPasswordMail.php`**: Email configuration.
