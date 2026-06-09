@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
             'role' => 'user',
         ]);
 
-        $token = auth('api')->login($user);
+        $token = JWTAuth::login($user);
 
         return response()->json([
             'status' => 'success',
@@ -45,7 +46,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (!$token = auth('api')->attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials'], 401);
         }
 
@@ -53,7 +54,7 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'Login successful',
             'token' => $token,
-            'user' => new UserResource(auth('api')->user()),
+            'user' => new UserResource(JWTAuth::user()),
         ]);
     }
 
@@ -62,7 +63,7 @@ class AuthController extends Controller
         try {
             return response()->json([
                 'status' => 'success',
-                'user' => new UserResource(auth('api')->userOrFail()),
+                'user' => new UserResource(JWTAuth::userOrFail()),
             ]);
         } catch (JWTException $e) {
             return response()->json(['status' => 'error', 'message' => 'Token not valid'], 401);
@@ -71,14 +72,14 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth('api')->logout();
+        JWTAuth::logout();
         return response()->json(['status' => 'success', 'message' => 'Logged out successfully']);
     }
 
     public function refresh()
     {
         try {
-            $token = auth('api')->refresh();
+            $token = JWTAuth::refresh();
             return response()->json([
                 'status' => 'success',
                 'message' => 'Token refreshed',
