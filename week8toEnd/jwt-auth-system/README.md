@@ -52,7 +52,7 @@ A secure RESTful API built with Laravel and JWT (JSON Web Token) for user authen
 ### 1. Authentication Endpoints
 
 #### **Register User**
-`POST /register`
+`POST /auth/register`
 - **Body (JSON):**
 ```json
 {
@@ -67,7 +67,7 @@ A secure RESTful API built with Laravel and JWT (JSON Web Token) for user authen
 ```
 
 #### **Login User**
-`POST /login`
+`POST /auth/login`
 - **Body (JSON):**
 ```json
 {
@@ -78,15 +78,15 @@ A secure RESTful API built with Laravel and JWT (JSON Web Token) for user authen
 - **Response:** Returns `token` and `user` object.
 
 #### **Get Profile (Protected)**
-`GET /me`
+`GET /auth/me`
 - **Response:** Returns the authenticated user's data.
 
 #### **Refresh Token (Protected)**
-`POST /refresh`
+`POST /auth/refresh`
 - **Response:** Invalidates the old token and returns a new one.
 
 #### **Logout (Protected)**
-`POST /logout`
+`POST /auth/logout`
 - **Response:** Invalidate the current token.
 
 ---
@@ -94,12 +94,12 @@ A secure RESTful API built with Laravel and JWT (JSON Web Token) for user authen
 ### 2. Password Management
 
 #### **Forgot Password**
-`POST /forgot-password`
+`POST /auth/forgot-password`
 - **Body:** `{"email": "ali@example.com"}`
 - **Action:** Sends a 64-character token to the user's email (check Mailpit at `localhost:8025`).
 
 #### **Reset Password**
-`POST /reset-password`
+`POST /auth/reset-password`
 - **Body (JSON):**
 ```json
 {
