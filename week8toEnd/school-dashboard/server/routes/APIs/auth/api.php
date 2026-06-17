@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -13,6 +14,9 @@ Route::prefix('auth')->group(function () {
         Route::get('/me', [AuthController::class, 'me']);
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/refresh', [AuthController::class, 'refresh']);
+
+        Route::get('/user/profile', [UserController::class, 'profile']);
+        Route::put('/user/profile', [UserController::class, 'update']);
     });
 });
 
