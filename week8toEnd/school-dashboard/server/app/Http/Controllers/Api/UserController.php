@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordUpdateRequest;
+use App\Http\Requests\ProfilePictureRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -43,5 +45,24 @@ class UserController extends Controller
         $user->update(['password' => Hash::make($request->new_password)]);
 
         return response()->json(['success' => true, 'message' => 'Password changed successfully']);
+    }
+
+    public function uploadPicture(ProfilePictureRequest $request)
+    {
+        $user = auth('api')->user();
+
+        if ($user->profile_picture) {
+            Storage::disk('public')->delete($user->profile_picture);
+        }
+
+        $path = $request->file('image')->store('uploads/profiles', 'public');
+
+        $user->update(['profile_picture' => $path]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Profile picture uploaded successfully',
+            'image_url' => asset('storage/' . $path)
+        ]);
     }
 }
