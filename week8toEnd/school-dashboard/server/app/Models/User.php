@@ -24,9 +24,10 @@ class User extends Authenticatable implements JWTSubject
         'full_name',
         'email',
         'password',
+        'phone',
         'gender',
         'dob',
-        'role'
+        'profile_picture'
     ];
 
     /**
@@ -60,5 +61,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($roleName)
+    {
+        return $this->roles()->where('name', $roleName)->exists();
     }
 }
