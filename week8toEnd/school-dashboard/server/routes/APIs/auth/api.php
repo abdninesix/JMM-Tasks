@@ -17,6 +17,8 @@ Route::prefix('auth')->group(function () {
 
         Route::get('/user/profile', [UserController::class, 'profile']);
         Route::put('/user/profile', [UserController::class, 'update']);
+        Route::post('/user/change-password', [UserController::class, 'changePassword']);
+        Route::post('/user/upload-picture', [UserController::class, 'uploadPicture']);
     });
 });
 
