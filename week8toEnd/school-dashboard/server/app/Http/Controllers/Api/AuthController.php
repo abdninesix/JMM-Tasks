@@ -9,8 +9,8 @@ use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Mail\ResetPasswordMail;
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -18,7 +18,6 @@ use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -28,18 +27,22 @@ class AuthController extends Controller
             'username' => $request->username,
             'full_name' => $request->full_name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'gender' => $request->gender,
             'dob' => $request->dob,
-            'role' => 'user',
         ]);
+
+        $roleName = $request->role ?? 'Student';
+        $role = Role::where('name', $roleName)->first();
+        $user->roles()->attach($role);
 
         $token = auth('api')->login($user);
 
         return response()->json([
-            'status' => 'success',
+            'success' => true,
             'message' => 'User registered',
-            'token' => $token,
+            'access_token' => $token,
             'user' => new UserResource($user),
         ], 201);
     }
@@ -49,13 +52,16 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!$token = auth('api')->attempt($credentials)) {
-            return response()->json(['status' => 'error', 'message' => 'Invalid credentials'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid credentials'
+            ], 401);
         }
 
         return response()->json([
-            'status' => 'success',
+            'success' => true,
             'message' => 'Login successful',
-            'token' => $token,
+            'access_token' => $token,
             'user' => new UserResource(auth('api')->user()),
         ]);
     }

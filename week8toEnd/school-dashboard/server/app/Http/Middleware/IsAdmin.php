@@ -15,10 +15,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth('api')->user() && auth('api')->user()->role !== 'admin') {
+        if (auth('api')->user() && !auth('api')->user()->hasRole('Admin')) {
             return response()->json([
-                'status' => 'error',
-                'message' => 'Only admins allowed',
+                'success' => false,
+                'message' => 'Access denied: Admins only.',
             ], 403);
         }
         return $next($request);

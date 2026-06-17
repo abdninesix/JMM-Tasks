@@ -20,8 +20,11 @@ class UserResource extends JsonResource
             'full_name' => $this->full_name,
             'email' => $this->email,
             'dob' => $this->dob,
-            'role' => $this->role,
+            'phone' => $this->phone,
+            'profile_picture' => $this->profile_picture ? asset('storage/' . $this->profile_picture) : null,
+            'role' => $this->roles->pluck('name'),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
     }
 }
