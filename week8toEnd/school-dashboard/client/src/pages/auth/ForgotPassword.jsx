@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { forgotPasswordSchema } from "../schemas/authSchema";
+import { forgotPasswordSchema } from "../../schemas/authSchema";
 import { Link, useNavigate } from "react-router-dom";
-import { forgotPassword } from "../api/auth";
+import { forgotPassword } from "../../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 

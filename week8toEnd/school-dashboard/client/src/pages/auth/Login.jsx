@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../api/auth";
+import { loginUser } from "../../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { loginSchema } from "../schemas/authSchema";
+import { loginSchema } from "../../schemas/authSchema";
 
 export default function Login() {
     const navigate = useNavigate();

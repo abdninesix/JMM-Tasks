@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { resetPasswordSchema } from "../schemas/authSchema";
+import { resetPasswordSchema } from "../../schemas/authSchema";
 import { Link, useNavigate } from "react-router-dom";
-import { resetPassword } from "../api/auth";
+import { resetPassword } from "../../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
@@ -58,8 +58,8 @@ export default function ResetPassword() {
 
             <div className="flex flex-col gap-2 text-sm">
                 <label className="font-semibold text-theme">Confirm New Password</label>
-                <input type="password" {...register("confirm_password")} className="rounded bg-white p-2 outline-theme" />
-                <p className="text-xs text-red-500">{errors.confirm_password?.message}</p>
+                <input type="password" {...register("password_confirmation")} className="rounded bg-white p-2 outline-theme" />
+                <p className="text-xs text-red-500">{errors.password_confirmation?.message}</p>
             </div>
 
             <button
