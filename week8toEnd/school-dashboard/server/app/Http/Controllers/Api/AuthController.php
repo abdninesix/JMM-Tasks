@@ -35,7 +35,8 @@ class AuthController extends Controller
 
         $roleName = $request->role ?? 'Student';
         $role = Role::where('name', $roleName)->first();
-        $user->roles()->attach($role);
+
+        $user->roles()->syncWithoutDetaching([$role->id]);
 
         $token = auth('api')->login($user);
 
@@ -77,16 +78,16 @@ class AuthController extends Controller
         try {
             $token = auth('api')->refresh();
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Token refreshed',
                 'token' => $token
             ]);
         } catch (TokenExpiredException $e) {
-            return response()->json(['status' => 'error', 'message' => 'Token expired'], 401);
+            return response()->json(['success' => false, 'message' => 'Token expired'], 401);
         } catch (TokenInvalidException $e) {
-            return response()->json(['status' => 'error', 'message' => 'Token invalid'], 401);
+            return response()->json(['success' => false, 'message' => 'Token invalid'], 401);
         } catch (JWTException $e) {
-            return response()->json(['status' => 'error', 'message' => 'Token invalid'], 401);
+            return response()->json(['success' => false, 'message' => 'Token invalid'], 401);
         }
     }
 
@@ -106,7 +107,7 @@ class AuthController extends Controller
         Mail::to($user->email)->send(new ResetPasswordMail($user, $token));
 
         return response()->json([
-            'status' => 'success',
+            'success' => true,
             'message' => 'Password reset link sent to your email',
         ], 200);
     }
@@ -120,7 +121,7 @@ class AuthController extends Controller
 
         if (!$resetData) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => 'Invalid token or email'
             ], 400);
         }
@@ -130,7 +131,7 @@ class AuthController extends Controller
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
         return response()->json([
-            'status' => 'success',
+            'success' => true,
             'message' => 'Password has been reset successfully'
         ], 200);
     }

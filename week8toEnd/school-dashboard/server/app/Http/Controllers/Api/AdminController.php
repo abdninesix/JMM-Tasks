@@ -19,7 +19,7 @@ class AdminController extends Controller
     {
         $role = Role::where('name', $request->role)->firstOrFail();
 
-        $user->roles()->syncWithoutDetaching([$role->id]);
+        $user->roles()->sync([$role->id]); 
 
         return response()->json([
             'success' => true,
