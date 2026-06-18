@@ -66,18 +66,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function me()
-    {
-        try {
-            return response()->json([
-                'status' => 'success',
-                'user' => new UserResource(auth('api')->userOrFail()),
-            ]);
-        } catch (JWTException $e) {
-            return response()->json(['status' => 'error', 'message' => 'Token not valid'], 401);
-        }
-    }
-
     public function logout()
     {
         auth('api')->logout();
