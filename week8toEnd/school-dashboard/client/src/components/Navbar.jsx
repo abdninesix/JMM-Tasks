@@ -16,7 +16,7 @@ const Navbar = () => {
 
     return (
         <nav className="p-4 flex w-full items-center justify-between">
-            <Link to="/" className="text-2xl font-bold text-theme uppercase">Auth&nbsp;<span className='text-base text-red-500'>Laravel</span></Link>
+            <Link to="/" className="text-2xl font-bold text-theme uppercase">School&nbsp;<span className='text-base text-red-500'>Laravel</span></Link>
             <div className="flex gap-4">
                 {user
                     ? <button onClick={handleSignout} className="cursor-pointer rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90">Sign Out</button>

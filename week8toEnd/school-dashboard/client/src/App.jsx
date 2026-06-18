@@ -21,6 +21,7 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          {/* Home */}
           <Route path="/" element={<Home />} />
 
           {/* Auth */}
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/about" element={<About />} />
+
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
