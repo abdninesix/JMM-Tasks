@@ -27,7 +27,6 @@ class UserRegisterRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|string',
             'password' => 'required|min:8|confirmed',
-            // 'confirm_password' => 'required|same:password',
             'gender' => 'required|string',
             'dob' => 'required|date',
             'role' => 'nullable|string|exists:roles,name'
