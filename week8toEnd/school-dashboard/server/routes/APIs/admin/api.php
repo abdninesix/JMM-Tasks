@@ -7,8 +7,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::middleware('role:Admin')->prefix('admin')->group(function () {
         Route::get('/users', [AdminController::class, 'index']);
-        Route::post('/users/{id}/assign-role', [AdminController::class, 'assignRole']);
-        Route::delete('/users/{id}', [AdminController::class, 'destroy']);
+        Route::post('/users/{user}/assign-role', [AdminController::class, 'assignRole']);
+        Route::delete('/users/{user}', [AdminController::class, 'destroy']);
     });
 
 });
