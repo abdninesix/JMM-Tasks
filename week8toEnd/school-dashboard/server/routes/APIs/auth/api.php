@@ -13,11 +13,6 @@ Route::prefix('auth')->group(function () {
     Route::middleware('auth:api')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/refresh', [AuthController::class, 'refresh']);
-
-        Route::get('/user/profile', [UserController::class, 'profile']);
-        Route::put('/user/profile', [UserController::class, 'update']);
-        Route::post('/user/change-password', [UserController::class, 'changePassword']);
-        Route::post('/user/upload-picture', [UserController::class, 'uploadPicture']);
     });
 });
 
