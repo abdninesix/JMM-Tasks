@@ -2,11 +2,13 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { CgSpinner } from "react-icons/cg";
 
-const ProtectedRoute = ({ children, allowedRoles }) => {
-    const { user, isLoading } = useAuth();
+const ProtectedRoute = ({ children, allowedRole }) => {
+
+    const { user, isPending } = useAuth();
+
     const location = useLocation();
 
-    if (isLoading) {
+    if (isPending) {
         return <CgSpinner className="mx-auto mt-10 animate-spin" />;
     }
 
@@ -14,7 +16,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    if (allowedRoles && !allowedRoles.includes(user.role)) {
+    if (allowedRole && !allowedRole.includes(user.role)) {
         return <Navigate to="/" replace />;
     }
 

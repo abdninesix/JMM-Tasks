@@ -22,7 +22,6 @@ export default function Login() {
         onSuccess: (data) => {
             toast.success(data.message);
             login(data.user, data.access_token);
-            navigate("/");
         },
         onError: (error) => {
             const serverErrors = error.response?.data?.errors;

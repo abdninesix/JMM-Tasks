@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../api/axios";
 import { profile } from "../api/profile";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const AuthContext = createContext();
 
@@ -9,7 +9,9 @@ export const AuthProvider = ({ children }) => {
 
     const [token, setToken] = useState(localStorage.getItem("access_token") || null);
 
-    const { data, isLoading, error } = useQuery({
+    const queryClient = useQueryClient();
+
+    const { data, isPending, error } = useQuery({
         queryKey: ["auth-user"],
         queryFn: profile,
         enabled: !!token,
@@ -20,15 +22,17 @@ export const AuthProvider = ({ children }) => {
     const login = (userData, userToken) => {
         setToken(userToken);
         localStorage.setItem("access_token", userToken);
+        queryClient.setQueryData(["auth-user"], { user: userData });
     };
 
     const logout = () => {
         setToken(null);
         localStorage.removeItem("access_token");
+        queryClient.removeQueries(["auth-user"]);
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, isLoading, isAuthenticated: !!token && !!user, error }}>
+        <AuthContext.Provider value={{ user, token, login, logout, isPending, isAuthenticated: !!token && !!user, error }}>
             {children}
         </AuthContext.Provider>
     );

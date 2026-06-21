@@ -37,11 +37,11 @@ const Profile = () => {
     const profileMutation = useMutation({
         mutationFn: editProfile,
         onSuccess: (data) => {
-            toast.success(data.message);
-            setEditMode(false);
             queryClient.invalidateQueries({
                 queryKey: ["auth-user"],
             });
+            setEditMode(false);
+            toast.success(data.message);
         },
         onError: (error) => {
             const serverErrors = error.response?.data?.errors;

@@ -12,6 +12,8 @@ import ResetPassword from './pages/auth/ResetPassword'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/profile/Profile'
+import Users from './pages/admin/Users'
+import GuestRoute from './components/GuestRoute'
 
 
 const App = () => {
@@ -26,15 +28,18 @@ const App = () => {
           <Navbar />
           <Routes>
 
-            {/* Auth */}
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
+            {/* Guest */}
+            <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
+            <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+            <Route path="/forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
+            <Route path="/reset-password" element={<GuestRoute><ResetPassword /></GuestRoute>} />
 
             {/* Protected */}
             <Route path="/" element={<ProtectedRoute ><Home /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute ><Profile /></ProtectedRoute>} />
+
+            {/* Admin */}
+            <Route path="/users" element={<ProtectedRoute allowedRole="Admin" ><Users /></ProtectedRoute>} />
 
             {/* Public */}
             <Route path="/about" element={<About />} />

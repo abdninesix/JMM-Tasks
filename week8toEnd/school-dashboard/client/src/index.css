@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-theme: oklch(60.6% 0.25 292.717);
+  --color-theme: oklch(76.9% 0.188 70.08);
 }
 
 .paddingClass {
