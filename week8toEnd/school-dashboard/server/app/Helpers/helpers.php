@@ -1,16 +1,6 @@
 <?php
 
-function calculateGrade(float $percentage)
+function formatName(string $fullName)
 {
-    if ($percentage >= 90)
-        return 'A+';
-    if ($percentage >= 80)
-        return 'A';
-    if ($percentage >= 70)
-        return 'B';
-    if ($percentage >= 60)
-        return 'C';
-    if ($percentage >= 40)
-        return 'D';
-    return 'F';
+    return ucwords(strtolower(trim($fullName)));
 }
