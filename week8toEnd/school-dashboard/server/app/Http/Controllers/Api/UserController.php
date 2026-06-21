@@ -25,7 +25,11 @@ class UserController extends Controller
     {
         $user = auth('api')->user();
 
-        $user->update($request->only('full_name', 'email', 'phone'));
+        $user->update([
+            'full_name' => formatName($request->full_name),
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
 
         return response()->json([
             'success' => true,
