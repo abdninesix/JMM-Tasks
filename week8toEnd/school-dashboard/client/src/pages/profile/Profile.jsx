@@ -1,17 +1,17 @@
 import React from 'react'
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
-const Home = () => {
+const Profile = () => {
 
     const { user } = useAuth();
 
     return (
-        <div className="flex flex-col items-center mt-20 gap-20">
+        <div className='paddingClass'>
 
-            <h1 className='text-6xl text-gray-700'>Laravel Authentication System</h1>
+            <h1 className='text-6xl text-gray-700'>Profile Settings</h1>
 
             {user && (
-                <div className="flex items-center gap-6">
+                <div className="mt-10 flex items-center gap-6">
                     <div className="w-24 h-24 rounded-full bg-theme text-white flex items-center justify-center text-3xl font-bold overflow-hidden">
                         {!user.profile_picture ? user.full_name?.split(" ").map(word => word.charAt(0).toUpperCase()).join("") : <img src={user.profile_picture} />}
                     </div>
@@ -36,4 +36,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Profile

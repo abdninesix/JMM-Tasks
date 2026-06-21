@@ -5,8 +5,12 @@ import { registerUser } from "../../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { registerSchema } from "../../schemas/authSchema";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Register() {
+
+    const { login } = useAuth();
+
     const navigate = useNavigate();
 
     const { register, handleSubmit, setError, formState: { errors }, } = useForm({
@@ -17,7 +21,8 @@ export default function Register() {
         mutationFn: registerUser,
         onSuccess: (data) => {
             toast.success(data.message);
-            navigate("/login")
+            login(data.user, data.access_token);
+            navigate("/")
         },
         onError: (error) => {
             const serverErrors = error.response?.data?.errors;
@@ -63,14 +68,20 @@ export default function Register() {
 
             <div className="flex flex-col gap-2 text-sm">
                 <label htmlFor="email" className="font-semibold text-theme">Email</label>
-                <input type="email" {...register("email")} placeholder="Enter full name" id="email" className="rounded bg-white p-2 outline-theme" />
+                <input type="email" {...register("email")} placeholder="Enter email" id="email" className="rounded bg-white p-2 outline-theme" />
                 <p className="text-xs text-red-500">{errors.email?.message}</p>
+            </div>
+
+            <div className="flex flex-col gap-2 text-sm">
+                <label htmlFor="phone" className="font-semibold text-theme">Phone</label>
+                <input type="tel" {...register("phone")} placeholder="Enter phone number" id="phone" className="rounded bg-white p-2 outline-theme" />
+                <p className="text-xs text-red-500">{errors.phone?.message}</p>
             </div>
 
             <div className="flex gap-4">
                 <div className="w-full flex flex-col gap-2 text-sm">
                     <label htmlFor="dob" className="font-semibold text-theme">Date of birth</label>
-                    <input type="date" {...register("dob")} placeholder="Enter full name" id="dob" className="rounded bg-white p-2 outline-theme" />
+                    <input type="date" {...register("dob")} id="dob" className="rounded bg-white p-2 outline-theme" />
                     <p className="text-xs text-red-500">{errors.dob?.message}</p>
                 </div>
                 <div className="w-full flex flex-col gap-2 text-sm">
@@ -87,14 +98,14 @@ export default function Register() {
 
             <div className="flex flex-col gap-2 text-sm">
                 <label htmlFor="password" className="font-semibold text-theme">Password</label>
-                <input type="password" {...register("password")} placeholder="Enter full name" id="password" className="rounded bg-white p-2 outline-theme" />
+                <input type="password" {...register("password")} placeholder="Enter password" id="password" className="rounded bg-white p-2 outline-theme" />
                 <p className="text-xs text-red-500">{errors.password?.message}</p>
             </div>
 
             <div className="flex flex-col gap-2 text-sm">
-                <label htmlFor="confirm_password" className="font-semibold text-theme">Confirm Password</label>
-                <input type="password" {...register("confirm_password")} placeholder="Enter full name" id="confirm_password" className="rounded bg-white p-2 outline-theme" />
-                <p className="text-xs text-red-500">{errors.confirm_password?.message}</p>
+                <label htmlFor="password_confirmation" className="font-semibold text-theme">Confirm Password</label>
+                <input type="password" {...register("password_confirmation")} placeholder="Confirm password" id="password_confirmation" className="rounded bg-white p-2 outline-theme" />
+                <p className="text-xs text-red-500">{errors.password_confirmation?.message}</p>
             </div>
 
             <p className="mt-6 text-sm">Already have an account? <Link to="/login" className="text-theme hover:underline">Sign in</Link></p>

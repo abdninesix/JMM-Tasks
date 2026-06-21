@@ -9,6 +9,9 @@ import Register from './pages/auth/Register'
 import Login from './pages/auth/Login'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import ResetPassword from './pages/auth/ResetPassword'
+import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
+import Profile from './pages/profile/Profile'
 
 
 const App = () => {
@@ -17,22 +20,29 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastContainer position='bottom-right' />
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          {/* Home */}
-          <Route path="/" element={<Home />} />
+      <AuthProvider>
+        <ToastContainer position='bottom-right' />
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
 
-          {/* Auth */}
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/about" element={<About />} />
+            {/* Auth */}
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
-        </Routes>
-      </BrowserRouter>
+            {/* Protected */}
+            <Route path="/" element={<ProtectedRoute ><Home /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute ><Profile /></ProtectedRoute>} />
+
+            {/* Public */}
+            <Route path="/about" element={<About />} />
+
+
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
   )
 }

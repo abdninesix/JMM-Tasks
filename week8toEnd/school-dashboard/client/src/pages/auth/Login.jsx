@@ -5,8 +5,12 @@ import { loginUser } from "../../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { loginSchema } from "../../schemas/authSchema";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
+
+    const { login } = useAuth();
+    
     const navigate = useNavigate();
 
     const { register, handleSubmit, setError, formState: { errors }, } = useForm({
@@ -17,8 +21,7 @@ export default function Login() {
         mutationFn: loginUser,
         onSuccess: (data) => {
             toast.success(data.message);
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
+            login(data.user, data.access_token);
             navigate("/");
         },
         onError: (error) => {

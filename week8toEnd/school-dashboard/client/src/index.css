@@ -3,3 +3,7 @@
 @theme {
   --color-theme: oklch(60.6% 0.25 292.717);
 }
+
+.paddingClass {
+  @apply py-4 px-4 sm:px-8 md:px-12 lg:px-24;
+}
