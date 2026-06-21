@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link to="/" className="text-2xl font-bold text-theme uppercase">School&nbsp;<span className='text-sm text-red-500'>Laravel</span></Link>
             <div className="flex gap-4">
 
-                {user?.role[0] === "Admin" &&
+                {user?.role === "Admin" &&
                     <Link to="/users" className="rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90">All Users</Link>
                 }
 
