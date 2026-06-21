@@ -69,7 +69,7 @@ const Profile = () => {
             <h1 className='text-6xl text-gray-700'>Profile Settings</h1>
 
             {user && (
-                <div className="mt-10 flex items-center justify-between">
+                <div className="mt-10 flex items-start justify-between">
                     <div className='flex gap-6'>
                         <UploadPicture />
 
@@ -93,14 +93,14 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    <button onClick={() => setEditMode(prev => !prev)} className='flex items-center gap-6'>
-                        <FaUserEdit size={40} className='text-theme duration-100 cursor-pointer hover:text-theme/80 active:scale-90' />
+                    <button onClick={() => setEditMode(prev => !prev)} className='flex items-center gap-2 font-medium text-theme hover:text-theme/80 duration-100 cursor-pointer active:scale-90'>
+                        Edit Profile <FaUserEdit size={20} />
                     </button>
                 </div>
             )}
 
             {editMode && (
-                <form onSubmit={handleSubmit(onSubmit)} className='mt-10'>
+                <form onSubmit={handleSubmit(onSubmit)} className='mt-10 max-w-lg'>
 
                     <h1 className='text-6xl text-gray-700'>Edit Profile</h1>
 
