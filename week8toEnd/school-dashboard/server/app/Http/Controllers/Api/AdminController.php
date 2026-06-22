@@ -12,14 +12,15 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return UserResource::collection(User::with('roles')->get());
+        $users = User::with('roles')->paginate(10);
+        return UserResource::collection($users);
     }
 
     public function assignRole(Request $request, User $user)
     {
         $role = Role::where('name', $request->role)->firstOrFail();
 
-        $user->roles()->sync([$role->id]); 
+        $user->roles()->sync([$role->id]);
 
         return response()->json([
             'success' => true,
