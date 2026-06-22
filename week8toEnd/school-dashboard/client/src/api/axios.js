@@ -12,12 +12,33 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            localStorage.removeItem("access_token");
+
+let isRefreshing = false;
+
+api.interceptors.response.use((response) => response, async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+
+        if (isRefreshing) {
+            return Promise.reject(error);
         }
-        return Promise.reject(error);
+
+        isRefreshing = true;
+
+        try {
+            const { data } = await api.post("auth/refresh");
+            const newToken = data.access_token;
+            localStorage.setItem("access_token", newToken);
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            isRefreshing = false;
+            return api(originalRequest);
+        } catch (err) {
+            localStorage.removeItem("access_token");
+            return Promise.reject(err);
+        }
     }
-);
+
+    return Promise.reject(error);
+});
