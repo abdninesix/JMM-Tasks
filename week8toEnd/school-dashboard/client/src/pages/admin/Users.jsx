@@ -8,7 +8,7 @@ import { CgSpinner } from 'react-icons/cg';
 
 const Users = () => {
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
 
   const queryClient = useQueryClient();
 
