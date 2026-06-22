@@ -15,10 +15,9 @@ import Profile from './pages/profile/Profile'
 import Users from './pages/admin/Users'
 import GuestRoute from './components/GuestRoute'
 
+const queryClient = new QueryClient()
 
 const App = () => {
-
-  const queryClient = new QueryClient()
 
   return (
     <QueryClientProvider client={queryClient}>

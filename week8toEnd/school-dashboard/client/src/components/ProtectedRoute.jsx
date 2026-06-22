@@ -4,11 +4,11 @@ import { CgSpinner } from "react-icons/cg";
 
 const ProtectedRoute = ({ children, allowedRole }) => {
 
-    const { user, isPending } = useAuth();
+    const { user, checkingAuth } = useAuth();
 
     const location = useLocation();
 
-    if (isPending) {
+    if (checkingAuth) {
         return <CgSpinner className="mx-auto mt-10 animate-spin" />;
     }
 

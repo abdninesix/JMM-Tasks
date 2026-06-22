@@ -4,9 +4,9 @@ import { CgSpinner } from "react-icons/cg";
 
 const GuestRoute = ({ children }) => {
     
-    const { user, isPending } = useAuth();
+    const { user, checkingAuth } = useAuth();
 
-    if (isPending) {
+    if (checkingAuth) {
         return <CgSpinner className="mx-auto mt-10 animate-spin" />;
     }
 

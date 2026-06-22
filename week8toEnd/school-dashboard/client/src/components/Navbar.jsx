@@ -35,7 +35,7 @@ const Navbar = () => {
                         {profileMenu && (
                             <div className='absolute top-16 right-8 p-2 bg-white shadow-md flex flex-col gap-2'>
                                 <Link to="/profile" className="font-semibold">Profile</Link>
-                                <button onClick={handleSignout} className="text-red-500 font-semibold">Sign Out</button>
+                                <button onClick={handleSignout} className="cursor-pointer text-red-500 font-semibold">Sign Out</button>
                             </div>
                         )}
                     </>

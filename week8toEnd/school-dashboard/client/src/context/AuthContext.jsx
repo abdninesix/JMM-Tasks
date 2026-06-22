@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
     const queryClient = useQueryClient();
 
-    const { data, isPending, error } = useQuery({
+    const { data, isLoading, isFetching, error } = useQuery({
         queryKey: ["auth-user"],
         queryFn: profile,
         enabled: !!token,
@@ -31,8 +31,10 @@ export const AuthProvider = ({ children }) => {
         queryClient.removeQueries(["auth-user"]);
     };
 
+    const checkingAuth = !!token && isLoading;
+
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, isPending, isAuthenticated: !!token && !!user, error }}>
+        <AuthContext.Provider value={{ user, token, login, logout, checkingAuth, isAuthenticated: !!user, error }}>
             {children}
         </AuthContext.Provider>
     );
