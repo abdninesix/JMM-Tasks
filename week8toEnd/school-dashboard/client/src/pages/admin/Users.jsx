@@ -1,16 +1,21 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React from 'react'
 import { assignRole, deleteUser, fetchAllUsers } from '../../api/admin';
-import { FaTrash } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { CgSpinner } from 'react-icons/cg';
 
 const Users = () => {
+
+  const [page, setPage] = useState(1);
 
   const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["admin-users"],
+    queryKey: ["admin-users", page],
     queryFn: fetchAllUsers,
+    keepPreviousData: true,
   });
 
   const roleMutation = useMutation({
@@ -41,11 +46,19 @@ const Users = () => {
     }
   };
 
+  const meta = data?.meta;
+  const handleNext = () => { if (meta?.current_page < meta?.last_page) setPage(prev => prev + 1); };
+  const handlePrev = () => { if (meta?.current_page > 1) setPage(prev => prev - 1); };
+
+  if (isLoading) {
+    return <CgSpinner className="mx-auto mt-10 animate-spin" />;
+  }
+
   return (
     <div className="paddingClass">
-       <h1 className='text-6xl text-gray-700'>User Management</h1>
+      <h1 className='text-6xl text-gray-700'>User Management</h1>
 
-      <div className="mt-10 overflow-x-auto rounded-lg shadow-md">
+      <div className="mt-10 overflow-x-auto rounded-lg border border-gray-200">
         <table className="w-full text-left text-sm text-gray-500">
           <thead className="bg-theme/10 text-xs uppercase text-theme">
             <tr>
@@ -81,6 +94,29 @@ const Users = () => {
           </tbody>
         </table>
       </div>
+
+      <div className="mt-4 flex items-center justify-between bg-white px-4 py-3 sm:px-6 rounded-lg border border-gray-200">
+        <div className="text-sm text-gray-700">
+          Showing <span className="font-semibold">{meta?.from}</span> to <span className="font-semibold">{meta?.to}</span> of <span className="font-semibold">{meta?.total}</span> users
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={handlePrev}
+            disabled={page === 1}
+            className='flex items-center gap-1 rounded px-3 py-1 text-sm font-semibold border text-theme border-theme hover:bg-theme/10'
+          >
+            <FaChevronLeft size={10} /> Previous
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={page === meta?.last_page}
+            className='flex items-center gap-1 rounded px-3 py-1 text-sm font-semibold border text-theme border-theme hover:bg-theme/10'
+          >
+            Next <FaChevronRight size={10} />
+          </button>
+        </div>
+      </div>
+
     </div>
   )
 }
