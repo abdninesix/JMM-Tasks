@@ -80,7 +80,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Token refreshed',
-                'token' => $token
+                'access_token' => $token
             ]);
         } catch (TokenExpiredException $e) {
             return response()->json(['success' => false, 'message' => 'Token expired'], 401);
