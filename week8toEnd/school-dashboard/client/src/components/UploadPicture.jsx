@@ -34,7 +34,9 @@ const UploadPicture = () => {
     const handleChange = (e) => {
         const file = e.target.files?.[0];
         if (!file) return;
-        mutation.mutate(file);
+        const formData = new FormData();
+        formData.append("image", file);
+        mutation.mutate(formData);
     };
 
     return (

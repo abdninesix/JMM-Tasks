@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
         if (error?.response?.status === 401) {
             logout();
         }
-    }, [error]);
+    }, [error?.response?.status]);
 
     const user = data?.user;
 
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         queryClient.removeQueries(["auth-user"]);
     };
 
-    const checkingAuth = !!token && (isLoading && !data);
+    const checkingAuth = !!token && !data && isLoading;
 
     return (
         <AuthContext.Provider value={{ user, token, login, logout, checkingAuth, isAuthenticated: !!user && !!token, error }}>

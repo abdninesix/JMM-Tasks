@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { CgSpinner } from "react-icons/cg";
+import { useAuth } from "../../context/AuthContext";
 
 const ProtectedRoute = ({ children, allowedRole }) => {
 
@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
     const location = useLocation();
 
     if (checkingAuth) {
-        return <CgSpinner className="mx-auto mt-10 animate-spin" />;
+        return <CgSpinner size={40} className="mx-auto mt-20 animate-spin" />;
     }
 
     if (!user) {

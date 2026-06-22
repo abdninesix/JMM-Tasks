@@ -10,10 +10,14 @@ import Login from './pages/auth/Login'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import ResetPassword from './pages/auth/ResetPassword'
 import { AuthProvider } from './context/AuthContext'
-import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/profile/Profile'
 import Users from './pages/admin/Users'
-import GuestRoute from './components/GuestRoute'
+import GuestRoute from './components/redirects/GuestRoute'
+import ProtectedRoute from './components/redirects/ProtectedRoute'
+import AdminDashboard from './pages/admin/Dashboard'
+import TeacherDashboard from './pages/teacher/Dashboard'
+import StudentDashboard from './pages/student/Dashboard'
+import RoleRedirect from './components/redirects/RoleRedirect'
 
 const queryClient = new QueryClient()
 
@@ -35,10 +39,18 @@ const App = () => {
 
             {/* Protected */}
             <Route path="/" element={<ProtectedRoute ><Home /></ProtectedRoute>} />
+            <Route path="/dashboard" element={<RoleRedirect ><Home /></RoleRedirect>} />
             <Route path="/profile" element={<ProtectedRoute ><Profile /></ProtectedRoute>} />
 
             {/* Admin */}
-            <Route path="/users" element={<ProtectedRoute allowedRole="Admin" ><Users /></ProtectedRoute>} />
+            <Route path="/admin/dashboard" element={<ProtectedRoute allowedRole="Admin" ><AdminDashboard /></ProtectedRoute>} />
+            <Route path="admin/users" element={<ProtectedRoute allowedRole="Admin" ><Users /></ProtectedRoute>} />
+
+            {/* Teacher */}
+            <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRole="Teacher" ><TeacherDashboard /></ProtectedRoute>} />
+
+            {/* Student */}
+            <Route path="/student/dashboard" element={<ProtectedRoute allowedRole="Student" ><StudentDashboard /></ProtectedRoute>} />
 
             {/* Public */}
             <Route path="/about" element={<About />} />

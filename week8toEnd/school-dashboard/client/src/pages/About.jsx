@@ -1,65 +1,97 @@
-import React from "react";
+import React from 'react';
+import { FaDatabase, FaImage, FaLaravel, FaLock, FaReact, FaUserShield } from 'react-icons/fa';
+import { SiJsonwebtokens, SiReactquery, SiTailwindcss } from 'react-icons/si';
 
 const About = () => {
+    const techStack = [
+        { name: "Laravel", icon: <FaLaravel className="text-red-600" />, desc: "Robust PHP framework providing the REST API and JWT authentication." },
+        { name: "React", icon: <FaReact className="text-blue-400" />, desc: "Modern frontend library for a fast and reactive user interface." },
+        { name: "JWT Auth", icon: <SiJsonwebtokens className="text-purple-500" />, desc: "Secure token-based authentication for stateless API communication." },
+        { name: "TanStack Query", icon: <SiReactquery className="text-red-500" />, desc: "Powerful data fetching, caching, and state synchronization." },
+        { name: "Tailwind CSS", icon: <SiTailwindcss className="text-cyan-400" />, desc: "Utility-first CSS framework for consistent and modern UI design." },
+        { name: "MySQL", icon: <FaDatabase className="text-blue-600" />, desc: "Relational database managing users, roles, and pivot relationships." },
+    ];
+
+    const features = [
+        { title: "Role-Based Access (RBAC)", icon: <FaUserShield />, text: "Separate permissions for Admin, Teacher, and Student roles." },
+        { title: "Secure Profile Management", icon: <FaLock />, text: "Encrypted password hashing and secure profile updates." },
+        { title: "Binary Media Handling", icon: <FaImage />, text: "Profile picture uploads stored via Laravel's storage system." },
+    ];
+
     return (
-        <div className="px-6 py-16">
-            {/* Header */}
-            <div className="mb-12">
-                <h1 className="text-4xl font-bold">About This App</h1>
-                <p className="text-gray-500 mt-2">
-                    Laravel + React Authentication System
+        <div className="paddingClass space-y-16 py-12">
+            {/* Hero Section */}
+            <header className="text-center space-y-4">
+                <h1 className="text-6xl font-bold text-gray-800">
+                    About the <span className="text-theme">Project</span>
+                </h1>
+                <p className="mx-auto max-w-2xl text-lg text-gray-500">
+                    A comprehensive Mid-Level Full-Stack Authentication system designed to showcase modern development
+                    practices in Laravel and React.
                 </p>
-            </div>
+            </header>
 
-            {/* Intro */}
-            <div className="mb-12">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                    This is a simple full-stack authentication project built
-                    using Laravel for the backend API and React for the
-                    frontend. It demonstrates how modern web apps handle
-                    authentication, validation, and protected routes.
-                </p>
-            </div>
+            {/* Features Grid */}
+            <section className="grid gap-8 md:grid-cols-3">
+                {features.map((f, i) => (
+                    <div key={i} className="rounded-xl border border-theme/10 bg-theme/5 p-6 text-center shadow-sm">
+                        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-theme text-white">
+                            {f.icon}
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-700">{f.title}</h3>
+                        <p className="mt-2 text-sm text-gray-500">{f.text}</p>
+                    </div>
+                ))}
+            </section>
 
-            {/* Sections */}
-            <div className="space-y-10">
-                <div>
-                    <p className="text-sm uppercase tracking-wider text-gray-600">
-                        Features
-                    </p>
-                    <div className="mt-2 space-y-1 text-gray-800">
-                        <p>• User Registration</p>
-                        <p>• User Login</p>
-                        <p>• Forgot Password</p>
-                        <p>• Password Reset</p>
-                        <p>• Form Validation (React Hook Form + Zod)</p>
+            {/* Tech Stack Section */}
+            <section className="space-y-8">
+                <h2 className="text-center text-3xl font-bold text-gray-800 underline decoration-theme decoration-4 underline-offset-8">
+                    Tech Stack & Tools
+                </h2>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {techStack.map((tech, index) => (
+                        <div key={index} className="flex items-start gap-4 rounded-lg bg-white p-4 shadow-sm border border-gray-100">
+                            <div className="text-3xl">{tech.icon}</div>
+                            <div>
+                                <h4 className="font-bold text-gray-700">{tech.name}</h4>
+                                <p className="text-xs text-gray-500 leading-relaxed">{tech.desc}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Project Summary */}
+            <section className="rounded-2xl bg-gray-900 p-8 text-white shadow-2xl">
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 className="text-3xl font-bold">System Architecture</h2>
+                        <p className="mt-4 text-gray-300 leading-relaxed">
+                            The backend leverages a <strong>Many-to-Many relationship</strong> between users and roles,
+                            ensuring a scalable permission system. On the frontend, a centralized <strong>Auth Context</strong>
+                            manages the session state, while <strong>Axios Interceptors</strong> handle token persistence
+                            and auto-logout functionality.
+                        </p>
+                    </div>
+                    <div className="bg-white/5 p-6 rounded-lg border border-white/10">
+                        <h4 className="text-theme font-bold mb-2">Development Highlights:</h4>
+                        <ul className="text-sm space-y-2 text-gray-300 list-disc list-inside">
+                            <li>Form validation with Zod & React Hook Form.</li>
+                            <li>Stateless Auth using JWT (JSON Web Tokens).</li>
+                            <li>Image processing via Laravel Storage disk.</li>
+                            <li>Automated data seeding with Model Factories.</li>
+                        </ul>
                     </div>
                 </div>
+            </section>
 
-                <div>
-                    <p className="text-sm uppercase tracking-wider text-gray-600">
-                        Tech Stack
-                    </p>
-                    <div className="mt-2 space-y-1 text-gray-800">
-                        <p>• Laravel API</p>
-                        <p>• React (Vite)</p>
-                        <p>• TanStack Query</p>
-                        <p>• Tailwind CSS v4</p>
-                    </div>
-                </div>
-
-                <div>
-                    <p className="text-sm uppercase tracking-wider text-gray-600">
-                        Purpose
-                    </p>
-                    <p className="mt-2 text-gray-700 leading-relaxed">
-                        The goal of this project is to practice real-world
-                        authentication flow including token handling, error
-                        handling, and frontend/backend separation. It acts as a
-                        foundation for more advanced full-stack applications.
-                    </p>
-                </div>
-            </div>
+            {/* Footer Credit */}
+            <footer className="text-center pt-8 border-t border-gray-100">
+                <p className="text-gray-400 text-sm">
+                    Built for the <span className="font-semibold">Junior Developer Training Program</span> &copy; 2026
+                </p>
+            </footer>
         </div>
     );
 };
