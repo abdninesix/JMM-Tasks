@@ -51,7 +51,7 @@ const Users = () => {
   const handlePrev = () => { if (meta?.current_page > 1) setPage(prev => prev - 1); };
 
   if (isLoading) {
-    return <CgSpinner className="mx-auto mt-10 animate-spin" />;
+    return <CgSpinner size={40} className="mx-auto mt-20 animate-spin" />;
   }
 
   return (

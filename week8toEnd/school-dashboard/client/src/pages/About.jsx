@@ -1,23 +1,8 @@
 import React from 'react';
-import { FaDatabase, FaImage, FaLaravel, FaLock, FaReact, FaUserShield } from 'react-icons/fa';
-import { SiJsonwebtokens, SiReactquery, SiTailwindcss } from 'react-icons/si';
+import { features, techStack } from '../utils/data';
 
 const About = () => {
-    const techStack = [
-        { name: "Laravel", icon: <FaLaravel className="text-red-600" />, desc: "Robust PHP framework providing the REST API and JWT authentication." },
-        { name: "React", icon: <FaReact className="text-blue-400" />, desc: "Modern frontend library for a fast and reactive user interface." },
-        { name: "JWT Auth", icon: <SiJsonwebtokens className="text-purple-500" />, desc: "Secure token-based authentication for stateless API communication." },
-        { name: "TanStack Query", icon: <SiReactquery className="text-red-500" />, desc: "Powerful data fetching, caching, and state synchronization." },
-        { name: "Tailwind CSS", icon: <SiTailwindcss className="text-cyan-400" />, desc: "Utility-first CSS framework for consistent and modern UI design." },
-        { name: "MySQL", icon: <FaDatabase className="text-blue-600" />, desc: "Relational database managing users, roles, and pivot relationships." },
-    ];
-
-    const features = [
-        { title: "Role-Based Access (RBAC)", icon: <FaUserShield />, text: "Separate permissions for Admin, Teacher, and Student roles." },
-        { title: "Secure Profile Management", icon: <FaLock />, text: "Encrypted password hashing and secure profile updates." },
-        { title: "Binary Media Handling", icon: <FaImage />, text: "Profile picture uploads stored via Laravel's storage system." },
-    ];
-
+    
     return (
         <div className="paddingClass space-y-16 py-12">
             {/* Hero Section */}
@@ -85,13 +70,6 @@ const About = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Footer Credit */}
-            <footer className="text-center pt-8 border-t border-gray-100">
-                <p className="text-gray-400 text-sm">
-                    Built for the <span className="font-semibold">Junior Developer Training Program</span> &copy; 2026
-                </p>
-            </footer>
         </div>
     );
 };
