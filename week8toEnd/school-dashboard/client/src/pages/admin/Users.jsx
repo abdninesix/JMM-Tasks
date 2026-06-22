@@ -8,13 +8,13 @@ import { CgSpinner } from 'react-icons/cg';
 
 const Users = () => {
 
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
 
   const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
     queryKey: ["admin-users", page],
-    queryFn: fetchAllUsers,
+    queryFn: () => fetchAllUsers(page),
     keepPreviousData: true,
   });
 

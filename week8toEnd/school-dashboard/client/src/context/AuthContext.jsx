@@ -17,6 +17,12 @@ export const AuthProvider = ({ children }) => {
         enabled: !!token,
     });
 
+    useEffect(() => {
+        if (error?.response?.status === 401) {
+            logout();
+        }
+    }, [error]);
+
     const user = data?.user;
 
     const login = (userData, userToken) => {
@@ -31,10 +37,10 @@ export const AuthProvider = ({ children }) => {
         queryClient.removeQueries(["auth-user"]);
     };
 
-    const checkingAuth = !!token && isLoading;
+    const checkingAuth = !!token && (isLoading && !data);
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, checkingAuth, isAuthenticated: !!user, error }}>
+        <AuthContext.Provider value={{ user, token, login, logout, checkingAuth, isAuthenticated: !!user && !!token, error }}>
             {children}
         </AuthContext.Provider>
     );
