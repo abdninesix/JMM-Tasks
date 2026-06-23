@@ -76,19 +76,25 @@ npm run dev
 - `POST /api/auth/register` - Create new account (Default: Student).
 - `POST /api/auth/login` - Authenticate and receive JWT.
 - `POST /api/auth/forgot-password` - Trigger reset email (Mailpit).
-
-### User Protected Routes (`auth:api`)
-- `GET /api/auth/me` - Initial auth verification.
-- `GET /api/auth/user/profile` - Get full user details.
-- `PUT /api/auth/user/profile` - Update name, email, phone.
-- `POST /api/auth/user/upload-picture` - Upload multipart/form-data image.
-- `POST /api/auth/user/change-password` - Secure password update.
+- `POST /api/auth/reset-password` - Reset password.
 - `POST /api/auth/refresh` - Issue new JWT using expired-but-valid token.
 
+### User Protected Routes (`auth:api`)
+- `GET /api/user/profile` - Get full user details.
+- `PUT /api/user/profile` - Update name, email, phone.
+- `POST /api/user/upload-picture` - Upload multipart/form-data image.
+- `POST /api/user/change-password` - Secure password update.
+
 ### Admin Protected Routes (`role:Admin`)
-- `GET /api/auth/admin/users?page={n}` - Paginated user list.
-- `POST /api/auth/admin/users/{id}/assign-role` - Update user permissions.
-- `DELETE /api/auth/admin/users/{id}` - Remove user from system.
+- `GET /api/admin/users?page={n}` - Paginated user list.
+- `POST /api/admin/users/{id}/assign-role` - Update user permissions.
+- `DELETE /api/admin/users/{id}` - Remove user from system.
+
+### Teacher Protected Routes (`role:Teacher`)
+- `GET /api/teacher/dashboard` - Welcome messag for teacher.
+
+### Student Protected Routes (`role:student`)
+- `GET /api/student/dashboard` - Welcome messag for student.
 
 ---
 
