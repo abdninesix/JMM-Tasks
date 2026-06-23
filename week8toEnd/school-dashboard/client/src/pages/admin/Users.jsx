@@ -64,6 +64,7 @@ const Users = () => {
             <tr>
               <th className="px-6 py-3">Full Name</th>
               <th className="px-6 py-3">Email</th>
+              <th className="px-6 py-3">Phone</th>
               <th className="px-6 py-3 text-center">Change Role</th>
               <th className="px-6 py-3 text-right">Actions</th>
             </tr>
@@ -73,6 +74,7 @@ const Users = () => {
               <tr key={user.id}>
                 <td className="px-6 py-4 font-medium text-gray-900">{user.full_name}</td>
                 <td className="px-6 py-4">{user.email}</td>
+                <td className="px-6 py-4">{user.phone}</td>
                 <td className="px-6 py-4 text-center">
                   <select onChange={(e) => handleRoleChange(user.id, e.target.value)} defaultValue={user.role} className="rounded border border-gray-300 p-1 text-xs outline-theme">
                     <option value="" disabled>Change Role</option>
