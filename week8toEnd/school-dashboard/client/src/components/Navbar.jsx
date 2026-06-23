@@ -8,7 +8,7 @@ const Navbar = () => {
 
     const [profileMenu, setProfileMenu] = useState(false);
 
-    const { user, checkingAuth, logout } = useAuth();
+    const { user, logout } = useAuth();
 
 
     const handleSignout = () => {
@@ -23,7 +23,7 @@ const Navbar = () => {
 
                 <Link to="/about" className="rounded px-4 py-2 font-semibold ring duration-100 hover:bg-theme hover:text-white active:scale-90">About</Link>
 
-                {!checkingAuth ?
+                {user ?
                     <>
                         <button onClick={() => setProfileMenu(prev => !prev)} className="w-10 h-10 cursor-pointer rounded-full bg-theme text-white flex items-center justify-center text-lg font-bold overflow-hidden">
                             {!user?.profile_picture ? user?.full_name?.split(" ").map(word => word.charAt(0).toUpperCase()).join("") : <img src={user?.profile_picture} className='object-cover size-full' />}
