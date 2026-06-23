@@ -13,7 +13,7 @@ const Home = () => {
             {user && (
                 <div className="flex gap-6">
                     <div className="w-24 h-24 rounded-full bg-theme text-white flex items-center justify-center text-3xl font-bold overflow-hidden">
-                        {!user.profile_picture ? user.full_name?.split(" ").map(word => word.charAt(0).toUpperCase()).join("") : <img src={user.profile_picture} />}
+                        {!user.profile_picture ? user.full_name?.split(" ").map(word => word.charAt(0).toUpperCase()).join("") : <img src={user.profile_picture} className='size-full object-cover' />}
                     </div>
 
                     <div>
