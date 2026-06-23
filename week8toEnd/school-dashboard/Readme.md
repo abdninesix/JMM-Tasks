@@ -1,7 +1,3 @@
-This `README.md` provides a professional overview of the Mid-Level Full-Stack project you've built, covering both the Laravel architecture and the React implementation.
-
-***
-
 # Full-Stack JWT Authentication & RBAC System
 
 A complete full-stack web application featuring secure stateless authentication, many-to-many role management, and a dynamic frontend dashboard system.
