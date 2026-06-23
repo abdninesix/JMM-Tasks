@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { api } from "../api/axios";
 import { profile } from "../api/profile";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
