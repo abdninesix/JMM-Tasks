@@ -8,7 +8,7 @@ A complete full-stack web application featuring secure stateless authentication,
 
 ## Key Features
 
-### Backend (Laravel 11)
+### Backend (Laravel)
 - **JWT Authentication:** Secure stateless auth using `tymon/jwt-auth`.
 - **Many-to-Many Roles:** Advanced RBAC system (Admin, Teacher, Student) using pivot tables.
 - **Profile Management:** Image upload handling (Laravel Storage), profile updates, and secure password changing.
@@ -16,7 +16,7 @@ A complete full-stack web application featuring secure stateless authentication,
 - **Data Seeding:** Automated seeding of 50+ users with random roles for testing.
 - **Form Requests:** Strict validation logic for all endpoints using dedicated Request classes.
 
-### Frontend (React 19)
+### Frontend (React)
 - **TanStack Query (v4):** Efficient data fetching, mutation handling, and automatic cache invalidation.
 - **Auth Context API:** Centralized global state for user sessions and persistence.
 - **Axios Interceptors:** Automatic Bearer token injection and **Silent Token Refresh** logic.
