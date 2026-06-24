@@ -18,6 +18,7 @@ import AdminDashboard from './pages/admin/Dashboard'
 import TeacherDashboard from './pages/teacher/Dashboard'
 import StudentDashboard from './pages/student/Dashboard'
 import RoleRedirect from './components/redirects/RoleRedirect'
+import { adminRoutes, guestRoutes, protectedRoutes, publicRoutes, studentRoutes, teacherRoutes } from './utils/routes'
 
 const queryClient = new QueryClient()
 
@@ -32,28 +33,34 @@ const App = () => {
           <Routes>
 
             {/* Guest */}
-            <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
-            <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
-            <Route path="/forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
-            <Route path="/reset-password" element={<GuestRoute><ResetPassword /></GuestRoute>} />
+            {guestRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={<GuestRoute>{element}</GuestRoute>} />
+            ))}
 
             {/* Protected */}
-            <Route path="/" element={<ProtectedRoute ><Home /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<RoleRedirect />} />
-            <Route path="/profile" element={<ProtectedRoute ><Profile /></ProtectedRoute>} />
+            {protectedRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={<ProtectedRoute>{element}</ProtectedRoute>} />
+            ))}
 
             {/* Admin */}
-            <Route path="/admin/dashboard" element={<ProtectedRoute allowedRole="Admin" ><AdminDashboard /></ProtectedRoute>} />
-            <Route path="admin/users" element={<ProtectedRoute allowedRole="Admin" ><Users /></ProtectedRoute>} />
+            {adminRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={<ProtectedRoute allowedRole="Admin">{element}</ProtectedRoute>} />
+            ))}
 
             {/* Teacher */}
-            <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRole="Teacher" ><TeacherDashboard /></ProtectedRoute>} />
+            {teacherRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={<ProtectedRoute allowedRole="Teacher">{element}</ProtectedRoute>} />
+            ))}
 
             {/* Student */}
-            <Route path="/student/dashboard" element={<ProtectedRoute allowedRole="Student" ><StudentDashboard /></ProtectedRoute>} />
+            {studentRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={<ProtectedRoute allowedRole="Student">{element}</ProtectedRoute>} />
+            ))}
 
             {/* Public */}
-            <Route path="/about" element={<About />} />
+            {publicRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={element} />
+            ))}
 
 
           </Routes>
