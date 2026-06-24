@@ -7,7 +7,7 @@ import { AuthProvider } from './context/AuthContext'
 import GuestRoute from './components/redirects/GuestRoute'
 import ProtectedRoute from './components/redirects/ProtectedRoute'
 import RoleRedirect from './components/redirects/RoleRedirect'
-import { adminRoutes, guestRoutes, protectedRoutes, publicRoutes, studentRoutes, teacherRoutes } from './utils/routes'
+import { guestRoutes, protectedRoutes, publicRoutes } from './utils/routes'
 
 const queryClient = new QueryClient()
 
