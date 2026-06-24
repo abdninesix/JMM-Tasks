@@ -26,7 +26,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ToastContainer position='bottom-right' />
+        <ToastContainer position='bottom-right' theme='dark' />
         <BrowserRouter>
           <Navbar />
           <Routes>
@@ -39,7 +39,7 @@ const App = () => {
 
             {/* Protected */}
             <Route path="/" element={<ProtectedRoute ><Home /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<RoleRedirect ><Home /></RoleRedirect>} />
+            <Route path="/dashboard" element={<RoleRedirect />} />
             <Route path="/profile" element={<ProtectedRoute ><Profile /></ProtectedRoute>} />
 
             {/* Admin */}
