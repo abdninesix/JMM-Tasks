@@ -8,6 +8,8 @@ import GuestRoute from './components/redirects/GuestRoute'
 import ProtectedRoute from './components/redirects/ProtectedRoute'
 import RoleRedirect from './components/redirects/RoleRedirect'
 import { guestRoutes, protectedRoutes, publicRoutes } from './utils/routes'
+import Layout from './components/layouts/Layout'
+import SidebarLayout from './components/layouts/SidebarLayout'
 
 const queryClient = new QueryClient()
 
@@ -18,23 +20,31 @@ const App = () => {
       <AuthProvider>
         <ToastContainer position='bottom-right' theme='dark' />
         <BrowserRouter>
-          <Navbar />
           <Routes>
 
+            {/* <GuestRoute>
+              <ProtectedRoute allowedRole={role} */}
+
             {/* Guest */}
-            {guestRoutes.map(({ path, element }) => (
-              <Route key={path} path={path} element={<GuestRoute>{element}</GuestRoute>} />
-            ))}
+            <Route element={<Layout />}>
+              {guestRoutes.map(({ path, element }) => (
+                <Route key={path} path={path} element={element} />
+              ))}
+            </Route>
 
             {/* Protected */}
-            {protectedRoutes.map(({ path, element, role }) => (
-              <Route key={path} path={path} element={<ProtectedRoute allowedRole={role}>{element}</ProtectedRoute>} />
-            ))}
+            <Route element={<SidebarLayout />}>
+              {protectedRoutes.map(({ path, element, role }) => (
+                <Route key={path} path={path} element={element} />
+              ))}
+            </Route>
 
             {/* Public */}
-            {publicRoutes.map(({ path, element }) => (
-              <Route key={path} path={path} element={element} />
-            ))}
+            <Route element={<Layout />}>
+              {publicRoutes.map(({ path, element }) => (
+                <Route key={path} path={path} element={element} />
+              ))}
+            </Route>
 
           </Routes>
         </BrowserRouter>

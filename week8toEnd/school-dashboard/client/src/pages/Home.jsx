@@ -6,7 +6,7 @@ const Home = () => {
     const { user } = useAuth();
 
     return (
-        <div className="flex flex-col items-center mt-20 gap-20">
+        <div className="w-full flex flex-col items-center mt-20 gap-20">
 
             <h1 className='text-6xl text-gray-700'>Laravel+React Dashboard</h1>
 

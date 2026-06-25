@@ -17,7 +17,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="paddingClass flex w-full items-center justify-between">
+        <nav className="flex w-full items-center justify-between">
             <Link to="/" className="text-2xl font-bold text-theme uppercase">School&nbsp;<span className='text-sm text-red-500'>Laravel</span></Link>
             <div className="flex gap-4">
 
@@ -31,7 +31,6 @@ const Navbar = () => {
                         {profileMenu && (
                             <div className='absolute top-16 right-8 p-2 bg-white rounded-md border border-gray-200 flex flex-col gap-2'>
                                 <Link to="/dashboard" className="font-semibold">Dashboard</Link>
-                                {user?.role === "Admin" && <Link to="/admin/users" className="font-semibold">Users</Link>}
                                 <Link to="/profile" className="font-semibold">Profile</Link>
                                 <button onClick={handleSignout} className="text-left cursor-pointer text-red-500 font-semibold">Sign Out</button>
                             </div>
