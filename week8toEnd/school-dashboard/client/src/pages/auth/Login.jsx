@@ -9,38 +9,34 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
 
-    const { login } = useAuth();
-    
+    const { loginMutation } = useAuth();
+
     const navigate = useNavigate();
 
     const { register, handleSubmit, setError, formState: { errors }, } = useForm({
         resolver: zodResolver(loginSchema),
     });
 
-    const loginMutation = useMutation({
-        mutationFn: loginUser,
-        onSuccess: (data) => {
-            toast.success(data.message);
-            login(data.user, data.access_token);
-        },
-        onError: (error) => {
-            const serverErrors = error.response?.data?.errors;
-            const message = error.response?.data?.message;
-
-            if (serverErrors) {
-                Object.entries(serverErrors).forEach(([field, messages]) => {
-                    setError(field, { type: "server", message: messages[0] });
-                });
-            } else if (message) {
-                toast.error(message);
-            } else {
-                toast.error("Something went wrong");
-            }
-        },
-    });
-
     const onSubmit = (data) => {
-        loginMutation.mutate(data);
+        loginMutation.mutate(data, {
+            onSuccess: (data) => {
+                toast.success(data.message);
+            },
+            onError: (error) => {
+                const serverErrors = error.response?.data?.errors;
+                const message = error.response?.data?.message;
+
+                if (serverErrors) {
+                    Object.entries(serverErrors).forEach(([field, messages]) => {
+                        setError(field, { type: "server", message: messages[0] });
+                    });
+                } else if (message) {
+                    toast.error(message);
+                } else {
+                    toast.error("Something went wrong");
+                }
+            },
+        });
     };
 
     return (

@@ -8,13 +8,7 @@ const Navbar = () => {
 
     const [profileMenu, setProfileMenu] = useState(false);
 
-    const { user, logout } = useAuth();
-
-
-    const handleSignout = () => {
-        logout();
-        toast.success("You are logged out!")
-    }
+    const { user, logoutMutation } = useAuth();
 
     return (
         <nav className="flex w-full items-center justify-between">
@@ -32,7 +26,7 @@ const Navbar = () => {
                             <div className='absolute top-16 right-8 p-2 bg-white rounded-md border border-gray-200 flex flex-col gap-2'>
                                 <Link to="/dashboard" className="font-semibold">Dashboard</Link>
                                 <Link to="/profile" className="font-semibold">Profile</Link>
-                                <button onClick={handleSignout} className="text-left cursor-pointer text-red-500 font-semibold">Sign Out</button>
+                                <button onClick={logoutMutation.mutate} className="text-left cursor-pointer text-red-500 font-semibold">Sign Out</button>
                             </div>
                         )}
                     </>

@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { profile } from "../api/profile";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { loginUser, logoutUser } from "../api/auth";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -10,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
     const queryClient = useQueryClient();
 
-    const { data, isLoading, isFetching, error } = useQuery({
+    const { data, isLoading, isFetching, isPending, error } = useQuery({
         queryKey: ["auth-user"],
         queryFn: profile,
         enabled: !!token,
@@ -24,22 +26,31 @@ export const AuthProvider = ({ children }) => {
 
     const user = data?.user;
 
-    const login = (userData, userToken) => {
-        setToken(userToken);
-        localStorage.setItem("access_token", userToken);
-        queryClient.setQueryData(["auth-user"], { user: userData });
-    };
+    const loginMutation = useMutation({
+        mutationFn: loginUser,
+        onSuccess: (data) => {
+            setToken(data.access_token);
+            localStorage.setItem("access_token", data.access_token);
+            queryClient.setQueryData(["auth-user"], { user: data.user });
+        }
+    });
 
-    const logout = () => {
-        setToken(null);
-        localStorage.removeItem("access_token");
-        queryClient.removeQueries(["auth-user"]);
-    };
+    const logoutMutation = useMutation({
+        mutationFn: logoutUser,
+        onSuccess: (data) => {
+            setToken(null);
+            localStorage.removeItem("access_token");
+            queryClient.removeQueries(["auth-user"]);
+            toast.success(data.message);
+        }
+    });
 
-    const checkingAuth = !!token && !data && isLoading;
+    // const checkingAuth = !!token && !data && isLoading;
+    const checkingAuth = !!token && isPending;
+    // const checkingAuth = !!token && (isLoading || isFetching);
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, checkingAuth, isAuthenticated: !!user && !!token, error }}>
+        <AuthContext.Provider value={{ user, token, isPending, loginMutation, logoutMutation, checkingAuth, isAuthenticated: !!user && !!token, error }}>
             {children}
         </AuthContext.Provider>
     );

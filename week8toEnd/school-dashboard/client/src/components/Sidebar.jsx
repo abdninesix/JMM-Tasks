@@ -5,13 +5,13 @@ import { useAuth } from '../context/AuthContext'
 import { MdDashboard } from 'react-icons/md'
 
 const Sidebar = () => {
-  const { user, logout } = useAuth()
+  const { user, logoutMutation } = useAuth()
 
   return (
-    <aside className="sticky left-0 top-0 flex min-h-[70vh] min-w-60 flex-col justify-between rounded-lg bg-theme/80 p-4 text-lg font-semibold text-white shadow">
+    <aside className="sticky left-0 top-4 flex h-[80vh] min-w-60 flex-col justify-between rounded-lg bg-theme/80 p-4 text-lg font-semibold text-white shadow">
       <div className="flex flex-col gap-2">
         <Link
-          to="/dashboard"
+          to="/"
           className="flex items-center gap-3 rounded px-4 py-2 duration-100 hover:bg-white/20 hover:text-white active:scale-95"
         >
           <FaHome />
@@ -42,15 +42,13 @@ const Sidebar = () => {
           to="/profile"
           className="flex items-center gap-3 rounded px-4 py-2 duration-100 hover:bg-white/20 hover:text-white active:scale-95"
         >
-          <div className="w-4 h-4 rounded-full bg-theme text-white flex items-center justify-center text-lg font-bold overflow-hidden">
-            {!user?.profile_picture ? user?.full_name?.split(" ").map(word => word.charAt(0).toUpperCase()).join("") : <img src={user?.profile_picture} className='object-cover size-full' />}
-          </div>
+          <FaUserCircle />
           <span>Profile</span>
         </Link>
 
         <button
-          onClick={logout}
-          className="flex items-center gap-3 rounded px-4 py-2 text-left text-red-600 duration-100 hover:bg-white/20 hover:text-red-400 active:scale-95"
+          onClick={logoutMutation.mutate}
+          className="flex items-center gap-3 rounded px-4 py-2 text-left text-red-600 duration-100 hover:bg-white/20 hover:text-red-500 active:scale-95"
         >
           <FaSignOutAlt />
           <span>Logout</span>
