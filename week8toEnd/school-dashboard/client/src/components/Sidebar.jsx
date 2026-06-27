@@ -37,7 +37,7 @@ const Sidebar = () => {
         )}
       </div>
 
-      <div className="flex flex-col gap-2 border-t border-white/20 pt-4">
+      <div className="flex flex-col gap-2 border-t pt-4">
         <Link
           to="/profile"
           className="flex items-center gap-3 rounded px-4 py-2 duration-100 hover:bg-white/20 hover:text-white active:scale-95"
