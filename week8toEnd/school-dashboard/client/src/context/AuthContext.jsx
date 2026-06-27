@@ -46,11 +46,12 @@ export const AuthProvider = ({ children }) => {
     });
 
     // const checkingAuth = !!token && !data && isLoading;
-    const checkingAuth = !!token && isPending;
+    const checkingAuth = !!token && isLoading;
+    const isAuthenticated = !!user && !!token
     // const checkingAuth = !!token && (isLoading || isFetching);
 
     return (
-        <AuthContext.Provider value={{ user, token, isPending, loginMutation, logoutMutation, checkingAuth, isAuthenticated: !!user && !!token, error }}>
+        <AuthContext.Provider value={{ user, token, loginMutation, logoutMutation, checkingAuth, isAuthenticated, error }}>
             {children}
         </AuthContext.Provider>
     );

@@ -4,13 +4,13 @@ import { useAuth } from "../../context/AuthContext";
 
 const GuestRoute = ({ children }) => {
 
-    const { user, checkingAuth } = useAuth();
+    const { checkingAuth, isAuthenticated } = useAuth();
 
     if (checkingAuth) {
         return <CgSpinner size={40} className="mx-auto mt-20 animate-spin" />;
     }
 
-    if (user) {
+    if (isAuthenticated) {
         return <Navigate to="/" replace />;
     }
 
