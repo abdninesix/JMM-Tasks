@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const ProtectedRoute = ({ children, allowedRole }) => {
 
-    const { user, checkingAuth } = useAuth();
+    const { user, isAuthenticated, checkingAuth } = useAuth();
 
     const location = useLocation();
 
@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
         return <CgSpinner size={40} className="mx-auto mt-20 animate-spin" />;
     }
 
-    if (!user) {
+    if (!isAuthenticated) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
