@@ -23,19 +23,19 @@ const App = () => {
           <Routes>
 
             {/* <GuestRoute>
-              <ProtectedRoute allowedRole={role} */}
+              <ProtectedRoute allowedRole={role}> */}
 
             {/* Guest */}
             <Route element={<Layout />}>
               {guestRoutes.map(({ path, element }) => (
-                <Route key={path} path={path} element={element} />
+                <Route key={path} path={path} element={<GuestRoute>{element}</GuestRoute>} />
               ))}
             </Route>
 
             {/* Protected */}
             <Route element={<SidebarLayout />}>
               {protectedRoutes.map(({ path, element, role }) => (
-                <Route key={path} path={path} element={element} />
+                <Route key={path} path={path} element={<ProtectedRoute allowedRole={role}>{element}</ProtectedRoute>} />
               ))}
             </Route>
 

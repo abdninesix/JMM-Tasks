@@ -1,20 +1,62 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { FaHome, FaUsers, FaUserCircle, FaSignOutAlt } from 'react-icons/fa'
 import { useAuth } from '../context/AuthContext'
-import { Link } from 'react-router-dom';
+import { MdDashboard } from 'react-icons/md'
 
 const Sidebar = () => {
-
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth()
 
   return (
-    <div className='min-h-[70vh] min-w-60 sticky top-0 left-0 flex flex-col items-start justify-between bg-theme/70 shadow rounded-lg p-4 text-white text-lg font-semibold'>
-      <Link to="/dashboard" >Dashboard</Link>
-      {user?.role === "Admin" && <Link to="/admin/users" className="font-semibold">Users</Link>}
-      <div className='flex flex-col'>
-        <Link to="/profile" >Profile</Link>
-        <button onClick={logout} className='text-red-500 cursor-pointer'>Logout</button>
+    <aside className="sticky left-0 top-0 flex min-h-[70vh] min-w-60 flex-col justify-between rounded-lg bg-theme/80 p-4 text-lg font-semibold text-white shadow">
+      <div className="flex flex-col gap-2">
+        <Link
+          to="/dashboard"
+          className="flex items-center gap-3 rounded px-4 py-2 duration-100 hover:bg-white/20 hover:text-white active:scale-95"
+        >
+          <FaHome />
+          <span>Home</span>
+        </Link>
+
+        <Link
+          to="/dashboard"
+          className="flex items-center gap-3 rounded px-4 py-2 duration-100 hover:bg-white/20 hover:text-white active:scale-95"
+        >
+          <MdDashboard />
+          <span>Dashboard</span>
+        </Link>
+
+        {user?.role === 'Admin' && (
+          <Link
+            to="/admin/users"
+            className="flex items-center gap-3 rounded px-4 py-2 duration-100 hover:bg-white/20 hover:text-white active:scale-95"
+          >
+            <FaUsers />
+            <span>Users</span>
+          </Link>
+        )}
       </div>
-    </div>
+
+      <div className="flex flex-col gap-2 border-t border-white/20 pt-4">
+        <Link
+          to="/profile"
+          className="flex items-center gap-3 rounded px-4 py-2 duration-100 hover:bg-white/20 hover:text-white active:scale-95"
+        >
+          <div className="w-4 h-4 rounded-full bg-theme text-white flex items-center justify-center text-lg font-bold overflow-hidden">
+            {!user?.profile_picture ? user?.full_name?.split(" ").map(word => word.charAt(0).toUpperCase()).join("") : <img src={user?.profile_picture} className='object-cover size-full' />}
+          </div>
+          <span>Profile</span>
+        </Link>
+
+        <button
+          onClick={logout}
+          className="flex items-center gap-3 rounded px-4 py-2 text-left text-red-600 duration-100 hover:bg-white/20 hover:text-red-400 active:scale-95"
+        >
+          <FaSignOutAlt />
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
   )
 }
 
