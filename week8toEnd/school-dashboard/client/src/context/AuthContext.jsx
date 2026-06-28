@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
     const user = data?.user;
 
-    const registerLogin = (user, access_token) => {
+    const login = (user, access_token) => {
         setToken(access_token);
         localStorage.setItem("access_token", access_token);
         queryClient.setQueryData(["auth-user"], { user: user });
@@ -35,9 +35,7 @@ export const AuthProvider = ({ children }) => {
     const loginMutation = useMutation({
         mutationFn: loginUser,
         onSuccess: (data) => {
-            setToken(data.access_token);
-            localStorage.setItem("access_token", data.access_token);
-            queryClient.setQueryData(["auth-user"], { user: data.user });
+            login(data.user, data.access_token);
         }
     });
 
@@ -55,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     const isAuthenticated = !!user && !!token
 
     return (
-        <AuthContext.Provider value={{ user, token, loginMutation, registerLogin, logoutMutation, checkingAuth, isAuthenticated, error }}>
+        <AuthContext.Provider value={{ user, token, loginMutation, login, logoutMutation, checkingAuth, isAuthenticated, error }}>
             {children}
         </AuthContext.Provider>
     );
