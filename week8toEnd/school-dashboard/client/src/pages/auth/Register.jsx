@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function Register() {
 
-    const { login } = useAuth();
+    const { registerLogin } = useAuth();
 
     const navigate = useNavigate();
 
@@ -20,9 +20,8 @@ export default function Register() {
     const registerMutation = useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
+            registerLogin(data.user, data.access_token);
             toast.success(data.message);
-            login(data.user, data.access_token);
-            navigate("/")
         },
         onError: (error) => {
             const serverErrors = error.response?.data?.errors;
@@ -37,11 +36,6 @@ export default function Register() {
             } else {
                 toast.error("Something went wrong");
             }
-            // if (serverErrors) {
-            //     const messages = Object.values(serverErrors).flat().forEach(message => toast.error(message));
-            // } else {
-            //     toast.error(error.message);
-            // }
         },
     });
 
