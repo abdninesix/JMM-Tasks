@@ -5,21 +5,18 @@ import { CgSpinner } from 'react-icons/cg';
 
 const RoleRedirect = () => {
 
-    const { isAuthenticated, user, checkingAuth } = useAuth();
+    const { user } = useAuth();
 
-    if (checkingAuth) {
-        return <CgSpinner size={40} className="mx-auto mt-20 animate-spin" />;
+    switch (user.role) {
+        case "Admin":
+            return <Navigate to="/admin/dashboard" replace />;
+
+        case "Teacher":
+            return <Navigate to="/teacher/dashboard" replace />;
+
+        default:
+            return <Navigate to="/student/dashboard" replace />;
     }
-
-    if (!isAuthenticated) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
-    }
-
-    if (user.role == "Admin") return <Navigate to="/admin/dashboard" />;
-
-    if (user.role == "Teacher") return <Navigate to="/teacher/dashboard" />;
-
-    return <Navigate to="/student/dashboard" />;
 }
 
 export default RoleRedirect

@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { CgSpinner } from "react-icons/cg";
 import { useAuth } from "../../context/AuthContext";
 
-const ProtectedRoute = ({ children, allowedRole }) => {
+const ProtectedRoute = ({ allowedRole }) => {
 
     const { user, isAuthenticated, checkingAuth } = useAuth();
 

@@ -5,7 +5,7 @@ const RoleGuard = ({ allowedRole, children }) => {
 
     const { user } = useAuth();
 
-    if (allowedRole && !allowedRole.includes(user.role)) {
+    if (allowedRole && user.role !== allowedRole) {
         return <Navigate to="/dashboard" replace />;
     }
 

@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { CgSpinner } from "react-icons/cg";
 import { useAuth } from "../../context/AuthContext";
 
-const GuestRoute = ({ children }) => {
+const GuestRoute = () => {
 
     const { checkingAuth, isAuthenticated } = useAuth();
 
