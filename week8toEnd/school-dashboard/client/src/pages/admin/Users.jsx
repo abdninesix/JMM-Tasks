@@ -12,7 +12,7 @@ const Users = () => {
 
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: ["admin-users", page],
     queryFn: () => fetchAllUsers(page),
     keepPreviousData: true,
@@ -58,7 +58,8 @@ const Users = () => {
     <div className="paddingClass">
       <h1 className='text-6xl text-gray-700'>User Management</h1>
 
-      <div className="mt-10 overflow-x-auto rounded-lg border border-gray-200">
+      <div className="relative mt-10 overflow-x-auto rounded-lg border border-gray-200">
+        {isFetching && <div className='absolute bg-white/50 size-full flex items-center justify-center'><CgSpinner size={20} className="animate-spin" /></div>}
         <table className="w-full text-left text-sm text-gray-500">
           <thead className="bg-theme/10 text-xs uppercase text-theme">
             <tr>
@@ -105,14 +106,14 @@ const Users = () => {
           <button
             onClick={handlePrev}
             disabled={page === 1}
-            className='flex items-center gap-1 rounded px-3 py-1 text-sm font-semibold border text-theme border-theme hover:bg-theme/10'
+            className='flex items-center gap-1 rounded px-3 py-1 text-sm font-semibold border text-theme border-theme hover:bg-theme/10 cursor-pointer disabled:opacity-50'
           >
             <FaChevronLeft size={10} /> Previous
           </button>
           <button
             onClick={handleNext}
             disabled={page === meta?.last_page}
-            className='flex items-center gap-1 rounded px-3 py-1 text-sm font-semibold border text-theme border-theme hover:bg-theme/10'
+            className='flex items-center gap-1 rounded px-3 py-1 text-sm font-semibold border text-theme border-theme hover:bg-theme/10 cursor-pointer disabled:opacity-50'
           >
             Next <FaChevronRight size={10} />
           </button>
