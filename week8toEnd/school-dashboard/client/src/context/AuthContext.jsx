@@ -24,8 +24,6 @@ export const AuthProvider = ({ children }) => {
         }
     }, [error?.response?.status]);
 
-    const user = data?.user;
-
     const login = (user, access_token) => {
         setToken(access_token);
         localStorage.setItem("access_token", access_token);
@@ -49,6 +47,7 @@ export const AuthProvider = ({ children }) => {
         }
     });
 
+    const user = data?.user;
     const checkingAuth = !!token && isLoading;
     const isAuthenticated = !!user && !!token
 
