@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { CgSpinner } from "react-icons/cg";
 import { useAuth } from "../../context/AuthContext";
 
@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
         return <Navigate to="/" replace />;
     }
 
-    return children;
+    return <Outlet />;
 };
 
 export default ProtectedRoute;
