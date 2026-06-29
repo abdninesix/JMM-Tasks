@@ -50,10 +50,6 @@ const Users = () => {
   const handleNext = () => { if (meta?.current_page < meta?.last_page) setPage(prev => prev + 1); };
   const handlePrev = () => { if (meta?.current_page > 1) setPage(prev => prev - 1); };
 
-  if (isLoading) {
-    return <CgSpinner size={40} className="mx-auto mt-20 animate-spin" />;
-  }
-
   return (
     <div className="paddingClass">
       <h1 className='text-6xl text-gray-700'>User Management</h1>
