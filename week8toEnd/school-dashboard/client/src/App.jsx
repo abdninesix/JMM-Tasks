@@ -10,6 +10,7 @@ import RoleRedirect from './components/redirects/RoleRedirect'
 import { guestRoutes, protectedRoutes, publicRoutes } from './utils/routes'
 import Layout from './components/layouts/Layout'
 import SidebarLayout from './components/layouts/SidebarLayout'
+import RoleGuard from './components/redirects/RoleGuard'
 
 const queryClient = new QueryClient()
 
@@ -35,7 +36,7 @@ const App = () => {
             <Route element={<ProtectedRoute />}>
               <Route element={<SidebarLayout />}>
                 {protectedRoutes.map(({ path, element, role }) => (
-                  <Route key={path} path={path} element={element} />
+                  <Route key={path} path={path} element={<RoleGuard allowedRole={role}>{element}</RoleGuard>} />
                 ))}
               </Route>
             </Route>
