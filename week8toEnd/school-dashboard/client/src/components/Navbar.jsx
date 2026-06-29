@@ -11,7 +11,7 @@ const Navbar = () => {
     const { user, logoutMutation } = useAuth();
 
     return (
-        <nav className="flex w-full items-center justify-between">
+        <nav className="flex w-full py-2 items-center justify-between">
             <Link to="/" className="text-2xl font-bold text-theme uppercase">School&nbsp;<span className='text-sm text-red-500'>Laravel</span></Link>
             <div className="flex gap-4">
 
