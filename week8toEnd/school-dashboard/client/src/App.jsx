@@ -22,21 +22,22 @@ const App = () => {
         <BrowserRouter>
           <Routes>
 
-            {/* <GuestRoute>
-              <ProtectedRoute allowedRole={role}> */}
-
             {/* Guest */}
-            <Route element={<Layout />}>
-              {guestRoutes.map(({ path, element }) => (
-                <Route key={path} path={path} element={<GuestRoute>{element}</GuestRoute>} />
-              ))}
+            <Route element={<GuestRoute />}>
+              <Route element={<Layout />}>
+                {guestRoutes.map(({ path, element }) => (
+                  <Route key={path} path={path} element={element} />
+                ))}
+              </Route>
             </Route>
 
             {/* Protected */}
-            <Route element={<SidebarLayout />}>
-              {protectedRoutes.map(({ path, element, role }) => (
-                <Route key={path} path={path} element={<ProtectedRoute allowedRole={role}>{element}</ProtectedRoute>} />
-              ))}
+            <Route element={<ProtectedRoute />}>
+              <Route element={<SidebarLayout />}>
+                {protectedRoutes.map(({ path, element, role }) => (
+                  <Route key={path} path={path} element={element} />
+                ))}
+              </Route>
             </Route>
 
             {/* Public */}

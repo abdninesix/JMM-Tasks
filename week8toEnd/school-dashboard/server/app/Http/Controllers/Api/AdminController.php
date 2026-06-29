@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->paginate(5);
+        $users = User::with('roles')->latest()->paginate(5);
         return UserResource::collection($users);
     }
 
