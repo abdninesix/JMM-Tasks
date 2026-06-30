@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { FiUpload } from 'react-icons/fi';
 import UploadPicture from '../../components/UploadPicture';
+import { CgSpinner } from 'react-icons/cg';
 
 const Profile = () => {
 
@@ -160,9 +161,10 @@ const Profile = () => {
                     <button
                         disabled={profileMutation.isPending}
                         type="submit"
-                        className="cursor-pointer rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90"
+                        className="w-full flex items-center justify-center gap-2 cursor-pointer rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90 disabled:opacity-50"
                     >
                         {profileMutation.isPending ? "Saving" : "Save"}
+                        {profileMutation.isPending && <CgSpinner size={20} className="animate-spin" />}
                     </button>
                 </form>
             )}
@@ -190,11 +192,12 @@ const Profile = () => {
                     </div>
 
                     <button
-                        disabled={profileMutation.isPending}
+                        disabled={passwordMutation.isPending}
                         type="submit"
-                        className="cursor-pointer rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90"
+                        className="w-full flex items-center justify-center gap-2 cursor-pointer rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90 disabled:opacity-50"
                     >
                         {passwordMutation.isPending ? "Saving" : "Save"}
+                        {passwordMutation.isPending && <CgSpinner size={20} className="animate-spin" />}
                     </button>
                 </form>
             )}
