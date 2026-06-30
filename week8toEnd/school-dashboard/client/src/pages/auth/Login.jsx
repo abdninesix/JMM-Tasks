@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { loginSchema } from "../../schemas/authSchema";
 import { useAuth } from "../../context/AuthContext";
+import { CgSpinner } from "react-icons/cg";
 
 export default function Login() {
 
@@ -64,9 +65,10 @@ export default function Login() {
             <button
                 disabled={loginMutation.isPending}
                 type="submit"
-                className="w-full cursor-pointer rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90"
+                className="w-full flex items-center justify-center gap-2 cursor-pointer rounded bg-theme px-4 py-2 font-semibold text-white duration-100 hover:bg-theme/80 active:scale-90 disabled:opacity-50"
             >
                 {loginMutation.isPending ? "Signing In" : "Sign In"}
+                {loginMutation.isPending && <CgSpinner size={20} className="animate-spin" />}
             </button>
 
         </form>
