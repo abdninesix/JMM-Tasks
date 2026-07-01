@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaHome, FaUsers, FaUserCircle, FaSignOutAlt } from 'react-icons/fa'
 import { useAuth } from '../context/AuthContext'
 import { MdDashboard } from 'react-icons/md'
+import { CgSpinner } from 'react-icons/cg'
 
 const Sidebar = () => {
   const { user, logoutMutation } = useAuth()
@@ -52,6 +53,7 @@ const Sidebar = () => {
         >
           <FaSignOutAlt />
           <span>Sign Out</span>
+          {logoutMutation.isPending && <CgSpinner size={20} className="animate-spin" />}
         </button>
       </div>
     </aside>
