@@ -14,10 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('sku')->unique(); // Stock Keeping Unit (e.g., PROD-001)
+            $table->string('sku')->unique();
             $table->decimal('price', 10, 2);
             $table->integer('stock_quantity')->default(0);
-            $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
