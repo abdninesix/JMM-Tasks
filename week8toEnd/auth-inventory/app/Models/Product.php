@@ -12,4 +12,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+                ->orWhere('sku', 'like', "%{$search}%");
+        });
+    }
 }
