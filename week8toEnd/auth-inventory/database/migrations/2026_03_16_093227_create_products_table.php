@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('sku')->unique();
             $table->decimal('price', 10, 2);
             $table->integer('stock_quantity')->default(0);
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
         });
     }
