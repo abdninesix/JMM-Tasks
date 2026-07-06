@@ -93,31 +93,3 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
-
-// Student routes
-Route::get('/students', [StudentController::class, 'index']);
-Route::post('/students', [StudentController::class, 'store']);
-Route::get('/students/{student}/edit', [StudentController::class, 'edit']);
-Route::put('/students/{student}', [StudentController::class, 'update']);
-Route::delete('/students/{student}', [StudentController::class, 'destroy']);
-Route::post('/students/{id}/restore', [StudentController::class, 'restore']);
-
-// Course routes
-Route::get('/courses', [CourseController::class, 'index']);
-Route::post('/courses', [CourseController::class, 'store']);
-Route::get('/courses/{course}/edit', [CourseController::class, 'edit']);
-Route::put('/courses/{course}', [CourseController::class, 'update']);
-Route::get('/courses/{course}', [CourseController::class, 'show']);
-Route::delete('/courses/{course}', [CourseController::class, 'destroy']);
-
-Route::get(
-    '/test',
-    function () {
-        return Inertia::render('Sample');
-    }
-);
-
-
-Route::get('/integrate', function () {
-    return view('components.content');
-});
