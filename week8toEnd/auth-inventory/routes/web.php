@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Models\Category;
@@ -20,6 +21,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
+    Route::resource('categories', CategoryController::class);
 
     Route::get('/dashboard', function (Request $request) {
         $filters = $request->only(['search', 'category_id', 'stock']);
