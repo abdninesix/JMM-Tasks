@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::withCount('products')->latest()->get();
 
-        return Inertia::render('Dashboard', [
+        return Inertia::render('Categories/Index', [
             'categories' => CategoryResource::collection($categories)
         ]);
     }
