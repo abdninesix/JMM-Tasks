@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, router } from '@inertiajs/react';
-import { usePrevious } from 'react-use'; // Optional, or use a simple debounce
+import { usePrevious } from 'react-use';
 
 export default function Index({ products, filters }) {
     const [search, setSearch] = useState(filters.search || '');
 
-    // Simple search handling: when search state changes, reload the page with the query
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
-            router.get(route('products.index'), { search }, { preserveState: true, replace: true });
-        }, 300); // 300ms debounce
+            router.get('/products', { search }, { preserveState: true, replace: true });
+        }, 300);
         return () => clearTimeout(delayDebounceFn);
     }, [search]);
 
@@ -17,12 +16,11 @@ export default function Index({ products, filters }) {
         <div className="p-8 max-w-6xl mx-auto">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">Products</h1>
-                <Link href={route('products.create')} className="bg-blue-500 text-white px-4 py-2 rounded">
+                <Link href="/products/create" className="bg-blue-500 text-white px-4 py-2 rounded">
                     + Add Product
                 </Link>
             </div>
 
-            {/* Requirement #7: Search */}
             <div className="mb-4">
                 <input 
                     type="text" 
@@ -49,7 +47,7 @@ export default function Index({ products, filters }) {
                         <tr key={product.id} className="border-t">
                             <td className="p-3 font-mono text-sm">{product.sku}</td>
                             <td className="p-3">
-                                <Link href={route('products.show', product.id)} className="text-blue-600 hover:underline">
+                                <Link href={`/products/${product.id}`} className="text-blue-600 hover:underline">
                                     {product.name}
                                 </Link>
                             </td>
@@ -59,14 +57,13 @@ export default function Index({ products, filters }) {
                             </td>
                             <td className="p-3">{product.status}</td>
                             <td className="p-3 text-center">
-                                <Link href={route('products.edit', product.id)} className="text-indigo-600 mr-2">Edit</Link>
+                                <Link href={`/products/${product.id}/edit`} className="text-indigo-600 mr-2">Edit</Link>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            {/* Requirement #8: Simple Pagination */}
             <div className="mt-6 flex gap-2">
                 {products.meta.links.map((link, index) => (
                     <Link 
