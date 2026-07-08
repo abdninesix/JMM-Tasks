@@ -75,6 +75,6 @@ class CategoryController extends Controller
             return back()->with('error', 'Cannot delete category with associated products.');
         }
         $category->delete();
-        return redirect()->route('categories.index');
+        return redirect()->back();
     }
 }

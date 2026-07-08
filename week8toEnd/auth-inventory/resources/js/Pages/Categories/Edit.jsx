@@ -43,7 +43,7 @@ export default function Edit({ category }) {
                     <button
                         type="submit"
                         disabled={processing}
-                        className="bg-indigo-600 text-white px-6 py-2 rounded"
+                        className="bg-blue-600 text-white px-6 py-2 rounded"
                     >
                         Update
                     </button>
