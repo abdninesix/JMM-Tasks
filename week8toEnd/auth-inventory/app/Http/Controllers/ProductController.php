@@ -2,17 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Product::with('category')->latest()->get());
+        $products = Product::with('category')
+            ->when($request->search, function ($query, $search) {
+                $query->search($search);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return Inertia::render('Products/Index', [
+            'products' => ProductResource::collection($products),
+            'filters' => $request->only(['search'])
+        ]);
     }
 
     /**
@@ -20,25 +35,18 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Products/Create', [
+            'categories' => Category::all(['id', 'name'])
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $data = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'name' => 'required|string|max:255',
-            'sku' => 'required|string|unique:products,sku',
-            'price' => 'required|numeric',
-            'stock_quantity' => 'required|integer',
-            'description' => 'nullable|string'
-        ]);
-
-        $product = Product::create($data);
-        return response()->json("Product created successfully", 201);
+        Product::create($request->validated());
+        return redirect()->route('products.index')->with('success', 'Product created.');
     }
 
     /**
@@ -46,7 +54,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json($product, 200);
+        return Inertia::render('Products/Show', [
+            'product' => new ProductResource($product->load('category'))
+        ]);
     }
 
     /**
@@ -54,29 +64,19 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return Inertia::render('Products/Edit', [
+            'product' => new ProductResource($product),
+            'categories' => Category::all(['id', 'name'])
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProductRequest $request, Product $product)
     {
-        $validated = $request->validate([
-            'category_id' => 'sometimes|required|exists:categories,id',
-            'name' => 'sometimes|required|string|max:255',
-            'sku' => 'sometimes|required|string|unique:products,sku',
-            'price' => 'sometimes|required|numeric',
-            'stock_quantity' => 'sometimes|required|integer',
-            'description' => 'sometimes|nullable|string'
-        ]);
-
-        $product->update($validated);
-
-        return response()->json([
-            'message' => 'Product updated successfully!',
-            'data' => $product
-        ], 200);
+        $product->update($request->validated());
+        return redirect()->route('products.index');
     }
 
     /**
@@ -85,9 +85,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-
-        return response()->json([
-            'message' => 'Product deleted successfully!'
-        ], 200);
+        return redirect()->route('products.index');
     }
 }
