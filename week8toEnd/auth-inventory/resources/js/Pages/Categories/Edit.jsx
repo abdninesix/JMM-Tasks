@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm, Link } from '@inertiajs/react';
 
 export default function Edit({ category }) {
-    // category comes from the Resource, so it's wrapped in .data
     const { data, setData, put, processing, errors } = useForm({
         name: category.data.name || '',
         description: category.data.description || '',
