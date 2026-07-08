@@ -67,3 +67,5 @@ export default function Edit({ product, categories }) {
         </div>
     );
 }
+
+Edit.layout = page => <Layout>{page}</Layout>;

@@ -85,3 +85,5 @@ export default function Index({ products, filters }) {
         </div>
     );
 }
+
+Index.layout = page => <Layout>{page}</Layout>;

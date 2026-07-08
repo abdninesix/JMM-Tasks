@@ -4,8 +4,6 @@ import Navbar from '../Components/Navbar';
 
 export default function Dashboard({ stats, low_stock_products }) {
     return (
-        <>
-            <Navbar />
             <div className="p-8 max-w-6xl mx-auto">
                 <h1 className="text-3xl font-bold mb-8">Inventory Dashboard</h1>
 
@@ -62,6 +60,7 @@ export default function Dashboard({ stats, low_stock_products }) {
                     </table>
                 </div>
             </div>
-        </>
     );
 }
+
+Dashboard.layout = page => <Layout>{page}</Layout>;

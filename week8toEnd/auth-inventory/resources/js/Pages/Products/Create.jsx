@@ -64,3 +64,5 @@ export default function Create({ categories }) {
         </div>
     );
 }
+
+Create.layout = page => <Layout>{page}</Layout>;

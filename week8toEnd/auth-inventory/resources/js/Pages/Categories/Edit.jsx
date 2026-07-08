@@ -52,3 +52,5 @@ export default function Edit({ category }) {
         </div>
     );
 }
+
+Edit.layout = page => <Layout>{page}</Layout>;

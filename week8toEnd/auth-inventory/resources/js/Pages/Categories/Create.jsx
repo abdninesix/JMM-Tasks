@@ -52,3 +52,5 @@ export default function Create() {
     </div>
   );
 }
+
+Create.layout = page => <Layout>{page}</Layout>;

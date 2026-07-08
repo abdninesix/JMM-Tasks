@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, router } from '@inertiajs/react';
+import Layout from '../../Components/Layout';
 
 export default function Index({ categories }) {
   const deleteCategory = (id) => {
@@ -54,3 +55,5 @@ export default function Index({ categories }) {
     </div>
   );
 }
+
+Index.layout = page => <Layout>{page}</Layout>;
