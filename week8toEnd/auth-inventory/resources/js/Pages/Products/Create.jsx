@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, Link } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 
 export default function Create({ categories }) {
     const { data, setData, post, errors } = useForm({
@@ -13,7 +13,7 @@ export default function Create({ categories }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('products.store'));
+        post('/products');
     };
 
     return (
