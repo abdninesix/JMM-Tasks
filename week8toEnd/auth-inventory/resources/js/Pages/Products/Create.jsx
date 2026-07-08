@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from '@inertiajs/react';
+import Layout from '../../Components/Layout';
 
 export default function Create({ categories }) {
     const { data, setData, post, errors } = useForm({

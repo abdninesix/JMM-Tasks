@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import Navbar from '../Components/Navbar';
+import Layout from '../Components/Layout';
 
 export default function Dashboard({ stats, low_stock_products }) {
     return (

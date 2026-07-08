@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, router } from '@inertiajs/react';
+import Layout from '../../Components/Layout';
 
 export default function Index({ products, filters }) {
     const [search, setSearch] = useState(filters.search || '');

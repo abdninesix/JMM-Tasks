@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm, Link, router } from '@inertiajs/react';
+import Layout from '../../Components/Layout';
 
 export default function Create() {
   const { data, setData, post, processing, errors } = useForm({

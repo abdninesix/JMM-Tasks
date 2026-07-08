@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useForm } from '@inertiajs/react';
+import Layout from '../../Components/Layout';
 
 export default function Edit({ product, categories }) {
     const { data, setData, put, errors } = useForm({
